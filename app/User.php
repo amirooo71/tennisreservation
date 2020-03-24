@@ -45,4 +45,11 @@ class User extends Authenticatable {
 	public function clubs() {
 		return $this->hasMany( Club::class, 'owner_id' );
 	}
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Model|null|object|static
+	 */
+	public function club() {
+		return $this->clubs()->first();
+	}
 }

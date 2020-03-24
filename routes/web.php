@@ -25,7 +25,10 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 
 	Route::get( 'clubs', 'Admin\ClubsController@index' )->name( 'admin.clubs.index' );
 	Route::get( 'clubs/create', 'Admin\ClubsController@create' )->name( 'admin.clubs.create' );
+	Route::get( 'clubs/{club}/edit', 'Admin\ClubsController@edit' )->name( 'admin.clubs.edit' );
 	Route::post( 'clubs', 'Admin\ClubsController@store' )->name( 'admin.clubs.store' );
+	Route::patch( 'clubs/{club}', 'Admin\ClubsController@update' )->name( 'admin.clubs.update' );
+	Route::delete( 'clubs/{club}', 'Admin\ClubsController@delete' )->name( 'admin.clubs.delete' );
 
 	Route::get( 'clubs/{club}/courts', 'Admin\CourtsController@index' )->name( 'admin.courts.index' );
 	Route::get( 'clubs/{club}/courts/create', 'Admin\CourtsController@create' )->name( 'admin.courts.create' );
