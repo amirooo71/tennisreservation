@@ -1,9 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app_admin')
 
 @section('content')
-
-    <h2>Clubs</h2>
-    <hr>
 
     @if($club)
         <h4>{{$club->name}}</h4>
@@ -12,9 +9,9 @@
         <form action="{{route('admin.clubs.delete',$club)}}" method="POST">
             @method('DELETE')
             @csrf
-                <button type="submit">delete</button>
+            <button type="submit">delete</button>
         </form>
-        @else
+    @else
         <a href="{{route('admin.clubs.create')}}">Add Club</a>
     @endif
 

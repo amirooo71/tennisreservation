@@ -20,6 +20,8 @@ class CreateClubsTable extends Migration {
 			$table->time('opening_time');
 			$table->time('closing_time');
 			$table->timestamps();
+
+			$table->foreign( 'owner_id' )->references( 'id' )->on( 'users' )->onDelete( 'cascade' );
 		} );
 	}
 
