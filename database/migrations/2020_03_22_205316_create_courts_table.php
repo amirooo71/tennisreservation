@@ -15,9 +15,9 @@ class CreateCourtsTable extends Migration {
 
 			$table->bigIncrements( 'id' );
 			$table->unsignedBigInteger( 'club_id' );
-			$table->string( 'name' );
+			$table->string( 'name' )->unique();
 			$table->string( 'type' );
-			$table->double('price');
+			$table->double( 'price' );
 			$table->boolean( 'is_indoor' );
 			$table->boolean( 'is_center' );
 			$table->timestamps();

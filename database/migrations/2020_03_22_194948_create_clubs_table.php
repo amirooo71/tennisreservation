@@ -13,9 +13,12 @@ class CreateClubsTable extends Migration {
 	public function up() {
 		Schema::create( 'clubs', function ( Blueprint $table ) {
 			$table->bigIncrements( 'id' );
+			$table->unsignedBigInteger( 'owner_id' );
 			$table->string( 'name' );
 			$table->text( 'description' );
 			$table->integer( 'courts_count' );
+			$table->time('opening_time');
+			$table->time('closing_time');
 			$table->timestamps();
 		} );
 	}

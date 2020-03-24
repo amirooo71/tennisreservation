@@ -23,11 +23,12 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 
 	Route::get( 'dashboard', 'Admin\DashboardController@index' )->name( 'admin.dashboard.index' );
 
-	Route::get( 'clubs', 'Admin\ClubsController@create' )->name( 'admin.clubs.create' );
+	Route::get( 'clubs', 'Admin\ClubsController@index' )->name( 'admin.clubs.index' );
+	Route::get( 'clubs/create', 'Admin\ClubsController@create' )->name( 'admin.clubs.create' );
 	Route::post( 'clubs', 'Admin\ClubsController@store' )->name( 'admin.clubs.store' );
 
-	Route::get( 'clubs/{club}', 'Admin\CourtsController@index' )->name( 'admin.courts.index' );
-	Route::get( 'clubs/{club}/courts', 'Admin\CourtsController@create' )->name( 'admin.courts.create' );
+	Route::get( 'clubs/{club}/courts', 'Admin\CourtsController@index' )->name( 'admin.courts.index' );
+	Route::get( 'clubs/{club}/courts/create', 'Admin\CourtsController@create' )->name( 'admin.courts.create' );
 	Route::post( 'clubs/{club}/courts', 'Admin\CourtsController@store' )->name( 'admin.courts.store' );
 
 	Route::get( 'clubs/{club}/design', 'Admin\ClubDesignController@index' )->name( 'admin.club_design.index' );
