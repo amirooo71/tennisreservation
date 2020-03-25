@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Club;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class ClubsController extends Controller {
 
@@ -24,7 +25,10 @@ class ClubsController extends Controller {
 	public function create() {
 
 		if ( auth()->user()->club() ) {
-			return redirect()->route( 'admin.dashboard.index' )->with( 'flash', 'Club already exists' );
+
+			flash('شما در حال حاضر یک کلاب تعریف شده دارید','info');
+
+			return redirect()->route( 'admin.dashboard.index' );
 		}
 
 		return view( 'admin.clubs.create' );

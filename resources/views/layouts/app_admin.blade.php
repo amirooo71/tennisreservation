@@ -74,6 +74,8 @@
                     <!-- begin:: Content -->
                     <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
 
+                        @include('components.flash')
+
                         @yield('content')
 
                     </div>
@@ -158,6 +160,18 @@
 <script src="{{asset('assets/js/pages/dashboard.js')}}" type="text/javascript"></script>
 
 <!--end::Page Scripts -->
+
+
+
+
+<script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-timepicker.js')}}" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $('.timepicker-widget').timepicker();
+</script>
+
+
+
 </body>
 
 <!-- end::Body -->

@@ -3,25 +3,18 @@
 
 @section('content')
 
-    <form action="{{route('admin.clubs.store')}}" method="POST">
-        @csrf
-        <div class="form-group">
-            <input type="text" name="name" class="form-control">
-        </div>
-        <div class="form-group">
-            <textarea name="description" cols="30" rows="10" class="form-control"></textarea>
-        </div>
-        <div class="form-group">
-            <input type="number" name="courts_count" class="form-control">
-        </div>
-        <div class="form-group">
-            <input type="time" name="opening_time" class="form-control">
-        </div>
-        <div class="form-group">
-            <input type="time" name="closing_time" class="form-control">
-        </div>
-        <button type="submit">save</button>
+    <div class="col-md-6">
+        <form class="kt-form" action="{{route('admin.clubs.store')}}" method="POST">
+            @csrf
+            @component('components.portlet',['title' => 'فرم ساخت کلاب'])
 
-    </form>
+                @include('admin.clubs._form',['club' => new \App\Club])
+
+                @slot('footer')
+                    <button type="submit" class="btn btn-primary">ذخیره</button>
+                @endslot
+            @endcomponent
+        </form>
+    </div>
 
 @endsection
