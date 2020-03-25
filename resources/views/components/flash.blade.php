@@ -3,6 +3,8 @@
         <div class="alert-icon">
             @if(flash()->class === 'warning')
                 <i class="flaticon-warning"></i>
+            @elseif(flash()->class === 'success')
+                <i class="fas fa-check"></i>
             @else
                 <i class="flaticon-questions-circular-button"></i>
             @endif

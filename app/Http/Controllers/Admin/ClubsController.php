@@ -26,9 +26,9 @@ class ClubsController extends Controller {
 
 		if ( auth()->user()->club() ) {
 
-			flash('شما در حال حاضر یک کلاب تعریف شده دارید','info');
+			flash( 'شما در حال حاضر یک کلاب تعریف شده دارید و امکان اضافه کردن کلاب جدید وجود ندارد.', 'info' );
 
-			return redirect()->route( 'admin.dashboard.index' );
+			return redirect()->route( 'admin.clubs.index' );
 		}
 
 		return view( 'admin.clubs.create' );
@@ -40,12 +40,14 @@ class ClubsController extends Controller {
 	public function store() {
 
 		if ( auth()->user()->club() ) {
-			return redirect()->route( 'admin.dashboard.index' )->with( 'flash', 'Club already exists' );
+			abort( 403 );
 		}
 
 		$data = $this->getValidateData();
 
 		Club::create( $data );
+
+		flash( 'کلاب با موفقیت تعریف شد و امکانات سیستم برای شما فعال شد.', 'success' );
 
 		return redirect()->route( 'admin.clubs.index' );
 
@@ -73,6 +75,8 @@ class ClubsController extends Controller {
 
 		$club->update( $data );
 
+		flash( 'اطلاعات کلاب با موفقیت ویرایش شد.', 'success' );
+
 		return redirect()->route( 'admin.clubs.index' );
 
 	}
@@ -83,11 +87,13 @@ class ClubsController extends Controller {
 	 * @return \Illuminate\Http\RedirectResponse
 	 * @throws \Exception
 	 */
-	public function delete(Club $club){
+	public function delete( Club $club ) {
 
 		$club->delete();
 
-		return redirect()->route('admin.clubs.index');
+		flash( 'اطلاعات کلاب با موفقیت حدف شد.', 'success' );
+
+		return redirect()->route( 'admin.clubs.index' );
 	}
 
 	/**

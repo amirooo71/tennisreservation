@@ -7,7 +7,7 @@
 </div>
 <div class="form-group">
     <label>تعداد زمین تنیس های کلاب</label>
-    <input name="courts_count" type="text" class="form-control" placeholder="مثال: ۶"
+    <input name="courts_count" type="number" class="form-control" placeholder="مثال: ۶"
            value="{{old('courts_count') ?? $club->courts_count}}">
     @component('components.validation',['field' => 'courts_count'])
     @endcomponent
@@ -22,7 +22,7 @@
 <div class="form-group">
     <label>ساعت اتمام کار کلاب</label>
     <input name="closing_time" type="text" class="form-control" data-provide="timepicker"
-           data-show-meridian="false" value="{{old('closing_time') ?? $club->closing_time}}">
+           data-show-meridian="false" data-explicit-mode="false" value="{{old('closing_time') ?? $club->closing_time}}">
     @component('components.validation',['field' => 'closing_time'])
     @endcomponent
 </div>
