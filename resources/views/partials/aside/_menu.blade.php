@@ -12,7 +12,7 @@
                     <span class="kt-menu__link-text">داشبورد</span>
                 </a>
             </li>
-            <li class="kt-menu__item  kt-menu__item--submenu {{request()->is('admin/clubs*')  ? 'kt-menu__item--open' : ''}}"
+            <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['admin.clubs.index','admin.clubs.create','admin.clubs.edit']) ? 'kt-menu__item--open' : ''}}"
                 aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                 <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                     <span class="kt-menu__link-icon">
@@ -48,13 +48,13 @@
                 </div>
             </li>
             @if(auth()->user()->clubs->count())
-                <li class="kt-menu__item  kt-menu__item--submenu {{\request()->segment(4) === 'courts' ? 'kt-menu__item--open' : ''}}"
+                <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['admin.courts.index','admin.courts.create','admin.courts.edit']) ? 'kt-menu__item--open' : ''}}"
                     aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                     <span class="kt-menu__link-icon">
                         <i class="fas fa-square"></i>
                     </span>
-                        <span class="kt-menu__link-text">زمین ها</span>
+                        <span class="kt-menu__link-text">زمین تنیس ها</span>
                         <i class="kt-menu__ver-arrow la la-angle-right"></i>
                     </a>
                     <div class="kt-menu__submenu ">

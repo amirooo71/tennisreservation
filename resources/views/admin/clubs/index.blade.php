@@ -42,14 +42,14 @@
                                 ویرایش اطلاعات
                             </a>
 
-                            {{--<form class="ml-2" action="{{route('admin.clubs.delete',$club)}}" method="POST">--}}
-                                {{--@csrf--}}
-                                {{--@method('DELETE')--}}
-                                {{--<button type="submit" class="btn btn-danger"--}}
-                                        {{--href="{{route('admin.clubs.delete',$club)}}">--}}
-                                    {{--حذف کلاب--}}
-                                {{--</button>--}}
-                            {{--</form>--}}
+                            <form class="ml-2" action="{{route('admin.clubs.delete',$club)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger"
+                                        href="{{route('admin.clubs.delete',$club)}}">
+                                    حذف کلاب
+                                </button>
+                            </form>
                         </div>
 
                     @endslot

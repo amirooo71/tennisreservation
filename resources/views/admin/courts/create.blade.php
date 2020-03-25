@@ -4,36 +4,26 @@
 @section('content')
 
     <div class="row">
-        <form class="col-md-6" action="{{route('admin.courts.store',$club)}}" method="POST">
-            @csrf
 
-            <div class="form-group">
-                <input class="form-control" type="text" name="name">
-            </div>
+        <div class="col-md-6">
 
-            <div class="form-group">
-                <select name="type" class="form-control">
-                    <option value="clay">Clay</option>
-                    <option value="hard">Hard</option>
-                    <option value="grass">Grass</option>
-                </select>
-            </div>
+            <form class="kt-form" action="{{route('admin.courts.store',$club)}}" method="POST">
+                @csrf
 
-            <div class="form-group">
-                <input type="text" name="price" class="form-control">
-            </div>
+                @component('components.portlet',['title' => 'فرم ساخت زمین تنیس'])
 
-            <div class="form-group">
-                <input type="checkbox" name="is_indoor"> Indoor
-            </div>
+                    @include('admin.courts._form',['court' => new \App\Court])
 
-            <div class="form-group">
-                <input type="checkbox" name="is_center"> Center court
-            </div>
+                    @slot('footer')
+                        <button type="submit" class="btn btn-primary">ذخیره</button>
+                    @endslot
 
-            <button type="submit" class="btn btn-primary">Save</button>
+                @endcomponent
 
-        </form>
+            </form>
+
+        </div>
+
     </div>
 
 @endsection

@@ -14,7 +14,7 @@
                     @include('admin.clubs._form',['club' => $club])
 
                     @slot('footer')
-                        <button type="submit" class="btn btn-primary">ویرایش</button>
+                        <button type="submit" class="btn btn-primary">ذخیره</button>
                     @endslot
 
                 @endcomponent

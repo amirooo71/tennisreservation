@@ -37,9 +37,11 @@ class CourtsController extends Controller {
 	 */
 	public function store( Club $club ) {
 
-		$data = $this->getValidateDate();
+		$data = $this->getValidateData();
 
 		$club->addCourt( $data );
+
+		flash('اطلاعات زمین تنیس با موفقیت ذخیره شد.','success');
 
 		return redirect()->route( 'admin.courts.index', [ 'club' => $club ] );
 
@@ -64,9 +66,11 @@ class CourtsController extends Controller {
 	 */
 	public function update( Club $club, Court $court ) {
 
-		$data = $this->getValidateDate();
+		$data = $this->getValidateDataOnUpdate($court);
 
 		$court->update( $data );
+
+		flash('اطلاعات زمین تنیس با موفقیت ویرایش شد.','success');
 
 		return redirect()->route( 'admin.courts.index', compact( 'club' ) );
 	}
@@ -82,17 +86,38 @@ class CourtsController extends Controller {
 
 		$court->delete();
 
+		flash('زمین تنیس با موفقیت حذف شد.','success');
+
 		return redirect()->route( 'admin.courts.index', compact( 'club' ) );
 	}
 
 	/**
 	 * @return array
 	 */
-	private function getValidateDate(): array {
+	private function getValidateData(): array {
 		$data = \request()->validate( [
-			'name'  => 'required',
+			'name'  => 'required|unique:courts,name',
 			'type'  => 'required',
-			'price' => 'required',
+			'price' => 'required|numeric',
+		] );
+
+
+		$data['is_indoor'] = \request()->has( 'is_indoor' );
+		$data['is_center'] = \request()->has( 'is_center' );
+
+		return $data;
+	}
+
+	/**
+	 * @param $court
+	 *
+	 * @return array
+	 */
+	private function getValidateDataOnUpdate($court): array {
+		$data = \request()->validate( [
+			'name'  => 'required|unique:courts,name,' . $court->id,
+			'type'  => 'required',
+			'price' => 'required|numeric',
 		] );
 
 
