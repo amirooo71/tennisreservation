@@ -16,7 +16,7 @@
                 aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                 <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                     <span class="kt-menu__link-icon">
-                        <i class="fas fa-warehouse"></i>
+                        <i class="fas fa-baseball-ball"></i>
                     </span>
                     <span class="kt-menu__link-text">کلاب</span>
                     <i class="kt-menu__ver-arrow la la-angle-right"></i>
@@ -30,18 +30,20 @@
                                 <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                     <span></span>
                                 </i>
-                                <span class="kt-menu__link-text">لیست</span>
+                                <span class="kt-menu__link-text">اطلاعات</span>
                             </a>
                         </li>
-                        <li class="kt-menu__item {{Route::currentRouteName() === 'admin.clubs.create' ? 'kt-menu__item--active' : ''}}"
-                            aria-haspopup="true">
-                            <a href="{{route('admin.clubs.create')}}" class="kt-menu__link ">
-                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="kt-menu__link-text">اضافه کردن</span>
-                            </a>
-                        </li>
+                        @if(!auth()->user()->club())
+                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.clubs.create' ? 'kt-menu__item--active' : ''}}"
+                                aria-haspopup="true">
+                                <a href="{{route('admin.clubs.create')}}" class="kt-menu__link ">
+                                    <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="kt-menu__link-text">اضافه کردن</span>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </li>
@@ -50,7 +52,7 @@
                     aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                     <span class="kt-menu__link-icon">
-                        <i class="fas fa-warehouse"></i>
+                        <i class="fas fa-square"></i>
                     </span>
                         <span class="kt-menu__link-text">زمین ها</span>
                         <i class="kt-menu__ver-arrow la la-angle-right"></i>

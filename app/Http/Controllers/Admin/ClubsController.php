@@ -101,9 +101,9 @@ class ClubsController extends Controller {
 	 */
 	private function getValidateData(): array {
 		$data = \request()->validate( [
-			'name'         => 'required',
+			'name'         => 'required|string|min:3',
 			'description'  => 'required',
-			'courts_count' => 'required',
+			'courts_count' => 'required|numeric|min:1|max:100',
 			'opening_time' => 'required',
 			'closing_time' => 'required',
 		] );
