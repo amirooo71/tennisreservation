@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Booking;
 use App\Club;
+use App\Court;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -36,6 +37,9 @@ class BookingsController extends Controller {
 		return view( 'admin.bookings.index', compact( 'club', 'clubOpeningHours' ) );
 	}
 
+	/**
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function store() {
 
 		$data = \request()->validate( [
@@ -45,9 +49,9 @@ class BookingsController extends Controller {
 			'time'        => 'required',
 		] );
 
-		Booking::create( $data );
+		$book = Booking::create( $data );
 
-		return response()->json( [ 'msg' => 'زمین با موفقیت رزرو شد' ] );
+		return response()->json( [ 'msg' => 'زمین با موفقیت رزرو شد', 'book' => $book ] );
 
 	}
 }

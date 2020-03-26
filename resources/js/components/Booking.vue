@@ -23,7 +23,6 @@
 
         mounted() {
 
-            console.log(this.courts);
         },
 
         methods: {
