@@ -37,6 +37,7 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::post( 'clubs/{club}/courts', 'Admin\CourtsController@store' )->name( 'admin.courts.store' );
 	Route::patch( 'clubs/{club}/courts/{court}', 'Admin\CourtsController@update' )->name( 'admin.courts.update' );
 
-	Route::get( 'clubs/{club}/design', 'Admin\ClubDesignController@index' )->name( 'admin.club_design.index' );
+	Route::get( 'bookings', 'Admin\BookingsController@index' )->name( 'admin.bookings.index' );
+	Route::post( 'bookings', 'Admin\BookingsController@store' )->name( 'admin.bookings.store' );
 
 } );

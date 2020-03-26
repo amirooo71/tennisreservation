@@ -147,6 +147,10 @@
 <script src="{{asset('assets/plugins/global/plugins.bundle.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/js/scripts.bundle.js')}}" type="text/javascript"></script>
 
+
+<!--begin::Page Vendors Styles(used by this page) -->
+<link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.rtl.css')}}" rel="stylesheet" type="text/css" />
+
 <!--end::Global Theme Bundle -->
 
 <!--begin::Page Vendors(used by this page) -->
@@ -166,10 +170,29 @@
 
 <script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-timepicker.js')}}" type="text/javascript"></script>
 
-<script type="text/javascript">
-    $('.timepicker-widget').timepicker();
-</script>
+{{--<script type="text/javascript">--}}
+    {{--$('.timepicker-widget').timepicker();--}}
+{{--</script>--}}
 
+<!--begin::Page Vendors(used by this page) -->
+<script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
+
+<!--end::Page Vendors -->
+
+<!--begin::Page Scripts(used by this page) -->
+<script src="{{asset('assets/js/pages/crud/datatables/basic/scrollable.js')}}" type="text/javascript"></script>
+
+<!--end::Page Scripts -->
+
+
+<script>
+    $(document).ready( function () {
+        $('#datatbl').DataTable({
+            paging: false,
+            responsive: true,
+        });
+    } );
+</script>
 
 
 </body>
