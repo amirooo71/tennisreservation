@@ -39,5 +39,6 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 
 	Route::get( 'bookings', 'Admin\BookingsController@index' )->name( 'admin.bookings.index' );
 	Route::post( 'bookings', 'Admin\BookingsController@store' )->name( 'admin.bookings.store' );
+	Route::patch( 'bookings/{booking}', 'Admin\BookingsController@cancelBooked' )->name( 'admin.bookings.cancel' );
 
 } );

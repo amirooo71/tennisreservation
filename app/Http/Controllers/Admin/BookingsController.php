@@ -54,4 +54,21 @@ class BookingsController extends Controller {
 		return response()->json( [ 'msg' => 'زمین با موفقیت رزرو شد', 'book' => $book ] );
 
 	}
+
+	/**
+	 * @param Booking $booking
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function cancelBooked( Booking $booking ) {
+
+		if ( ! $booking ) {
+			return response()->json( 'Not found' );
+		}
+
+		$booking->update( [ 'is_canceled' => true ] );
+
+		return response()->json( [ 'msg' => 'رزرو با موفقیت کنسل شد' ] );
+
+	}
 }

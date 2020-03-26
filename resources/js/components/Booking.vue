@@ -21,20 +21,6 @@
             return {}
         },
 
-        mounted() {
-
-        },
-
-        methods: {
-
-            onBookingColClick() {
-
-                console.log(123456);
-
-            },
-
-        },
-
     }
 </script>
 

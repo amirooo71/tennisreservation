@@ -31,7 +31,7 @@ class Court extends Model {
 	 */
 	public function getBookingsDateAttribute( ) {
 
-		return $this->bookings()->where( [ 'date' => $this->getBookingsDate() ] )->get();
+		return $this->bookings()->where( [ 'date' => $this->getBookingsDate(),'is_canceled' => false ] )->get();
 	}
 
 	/**

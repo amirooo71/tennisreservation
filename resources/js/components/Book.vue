@@ -1,11 +1,12 @@
 <template>
-    <td :class="tdCssClass"
-        v-on="{ click: isBooked ? onManageBookedClick : onBookClick }">
+    <td :class="[defaultClass,bookClass,cancelClass]"
+        v-on="{ click: isBooked ? onCancelClick : onBookClick }">
         {{renterName}}
     </td>
 </template>
 
 <script>
+
     export default {
 
         name: "book",
@@ -17,6 +18,8 @@
             return {
                 isBooked: false,
                 renterName: '',
+                bookedId: '',
+                isCanceled: false,
             }
 
         },
@@ -31,11 +34,12 @@
 
             onBookClick() {
                 Swal.fire({
-                    title: `نام اجاره کننده را وارد کنید`,
-                    text: `${this.court.name} در ساعت ${this.hour}`,
+                    title: `نام رزرو کننده را وارد کنید`,
+                    text: `${this.court.name} برای ساعت ${this.hour}`,
                     input: 'text',
                     showCancelButton: true,
                     confirmButtonText: 'ذخیره',
+                    confirmButtonColor: '#3085d6',
                     cancelButtonText: 'بستن',
                     showLoaderOnConfirm: true,
                     preConfirm: (name) => this.book(name),
@@ -43,8 +47,28 @@
                 }).then((result) => this.onSuccessBook(result))
             },
 
-            onManageBookedClick() {
-                console.log('manage');
+            onCancelClick() {
+
+                Swal.fire({
+                    title: `آیا می خواهید رزرو را برای ${this.renterName} لغو کنید؟`,
+                    text: `${this.court.name} برای ساعت ${this.hour}  رزرو شده است`,
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'بله لغو کن!',
+                    cancelButtonText: 'خیر'
+                }).then((result) => {
+                    if (result.value) {
+                        axios.patch(`/admin/bookings/${this.bookedId}`).then(res => {
+                            this.isBooked = false;
+                            this.renterName = '';
+                            this.bookedId = '';
+                            this.isCanceled = true;
+                            toastr.success(res.data.msg);
+                        }).catch(err => toastr.warning('خطایی رخ داده'));
+                    }
+                });
+
             },
 
             book(name) {
@@ -67,6 +91,9 @@
                 if (result.value) {
                     this.isBooked = true;
                     this.renterName = result.value.book.renter_name;
+                    this.bookedId = result.value.book.id;
+                    this.isCanceled = false;
+                    toastr.success(result.value.msg);
                 }
             },
 
@@ -76,6 +103,7 @@
                     if (this.date === b.date && this.hour === time) {
                         this.isBooked = true;
                         this.renterName = b.renter_name;
+                        this.bookedId = b.id;
                     }
                 });
             },
@@ -84,9 +112,18 @@
 
         computed: {
 
-            tdCssClass() {
-                return this.isBooked ? 'text-center text-white bg-success animated zoomIn faster td-book' : 'text-center bg-light td-book';
+            defaultClass() {
+                return 'text-center td-book';
+            },
+
+            bookClass() {
+                return this.isBooked ? ' bg-success text-white animated zoomIn faster' : '';
+            },
+
+            cancelClass() {
+                return this.isCanceled ? ' bg-danger text-white animated zoomOut' : '';
             }
+
 
         },
     }
@@ -94,7 +131,7 @@
 
 <style scoped>
 
-    .td-book:hover{
+    .td-book:hover {
         border-bottom: 1px solid #007bff !important;
         cursor: pointer;
     }

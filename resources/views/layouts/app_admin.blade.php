@@ -22,6 +22,11 @@
     <link href="{{asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet"
           type="text/css"/>
 
+    {{--Custom--}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.rtl.css')}}" rel="stylesheet" type="text/css" />
+
+
     <!--end::Page Vendors Styles -->
 
     <!--begin::Global Theme Styles(used by all pages) -->
@@ -139,20 +144,13 @@
     };
 </script>
 
-<script src="{{ asset('js/app.js') }}"></script>
 
 <!-- end::Global Config -->
+
 
 <!--begin::Global Theme Bundle(used by all pages) -->
 <script src="{{asset('assets/plugins/global/plugins.bundle.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/js/scripts.bundle.js')}}" type="text/javascript"></script>
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-
-<!--begin::Page Vendors Styles(used by this page) -->
-<link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.rtl.css')}}" rel="stylesheet" type="text/css" />
-
 <!--end::Global Theme Bundle -->
 
 <!--begin::Page Vendors(used by this page) -->
@@ -168,23 +166,11 @@
 <!--end::Page Scripts -->
 
 
-
-
 <script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-timepicker.js')}}" type="text/javascript"></script>
-
-{{--<script type="text/javascript">--}}
-    {{--$('.timepicker-widget').timepicker();--}}
-{{--</script>--}}
-
-<!--begin::Page Vendors(used by this page) -->
 <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
 
-<!--end::Page Vendors -->
 
-<!--begin::Page Scripts(used by this page) -->
-<script src="{{asset('assets/js/pages/crud/datatables/basic/scrollable.js')}}" type="text/javascript"></script>
-
-<!--end::Page Scripts -->
+<script src="{{ asset('js/app.js') }}"></script>
 
 
 <script>

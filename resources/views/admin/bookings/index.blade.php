@@ -73,9 +73,8 @@
             </div>
         </div>
         <div class="kt-portlet__body">
-            <!--begin: Datatable -->
             <div class="table-responsive">
-                <table class="table table-bordered table table-checkable">
+                <table class="table table-bordered table-hover table-checkable">
                     <thead>
                     <tr>
                         <th scope="col" class="text-center">ساعت</th>
@@ -91,8 +90,6 @@
                     </tbody>
                 </table>
             </div>
-
-            <!--end: Datatable -->
         </div>
     </div>
 

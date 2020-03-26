@@ -18,6 +18,7 @@ class CreateBookingsTable extends Migration {
 			$table->string( 'renter_name' );
 			$table->date( 'date' );
 			$table->time( 'time' );
+			$table->boolean( 'is_canceled' )->default( false );
 			$table->timestamps();
 		} );
 	}
