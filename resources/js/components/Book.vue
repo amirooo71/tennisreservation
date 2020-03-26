@@ -85,7 +85,7 @@
         computed: {
 
             tdCssClass() {
-                return this.isBooked ? 'text-center text-white bg-success animated zoomIn faster' : 'text-center bg-light';
+                return this.isBooked ? 'text-center text-white bg-success animated zoomIn faster td-book' : 'text-center bg-light td-book';
             }
 
         },
@@ -93,5 +93,10 @@
 </script>
 
 <style scoped>
+
+    .td-book:hover{
+        border-bottom: 1px solid #007bff !important;
+        cursor: pointer;
+    }
 
 </style>
