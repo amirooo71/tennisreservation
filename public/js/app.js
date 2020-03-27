@@ -2149,7 +2149,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.hour = data.hour;
       _this.date = data.date;
 
-      _this.$refs.modal.open();
+      _this.$refs.modal.open('tab-guest');
     });
   },
   methods: {
@@ -2360,7 +2360,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.td-book[data-v-1b1c1554]:hover {\n    border-bottom: 1px solid #007bff !important;\n    cursor: pointer;\n}\n\n", ""]);
+exports.push([module.i, "\n.td-book[data-v-1b1c1554]:hover {\n    border: 2px solid #007bff;\n    cursor: pointer;\n}\n\n", ""]);
 
 // exports
 
@@ -56391,25 +56391,29 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("sweet-modal", { ref: "modal" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-danger", on: { click: _vm.cancel } },
-          [_vm._v("رزرو را کنسل کن")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-success", on: { click: _vm.paid } },
-          [_vm._v("هزینه پرداخت شد")]
-        )
+  return _c(
+    "sweet-modal",
+    { ref: "modal", attrs: { "overlay-theme": "dark" } },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-danger", on: { click: _vm.cancel } },
+            [_vm._v("رزرو را کنسل کن")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-success", on: { click: _vm.paid } },
+            [_vm._v("هزینه پرداخت شد")]
+          )
+        ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

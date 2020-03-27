@@ -97,7 +97,7 @@
                 this.hour = data.hour;
                 this.date = data.date;
 
-                this.$refs.modal.open();
+                this.$refs.modal.open('tab-guest');
             })
         },
 

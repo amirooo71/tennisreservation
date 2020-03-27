@@ -136,7 +136,7 @@
 <style scoped>
 
     .td-book:hover {
-        border-bottom: 1px solid #007bff !important;
+        border: 2px solid #007bff;
         cursor: pointer;
     }
 

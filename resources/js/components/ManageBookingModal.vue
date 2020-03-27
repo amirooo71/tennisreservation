@@ -1,6 +1,6 @@
 <template>
     <!--Manage book modal-->
-    <sweet-modal ref="modal">
+    <sweet-modal ref="modal" overlay-theme="dark">
         <div class="row">
             <div class="col">
                 <button class="btn btn-danger" @click="cancel">رزرو را کنسل کن</button>
