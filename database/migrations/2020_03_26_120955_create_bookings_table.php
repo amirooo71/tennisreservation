@@ -19,6 +19,9 @@ class CreateBookingsTable extends Migration {
 			$table->date( 'date' );
 			$table->time( 'time' );
 			$table->boolean( 'is_canceled' )->default( false );
+			$table->boolean( 'is_paid' )->default( false );
+			$table->string( 'partner_name' )->nullable();
+			$table->time( 'custom_time' )->nullable();
 			$table->timestamps();
 		} );
 	}

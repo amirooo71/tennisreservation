@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Court extends Model {
 	protected $guarded = [];
 
-	protected $appends = ['bookingsDate'];
+	protected $appends = ['bookingDates'];
 
 	private $date = null;
 
@@ -29,15 +29,15 @@ class Court extends Model {
 	/**
 	 * @return \Illuminate\Database\Eloquent\Collection
 	 */
-	public function getBookingsDateAttribute( ) {
+	public function getBookingDatesAttribute( ) {
 
-		return $this->bookings()->where( [ 'date' => $this->getBookingsDate(),'is_canceled' => false ] )->get();
+		return $this->bookings()->where( [ 'date' => $this->getBookingDate(),'is_canceled' => false ] )->get();
 	}
 
 	/**
 	 * @param $date
 	 */
-	public function setBookingsDate( $date ) {
+	public function setBookingDate( $date ) {
 
 		$this->date = $date;
 	}
@@ -45,7 +45,7 @@ class Court extends Model {
 	/**
 	 * @return null
 	 */
-	public function getBookingsDate() {
+	public function getBookingDate() {
 		return $this->date ?? Carbon::now()->toDateString();
 	}
 

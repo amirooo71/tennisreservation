@@ -1,17 +1,28 @@
 <template>
-    <td :class="[defaultClass,bookClass,cancelClass]"
-        v-on="{ click: isBooked ? onCancelClick : onBookClick }">
-        {{renterName}}
-    </td>
+
+    <fragment>
+
+        <td :class="[defaultClass,dynamicClass]"
+            v-on="{ click: isBooked ? onManageClick : onBookClick }">
+            {{renterName}}
+        </td>
+
+    </fragment>
+
 </template>
 
 <script>
+
+    import {Plugin} from 'vue-fragment';
+
+    Vue.use(Plugin);
 
     export default {
 
         name: "book",
 
         props: ['court', 'hour', 'date'],
+
 
         data() {
 
@@ -20,112 +31,105 @@
                 renterName: '',
                 bookedId: '',
                 isCanceled: false,
+                isPaid: false,
+                defaultClass: 'text-center td-book',
+                dynamicClass: '',
             }
 
         },
 
+        created() {
+            this.showBookings();
+        },
+
         mounted() {
 
-            this.showBookings();
+            Events.$on(`on-success-booking-court-${this.court.id}-at-${this.hour}`, (data) => {
+                this.isBooked = true;
+                this.renterName = data.renterName;
+                this.bookedId = data.bookedId;
+                this.isCanceled = false;
+            });
 
+            Events.$on(`on-success-cancel-booking-court-${this.court.id}-at-${this.hour}`, () => {
+                this.isBooked = false;
+                this.renterName = '';
+                this.bookedId = '';
+                this.isCanceled = true;
+            });
+
+            Events.$on(`on-success-paid-booking-court-${this.court.id}-at-${this.hour}`, () => {
+                this.isPaid = true;
+            });
         },
 
         methods: {
 
             onBookClick() {
-                Swal.fire({
-                    title: `نام رزرو کننده را وارد کنید`,
-                    text: `${this.court.name} برای ساعت ${this.hour}`,
-                    input: 'text',
-                    showCancelButton: true,
-                    confirmButtonText: 'ذخیره',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonText: 'بستن',
-                    showLoaderOnConfirm: true,
-                    preConfirm: (name) => this.book(name),
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => this.onSuccessBook(result))
-            },
-
-            onCancelClick() {
-
-                Swal.fire({
-                    title: `آیا می خواهید رزرو را برای ${this.renterName} لغو کنید؟`,
-                    text: `${this.court.name} برای ساعت ${this.hour}  رزرو شده است`,
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'بله لغو کن!',
-                    cancelButtonText: 'خیر'
-                }).then((result) => {
-                    if (result.value) {
-                        axios.patch(`/admin/bookings/${this.bookedId}`).then(res => {
-                            this.isBooked = false;
-                            this.renterName = '';
-                            this.bookedId = '';
-                            this.isCanceled = true;
-                            toastr.success(res.data.msg);
-                        }).catch(err => toastr.warning('خطایی رخ داده'));
-                    }
-                });
-
-            },
-
-            book(name) {
-                return axios.post('/admin/bookings', {
-                    renter_name: name,
-                    court_id: this.court.id,
+                Events.$emit('open-booking-modal', {
+                    court: this.court,
+                    hour: this.hour,
                     date: this.date,
-                    time: this.hour,
-                }).then(res => {
-                    return res.data;
-
-                }).catch(err => {
-                    Swal.showValidationMessage(
-                        `Request failed:`
-                    )
                 });
             },
 
-            onSuccessBook(result) {
-                if (result.value) {
-                    this.isBooked = true;
-                    this.renterName = result.value.book.renter_name;
-                    this.bookedId = result.value.book.id;
-                    this.isCanceled = false;
-                    toastr.success(result.value.msg);
-                }
+            onManageClick() {
+                Events.$emit('open-manage-booking-modal', {
+                    court: this.court,
+                    hour: this.hour,
+                    date: this.date,
+                    bookedId: this.bookedId,
+                });
             },
 
             showBookings() {
-                this.court.bookingsDate.forEach(b => {
+                this.court.bookingDates.forEach(b => {
                     let time = moment(b.time, 'HH:mm').format('HH:mm');
                     if (this.date === b.date && this.hour === time) {
                         this.isBooked = true;
                         this.renterName = b.renter_name;
                         this.bookedId = b.id;
+                        this.isPaid = b.is_paid;
                     }
                 });
             },
 
         },
 
-        computed: {
+        watch: {
 
-            defaultClass() {
-                return 'text-center td-book';
+            isBooked: function (val) {
+
+                if (val && this.isPaid) {
+
+                    this.dynamicClass = 'bg-success text-white animated zoomIn faster';
+
+                } else {
+
+                    this.dynamicClass = 'bg-danger text-white animated zoomIn faster';
+
+                }
             },
 
-            bookClass() {
-                return this.isBooked ? ' bg-success text-white animated zoomIn faster' : '';
+            isCanceled: function (val) {
+
+                if (val) {
+                    this.dynamicClass = 'bg-danger animated zoomOut';
+                }
+
             },
 
-            cancelClass() {
-                return this.isCanceled ? ' bg-danger text-white animated zoomOut' : '';
-            }
+            isPaid: function (val) {
+
+                if (val) {
+                    this.dynamicClass = 'bg-success text-white';
+                }
+
+            },
 
 
-        },
+        }
+
     }
 </script>
 

@@ -85,7 +85,8 @@
                     </thead>
                     <tbody>
                     @foreach($clubOpeningHours as $hour)
-                        <tr is="booking" :courts="{{$club->courts}}" :hour="{{json_encode($hour)}}" :date="{{json_encode(\Carbon\Carbon::now()->toDateString())}}"></tr>
+                        <tr is="booking" :courts="{{$club->courts}}" :hour="{{json_encode($hour)}}"
+                            :date="{{json_encode(\Carbon\Carbon::now()->toDateString())}}"></tr>
                     @endforeach
                     </tbody>
                 </table>
@@ -93,5 +94,7 @@
         </div>
     </div>
 
+    <booking-modal></booking-modal>
+    <manage-booking-modal></manage-booking-modal>
 
 @endsection
