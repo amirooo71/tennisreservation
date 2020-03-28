@@ -74,7 +74,7 @@
         </div>
         <div class="kt-portlet__body">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover table-checkable">
+                <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
                         <th scope="col" class="text-center">ساعت</th>

@@ -12,16 +12,38 @@
                     </div>
                     <div class="form-group text-left">
                         <label class="kt-checkbox">
-                            <input type="checkbox" @change="hasCustomTime = !hasCustomTime" :checked="hasCustomTime">
+                            <input type="checkbox" @change="hasPartTime = !hasPartTime" :checked="hasPartTime">
                             تغییر ساعت
                             <span></span>
                         </label>
                     </div>
-                    <div class="form-group" v-if="hasCustomTime">
-                        <label>ساعت را وارد کنید</label>
-                        <input type="text" class="form-control" data-provide="timepicker" data-show-meridian="false"
-                               v-model="customTime">
-                        <span class="form-text text-muted">شما می توانید ساعت رزرو را در اینجا تغییر دهید به عنوان مثال (16:30)</span>
+                    <div class="form-group" v-if="hasPartTime">
+                        <label>ساعت شروع را وارد کنید</label>
+                        <vue-timepicker
+                                :disabled="endTime !== ''"
+                                auto-scroll
+                                hour-label="ساعت"
+                                minute-label="دقیقه"
+                                v-model="startTime"
+                                input-class="form-control"
+                                :minute-interval="15"
+                                :minute-range="[15,30,45]"
+                                :hour-range="[getValidCustomHour]"></vue-timepicker>
+                        <span class="form-text text-muted pt-3">شما می توانید ساعت شروع رزرو را در اینجا تغییر دهید به عنوان مثال (16:30)</span>
+                    </div>
+                    <div class="form-group" v-if="hasPartTime">
+                        <label>ساعت پایان را وارد کنید</label>
+                        <vue-timepicker
+                                :disabled="startTime !== ''"
+                                auto-scroll
+                                hour-label="ساعت"
+                                minute-label="دقیقه"
+                                v-model="endTime"
+                                input-class="form-control"
+                                :minute-interval="15"
+                                :minute-range="[15,30,45]"
+                                :hour-range="[getValidCustomHour]"></vue-timepicker>
+                        <span class="form-text text-muted pt-3">شما می توانید ساعت پایان رزرو را در اینجا تغییر دهید به عنوان مثال (16:30)</span>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary">ذخیره</button>
@@ -65,12 +87,13 @@
 <script>
 
     import {SweetModal, SweetModalTab} from 'sweet-modal-vue'
+    import VueTimepicker from 'vue2-timepicker';
 
     export default {
 
         name: "booking-modal",
 
-        components: {SweetModal, SweetModalTab},
+        components: {SweetModal, SweetModalTab, VueTimepicker},
 
         data() {
             return {
@@ -79,10 +102,14 @@
                 bookedId: '',
                 coaches: [],
                 ownerId: '',
-                customTime: '',
-                hasCustomTime: false,
+                startTime: '',
+                endTime: '',
+                hasPartTime: false,
                 hasPartnerName: false,
                 partnerName: '',
+                date: '',
+                hour: '',
+                court: '',
             }
         },
 
@@ -131,6 +158,10 @@
                 Events.$emit(`on-success-booking-court-${this.court.id}-at-${this.hour}`, {
                     renterName: res.data.book.renter_name,
                     bookedId: res.data.book.id,
+                    partnerName: res.data.book.partner_name,
+                    startTime: res.data.book.start_time,
+                    endTime: res.data.book.end_time,
+                    isPartTime: res.data.book.is_part_time
                 });
             },
 
@@ -141,20 +172,35 @@
                     time: this.hour,
                     owner_id: this.ownerId,
                     partner_name: this.partnerName,
-                    custom_time: this.customTime,
+                    start_time: this.startTime,
+                    end_time: this.endTime,
+                    is_part_time: this.isPartTime(),
                 }
             },
 
             reset() {
                 this.renterName = '';
-                this.hasCustomTime = false;
-                this.customTime = '';
+                this.hasPartTime = false;
+                this.startTime = '';
+                this.endTime = '';
                 this.hasPartnerName = false;
                 this.partnerName = '';
                 this.ownerId = '';
                 this.bookedId = '';
                 this.coachName = '';
+                this.hour = '';
+                this.date = '';
+                this.court = '';
             },
+
+            isPartTime() {
+
+                if (this.startTime || this.endTime) {
+                    return true;
+                }
+
+                return false;
+            }
 
         },
 
@@ -167,7 +213,21 @@
                     }
                 });
             }
-        }
+        },
+
+        computed: {
+
+            getValidCustomHour: function () {
+                let firstChar = this.hour.charAt(0);
+
+                if (firstChar !== 0) {
+                    return this.hour.slice(0, 2);
+                } else {
+                    return this.hour.slice(0, 1);
+                }
+            }
+        },
+
 
     }
 </script>

@@ -8,11 +8,15 @@
 }
 
 @import "~toastr";
+@import '~vue2-timepicker/dist/VueTimepicker.css';
+
+.display-time{
+  direction: ltr;
+}
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
   background-color: #edf2f7;
 }
-
 
 //@tailwind base;
 //

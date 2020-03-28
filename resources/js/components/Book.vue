@@ -2,7 +2,63 @@
 
     <td :class="[defaultClass,dynamicClass]"
         v-on="{ click: isBooked ? onManageClick : onBookClick }">
-        {{renterName}}
+
+        <div class="row" v-if="endTime">
+            <div :class="[isPartTime ? 'col border-right' : 'col']">
+                <span v-if="!partnerName">{{renterName}}</span>
+                <span v-else>{{renterName}} - {{partnerName}} </span>
+                <span v-if="startTime" class="kt-badge kt-badge--warning kt-badge--inline">
+                    زمان شروع: {{formatStartTime}}
+                </span>
+                <span v-if="endTime" class="kt-badge kt-badge--warning kt-badge--inline">
+                    زمان پایان: {{formatEndTime}}
+                </span>
+            </div>
+            <div class="col border-left" v-if="isPartTime">
+                <div v-if="partTimeDetail">
+                    <span v-if="!partnerName">{{renterName}}</span>
+                    <span v-else>{{renterName}} - {{partnerName}} </span>
+                    <!--<span v-if="startTime"-->
+                    <!--class="kt-badge kt-badge&#45;&#45;warning kt-badge&#45;&#45;inline">ساعت شروع: {{startTime}}</span>-->
+                    <!--<span v-if="endTime"-->
+                    <!--class="kt-badge kt-badge&#45;&#45;warning kt-badge&#45;&#45;inline">ساعت پایان: {{endTime}}</span>-->
+                </div>
+                <span v-else>
+                     <span class="kt-badge kt-badge--warning kt-badge--inline">
+                     {{getGapedTime()}}
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <div class="row" v-else>
+            <div class="col border-right" v-if="isPartTime">
+                <div v-if="partTimeDetail">
+                    <span v-if="!partnerName">{{renterName}}</span>
+                    <span v-else>{{renterName}} - {{partnerName}} </span>
+                    <!--<span v-if="startTime"-->
+                    <!--class="kt-badge kt-badge&#45;&#45;warning kt-badge&#45;&#45;inline">ساعت شروع: {{startTime}}</span>-->
+                    <!--<span v-if="endTime"-->
+                    <!--class="kt-badge kt-badge&#45;&#45;warning kt-badge&#45;&#45;inline">ساعت پایان: {{endTime}}</span>-->
+                </div>
+                <span v-else>
+                     <span class="kt-badge kt-badge--warning kt-badge--inline">
+                     {{getGapedTime()}}
+                    </span>
+                </span>
+            </div>
+            <div :class="[isPartTime ? 'col border-left' : 'col']">
+                <span v-if="!partnerName">{{renterName}}</span>
+                <span v-else>{{renterName}} - {{partnerName}} </span>
+                <span v-if="startTime" class="kt-badge kt-badge--warning kt-badge--inline">
+                    زمان شروع: {{formatStartTime}}
+                </span>
+                <span v-if="endTime" class="kt-badge kt-badge--warning kt-badge--inline">
+                    زمان پایان: {{formatEndTime}}
+                </span>
+            </div>
+        </div>
+
     </td>
 
 </template>
@@ -27,6 +83,12 @@
                 isPaid: false,
                 defaultClass: 'text-center td-book',
                 dynamicClass: '',
+                partnerName: '',
+                startTime: '',
+                endTime: '',
+                isPartTime: false,
+                partTimeDetail: null,
+
             }
 
         },
@@ -42,6 +104,11 @@
                 this.renterName = data.renterName;
                 this.bookedId = data.bookedId;
                 this.isCanceled = false;
+                this.partnerName = data.partnerName;
+                this.coachName = data.coachName;
+                this.startTime = data.startTime;
+                this.endTime = data.endTime;
+                this.isPartTime = data.isPartTime;
             });
 
             Events.$on(`on-success-cancel-booking-court-${this.court.id}-at-${this.hour}`, () => {
@@ -49,6 +116,8 @@
                 this.renterName = '';
                 this.bookedId = '';
                 this.isCanceled = true;
+                this.partnerName = '';
+                this.coachName = '';
             });
 
             Events.$on(`on-success-paid-booking-court-${this.court.id}-at-${this.hour}`, () => {
@@ -83,9 +152,41 @@
                         this.renterName = b.renter_name;
                         this.bookedId = b.id;
                         this.isPaid = b.is_paid;
+                        this.partnerName = b.partner_name;
+                        this.startTime = b.start_time;
+                        this.endTime = b.end_time;
+                        this.isPartTime = b.is_part_time;
+                        this.partTimeDetail = b.part_time;
                     }
                 });
             },
+
+            getGapedTime() {
+
+                let startGapedTimesMsg = {
+                    15: '۱۵ دقیقه زمان خالی',
+                    30: '۳۰ دقیقه زمان خالی',
+                    45: '۴۵ دقیقه زمان خالی',
+                };
+
+                let endGapedTimesMsg = {
+                    15: '۴۵ دقیقه زمان خالی',
+                    30: '۳۰ دقیقه زمان خالی',
+                    45: '۱۵ دقیقه زمان خالی',
+                };
+
+                if (this.startTime) {
+                    let partTimeMinute = moment(this.startTime, "HH:mm").format("mm");
+                    return startGapedTimesMsg[partTimeMinute];
+                }
+
+                if (this.endTime) {
+                    let partTimeMinute = moment(this.endTime, "HH:mm").format("mm");
+                    return endGapedTimesMsg[partTimeMinute];
+                }
+
+
+            }
 
         },
 
@@ -120,8 +221,18 @@
 
             },
 
+        },
 
-        }
+        computed: {
+
+            formatStartTime: function () {
+                return moment(this.startTime, 'HH:mm').format('HH:mm');
+            },
+
+            formatEndTime: function () {
+                return moment(this.endTime, 'HH:mm').format('HH:mm');
+            }
+        },
 
     }
 </script>

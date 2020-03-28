@@ -15,13 +15,15 @@ class CreateBookingsTable extends Migration {
 			$table->bigIncrements( 'id' );
 			$table->unsignedBigInteger( 'owner_id' )->nullable();
 			$table->unsignedBigInteger( 'court_id' );
-			$table->string( 'renter_name' );
 			$table->date( 'date' );
 			$table->time( 'time' );
+			$table->string( 'renter_name' );
 			$table->boolean( 'is_canceled' )->default( false );
 			$table->boolean( 'is_paid' )->default( false );
 			$table->string( 'partner_name' )->nullable();
-			$table->time( 'custom_time' )->nullable();
+			$table->time( 'start_time' )->nullable();
+			$table->time( 'end_time' )->nullable();
+			$table->boolean( 'is_part_time' )->default( false );
 			$table->timestamps();
 		} );
 	}

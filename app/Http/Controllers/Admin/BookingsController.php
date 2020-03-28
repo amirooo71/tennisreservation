@@ -17,7 +17,7 @@ class BookingsController extends Controller {
 	public function index() {
 
 		$club = auth()->user()->club();
-
+		
 		$diffHours = Carbon::parse( $club->opening_time )->diffInHours( $club->closing_time );
 
 		$startHour = Carbon::parse( $club->opening_time )->format( 'H:i' );
@@ -47,8 +47,10 @@ class BookingsController extends Controller {
 			'renter_name'  => 'required',
 			'date'         => 'required',
 			'time'         => 'required',
+			'is_part_time' => 'required',
 			'owner_id'     => 'nullable',
-			'custom_time'  => 'nullable',
+			'start_time'   => 'nullable',
+			'end_time'     => 'nullable',
 			'partner_name' => 'nullable',
 		] );
 

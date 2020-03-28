@@ -26,6 +26,9 @@
         data() {
             return {
                 bookedId: '',
+                hour: '',
+                date: '',
+                court: '',
             }
         },
 
