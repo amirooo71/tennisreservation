@@ -5,7 +5,7 @@
         <sweet-modal ref="modal" overlay-theme="dark" @close="reset">
             <!--Book for guest tab-->
             <sweet-modal-tab title="رزرو مهمان" id="tab-guest">
-                <form class="kt-form" @submit.prevent="onBookSubmit">
+                <form class="kt-form" @submit.prevent="onGuestBookSubmit">
                     <div class="form-group">
                         <label>نام رزرو کننده را وارد کنید</label>
                         <input type="text" class="form-control" v-model="renterName">
@@ -31,7 +31,7 @@
             <!--/Book for guest tab-->
             <!--Book for coach tab-->
             <sweet-modal-tab title="رزرو مربی" id="tab-coach">
-                <form class="kt-form" @submit.prevent="onBookSubmit">
+                <form class="kt-form" @submit.prevent="onCoachBookSubmit">
                     <div class="form-group">
                         <label>مربی مورد نظر را انتخاب کنید</label>
                         <select v-model="ownerId" class="form-control">
@@ -75,6 +75,7 @@
         data() {
             return {
                 renterName: '',
+                coachName: '',
                 bookedId: '',
                 coaches: [],
                 ownerId: '',
@@ -103,28 +104,27 @@
 
         methods: {
 
-            onBookSubmit() {
-
-                return axios.post('/admin/bookings', this.getPostedData()).then(res => {
+            book(name) {
+                axios.post('/admin/bookings', {renter_name: name, ...this.getPostedData()}).then(res => {
                     this.triggerSuccessSubmitEvent(res);
                     toastr.success(res.data.msg);
                     this.$refs.modal.close();
                 }).catch(err => Swal.showValidationMessage('خطایی رخ داده است'));
+            },
 
+            onGuestBookSubmit() {
+                this.book(this.renterName);
+            },
+
+
+            onCoachBookSubmit() {
+                this.book(this.coachName);
             },
 
             getCoaches() {
                 axios.get('/admin/ajax/coaches').then(res => {
                     this.coaches = res.data;
                 }).catch(err => toastr.warning('خطایی رخ داده است'));
-            },
-
-            reset() {
-                this.renterName = '';
-                this.hasCustomTime = false;
-                this.customTime = '';
-                this.hasPartnerName = false;
-                this.partnerName = '';
             },
 
             triggerSuccessSubmitEvent(res) {
@@ -136,7 +136,6 @@
 
             getPostedData() {
                 return {
-                    renter_name: this.renterName,
                     court_id: this.court.id,
                     date: this.date,
                     time: this.hour,
@@ -146,14 +145,24 @@
                 }
             },
 
-        },
+            reset() {
+                this.renterName = '';
+                this.hasCustomTime = false;
+                this.customTime = '';
+                this.hasPartnerName = false;
+                this.partnerName = '';
+                this.ownerId = '';
+                this.bookedId = '';
+                this.coachName = '';
+            },
 
+        },
 
         watch: {
             ownerId: function (val) {
                 this.coaches.forEach(coach => {
                     if (coach.id === val) {
-                        this.renterName = coach.name;
+                        this.coachName = coach.name;
 
                     }
                 });

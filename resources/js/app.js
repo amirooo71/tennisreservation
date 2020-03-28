@@ -21,7 +21,6 @@ window.Events = new Vue();
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('booking', require('./components/Booking.vue').default);
 Vue.component('bookingModal', require('./components/BookingModal').default);
 Vue.component('manageBookingModal', require('./components/ManageBookingModal').default);

@@ -1,21 +1,14 @@
 <template>
 
-    <fragment>
-
-        <td :class="[defaultClass,dynamicClass]"
-            v-on="{ click: isBooked ? onManageClick : onBookClick }">
-            {{renterName}}
-        </td>
-
-    </fragment>
+    <td :class="[defaultClass,dynamicClass]"
+        v-on="{ click: isBooked ? onManageClick : onBookClick }">
+        {{renterName}}
+    </td>
 
 </template>
 
 <script>
 
-    import {Plugin} from 'vue-fragment';
-
-    Vue.use(Plugin);
 
     export default {
 
