@@ -44,4 +44,7 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 
 	Route::get( 'ajax/coaches', 'Admin\CoachesController@getCoaches' )->name( 'admin.coaches.getCoaches' );
 
+
+	Route::post( 'bookings/{booking}/part-time', 'Admin\PartTimeBookingsController@store' )->name( 'admin.bookings.part_time.store' );
+
 } );

@@ -5,46 +5,23 @@
         <sweet-modal ref="modal" overlay-theme="dark" @close="reset">
             <!--Book for guest tab-->
             <sweet-modal-tab title="رزرو مهمان" id="tab-guest">
+
+                <part-time-booking-alert :is-part-time="isPartTime" :empty-time="emptyTime"></part-time-booking-alert>
+
                 <form class="kt-form" @submit.prevent="onGuestBookSubmit">
                     <div class="form-group">
                         <label>نام رزرو کننده را وارد کنید</label>
                         <input type="text" class="form-control" v-model="renterName">
                     </div>
-                    <div class="form-group text-left">
-                        <label class="kt-checkbox">
-                            <input type="checkbox" @change="hasPartTime = !hasPartTime" :checked="hasPartTime">
-                            تغییر ساعت
-                            <span></span>
-                        </label>
-                    </div>
-                    <div class="form-group" v-if="hasPartTime">
-                        <label>ساعت شروع را وارد کنید</label>
-                        <vue-timepicker
-                                :disabled="endTime !== ''"
-                                auto-scroll
-                                hour-label="ساعت"
-                                minute-label="دقیقه"
-                                v-model="startTime"
-                                input-class="form-control"
-                                :minute-interval="15"
-                                :minute-range="[15,30,45]"
-                                :hour-range="[getValidCustomHour]"></vue-timepicker>
-                        <span class="form-text text-muted pt-3">شما می توانید ساعت شروع رزرو را در اینجا تغییر دهید به عنوان مثال (16:30)</span>
-                    </div>
-                    <div class="form-group" v-if="hasPartTime">
-                        <label>ساعت پایان را وارد کنید</label>
-                        <vue-timepicker
-                                :disabled="startTime !== ''"
-                                auto-scroll
-                                hour-label="ساعت"
-                                minute-label="دقیقه"
-                                v-model="endTime"
-                                input-class="form-control"
-                                :minute-interval="15"
-                                :minute-range="[15,30,45]"
-                                :hour-range="[getValidCustomHour]"></vue-timepicker>
-                        <span class="form-text text-muted pt-3">شما می توانید ساعت پایان رزرو را در اینجا تغییر دهید به عنوان مثال (16:30)</span>
-                    </div>
+
+                    <part-time-input-hours
+                            :is-part-time="isPartTime"
+                            :end-time="endTime"
+                            :start-time="startTime"
+                            :hour="hour"
+                            @timeChanged="onTimeChanged"
+                    ></part-time-input-hours>
+
                     <div class="form-group">
                         <button class="btn btn-primary">ذخیره</button>
                     </div>
@@ -53,6 +30,9 @@
             <!--/Book for guest tab-->
             <!--Book for coach tab-->
             <sweet-modal-tab title="رزرو مربی" id="tab-coach">
+
+                <part-time-booking-alert :is-part-time="isPartTime" :empty-time="emptyTime"></part-time-booking-alert>
+
                 <form class="kt-form" @submit.prevent="onCoachBookSubmit">
                     <div class="form-group">
                         <label>مربی مورد نظر را انتخاب کنید</label>
@@ -60,6 +40,15 @@
                             <option v-for="coach in coaches" :value="coach.id">{{coach.name}}</option>
                         </select>
                     </div>
+
+                    <part-time-input-hours
+                            :is-part-time="isPartTime"
+                            :end-time="endTime"
+                            :start-time="startTime"
+                            :hour="hour"
+                            @timeChanged="onTimeChanged"
+                    ></part-time-input-hours>
+
                     <div class="form-group text-left">
                         <label class="kt-checkbox">
                             <input type="checkbox" @change="hasPartnerName = !hasPartnerName" :checked="hasPartnerName">
@@ -87,13 +76,19 @@
 <script>
 
     import {SweetModal, SweetModalTab} from 'sweet-modal-vue'
-    import VueTimepicker from 'vue2-timepicker';
+    import PartTimeBookingAlert from './partials/PartTimeBookingAlert';
+    import PartTimeInputHours from './partials/PartTimeInputHours';
 
     export default {
 
         name: "booking-modal",
 
-        components: {SweetModal, SweetModalTab, VueTimepicker},
+        components: {
+            SweetModal,
+            SweetModalTab,
+            PartTimeBookingAlert,
+            PartTimeInputHours
+        },
 
         data() {
             return {
@@ -110,6 +105,9 @@
                 date: '',
                 hour: '',
                 court: '',
+                emptyTime: '',
+                isPartTime: '',
+                remainPartTime: '',
             }
         },
 
@@ -124,6 +122,10 @@
                 this.court = data.court;
                 this.hour = data.hour;
                 this.date = data.date;
+                this.emptyTime = data.emptyTime;
+                this.isPartTime = data.isPartTime;
+                this.bookedId = data.bookedId;
+                this.remainPartTime = data.startTime ? data.hour : data.endTime;
 
                 this.$refs.modal.open('tab-guest');
             })
@@ -132,11 +134,20 @@
         methods: {
 
             book(name) {
-                axios.post('/admin/bookings', {renter_name: name, ...this.getPostedData()}).then(res => {
-                    this.triggerSuccessSubmitEvent(res);
+
+                let url;
+
+                if (this.isPartTime) {
+                    url = `/admin/bookings/${this.bookedId}/part-time`;
+                } else {
+                    url = `/admin/bookings`;
+                }
+
+                axios.post(url, {renter_name: name, ...this.getPostedData()}).then(res => {
+                    this.isPartTime ? this.triggerSuccessSubmitEventOnPartTimeBooking(res) : this.triggerSuccessSubmitEvents(res);
                     toastr.success(res.data.msg);
                     this.$refs.modal.close();
-                }).catch(err => Swal.showValidationMessage('خطایی رخ داده است'));
+                }).catch(err => toastr.warning('خطایی رخ داده است'));
             },
 
             onGuestBookSubmit() {
@@ -154,7 +165,7 @@
                 }).catch(err => toastr.warning('خطایی رخ داده است'));
             },
 
-            triggerSuccessSubmitEvent(res) {
+            triggerSuccessSubmitEvents(res) {
                 Events.$emit(`on-success-booking-court-${this.court.id}-at-${this.hour}`, {
                     renterName: res.data.book.renter_name,
                     bookedId: res.data.book.id,
@@ -162,6 +173,13 @@
                     startTime: res.data.book.start_time,
                     endTime: res.data.book.end_time,
                     isPartTime: res.data.book.is_part_time
+                });
+                Events.$emit('reset-part-time-hours');
+            },
+
+            triggerSuccessSubmitEventOnPartTimeBooking(res) {
+                Events.$emit(`on-success-booking-part-time-court-${this.court.id}-at-${this.hour}`, {
+                    partTimeDetail: res.data.book,
                 });
             },
 
@@ -174,7 +192,8 @@
                     partner_name: this.partnerName,
                     start_time: this.startTime,
                     end_time: this.endTime,
-                    is_part_time: this.isPartTime(),
+                    is_part_time: this.isPartTimeBook(),
+                    remain_time: this.remainPartTime,
                 }
             },
 
@@ -191,16 +210,29 @@
                 this.hour = '';
                 this.date = '';
                 this.court = '';
+                this.emptyTime = '';
+                this.isPartTime = '';
+                this.remainPartTime = '';
             },
 
-            isPartTime() {
+            isPartTimeBook() {
 
                 if (this.startTime || this.endTime) {
                     return true;
                 }
 
                 return false;
-            }
+            },
+
+            onTimeChanged(data) {
+
+                if (data.startTime) {
+                    this.startTime = data.startTime;
+                } else {
+                    this.endTime = data.endTime;
+                }
+
+            },
 
         },
 
@@ -212,19 +244,6 @@
 
                     }
                 });
-            }
-        },
-
-        computed: {
-
-            getValidCustomHour: function () {
-                let firstChar = this.hour.charAt(0);
-
-                if (firstChar !== 0) {
-                    return this.hour.slice(0, 2);
-                } else {
-                    return this.hour.slice(0, 1);
-                }
             }
         },
 

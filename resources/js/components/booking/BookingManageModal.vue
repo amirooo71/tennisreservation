@@ -1,14 +1,20 @@
 <template>
     <!--Manage book modal-->
     <sweet-modal ref="modal" overlay-theme="dark">
-        <div class="row">
-            <div class="col">
-                <button class="btn btn-danger" @click="cancel">رزرو را کنسل کن</button>
-            </div>
-            <div class="col">
-                <button class="btn btn-success" @click="paid">هزینه پرداخت شد</button>
-            </div>
-        </div>
+        <!--<div class="row">-->
+        <!--<div class="col">-->
+        <!--<button class="btn btn-danger" @click="cancel">رزرو را کنسل کن</button>-->
+        <!--</div>-->
+        <!--<div class="col">-->
+        <!--<button class="btn btn-success" @click="paid">هزینه پرداخت شد</button>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <sweet-modal-tab title="رزرو مهمان" id="tab-part-time-book-guest">Tab 3 is disabled</sweet-modal-tab>
+        <sweet-modal-tab title="رزرو مربی" id="tab-part-time-book-coach">Tab 3 is disabled</sweet-modal-tab>
+        <sweet-modal-tab title="کنسل" id="tab-cancel">Contents of Tab 1</sweet-modal-tab>
+        <sweet-modal-tab title="پرداخت" id="tab-pay">Contents of Tab 2</sweet-modal-tab>
+
     </sweet-modal>
     <!--/Manage book modal-->
 </template>
@@ -19,7 +25,7 @@
 
     export default {
 
-        name: "manage-booking-modal",
+        name: "booking-manage-modal",
 
         components: {SweetModal, SweetModalTab},
 

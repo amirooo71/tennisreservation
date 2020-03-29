@@ -17,6 +17,8 @@ class BookingsController extends Controller {
 	public function index() {
 
 		$club = auth()->user()->club();
+
+//		return $club->courts;
 		
 		$diffHours = Carbon::parse( $club->opening_time )->diffInHours( $club->closing_time );
 

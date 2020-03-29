@@ -95,6 +95,7 @@
     </div>
 
     <booking-modal></booking-modal>
-    <manage-booking-modal></manage-booking-modal>
+    <booking-manage-modal></booking-manage-modal>
+
 
 @endsection

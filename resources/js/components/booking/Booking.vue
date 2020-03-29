@@ -7,7 +7,7 @@
 
 <script>
 
-    import Book from './Book.vue';
+    import Book from './Book';
 
     export default {
 
