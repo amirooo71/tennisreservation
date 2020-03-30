@@ -85,7 +85,7 @@
                     </thead>
                     <tbody>
                     @foreach($clubOpeningHours as $hour)
-                        <tr is="booking" :courts="{{$club->courts}}" :hour="{{json_encode($hour)}}"
+                        <tr is="bookings" :courts="{{$club->courts}}" :hour="{{json_encode($hour)}}"
                             :date="{{json_encode(\Carbon\Carbon::now()->toDateString())}}"></tr>
                     @endforeach
                     </tbody>

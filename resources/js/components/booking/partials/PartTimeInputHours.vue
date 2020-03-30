@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!isPartTime">
+    <div v-if="!booked">
         <div class="form-group text-left">
             <label class="kt-checkbox">
                 <input type="checkbox" @change="hasPartTime = !hasPartTime" :checked="hasPartTime">
@@ -51,7 +51,7 @@
 
         name: "part-time-input-hours",
 
-        props: ['isPartTime', 'endTime', 'startTime', 'hour'],
+        props: ['booked', 'hour'],
 
         components: {VueTimepicker},
 
@@ -95,7 +95,8 @@
                 } else {
                     return this.hour.slice(0, 1);
                 }
-            }
+            },
+
         },
 
 

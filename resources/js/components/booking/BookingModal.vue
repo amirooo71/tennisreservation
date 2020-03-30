@@ -1,12 +1,14 @@
 <template>
 
     <div>
+
         <!--Book modal-->
         <sweet-modal ref="modal" overlay-theme="dark" @close="reset">
+
             <!--Book for guest tab-->
             <sweet-modal-tab title="رزرو مهمان" id="tab-guest">
 
-                <part-time-booking-alert :is-part-time="isPartTime" :empty-time="emptyTime"></part-time-booking-alert>
+                <part-time-booking-alert :booked="booked" :empty-time="emptyTime"></part-time-booking-alert>
 
                 <form class="kt-form" @submit.prevent="onGuestBookSubmit">
                     <div class="form-group">
@@ -15,9 +17,7 @@
                     </div>
 
                     <part-time-input-hours
-                            :is-part-time="isPartTime"
-                            :end-time="endTime"
-                            :start-time="startTime"
+                            :booked="booked"
                             :hour="hour"
                             @timeChanged="onTimeChanged"
                     ></part-time-input-hours>
@@ -25,13 +25,14 @@
                     <div class="form-group">
                         <button class="btn btn-primary">ذخیره</button>
                     </div>
+
                 </form>
             </sweet-modal-tab>
             <!--/Book for guest tab-->
             <!--Book for coach tab-->
             <sweet-modal-tab title="رزرو مربی" id="tab-coach">
 
-                <part-time-booking-alert :is-part-time="isPartTime" :empty-time="emptyTime"></part-time-booking-alert>
+                <part-time-booking-alert :booked="booked" :empty-time="emptyTime"></part-time-booking-alert>
 
                 <form class="kt-form" @submit.prevent="onCoachBookSubmit">
                     <div class="form-group">
@@ -42,9 +43,7 @@
                     </div>
 
                     <part-time-input-hours
-                            :is-part-time="isPartTime"
-                            :end-time="endTime"
-                            :start-time="startTime"
+                            :booked="booked"
                             :hour="hour"
                             @timeChanged="onTimeChanged"
                     ></part-time-input-hours>
@@ -57,17 +56,28 @@
                             <span></span>
                         </label>
                     </div>
+
                     <div class="form-group" v-if="hasPartnerName">
                         <label>نام شاگرد را وارد کنید</label>
                         <input v-model="partnerName" type="text" class="form-control">
                         <span class="form-text text-muted">در صورت تمایل می توانید نام شاگرد را وارد کنید</span>
                     </div>
+
                     <div class="form-group">
                         <button class="btn btn-primary">ذخیره</button>
                     </div>
+
                 </form>
             </sweet-modal-tab>
             <!--/Book for coach tab-->
+
+            <sweet-modal-tab :disabled="!hasPartTimeManageTab"
+                             :title="hasPartTimeManageTab ? 'مدیریت رزرو' : ''"
+                             id="part-time-manage-tab">
+                <button class="btn btn-danger" @click="cancel">کنسل</button>
+                <button class="btn btn-success" @click="paid">هزینه پرداخت شد</button>
+            </sweet-modal-tab>
+
         </sweet-modal>
     </div>
 
@@ -92,22 +102,24 @@
 
         data() {
             return {
-                renterName: '',
-                coachName: '',
-                bookedId: '',
                 coaches: [],
-                ownerId: '',
-                startTime: '',
-                endTime: '',
-                hasPartTime: false,
-                hasPartnerName: false,
-                partnerName: '',
+                booked: null,
                 date: '',
                 hour: '',
                 court: '',
+                renterName: '',
+                coachName: '',
+                ownerId: '',
+                startTime: '',
+                endTime: '',
+                partnerName: '',
                 emptyTime: '',
                 isPartTime: '',
                 remainPartTime: '',
+                hasPartTimeManageTab: false,
+                hasPartTime: false,
+                hasPartnerName: false,
+                url: '/admin/bookings',
             }
         },
 
@@ -119,13 +131,18 @@
 
             Events.$on('open-booking-modal', (data) => {
 
+                console.log(data);
+
                 this.court = data.court;
                 this.hour = data.hour;
                 this.date = data.date;
                 this.emptyTime = data.emptyTime;
-                this.isPartTime = data.isPartTime;
-                this.bookedId = data.bookedId;
-                this.remainPartTime = data.startTime ? data.hour : data.endTime;
+                this.booked = data.booked;
+                this.hasPartTimeManageTab = data.hasPartTimeManageTab;
+
+                if (data.booked) {
+                    this.remainPartTime = data.booked.start_time ? data.hour : data.booked.end_time;
+                }
 
                 this.$refs.modal.open('tab-guest');
             })
@@ -135,16 +152,15 @@
 
             book(name) {
 
-                let url;
 
-                if (this.isPartTime) {
-                    url = `/admin/bookings/${this.bookedId}/part-time`;
-                } else {
-                    url = `/admin/bookings`;
+                if (this.booked) {
+
+                    this.url = `/admin/bookings/${this.booked.id}/part-time`;
+
                 }
 
-                axios.post(url, {renter_name: name, ...this.getPostedData()}).then(res => {
-                    this.isPartTime ? this.triggerSuccessSubmitEventOnPartTimeBooking(res) : this.triggerSuccessSubmitEvents(res);
+                axios.post(this.url, {renter_name: name, ...this.getPostedData()}).then(res => {
+                    this.booked ? this.triggerSuccessSubmitEventOnPartTimeBooking(res) : this.triggerSuccessSubmitEvents(res);
                     toastr.success(res.data.msg);
                     this.$refs.modal.close();
                 }).catch(err => toastr.warning('خطایی رخ داده است'));
@@ -153,7 +169,6 @@
             onGuestBookSubmit() {
                 this.book(this.renterName);
             },
-
 
             onCoachBookSubmit() {
                 this.book(this.coachName);
@@ -167,19 +182,14 @@
 
             triggerSuccessSubmitEvents(res) {
                 Events.$emit(`on-success-booking-court-${this.court.id}-at-${this.hour}`, {
-                    renterName: res.data.book.renter_name,
-                    bookedId: res.data.book.id,
-                    partnerName: res.data.book.partner_name,
-                    startTime: res.data.book.start_time,
-                    endTime: res.data.book.end_time,
-                    isPartTime: res.data.book.is_part_time
+                    booked: res.data.book,
                 });
                 Events.$emit('reset-part-time-hours');
             },
 
             triggerSuccessSubmitEventOnPartTimeBooking(res) {
                 Events.$emit(`on-success-booking-part-time-court-${this.court.id}-at-${this.hour}`, {
-                    partTimeDetail: res.data.book,
+                    partTimeBooked: res.data.book,
                 });
             },
 
@@ -213,6 +223,8 @@
                 this.emptyTime = '';
                 this.isPartTime = '';
                 this.remainPartTime = '';
+                this.hasPartTimeManageTab = false;
+                this.url = '/admin/bookings'
             },
 
             isPartTimeBook() {
@@ -228,15 +240,34 @@
 
                 if (data.startTime) {
                     this.startTime = data.startTime;
+                    this.endTime = '';
                 } else {
                     this.endTime = data.endTime;
+                    this.startTime = '';
                 }
 
+            },
+
+            cancel() {
+                axios.patch(`/admin/bookings/${this.booked.id}/cancel`).then(res => {
+                    Events.$emit(`on-success-cancel-booking-court-${this.court.id}-at-${this.hour}`);
+                    toastr.success(res.data.msg);
+                    this.$refs.modal.close();
+                }).catch(err => toastr.warning('خطایی رخ داده'));
+            },
+
+            paid() {
+                axios.patch(`/admin/bookings/${this.booked.id}/paid`).then(res => {
+                    Events.$emit(`on-success-paid-booking-court-${this.court.id}-at-${this.hour}`);
+                    this.$refs.modal.close();
+                    toastr.success(res.data.msg);
+                }).catch(err => toastr.warning('خطایی رخ داده'));
             },
 
         },
 
         watch: {
+
             ownerId: function (val) {
                 this.coaches.forEach(coach => {
                     if (coach.id === val) {
@@ -245,6 +276,7 @@
                     }
                 });
             }
+
         },
 
 

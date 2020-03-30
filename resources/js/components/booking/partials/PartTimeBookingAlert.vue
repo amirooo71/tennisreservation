@@ -1,5 +1,5 @@
 <template>
-    <div role="alert" class="alert alert-light alert-elevate" v-if="isPartTime">
+    <div role="alert" class="alert alert-light alert-elevate" v-if="booked">
         <div class="alert-icon">
             <i class="flaticon-warning kt-font-brand"></i>
         </div>
@@ -14,7 +14,7 @@
 
         name: "part-time-booking-alert",
 
-        props: ['isPartTime', 'emptyTime']
+        props: ['booked', 'emptyTime']
 
     }
 </script>

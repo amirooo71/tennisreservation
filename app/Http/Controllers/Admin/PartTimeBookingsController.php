@@ -8,6 +8,7 @@ use App\PartTimeBooking;
 use Illuminate\Http\Request;
 
 class PartTimeBookingsController extends Controller {
+
 	public function store( Booking $booking ) {
 
 		$data = request()->validate( [
