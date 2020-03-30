@@ -17,4 +17,11 @@ class Booking extends Model {
 		return $this->hasOne( PartTimeBooking::class );
 	}
 
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function court() {
+		return $this->belongsTo( Court::class );
+	}
+
 }

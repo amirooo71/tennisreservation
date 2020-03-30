@@ -9,7 +9,7 @@
                 <span v-if="booked.start_time || booked.end_time" class="kt-badge kt-badge--warning kt-badge--inline">
                      {{showPartTimeBookedTimeLabel}}
                 </span>
-                <i v-if="isPaid && booked.is_part_time" class="fas fa-coins text-warning"></i>
+                <i v-if="booked.is_part_time && booked.is_paid" class="fas fa-coins text-warning"></i>
             </div>
 
             <div class="col border-left" v-if="booked.is_part_time">
@@ -43,8 +43,6 @@
         data() {
 
             return {
-                isCanceled: false,
-                isPaid: false,
                 defaultClass: 'text-center td-book',
                 dynamicClass: '',
                 booked: null,
@@ -68,14 +66,23 @@
                 this.partTimeBooked = data.partTimeBooked;
             });
 
-            Events.$on(`on-success-cancel-booking-court-${this.court.id}-at-${this.hour}`, () => {
-                this.booked = null;
-                this.isCanceled = true;
+            Events.$on(`on-success-booked-cancel-court-${this.court.id}-at-${this.hour}`, (data) => {
+                this.booked = data.booked;
+                this.partTimeBooked = null;
 
             });
 
-            Events.$on(`on-success-paid-booking-court-${this.court.id}-at-${this.hour}`, () => {
-                this.isPaid = true;
+            Events.$on(`on-success-part-time-booked-cancel-court-${this.court.id}-at-${this.hour}`, () => {
+                this.partTimeBooked = null;
+
+            });
+
+            Events.$on(`on-success-booked-paid-court-${this.court.id}-at-${this.hour}`, (data) => {
+                this.booked = data.booked;
+            });
+
+            Events.$on(`on-success-part-time-booked-paid-court-${this.court.id}-at-${this.hour}`, (data) => {
+                this.partTimeBooked = data.partTimeBooked;
             });
         },
 
@@ -90,8 +97,6 @@
                     let time = moment(booked.time, 'HH:mm').format('HH:mm');
                     if (this.date === booked.date && this.hour === time) {
                         this.booked = booked;
-                        this.isCanceled = booked.is_canceled;
-                        this.isPaid = booked.is_paid;
                         this.partTimeBooked = booked.part_time ? booked.part_time : null;
                     }
                 });
@@ -105,6 +110,7 @@
                 if (!this.booked) {
                     return true;
                 }
+
 
                 if (this.booked.is_part_time && !this.partTimeBooked) {
                     return true;
@@ -134,7 +140,8 @@
                     court: this.court,
                     hour: this.hour,
                     date: this.date,
-                    bookedId: this.bookedId,
+                    booked: this.booked,
+                    partTimeBooked: this.partTimeBooked,
                 });
             },
 
@@ -243,29 +250,47 @@
 
         watch: {
 
-            booked: function () {
+            booked: function (val) {
+
+
+                //Cancel it
+                if (!this.booked) {
+                    this.dynamicClass = 'bg-danger text-white animated zoomOut';
+                    return;
+                }
+
+                //Paid is it not part time booked
+                if (this.booked.is_paid && !this.booked.is_part_time) {
+                    this.dynamicClass = 'bg-success text-white';
+                    return
+                }
+
+
+                //Paid is it not part time booked
+                if (!this.partTimeBooked && this.booked.is_paid && this.booked.is_part_time) {
+                    this.dynamicClass = 'bg-danger text-white';
+                    return
+                }
+
+
+                if (this.partTimeBooked && this.booked.is_paid && this.partTimeBooked.is_paid) {
+                    this.dynamicClass = 'bg-success text-white';
+                    return
+                }
+
 
                 this.dynamicClass = 'bg-danger text-white animated zoomIn faster';
 
             },
 
-            isCanceled: function () {
+            partTimeBooked: function(){
 
-                this.dynamicClass = 'bg-danger animated zoomOut';
+                if(this.partTimeBooked && this.partTimeBooked.is_paid){
+                    this.dynamicClass = 'bg-success text-white';
+                }
 
             },
 
-            isPaid: function () {
-
-                if (this.booked.is_part_time && this.partTimeBooked) {
-                    this.dynamicClass = 'bg-success text-white';
-                } else if (val && !this.booked.is_part_time) {
-                    this.dynamicClass = 'bg-success text-white';
-                } else {
-                    this.dynamicClass = 'bg-danger text-white';
-                }
-
-            }
 
         },
 

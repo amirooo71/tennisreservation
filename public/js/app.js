@@ -1945,8 +1945,6 @@ __webpack_require__.r(__webpack_exports__);
   props: ['court', 'hour', 'date'],
   data: function data() {
     return {
-      isCanceled: false,
-      isPaid: false,
       defaultClass: 'text-center td-book',
       dynamicClass: '',
       booked: null,
@@ -1965,12 +1963,18 @@ __webpack_require__.r(__webpack_exports__);
     Events.$on("on-success-booking-part-time-court-".concat(this.court.id, "-at-").concat(this.hour), function (data) {
       _this.partTimeBooked = data.partTimeBooked;
     });
-    Events.$on("on-success-cancel-booking-court-".concat(this.court.id, "-at-").concat(this.hour), function () {
-      _this.booked = null;
-      _this.isCanceled = true;
+    Events.$on("on-success-booked-cancel-court-".concat(this.court.id, "-at-").concat(this.hour), function (data) {
+      _this.booked = data.booked;
+      _this.partTimeBooked = null;
     });
-    Events.$on("on-success-paid-booking-court-".concat(this.court.id, "-at-").concat(this.hour), function () {
-      _this.isPaid = true;
+    Events.$on("on-success-part-time-booked-cancel-court-".concat(this.court.id, "-at-").concat(this.hour), function () {
+      _this.partTimeBooked = null;
+    });
+    Events.$on("on-success-booked-paid-court-".concat(this.court.id, "-at-").concat(this.hour), function (data) {
+      _this.booked = data.booked;
+    });
+    Events.$on("on-success-part-time-booked-paid-court-".concat(this.court.id, "-at-").concat(this.hour), function (data) {
+      _this.partTimeBooked = data.partTimeBooked;
     });
   },
   methods: {
@@ -1985,8 +1989,6 @@ __webpack_require__.r(__webpack_exports__);
 
         if (_this2.date === booked.date && _this2.hour === time) {
           _this2.booked = booked;
-          _this2.isCanceled = booked.is_canceled;
-          _this2.isPaid = booked.is_paid;
           _this2.partTimeBooked = booked.part_time ? booked.part_time : null;
         }
       });
@@ -2021,7 +2023,8 @@ __webpack_require__.r(__webpack_exports__);
         court: this.court,
         hour: this.hour,
         date: this.date,
-        bookedId: this.bookedId
+        booked: this.booked,
+        partTimeBooked: this.partTimeBooked
       });
     },
     getGapedMinutes: function getGapedMinutes() {
@@ -2102,19 +2105,35 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
-    booked: function booked() {
+    booked: function booked(val) {
+      //Cancel it
+      if (!this.booked) {
+        this.dynamicClass = 'bg-danger text-white animated zoomOut';
+        return;
+      } //Paid is it not part time booked
+
+
+      if (this.booked.is_paid && !this.booked.is_part_time) {
+        this.dynamicClass = 'bg-success text-white';
+        return;
+      } //Paid is it not part time booked
+
+
+      if (!this.partTimeBooked && this.booked.is_paid && this.booked.is_part_time) {
+        this.dynamicClass = 'bg-danger text-white';
+        return;
+      }
+
+      if (this.partTimeBooked && this.booked.is_paid && this.partTimeBooked.is_paid) {
+        this.dynamicClass = 'bg-success text-white';
+        return;
+      }
+
       this.dynamicClass = 'bg-danger text-white animated zoomIn faster';
     },
-    isCanceled: function isCanceled() {
-      this.dynamicClass = 'bg-danger animated zoomOut';
-    },
-    isPaid: function isPaid() {
-      if (this.booked.is_part_time && this.partTimeBooked) {
+    partTimeBooked: function partTimeBooked() {
+      if (this.partTimeBooked && this.partTimeBooked.is_paid) {
         this.dynamicClass = 'bg-success text-white';
-      } else if (val && !this.booked.is_part_time) {
-        this.dynamicClass = 'bg-success text-white';
-      } else {
-        this.dynamicClass = 'bg-danger text-white';
       }
     }
   }
@@ -2153,6 +2172,63 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "booking-manage-modal",
@@ -2162,7 +2238,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      bookedId: '',
+      booked: '',
+      partTimeBooked: '',
       hour: '',
       date: '',
       court: ''
@@ -2172,37 +2249,38 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     Events.$on('open-manage-booking-modal', function (data) {
-      console.log(data);
       _this.court = data.court;
       _this.hour = data.hour;
       _this.date = data.date;
-      _this.bookedId = data.bookedId;
+      _this.booked = data.booked;
+      _this.partTimeBooked = data.partTimeBooked;
 
       _this.$refs.modal.open();
     });
   },
   methods: {
-    // Cancel part time booking
-    // Paid part time booking
-    // book was is_paid and has partTimeDetail
-    cancel: function cancel() {
+    cancelBooked: function cancelBooked() {
       var _this2 = this;
 
-      axios.patch("/admin/bookings/".concat(this.bookedId, "/cancel")).then(function (res) {
-        Events.$emit("on-success-cancel-booking-court-".concat(_this2.court.id, "-at-").concat(_this2.hour));
-        toastr.success(res.data.msg);
+      axios.patch("/admin/bookings/".concat(this.booked.id, "/cancel")).then(function (res) {
+        Events.$emit("on-success-booked-cancel-court-".concat(_this2.court.id, "-at-").concat(_this2.hour), {
+          booked: res.data.booked
+        });
 
         _this2.$refs.modal.close();
+
+        toastr.success(res.data.msg);
       })["catch"](function (err) {
         return toastr.warning('خطایی رخ داده');
       });
     },
-    paid: function paid() {
+    cancelPartTimeBooked: function cancelPartTimeBooked() {
       var _this3 = this;
 
-      axios.patch("/admin/bookings/".concat(this.bookedId, "/paid")).then(function (res) {
-        Events.$emit("on-success-paid-booking-court-".concat(_this3.court.id, "-at-").concat(_this3.hour));
-        _this3.isPaid = true;
+      axios["delete"]("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/cancel")).then(function (res) {
+        Events.$emit("on-success-part-time-booked-cancel-court-".concat(_this3.court.id, "-at-").concat(_this3.hour), {
+          partTimeBooked: res.data.partTimeBooked
+        });
 
         _this3.$refs.modal.close();
 
@@ -2210,6 +2288,44 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return toastr.warning('خطایی رخ داده');
       });
+    },
+    payBooked: function payBooked() {
+      var _this4 = this;
+
+      axios.patch("/admin/bookings/".concat(this.booked.id, "/paid")).then(function (res) {
+        Events.$emit("on-success-booked-paid-court-".concat(_this4.court.id, "-at-").concat(_this4.hour), {
+          booked: res.data.booked
+        });
+
+        _this4.$refs.modal.close();
+
+        toastr.success(res.data.msg);
+      })["catch"](function (err) {
+        return toastr.warning('خطایی رخ داده');
+      });
+    },
+    payPartTimeBooked: function payPartTimeBooked() {
+      var _this5 = this;
+
+      axios.patch("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/pay")).then(function (res) {
+        Events.$emit("on-success-part-time-booked-paid-court-".concat(_this5.court.id, "-at-").concat(_this5.hour), {
+          partTimeBooked: res.data.partTimeBooked
+        });
+
+        _this5.$refs.modal.close();
+
+        toastr.success(res.data.msg);
+      })["catch"](function (err) {
+        return toastr.warning('خطایی رخ داده');
+      });
+    }
+  },
+  computed: {
+    showBookedPayLabel: function showBookedPayLabel() {
+      return "\u0645\u0628\u0644\u063A ".concat(this.court.price, " \u0627\u0632 ").concat(this.booked.renter_name, " \u062F\u0631\u06CC\u0627\u0641\u062A \u0634\u062F.");
+    },
+    showPartTimeBookedPayLabel: function showPartTimeBookedPayLabel() {
+      return "\u0645\u0628\u0644\u063A ".concat(this.court.price, " \u0627\u0632 ").concat(this.partTimeBooked.renter_name, " \u062F\u0631\u06CC\u0627\u0641\u062A \u0634\u062F.");
     }
   }
 });
@@ -2359,7 +2475,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     Events.$on('open-booking-modal', function (data) {
-      console.log(data);
       _this.court = data.court;
       _this.hour = data.hour;
       _this.date = data.date;
@@ -2471,7 +2586,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this4 = this;
 
       axios.patch("/admin/bookings/".concat(this.booked.id, "/cancel")).then(function (res) {
-        Events.$emit("on-success-cancel-booking-court-".concat(_this4.court.id, "-at-").concat(_this4.hour));
+        Events.$emit("on-success-booked-cancel-court-".concat(_this4.court.id, "-at-").concat(_this4.hour), {
+          booked: res.data.booked
+        });
         toastr.success(res.data.msg);
 
         _this4.$refs.modal.close();
@@ -2483,7 +2600,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this5 = this;
 
       axios.patch("/admin/bookings/".concat(this.booked.id, "/paid")).then(function (res) {
-        Events.$emit("on-success-paid-booking-court-".concat(_this5.court.id, "-at-").concat(_this5.hour));
+        Events.$emit("on-success-booked-paid-court-".concat(_this5.court.id, "-at-").concat(_this5.hour), {
+          booked: res.data.booked
+        });
 
         _this5.$refs.modal.close();
 
@@ -56367,7 +56486,7 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.isPaid && _vm.booked.is_part_time
+                _vm.booked.is_part_time && _vm.booked.is_paid
                   ? _c("i", { staticClass: "fas fa-coins text-warning" })
                   : _vm._e()
               ]
@@ -56443,24 +56562,157 @@ var render = function() {
     "sweet-modal",
     { ref: "modal", attrs: { "overlay-theme": "dark" } },
     [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
-          _c(
-            "button",
-            { staticClass: "btn btn-danger", on: { click: _vm.cancel } },
-            [_vm._v("رزرو را کنسل کن")]
-          )
-        ]),
+      _c("sweet-modal-tab", { attrs: { title: "پرداخت", id: "tab-pay" } }, [
+        _vm.booked.is_paid && _vm.partTimeBooked && _vm.partTimeBooked.is_paid
+          ? _c("div", [_vm._v("\n            پرداخت شده است\n        ")])
+          : _vm._e(),
         _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
-          _c(
-            "button",
-            { staticClass: "btn btn-success", on: { click: _vm.paid } },
-            [_vm._v("هزینه پرداخت شد")]
-          )
+        _c("div", [
+          !_vm.booked.is_paid
+            ? _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert alert-elevate alert-light d-flex justify-content-between align-items-center",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _c("div", [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.showBookedPayLabel) +
+                            "\n                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success btn-sm",
+                          on: { click: _vm.payBooked }
+                        },
+                        [_vm._v("پرداخت شد")]
+                      )
+                    ]
+                  )
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.partTimeBooked && !_vm.partTimeBooked.is_paid
+            ? _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert alert-elevate alert-light d-flex justify-content-between align-items-center",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _c("div", [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.showPartTimeBookedPayLabel) +
+                            "\n                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success btn-sm",
+                          on: { click: _vm.payPartTimeBooked }
+                        },
+                        [_vm._v("پرداخت شد")]
+                      )
+                    ]
+                  )
+                ])
+              ])
+            : _vm._e()
         ])
-      ])
-    ]
+      ]),
+      _vm._v(" "),
+      _c("sweet-modal-tab", { attrs: { title: "کنسل", id: "tab-cancel" } }, [
+        _c("div", [
+          !_vm.booked.is_canceled
+            ? _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert alert-elevate alert-light d-flex justify-content-between align-items-center",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _c("div", [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.showBookedPayLabel) +
+                            "\n                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          on: { click: _vm.cancelBooked }
+                        },
+                        [_vm._v("کنسل کنید")]
+                      )
+                    ]
+                  )
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.partTimeBooked && !_vm.partTimeBooked.is_canceled
+            ? _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert alert-elevate alert-light d-flex justify-content-between align-items-center",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _c("div", [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.showPartTimeBookedPayLabel) +
+                            "\n                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          on: { click: _vm.cancelPartTimeBooked }
+                        },
+                        [_vm._v("کنسل کنید")]
+                      )
+                    ]
+                  )
+                ])
+              ])
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "sweet-modal-tab",
+        { attrs: { title: "ویرایش", id: "tab-edit", disabled: "" } },
+        [_vm._v("Tab 3 is disabled")]
+      )
+    ],
+    1
   )
 }
 var staticRenderFns = []

@@ -19,7 +19,7 @@ class BookingsController extends Controller {
 		$club = auth()->user()->club();
 
 //		return $club->courts;
-		
+
 		$diffHours = Carbon::parse( $club->opening_time )->diffInHours( $club->closing_time );
 
 		$startHour = Carbon::parse( $club->opening_time )->format( 'H:i' );
@@ -73,9 +73,31 @@ class BookingsController extends Controller {
 			return response()->json( 'Not found' );
 		}
 
+		if ( $booking->partTime ) {
+
+			$booking->update( [ 'is_canceled' => true ] );
+
+			$booked = Booking::create( [
+				'court_id'     => $booking->court->id,
+				'renter_name'  => $booking->partTime->renter_name,
+				'date'         => $booking->date,
+				'time'         => $booking->partTime->remain_time,
+				'is_part_time' => true,
+				'owner_id'     => $booking->partTime->owner_id,
+				'start_time'   => $booking->start_time,
+				'end_time'     => $booking->end_time,
+				'partner_name' => $booking->partner_name,
+			] );
+
+			$booking->partTime->delete();
+
+			return response()->json( [ 'msg' => 'رزرو با موفقیت کنسل شد', 'booked' => $booked ] );
+
+		}
+
 		$booking->update( [ 'is_canceled' => true ] );
 
-		return response()->json( [ 'msg' => 'رزرو با موفقیت کنسل شد' ] );
+		return response()->json( [ 'msg' => 'رزرو با موفقیت کنسل شد','booked' => null ] );
 
 	}
 
@@ -85,12 +107,13 @@ class BookingsController extends Controller {
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function paid( Booking $booking ) {
+
 		if ( ! $booking ) {
 			return response()->json( 'Not found' );
 		}
 
 		$booking->update( [ 'is_paid' => true ] );
 
-		return response()->json( [ 'msg' => 'هزینه با موفقیت دریافت شد' ] );
+		return response()->json( [ 'msg' => 'هزینه با موفقیت دریافت شد', 'booked' => $booking ] );
 	}
 }

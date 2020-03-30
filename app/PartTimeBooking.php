@@ -8,5 +8,9 @@ class PartTimeBooking extends Model {
 
 	protected $guarded = [];
 
+	public function booking() {
+		return $this->belongsTo( Booking::class );
+	}
+
 
 }

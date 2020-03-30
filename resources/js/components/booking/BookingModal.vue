@@ -131,8 +131,6 @@
 
             Events.$on('open-booking-modal', (data) => {
 
-                console.log(data);
-
                 this.court = data.court;
                 this.hour = data.hour;
                 this.date = data.date;
@@ -250,7 +248,7 @@
 
             cancel() {
                 axios.patch(`/admin/bookings/${this.booked.id}/cancel`).then(res => {
-                    Events.$emit(`on-success-cancel-booking-court-${this.court.id}-at-${this.hour}`);
+                    Events.$emit(`on-success-booked-cancel-court-${this.court.id}-at-${this.hour}`, {booked: res.data.booked});
                     toastr.success(res.data.msg);
                     this.$refs.modal.close();
                 }).catch(err => toastr.warning('خطایی رخ داده'));
@@ -258,7 +256,7 @@
 
             paid() {
                 axios.patch(`/admin/bookings/${this.booked.id}/paid`).then(res => {
-                    Events.$emit(`on-success-paid-booking-court-${this.court.id}-at-${this.hour}`);
+                    Events.$emit(`on-success-booked-paid-court-${this.court.id}-at-${this.hour}`, {booked: res.data.booked});
                     this.$refs.modal.close();
                     toastr.success(res.data.msg);
                 }).catch(err => toastr.warning('خطایی رخ داده'));

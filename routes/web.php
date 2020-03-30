@@ -46,5 +46,8 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 
 
 	Route::post( 'bookings/{booking}/part-time', 'Admin\PartTimeBookingsController@store' )->name( 'admin.bookings.part_time.store' );
+	Route::patch( 'bookings/{partTimeBooking}/part-time/pay', 'Admin\PartTimeBookingsController@pay' )->name( 'admin.bookings.part_time.pay' );
+	Route::delete( 'bookings/{partTimeBooking}/part-time/cancel', 'Admin\PartTimeBookingsController@cancel' )->name( 'admin.bookings.part_time.cancel' );
+
 
 } );
