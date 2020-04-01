@@ -1940,6 +1940,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
   props: ['court', 'hour', 'date'],
@@ -2078,6 +2079,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     showGapedTimeLabel: function showGapedTimeLabel() {
+      console.log(this.booked.start_time);
+      console.log(this.booked.end_time);
       var startGapedTimesMsg = {
         15: '۱۵ دقیقه زمان خالی',
         30: '۳۰ دقیقه زمان خالی',
@@ -2105,35 +2108,45 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
-    booked: function booked(val) {
-      //Cancel it
+    booked: function booked() {
       if (!this.booked) {
-        this.dynamicClass = 'bg-danger text-white animated zoomOut';
-        return;
-      } //Paid is it not part time booked
+        return this.dynamicClass = 'bg-danger text-white animated zoomOut';
+      }
+
+      if (!this.booked.is_paid) {
+        return this.dynamicClass = 'bg-danger text-white animated zoomIn faster';
+      }
+      /*
+       * Full paid --> bg-success
+       */
+
+
+      if (this.booked.is_paid && this.partTimeBooked && this.partTimeBooked.is_paid) {
+        return this.dynamicClass = 'bg-success text-white';
+      }
+      /*
+       *Paid but it is part time booked --> bg-danger
+       */
+
+
+      if (this.booked.is_paid && this.booked.is_part_time) {
+        return this.dynamicClass = 'bg-danger text-white';
+      }
+      /*
+       * Paid and it is not part time booked --> bg-success
+       */
 
 
       if (this.booked.is_paid && !this.booked.is_part_time) {
-        this.dynamicClass = 'bg-success text-white';
-        return;
-      } //Paid is it not part time booked
-
-
-      if (!this.partTimeBooked && this.booked.is_paid && this.booked.is_part_time) {
-        this.dynamicClass = 'bg-danger text-white';
-        return;
+        return this.dynamicClass = 'bg-success text-white';
       }
-
-      if (this.partTimeBooked && this.booked.is_paid && this.partTimeBooked.is_paid) {
-        this.dynamicClass = 'bg-success text-white';
-        return;
-      }
-
-      this.dynamicClass = 'bg-danger text-white animated zoomIn faster';
     },
     partTimeBooked: function partTimeBooked() {
-      if (this.partTimeBooked && this.partTimeBooked.is_paid) {
-        this.dynamicClass = 'bg-success text-white';
+      /*
+       * Full paid --> bg-success
+       */
+      if (this.partTimeBooked && this.partTimeBooked.is_paid && this.booked.is_paid) {
+        return this.dynamicClass = 'bg-success text-white';
       }
     }
   }
@@ -2150,7 +2163,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweet-modal-vue */ "./node_modules/sweet-modal-vue/src/main.js");
+/* harmony import */ var _BaseComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseComponent */ "./resources/js/components/booking/BaseComponent.js");
+/* harmony import */ var sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweet-modal-vue */ "./node_modules/sweet-modal-vue/src/main.js");
 //
 //
 //
@@ -2230,11 +2244,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({
+
+/* harmony default export */ __webpack_exports__["default"] = (_BaseComponent__WEBPACK_IMPORTED_MODULE_0__["default"].extend({
   name: "booking-manage-modal",
   components: {
-    SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModal"],
-    SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModalTab"]
+    SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModal"],
+    SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModalTab"]
   },
   data: function data() {
     return {
@@ -2259,12 +2274,12 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    cancelBooked: function cancelBooked() {
+    cancelPartTimeBooked: function cancelPartTimeBooked() {
       var _this2 = this;
 
-      axios.patch("/admin/bookings/".concat(this.booked.id, "/cancel")).then(function (res) {
-        Events.$emit("on-success-booked-cancel-court-".concat(_this2.court.id, "-at-").concat(_this2.hour), {
-          booked: res.data.booked
+      axios["delete"]("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/cancel")).then(function (res) {
+        Events.$emit("on-success-part-time-booked-cancel-court-".concat(_this2.court.id, "-at-").concat(_this2.hour), {
+          partTimeBooked: res.data.partTimeBooked
         });
 
         _this2.$refs.modal.close();
@@ -2274,45 +2289,15 @@ __webpack_require__.r(__webpack_exports__);
         return toastr.warning('خطایی رخ داده');
       });
     },
-    cancelPartTimeBooked: function cancelPartTimeBooked() {
+    payPartTimeBooked: function payPartTimeBooked() {
       var _this3 = this;
 
-      axios["delete"]("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/cancel")).then(function (res) {
-        Events.$emit("on-success-part-time-booked-cancel-court-".concat(_this3.court.id, "-at-").concat(_this3.hour), {
+      axios.patch("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/pay")).then(function (res) {
+        Events.$emit("on-success-part-time-booked-paid-court-".concat(_this3.court.id, "-at-").concat(_this3.hour), {
           partTimeBooked: res.data.partTimeBooked
         });
 
         _this3.$refs.modal.close();
-
-        toastr.success(res.data.msg);
-      })["catch"](function (err) {
-        return toastr.warning('خطایی رخ داده');
-      });
-    },
-    payBooked: function payBooked() {
-      var _this4 = this;
-
-      axios.patch("/admin/bookings/".concat(this.booked.id, "/paid")).then(function (res) {
-        Events.$emit("on-success-booked-paid-court-".concat(_this4.court.id, "-at-").concat(_this4.hour), {
-          booked: res.data.booked
-        });
-
-        _this4.$refs.modal.close();
-
-        toastr.success(res.data.msg);
-      })["catch"](function (err) {
-        return toastr.warning('خطایی رخ داده');
-      });
-    },
-    payPartTimeBooked: function payPartTimeBooked() {
-      var _this5 = this;
-
-      axios.patch("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/pay")).then(function (res) {
-        Events.$emit("on-success-part-time-booked-paid-court-".concat(_this5.court.id, "-at-").concat(_this5.hour), {
-          partTimeBooked: res.data.partTimeBooked
-        });
-
-        _this5.$refs.modal.close();
 
         toastr.success(res.data.msg);
       })["catch"](function (err) {
@@ -2328,7 +2313,7 @@ __webpack_require__.r(__webpack_exports__);
       return "\u0645\u0628\u0644\u063A ".concat(this.court.price, " \u0627\u0632 ").concat(this.partTimeBooked.renter_name, " \u062F\u0631\u06CC\u0627\u0641\u062A \u0634\u062F.");
     }
   }
-});
+}));
 
 /***/ }),
 
@@ -2341,9 +2326,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweet-modal-vue */ "./node_modules/sweet-modal-vue/src/main.js");
-/* harmony import */ var _partials_PartTimeBookingAlert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./partials/PartTimeBookingAlert */ "./resources/js/components/booking/partials/PartTimeBookingAlert.vue");
-/* harmony import */ var _partials_PartTimeInputHours__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./partials/PartTimeInputHours */ "./resources/js/components/booking/partials/PartTimeInputHours.vue");
+/* harmony import */ var _BaseComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseComponent */ "./resources/js/components/booking/BaseComponent.js");
+/* harmony import */ var sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweet-modal-vue */ "./node_modules/sweet-modal-vue/src/main.js");
+/* harmony import */ var _partials_PartTimeBookingAlert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./partials/PartTimeBookingAlert */ "./resources/js/components/booking/partials/PartTimeBookingAlert.vue");
+/* harmony import */ var _partials_PartTimeInputHours__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./partials/PartTimeInputHours */ "./resources/js/components/booking/partials/PartTimeInputHours.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2438,13 +2424,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = ({
+
+/* harmony default export */ __webpack_exports__["default"] = (_BaseComponent__WEBPACK_IMPORTED_MODULE_0__["default"].extend({
   name: "booking-modal",
   components: {
-    SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModal"],
-    SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModalTab"],
-    PartTimeBookingAlert: _partials_PartTimeBookingAlert__WEBPACK_IMPORTED_MODULE_1__["default"],
-    PartTimeInputHours: _partials_PartTimeInputHours__WEBPACK_IMPORTED_MODULE_2__["default"]
+    SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModal"],
+    SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModalTab"],
+    PartTimeBookingAlert: _partials_PartTimeBookingAlert__WEBPACK_IMPORTED_MODULE_2__["default"],
+    PartTimeInputHours: _partials_PartTimeInputHours__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
@@ -2581,49 +2568,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.endTime = data.endTime;
         this.startTime = '';
       }
-    },
-    cancel: function cancel() {
-      var _this4 = this;
-
-      axios.patch("/admin/bookings/".concat(this.booked.id, "/cancel")).then(function (res) {
-        Events.$emit("on-success-booked-cancel-court-".concat(_this4.court.id, "-at-").concat(_this4.hour), {
-          booked: res.data.booked
-        });
-        toastr.success(res.data.msg);
-
-        _this4.$refs.modal.close();
-      })["catch"](function (err) {
-        return toastr.warning('خطایی رخ داده');
-      });
-    },
-    paid: function paid() {
-      var _this5 = this;
-
-      axios.patch("/admin/bookings/".concat(this.booked.id, "/paid")).then(function (res) {
-        Events.$emit("on-success-booked-paid-court-".concat(_this5.court.id, "-at-").concat(_this5.hour), {
-          booked: res.data.booked
-        });
-
-        _this5.$refs.modal.close();
-
-        toastr.success(res.data.msg);
-      })["catch"](function (err) {
-        return toastr.warning('خطایی رخ داده');
-      });
     }
   },
   watch: {
     ownerId: function ownerId(val) {
-      var _this6 = this;
+      var _this4 = this;
 
       this.coaches.forEach(function (coach) {
         if (coach.id === val) {
-          _this6.coachName = coach.name;
+          _this4.coachName = coach.name;
         }
       });
     }
   }
-});
+}));
 
 /***/ }),
 
@@ -56513,7 +56471,13 @@ var render = function() {
                                 "\n                "
                             )
                           ]
-                        )
+                        ),
+                        _vm._v(" "),
+                        _vm.partTimeBooked.is_paid
+                          ? _c("i", {
+                              staticClass: "fas fa-coins text-warning"
+                            })
+                          : _vm._e()
                       ])
                     : _c(
                         "span",
@@ -56591,7 +56555,7 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-success btn-sm",
-                          on: { click: _vm.payBooked }
+                          on: { click: _vm.pay }
                         },
                         [_vm._v("پرداخت شد")]
                       )
@@ -56661,7 +56625,7 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-danger btn-sm",
-                          on: { click: _vm.cancelBooked }
+                          on: { click: _vm.cancel }
                         },
                         [_vm._v("کنسل کنید")]
                       )
@@ -56958,7 +56922,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "button",
-                { staticClass: "btn btn-success", on: { click: _vm.paid } },
+                { staticClass: "btn btn-success", on: { click: _vm.pay } },
                 [_vm._v("هزینه پرداخت شد")]
               )
             ]
@@ -75553,6 +75517,51 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/booking/BaseComponent.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/booking/BaseComponent.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (Vue.extend({
+  methods: {
+    cancel: function cancel() {
+      var _this = this;
+
+      axios.patch("/admin/bookings/".concat(this.booked.id, "/cancel")).then(function (res) {
+        Events.$emit("on-success-booked-cancel-court-".concat(_this.court.id, "-at-").concat(_this.hour), {
+          booked: res.data.booked
+        });
+        toastr.success(res.data.msg);
+
+        _this.$refs.modal.close();
+      })["catch"](function (err) {
+        return toastr.warning('خطایی رخ داده');
+      });
+    },
+    pay: function pay() {
+      var _this2 = this;
+
+      axios.patch("/admin/bookings/".concat(this.booked.id, "/paid")).then(function (res) {
+        Events.$emit("on-success-booked-paid-court-".concat(_this2.court.id, "-at-").concat(_this2.hour), {
+          booked: res.data.booked
+        });
+
+        _this2.$refs.modal.close();
+
+        toastr.success(res.data.msg);
+      })["catch"](function (err) {
+        return toastr.warning('خطایی رخ داده');
+      });
+    }
+  }
+}));
 
 /***/ }),
 

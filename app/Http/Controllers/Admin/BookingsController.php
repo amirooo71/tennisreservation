@@ -6,6 +6,7 @@ use App\Booking;
 use App\Club;
 use App\Court;
 use App\Http\Controllers\Controller;
+use App\PartTimeBooking;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -17,8 +18,6 @@ class BookingsController extends Controller {
 	public function index() {
 
 		$club = auth()->user()->club();
-
-//		return $club->courts;
 
 		$diffHours = Carbon::parse( $club->opening_time )->diffInHours( $club->closing_time );
 
@@ -82,11 +81,11 @@ class BookingsController extends Controller {
 				'renter_name'  => $booking->partTime->renter_name,
 				'date'         => $booking->date,
 				'time'         => $booking->partTime->remain_time,
-				'is_part_time' => true,
+				'is_part_time' => Carbon::parse( $booking->partTime->remain_time )->format( 'i' ) === "00" ? false : true,
+				'start_time' => Carbon::parse( $booking->partTime->remain_time )->format( 'i' ) === "00" ? null : $booking->partTime->remain_time,
 				'owner_id'     => $booking->partTime->owner_id,
-				'start_time'   => $booking->start_time,
-				'end_time'     => $booking->end_time,
 				'partner_name' => $booking->partner_name,
+				'is_paid'      => $booking->is_paid,
 			] );
 
 			$booking->partTime->delete();
@@ -97,7 +96,7 @@ class BookingsController extends Controller {
 
 		$booking->update( [ 'is_canceled' => true ] );
 
-		return response()->json( [ 'msg' => 'رزرو با موفقیت کنسل شد','booked' => null ] );
+		return response()->json( [ 'msg' => 'رزرو با موفقیت کنسل شد', 'booked' => null ] );
 
 	}
 

@@ -18,6 +18,7 @@
                     <span class="kt-badge kt-badge--warning kt-badge--inline">
                         {{showStartingTimePartTimeBooked}}
                     </span>
+                    <i v-if="partTimeBooked.is_paid" class="fas fa-coins text-warning"></i>
                 </div>
                 <span class="kt-badge kt-badge--warning kt-badge--inline" v-else>
                     {{showGapedTimeLabel}}
@@ -215,6 +216,9 @@
 
             showGapedTimeLabel() {
 
+                console.log(this.booked.start_time);
+                console.log(this.booked.end_time);
+
                 let startGapedTimesMsg = {
                     15: '۱۵ دقیقه زمان خالی',
                     30: '۳۰ دقیقه زمان خالی',
@@ -237,7 +241,6 @@
                     return endGapedTimesMsg[partTimeMinute];
                 }
 
-
             },
 
             showStartingTimePartTimeBooked() {
@@ -250,43 +253,46 @@
 
         watch: {
 
-            booked: function (val) {
+            booked: function () {
 
-
-                //Cancel it
                 if (!this.booked) {
-                    this.dynamicClass = 'bg-danger text-white animated zoomOut';
-                    return;
+                    return this.dynamicClass = 'bg-danger text-white animated zoomOut';
                 }
 
-                //Paid is it not part time booked
+                if (!this.booked.is_paid) {
+                    return this.dynamicClass = 'bg-danger text-white animated zoomIn faster';
+                }
+
+                /*
+                 * Full paid --> bg-success
+                 */
+                if (this.booked.is_paid && this.partTimeBooked && this.partTimeBooked.is_paid) {
+                    return this.dynamicClass = 'bg-success text-white';
+                }
+
+                /*
+                 *Paid but it is part time booked --> bg-danger
+                 */
+                if (this.booked.is_paid && this.booked.is_part_time) {
+                    return this.dynamicClass = 'bg-danger text-white';
+                }
+
+                /*
+                 * Paid and it is not part time booked --> bg-success
+                 */
                 if (this.booked.is_paid && !this.booked.is_part_time) {
-                    this.dynamicClass = 'bg-success text-white';
-                    return
+                    return this.dynamicClass = 'bg-success text-white';
                 }
-
-
-                //Paid is it not part time booked
-                if (!this.partTimeBooked && this.booked.is_paid && this.booked.is_part_time) {
-                    this.dynamicClass = 'bg-danger text-white';
-                    return
-                }
-
-
-                if (this.partTimeBooked && this.booked.is_paid && this.partTimeBooked.is_paid) {
-                    this.dynamicClass = 'bg-success text-white';
-                    return
-                }
-
-
-                this.dynamicClass = 'bg-danger text-white animated zoomIn faster';
 
             },
 
-            partTimeBooked: function(){
-
-                if(this.partTimeBooked && this.partTimeBooked.is_paid){
-                    this.dynamicClass = 'bg-success text-white';
+            partTimeBooked: function () {
+                
+                /*
+                 * Full paid --> bg-success
+                 */
+                if (this.partTimeBooked && this.partTimeBooked.is_paid && this.booked.is_paid) {
+                    return this.dynamicClass = 'bg-success text-white';
                 }
 
             },

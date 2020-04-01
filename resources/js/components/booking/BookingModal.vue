@@ -75,7 +75,7 @@
                              :title="hasPartTimeManageTab ? 'مدیریت رزرو' : ''"
                              id="part-time-manage-tab">
                 <button class="btn btn-danger" @click="cancel">کنسل</button>
-                <button class="btn btn-success" @click="paid">هزینه پرداخت شد</button>
+                <button class="btn btn-success" @click="pay">هزینه پرداخت شد</button>
             </sweet-modal-tab>
 
         </sweet-modal>
@@ -85,11 +85,12 @@
 
 <script>
 
+    import BaseComponent from './BaseComponent';
     import {SweetModal, SweetModalTab} from 'sweet-modal-vue'
     import PartTimeBookingAlert from './partials/PartTimeBookingAlert';
     import PartTimeInputHours from './partials/PartTimeInputHours';
 
-    export default {
+    export default BaseComponent.extend({
 
         name: "booking-modal",
 
@@ -150,7 +151,6 @@
 
             book(name) {
 
-
                 if (this.booked) {
 
                     this.url = `/admin/bookings/${this.booked.id}/part-time`;
@@ -179,16 +179,12 @@
             },
 
             triggerSuccessSubmitEvents(res) {
-                Events.$emit(`on-success-booking-court-${this.court.id}-at-${this.hour}`, {
-                    booked: res.data.book,
-                });
+                Events.$emit(`on-success-booking-court-${this.court.id}-at-${this.hour}`, {booked: res.data.book,});
                 Events.$emit('reset-part-time-hours');
             },
 
             triggerSuccessSubmitEventOnPartTimeBooking(res) {
-                Events.$emit(`on-success-booking-part-time-court-${this.court.id}-at-${this.hour}`, {
-                    partTimeBooked: res.data.book,
-                });
+                Events.$emit(`on-success-booking-part-time-court-${this.court.id}-at-${this.hour}`, {partTimeBooked: res.data.book,});
             },
 
             getPostedData() {
@@ -246,22 +242,6 @@
 
             },
 
-            cancel() {
-                axios.patch(`/admin/bookings/${this.booked.id}/cancel`).then(res => {
-                    Events.$emit(`on-success-booked-cancel-court-${this.court.id}-at-${this.hour}`, {booked: res.data.booked});
-                    toastr.success(res.data.msg);
-                    this.$refs.modal.close();
-                }).catch(err => toastr.warning('خطایی رخ داده'));
-            },
-
-            paid() {
-                axios.patch(`/admin/bookings/${this.booked.id}/paid`).then(res => {
-                    Events.$emit(`on-success-booked-paid-court-${this.court.id}-at-${this.hour}`, {booked: res.data.booked});
-                    this.$refs.modal.close();
-                    toastr.success(res.data.msg);
-                }).catch(err => toastr.warning('خطایی رخ داده'));
-            },
-
         },
 
         watch: {
@@ -278,7 +258,8 @@
         },
 
 
-    }
+    });
+
 </script>
 
 <style scoped>
