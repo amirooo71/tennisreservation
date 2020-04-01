@@ -2080,14 +2080,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     showPartTimeBookedTimeLabel: function showPartTimeBookedTimeLabel() {
       if (this.booked.start_time) {
-        return "\u0632\u0645\u0627\u0646 \u0634\u0631\u0648\u0639: ".concat(this.formatTime(this.booked.start_time));
+        var finishTime = moment(this.hour, "HH:mm:ss").add(1, 'hours').format("HH:mm");
+        return "".concat(this.formatTime(this.booked.start_time), " \u062A\u0627 ").concat(finishTime);
       } else {
-        return "\u0632\u0645\u0627\u0646 \u067E\u0627\u06CC\u0627\u0646: ".concat(this.formatTime(this.booked.end_time));
+        return "".concat(this.hour, " \u062A\u0627 ").concat(this.formatTime(this.booked.end_time));
       }
     },
     showGapedTimeLabel: function showGapedTimeLabel() {
-      console.log(this.booked.start_time);
-      console.log(this.booked.end_time);
       var startGapedTimesMsg = {
         15: '۱۵ دقیقه زمان خالی',
         30: '۳۰ دقیقه زمان خالی',
@@ -2111,7 +2110,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     showStartingTimePartTimeBooked: function showStartingTimePartTimeBooked() {
-      return "\u0633\u0627\u0639\u062A \u0634\u0631\u0648\u0639: ".concat(this.formatTime(this.partTimeBooked.remain_time));
+      if (this.booked.start_time) {
+        return "".concat(this.formatTime(this.partTimeBooked.remain_time), " \u062A\u0627 ").concat(this.formatTime(this.booked.start_time));
+      } else {
+        var finishTime = moment(this.hour, "HH:mm:ss").add(1, 'hours').format("HH:mm");
+        return "".concat(this.formatTime(this.partTimeBooked.remain_time), " \u062A\u0627 ").concat(finishTime);
+      }
     }
   },
   watch: {

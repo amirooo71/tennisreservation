@@ -214,17 +214,18 @@
 
             showPartTimeBookedTimeLabel() {
                 if (this.booked.start_time) {
-                    return `زمان شروع: ${this.formatTime(this.booked.start_time)}`;
+
+                    let finishTime = moment(this.hour, "HH:mm:ss").add(1, 'hours').format("HH:mm");
+
+                    return `${this.formatTime(this.booked.start_time)} تا ${finishTime}`;
+
                 } else {
-                    return `زمان پایان: ${this.formatTime(this.booked.end_time)}`;
+                    return `${this.hour} تا ${this.formatTime(this.booked.end_time)}`;
                 }
 
             },
 
             showGapedTimeLabel() {
-
-                console.log(this.booked.start_time);
-                console.log(this.booked.end_time);
 
                 let startGapedTimesMsg = {
                     15: '۱۵ دقیقه زمان خالی',
@@ -251,7 +252,15 @@
             },
 
             showStartingTimePartTimeBooked() {
-                return `ساعت شروع: ${this.formatTime(this.partTimeBooked.remain_time)}`;
+
+                if (this.booked.start_time) {
+
+                    return `${this.formatTime(this.partTimeBooked.remain_time)} تا ${this.formatTime(this.booked.start_time)}`;
+                } else {
+                    let finishTime = moment(this.hour, "HH:mm:ss").add(1, 'hours').format("HH:mm");
+                    return `${this.formatTime(this.partTimeBooked.remain_time)} تا ${finishTime}`;
+                }
+
             }
 
 

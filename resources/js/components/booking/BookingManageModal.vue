@@ -153,7 +153,7 @@
             },
 
             isAlreadyPaid() {
-                
+
                 if (this.partTimeBooked && this.partTimeBooked.is_paid && this.booked.is_paid) {
 
                     return true;
