@@ -8,7 +8,7 @@
             </label>
         </div>
         <div class="form-group" v-if="hasPartTime">
-            <label>ساعت شروع را وارد کنید</label>
+            <label>ساعت شروع رزرو</label>
             <vue-timepicker
                     :disabled="end !== ''"
                     auto-scroll
@@ -24,7 +24,7 @@
             <span class="form-text text-muted pt-3">شما می توانید ساعت شروع رزرو را در اینجا تغییر دهید به عنوان مثال (16:30)</span>
         </div>
         <div class="form-group" v-if="hasPartTime">
-            <label>ساعت پایان را وارد کنید</label>
+            <label>ساعت پایان رزرو</label>
             <vue-timepicker
                     :disabled="start !== ''"
                     auto-scroll

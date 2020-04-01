@@ -2172,6 +2172,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BaseComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseComponent */ "./resources/js/components/booking/BaseComponent.js");
 /* harmony import */ var sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweet-modal-vue */ "./node_modules/sweet-modal-vue/src/main.js");
+/* harmony import */ var _partials_BookInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./partials/BookInfo */ "./resources/js/components/booking/partials/BookInfo.vue");
 //
 //
 //
@@ -2248,15 +2249,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (_BaseComponent__WEBPACK_IMPORTED_MODULE_0__["default"].extend({
   name: "booking-manage-modal",
   components: {
     SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModal"],
-    SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModalTab"]
+    SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModalTab"],
+    BookingInfo: _partials_BookInfo__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -2277,7 +2278,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.booked = data.booked;
       _this.partTimeBooked = data.partTimeBooked;
 
-      _this.$refs.modal.open();
+      _this.$refs.modal.open('tab-pay');
     });
   },
   methods: {
@@ -2314,10 +2315,31 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     showBookedPayLabel: function showBookedPayLabel() {
-      return "\u0645\u0628\u0644\u063A ".concat(this.court.price, " \u0627\u0632 ").concat(this.booked.renter_name, " \u062F\u0631\u06CC\u0627\u0641\u062A \u0634\u062F.");
+      return "".concat(this.booked.renter_name, " \u0645\u0628\u0644\u063A ").concat(this.court.price, " \u062A\u0648\u0645\u0627\u0646 \u0628\u062F\u0647\u06A9\u0627\u0631 \u0627\u0633\u062A");
     },
     showPartTimeBookedPayLabel: function showPartTimeBookedPayLabel() {
-      return "\u0645\u0628\u0644\u063A ".concat(this.court.price, " \u0627\u0632 ").concat(this.partTimeBooked.renter_name, " \u062F\u0631\u06CC\u0627\u0641\u062A \u0634\u062F.");
+      return "".concat(this.partTimeBooked.renter_name, " \u0645\u0628\u0644\u063A ").concat(this.court.price, " \u062A\u0648\u0645\u0627\u0646 \u0628\u062F\u0647\u06A9\u0627\u0631 \u0627\u0633\u062A");
+    },
+    showBookedCancelLabel: function showBookedCancelLabel() {
+      return "\u0622\u06CC\u0627 \u0645\u06CC \u062E\u0648\u0627\u0647\u06CC\u062F \u0631\u0632\u0631\u0648 \u0631\u0627 \u0628\u0631\u0627\u06CC ".concat(this.booked.renter_name, " \u06A9\u0646\u0633\u0644 \u06A9\u0646\u06CC\u062F\u061F");
+    },
+    showPartTimeBookedCancelLabel: function showPartTimeBookedCancelLabel() {
+      return "\u0622\u06CC\u0627 \u0645\u06CC \u062E\u0648\u0627\u0647\u06CC\u062F \u0631\u0632\u0631\u0648 \u0631\u0627 \u0628\u0631\u0627\u06CC ".concat(this.partTimeBooked.renter_name, " \u06A9\u0646\u0633\u0644 \u06A9\u0646\u06CC\u062F\u061F");
+    },
+    isAlreadyPaid: function isAlreadyPaid() {
+      if (this.partTimeBooked && this.partTimeBooked.is_paid && this.booked.is_paid) {
+        return true;
+      }
+
+      if (this.partTimeBooked && !this.partTimeBooked.is_paid && this.booked.is_paid) {
+        return false;
+      }
+
+      if (this.booked.is_paid) {
+        return true;
+      }
+
+      return false;
     }
   }
 }));
@@ -2337,6 +2359,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweet-modal-vue */ "./node_modules/sweet-modal-vue/src/main.js");
 /* harmony import */ var _partials_PartTimeBookingAlert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./partials/PartTimeBookingAlert */ "./resources/js/components/booking/partials/PartTimeBookingAlert.vue");
 /* harmony import */ var _partials_PartTimeInputHours__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./partials/PartTimeInputHours */ "./resources/js/components/booking/partials/PartTimeInputHours.vue");
+/* harmony import */ var _partials_BookInfo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./partials/BookInfo */ "./resources/js/components/booking/partials/BookInfo.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2428,6 +2451,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+
 
 
 
@@ -2438,7 +2464,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModal"],
     SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModalTab"],
     PartTimeBookingAlert: _partials_PartTimeBookingAlert__WEBPACK_IMPORTED_MODULE_2__["default"],
-    PartTimeInputHours: _partials_PartTimeInputHours__WEBPACK_IMPORTED_MODULE_3__["default"]
+    PartTimeInputHours: _partials_PartTimeInputHours__WEBPACK_IMPORTED_MODULE_3__["default"],
+    BookingInfo: _partials_BookInfo__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   data: function data() {
     return {
@@ -2619,6 +2646,28 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {};
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/booking/partials/BookInfo.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/booking/partials/BookInfo.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "book-info",
+  props: ['hour', 'courtName']
 });
 
 /***/ }),
@@ -56446,7 +56495,7 @@ var render = function() {
                   "div",
                   {
                     staticClass:
-                      "d-none align-items-center justify-content-between d-sm-block"
+                      "d-flex align-items-center justify-content-between"
                   },
                   [
                     _vm.booked.start_time || _vm.booked.end_time
@@ -56500,7 +56549,7 @@ var render = function() {
                               "div",
                               {
                                 staticClass:
-                                  "d-none align-items-center justify-content-between d-sm-block"
+                                  "d-flex align-items-center justify-content-between"
                               },
                               [
                                 _c(
@@ -56534,7 +56583,7 @@ var render = function() {
                           "span",
                           {
                             staticClass:
-                              "kt-badge kt-badge--warning kt-badge--inline col justify-content-center align-items-center"
+                              "kt-badge kt-badge--warning kt-badge--inline w-100"
                           },
                           [
                             _vm._v(
@@ -56578,9 +56627,15 @@ var render = function() {
     "sweet-modal",
     { ref: "modal", attrs: { "overlay-theme": "dark" } },
     [
+      _c("booking-info", {
+        attrs: { hour: _vm.hour, "court-name": _vm.court.name }
+      }),
+      _vm._v(" "),
       _c("sweet-modal-tab", { attrs: { title: "پرداخت", id: "tab-pay" } }, [
-        _vm.booked.is_paid && _vm.partTimeBooked && _vm.partTimeBooked.is_paid
-          ? _c("div", [_vm._v("\n            پرداخت شده است\n        ")])
+        _vm.isAlreadyPaid
+          ? _c("div", [
+              _c("h4", { staticClass: "text-success" }, [_vm._v("پرداخت شده")])
+            ])
           : _vm._e(),
         _vm._v(" "),
         _c("div", [
@@ -56668,7 +56723,7 @@ var render = function() {
                       _c("div", [
                         _vm._v(
                           "\n                            " +
-                            _vm._s(_vm.showBookedPayLabel) +
+                            _vm._s(_vm.showBookedCancelLabel) +
                             "\n                        "
                         )
                       ]),
@@ -56679,7 +56734,7 @@ var render = function() {
                           staticClass: "btn btn-danger btn-sm",
                           on: { click: _vm.cancel }
                         },
-                        [_vm._v("کنسل کنید")]
+                        [_vm._v("کنسل کن")]
                       )
                     ]
                   )
@@ -56701,7 +56756,7 @@ var render = function() {
                       _c("div", [
                         _vm._v(
                           "\n                            " +
-                            _vm._s(_vm.showPartTimeBookedPayLabel) +
+                            _vm._s(_vm.showPartTimeBookedCancelLabel) +
                             "\n                        "
                         )
                       ]),
@@ -56712,7 +56767,7 @@ var render = function() {
                           staticClass: "btn btn-danger btn-sm",
                           on: { click: _vm.cancelPartTimeBooked }
                         },
-                        [_vm._v("کنسل کنید")]
+                        [_vm._v("کنسل کن")]
                       )
                     ]
                   )
@@ -56720,13 +56775,7 @@ var render = function() {
               ])
             : _vm._e()
         ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "sweet-modal-tab",
-        { attrs: { title: "ویرایش", id: "tab-edit", disabled: "" } },
-        [_vm._v("Tab 3 is disabled")]
-      )
+      ])
     ],
     1
   )
@@ -56764,6 +56813,10 @@ var render = function() {
           on: { close: _vm.reset }
         },
         [
+          _c("booking-info", {
+            attrs: { hour: _vm.hour, "court-name": _vm.court.name }
+          }),
+          _vm._v(" "),
           _c(
             "sweet-modal-tab",
             { attrs: { title: "رزرو مهمان", id: "tab-guest" } },
@@ -56784,7 +56837,7 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "form-group text-left" }, [
                     _c("label", [_vm._v("نام رزرو کننده را وارد کنید")]),
                     _vm._v(" "),
                     _c("input", {
@@ -56847,7 +56900,7 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "form-group text-left" }, [
                     _c("label", [_vm._v("مربی مورد نظر را انتخاب کنید")]),
                     _vm._v(" "),
                     _c(
@@ -56911,7 +56964,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _vm.hasPartnerName
-                    ? _c("div", { staticClass: "form-group" }, [
+                    ? _c("div", { staticClass: "form-group text-left" }, [
                         _c("label", [_vm._v("نام شاگرد را وارد کنید")]),
                         _vm._v(" "),
                         _c("input", {
@@ -56972,11 +57025,13 @@ var render = function() {
                 [_vm._v("کنسل")]
               ),
               _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-success", on: { click: _vm.pay } },
-                [_vm._v("هزینه پرداخت شد")]
-              )
+              _vm.booked && !_vm.booked.is_paid
+                ? _c(
+                    "button",
+                    { staticClass: "btn btn-success", on: { click: _vm.pay } },
+                    [_vm._v("هزینه پرداخت شد")]
+                  )
+                : _vm._e()
             ]
           )
         ],
@@ -57032,6 +57087,38 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/booking/partials/BookInfo.vue?vue&type=template&id=7e1e7a7a&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/booking/partials/BookInfo.vue?vue&type=template&id=7e1e7a7a&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "alert alert-secondary", attrs: { role: "alert" } },
+    [
+      _c("div", { staticClass: "alert-text" }, [
+        _vm._v(_vm._s(_vm.courtName) + " برای ساعت " + _vm._s(_vm.hour))
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/booking/partials/PartTimeBookingAlert.vue?vue&type=template&id=89bdd4e2&scoped=true&":
 /*!****************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/booking/partials/PartTimeBookingAlert.vue?vue&type=template&id=89bdd4e2&scoped=true& ***!
@@ -57050,10 +57137,7 @@ var render = function() {
   return _vm.booked
     ? _c(
         "div",
-        {
-          staticClass: "alert alert-light alert-elevate",
-          attrs: { role: "alert" }
-        },
+        { staticClass: "alert alert-primary", attrs: { role: "alert" } },
         [
           _vm._m(0),
           _vm._v(" "),
@@ -57074,7 +57158,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "alert-icon" }, [
-      _c("i", { staticClass: "flaticon-warning kt-font-brand" })
+      _c("i", { staticClass: "flaticon-warning" })
     ])
   }
 ]
@@ -57122,7 +57206,7 @@ var render = function() {
               "div",
               { staticClass: "form-group" },
               [
-                _c("label", [_vm._v("ساعت شروع را وارد کنید")]),
+                _c("label", [_vm._v("ساعت شروع رزرو")]),
                 _vm._v(" "),
                 _c("vue-timepicker", {
                   attrs: {
@@ -57165,7 +57249,7 @@ var render = function() {
               "div",
               { staticClass: "form-group" },
               [
-                _c("label", [_vm._v("ساعت پایان را وارد کنید")]),
+                _c("label", [_vm._v("ساعت پایان رزرو")]),
                 _vm._v(" "),
                 _c("vue-timepicker", {
                   attrs: {
@@ -75906,6 +75990,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bookings_vue_vue_type_template_id_47bbca9b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bookings_vue_vue_type_template_id_47bbca9b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/booking/partials/BookInfo.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/booking/partials/BookInfo.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BookInfo_vue_vue_type_template_id_7e1e7a7a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BookInfo.vue?vue&type=template&id=7e1e7a7a&scoped=true& */ "./resources/js/components/booking/partials/BookInfo.vue?vue&type=template&id=7e1e7a7a&scoped=true&");
+/* harmony import */ var _BookInfo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BookInfo.vue?vue&type=script&lang=js& */ "./resources/js/components/booking/partials/BookInfo.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _BookInfo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BookInfo_vue_vue_type_template_id_7e1e7a7a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _BookInfo_vue_vue_type_template_id_7e1e7a7a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "7e1e7a7a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/booking/partials/BookInfo.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/booking/partials/BookInfo.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/booking/partials/BookInfo.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BookInfo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./BookInfo.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/booking/partials/BookInfo.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BookInfo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/booking/partials/BookInfo.vue?vue&type=template&id=7e1e7a7a&scoped=true&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/booking/partials/BookInfo.vue?vue&type=template&id=7e1e7a7a&scoped=true& ***!
+  \**********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BookInfo_vue_vue_type_template_id_7e1e7a7a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./BookInfo.vue?vue&type=template&id=7e1e7a7a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/booking/partials/BookInfo.vue?vue&type=template&id=7e1e7a7a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BookInfo_vue_vue_type_template_id_7e1e7a7a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BookInfo_vue_vue_type_template_id_7e1e7a7a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

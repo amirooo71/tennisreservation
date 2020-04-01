@@ -5,13 +5,15 @@
         <!--Book modal-->
         <sweet-modal ref="modal" overlay-theme="dark" @close="reset">
 
+            <booking-info :hour="hour" :court-name="court.name"></booking-info>
+
             <!--Book for guest tab-->
             <sweet-modal-tab title="رزرو مهمان" id="tab-guest">
 
                 <part-time-booking-alert :booked="booked" :empty-time="emptyTime"></part-time-booking-alert>
 
                 <form class="kt-form" @submit.prevent="onGuestBookSubmit">
-                    <div class="form-group">
+                    <div class="form-group text-left">
                         <label>نام رزرو کننده را وارد کنید</label>
                         <input type="text" class="form-control" v-model="renterName">
                     </div>
@@ -35,7 +37,7 @@
                 <part-time-booking-alert :booked="booked" :empty-time="emptyTime"></part-time-booking-alert>
 
                 <form class="kt-form" @submit.prevent="onCoachBookSubmit">
-                    <div class="form-group">
+                    <div class="form-group text-left">
                         <label>مربی مورد نظر را انتخاب کنید</label>
                         <select v-model="ownerId" class="form-control">
                             <option v-for="coach in coaches" :value="coach.id">{{coach.name}}</option>
@@ -57,7 +59,7 @@
                         </label>
                     </div>
 
-                    <div class="form-group" v-if="hasPartnerName">
+                    <div class="form-group text-left" v-if="hasPartnerName">
                         <label>نام شاگرد را وارد کنید</label>
                         <input v-model="partnerName" type="text" class="form-control">
                         <span class="form-text text-muted">در صورت تمایل می توانید نام شاگرد را وارد کنید</span>
@@ -75,7 +77,7 @@
                              :title="hasPartTimeManageTab ? 'مدیریت رزرو' : ''"
                              id="part-time-manage-tab">
                 <button class="btn btn-danger" @click="cancel">کنسل</button>
-                <button class="btn btn-success" @click="pay">هزینه پرداخت شد</button>
+                <button v-if="booked && !booked.is_paid" class="btn btn-success" @click="pay">هزینه پرداخت شد</button>
             </sweet-modal-tab>
 
         </sweet-modal>
@@ -89,6 +91,7 @@
     import {SweetModal, SweetModalTab} from 'sweet-modal-vue'
     import PartTimeBookingAlert from './partials/PartTimeBookingAlert';
     import PartTimeInputHours from './partials/PartTimeInputHours';
+    import BookingInfo from './partials/BookInfo';
 
     export default BaseComponent.extend({
 
@@ -98,7 +101,8 @@
             SweetModal,
             SweetModalTab,
             PartTimeBookingAlert,
-            PartTimeInputHours
+            PartTimeInputHours,
+            BookingInfo
         },
 
         data() {

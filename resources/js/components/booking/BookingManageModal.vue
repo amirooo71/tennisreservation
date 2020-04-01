@@ -3,10 +3,12 @@
     <sweet-modal ref="modal" overlay-theme="dark">
 
 
+        <booking-info :hour="hour" :court-name="court.name"></booking-info>
+
         <sweet-modal-tab title="پرداخت" id="tab-pay">
 
-            <div v-if="booked.is_paid && partTimeBooked && partTimeBooked.is_paid">
-                پرداخت شده است
+            <div v-if="isAlreadyPaid">
+                <h4 class="text-success">پرداخت شده</h4>
             </div>
             <div>
                 <div class="row" v-if="!booked.is_paid">
@@ -46,9 +48,9 @@
                         <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
                              role="alert">
                             <div>
-                                {{showBookedPayLabel}}
+                                {{showBookedCancelLabel}}
                             </div>
-                            <button class="btn btn-danger btn-sm" @click="cancel">کنسل کنید</button>
+                            <button class="btn btn-danger btn-sm" @click="cancel">کنسل کن</button>
                         </div>
                     </div>
                 </div>
@@ -58,19 +60,15 @@
                         <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
                              role="alert">
                             <div>
-                                {{showPartTimeBookedPayLabel}}
+                                {{showPartTimeBookedCancelLabel}}
                             </div>
-                            <button class="btn btn-danger btn-sm" @click="cancelPartTimeBooked">کنسل کنید</button>
+                            <button class="btn btn-danger btn-sm" @click="cancelPartTimeBooked">کنسل کن</button>
                         </div>
                     </div>
                 </div>
             </div>
 
         </sweet-modal-tab>
-
-
-        <sweet-modal-tab title="ویرایش" id="tab-edit" disabled>Tab 3 is disabled</sweet-modal-tab>
-
 
     </sweet-modal>
     <!--/Manage book modal-->
@@ -79,13 +77,14 @@
 <script>
 
     import BaseComponent from './BaseComponent';
-    import {SweetModal, SweetModalTab} from 'sweet-modal-vue'
+    import {SweetModal, SweetModalTab} from 'sweet-modal-vue';
+    import BookingInfo from './partials/BookInfo';
 
     export default BaseComponent.extend({
 
         name: "booking-manage-modal",
 
-        components: {SweetModal, SweetModalTab},
+        components: {SweetModal, SweetModalTab, BookingInfo},
 
         data() {
             return {
@@ -105,7 +104,7 @@
                 this.date = data.date;
                 this.booked = data.booked;
                 this.partTimeBooked = data.partTimeBooked;
-                this.$refs.modal.open();
+                this.$refs.modal.open('tab-pay');
             });
 
         },
@@ -114,7 +113,7 @@
 
             cancelPartTimeBooked() {
                 axios.delete(`/admin/bookings/${this.partTimeBooked.id}/part-time/cancel`).then(res => {
-                    Events.$emit(`on-success-part-time-booked-cancel-court-${this.court.id}-at-${this.hour}`,{partTimeBooked: res.data.partTimeBooked});
+                    Events.$emit(`on-success-part-time-booked-cancel-court-${this.court.id}-at-${this.hour}`, {partTimeBooked: res.data.partTimeBooked});
                     this.$refs.modal.close();
                     toastr.success(res.data.msg);
                 }).catch(err => toastr.warning('خطایی رخ داده'));
@@ -122,7 +121,7 @@
 
             payPartTimeBooked() {
                 axios.patch(`/admin/bookings/${this.partTimeBooked.id}/part-time/pay`).then(res => {
-                    Events.$emit(`on-success-part-time-booked-paid-court-${this.court.id}-at-${this.hour}`,{partTimeBooked: res.data.partTimeBooked});
+                    Events.$emit(`on-success-part-time-booked-paid-court-${this.court.id}-at-${this.hour}`, {partTimeBooked: res.data.partTimeBooked});
                     this.$refs.modal.close();
                     toastr.success(res.data.msg);
                 }).catch(err => toastr.warning('خطایی رخ داده'));
@@ -134,12 +133,43 @@
 
             showBookedPayLabel: function () {
 
-                return `مبلغ ${this.court.price} از ${this.booked.renter_name} دریافت شد.`;
+                return `${this.booked.renter_name} مبلغ ${this.court.price} تومان بدهکار است`;
+
             },
 
             showPartTimeBookedPayLabel: function () {
-                return `مبلغ ${this.court.price} از ${this.partTimeBooked.renter_name} دریافت شد.`;
+                return `${this.partTimeBooked.renter_name} مبلغ ${this.court.price} تومان بدهکار است`;
             },
+
+
+            showBookedCancelLabel: function () {
+
+                return `آیا می خواهید رزرو را برای ${this.booked.renter_name} کنسل کنید؟`;
+
+            },
+
+            showPartTimeBookedCancelLabel: function () {
+                return `آیا می خواهید رزرو را برای ${this.partTimeBooked.renter_name} کنسل کنید؟`;
+            },
+
+            isAlreadyPaid() {
+                
+                if (this.partTimeBooked && this.partTimeBooked.is_paid && this.booked.is_paid) {
+
+                    return true;
+                }
+
+                if (this.partTimeBooked && !this.partTimeBooked.is_paid && this.booked.is_paid) {
+
+                    return false;
+                }
+
+                if (this.booked.is_paid) {
+                    return true;
+                }
+
+                return false;
+            }
 
         },
 

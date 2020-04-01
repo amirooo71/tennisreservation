@@ -6,7 +6,7 @@
 
             <div :class="['col d-flex align-items-center' ,booked.start_time ? 'border-left order-2' : 'order-1',!booked.is_part_time ? 'justify-content-center' : 'justify-content-between']">
                 <span>{{showBookedRenterLabel}}</span>
-                <div class="d-none align-items-center justify-content-between d-sm-block">
+                <div class="d-flex align-items-center justify-content-between">
                     <span v-if="booked.start_time || booked.end_time"
                           class="kt-badge kt-badge--light kt-badge--inline">
                          {{showPartTimeBookedTimeLabel}}
@@ -19,14 +19,14 @@
                  v-if="booked.is_part_time">
                 <div v-if="partTimeBooked" class="col d-flex justify-content-between align-items-center">
                     <span>{{showPartTimeBookedRenterLabel}}</span>
-                    <div class="d-none align-items-center justify-content-between d-sm-block">
+                    <div class="d-flex align-items-center justify-content-between">
                         <span class="kt-badge kt-badge--light kt-badge--inline">
                             {{showStartingTimePartTimeBooked}}
                         </span>
                         <i v-if="partTimeBooked.is_paid" class="fas fa-coins text-light ml-1"></i>
                     </div>
                 </div>
-                <span class="kt-badge kt-badge--warning kt-badge--inline col justify-content-center align-items-center"
+                <span class="kt-badge kt-badge--warning kt-badge--inline w-100"
                       v-else>
                     {{showGapedTimeLabel}}
                 </span>
