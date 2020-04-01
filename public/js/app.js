@@ -1941,6 +1941,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
   props: ['court', 'hour', 'date'],
@@ -56423,77 +56430,122 @@ var render = function() {
         ? _c("div", { staticClass: "row" }, [
             _c(
               "div",
-              { class: [_vm.booked.is_part_time ? "col border-right" : "col"] },
+              {
+                class: [
+                  "col d-flex align-items-center",
+                  _vm.booked.start_time ? "border-left order-2" : "order-1",
+                  !_vm.booked.is_part_time
+                    ? "justify-content-center"
+                    : "justify-content-between"
+                ]
+              },
               [
                 _c("span", [_vm._v(_vm._s(_vm.showBookedRenterLabel))]),
                 _vm._v(" "),
-                _vm.booked.start_time || _vm.booked.end_time
-                  ? _c(
-                      "span",
-                      {
-                        staticClass:
-                          "kt-badge kt-badge--warning kt-badge--inline"
-                      },
-                      [
-                        _vm._v(
-                          "\n                 " +
-                            _vm._s(_vm.showPartTimeBookedTimeLabel) +
-                            "\n            "
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-none align-items-center justify-content-between d-sm-block"
+                  },
+                  [
+                    _vm.booked.start_time || _vm.booked.end_time
+                      ? _c(
+                          "span",
+                          {
+                            staticClass:
+                              "kt-badge kt-badge--light kt-badge--inline"
+                          },
+                          [
+                            _vm._v(
+                              "\n                     " +
+                                _vm._s(_vm.showPartTimeBookedTimeLabel) +
+                                "\n                "
+                            )
+                          ]
                         )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.booked.is_part_time && _vm.booked.is_paid
-                  ? _c("i", { staticClass: "fas fa-coins text-warning" })
-                  : _vm._e()
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.booked.is_part_time && _vm.booked.is_paid
+                      ? _c("i", { staticClass: "fas fa-coins text-light ml-1" })
+                      : _vm._e()
+                  ]
+                )
               ]
             ),
             _vm._v(" "),
             _vm.booked.is_part_time
-              ? _c("div", { staticClass: "col border-left" }, [
-                  _vm.partTimeBooked
-                    ? _c("div", [
-                        _c("span", [
-                          _vm._v(_vm._s(_vm.showPartTimeBookedRenterLabel))
-                        ]),
-                        _vm._v(" "),
-                        _c(
+              ? _c(
+                  "div",
+                  {
+                    class: [
+                      "col d-flex justify-content-between align-items-center",
+                      _vm.booked.end_time ? "border-left order-2" : "order-1"
+                    ]
+                  },
+                  [
+                    _vm.partTimeBooked
+                      ? _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col d-flex justify-content-between align-items-center"
+                          },
+                          [
+                            _c("span", [
+                              _vm._v(_vm._s(_vm.showPartTimeBookedRenterLabel))
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "d-none align-items-center justify-content-between d-sm-block"
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "kt-badge kt-badge--light kt-badge--inline"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(
+                                          _vm.showStartingTimePartTimeBooked
+                                        ) +
+                                        "\n                    "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _vm.partTimeBooked.is_paid
+                                  ? _c("i", {
+                                      staticClass:
+                                        "fas fa-coins text-light ml-1"
+                                    })
+                                  : _vm._e()
+                              ]
+                            )
+                          ]
+                        )
+                      : _c(
                           "span",
                           {
                             staticClass:
-                              "kt-badge kt-badge--warning kt-badge--inline"
+                              "kt-badge kt-badge--warning kt-badge--inline col justify-content-center align-items-center"
                           },
                           [
                             _vm._v(
-                              "\n                    " +
-                                _vm._s(_vm.showStartingTimePartTimeBooked) +
-                                "\n                "
+                              "\n                " +
+                                _vm._s(_vm.showGapedTimeLabel) +
+                                "\n            "
                             )
                           ]
-                        ),
-                        _vm._v(" "),
-                        _vm.partTimeBooked.is_paid
-                          ? _c("i", {
-                              staticClass: "fas fa-coins text-warning"
-                            })
-                          : _vm._e()
-                      ])
-                    : _c(
-                        "span",
-                        {
-                          staticClass:
-                            "kt-badge kt-badge--warning kt-badge--inline"
-                        },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(_vm.showGapedTimeLabel) +
-                              "\n            "
-                          )
-                        ]
-                      )
-                ])
+                        )
+                  ]
+                )
               : _vm._e()
           ])
         : _vm._e()

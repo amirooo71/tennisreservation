@@ -4,23 +4,30 @@
 
         <div class="row" v-if="booked">
 
-            <div :class="[booked.is_part_time ? 'col border-right' : 'col']">
+            <div :class="['col d-flex align-items-center' ,booked.start_time ? 'border-left order-2' : 'order-1',!booked.is_part_time ? 'justify-content-center' : 'justify-content-between']">
                 <span>{{showBookedRenterLabel}}</span>
-                <span v-if="booked.start_time || booked.end_time" class="kt-badge kt-badge--warning kt-badge--inline">
-                     {{showPartTimeBookedTimeLabel}}
-                </span>
-                <i v-if="booked.is_part_time && booked.is_paid" class="fas fa-coins text-warning"></i>
+                <div class="d-none align-items-center justify-content-between d-sm-block">
+                    <span v-if="booked.start_time || booked.end_time"
+                          class="kt-badge kt-badge--light kt-badge--inline">
+                         {{showPartTimeBookedTimeLabel}}
+                    </span>
+                    <i v-if="booked.is_part_time && booked.is_paid" class="fas fa-coins text-light ml-1"></i>
+                </div>
             </div>
 
-            <div class="col border-left" v-if="booked.is_part_time">
-                <div v-if="partTimeBooked">
+            <div :class="['col d-flex justify-content-between align-items-center',booked.end_time ? 'border-left order-2' : 'order-1']"
+                 v-if="booked.is_part_time">
+                <div v-if="partTimeBooked" class="col d-flex justify-content-between align-items-center">
                     <span>{{showPartTimeBookedRenterLabel}}</span>
-                    <span class="kt-badge kt-badge--warning kt-badge--inline">
-                        {{showStartingTimePartTimeBooked}}
-                    </span>
-                    <i v-if="partTimeBooked.is_paid" class="fas fa-coins text-warning"></i>
+                    <div class="d-none align-items-center justify-content-between d-sm-block">
+                        <span class="kt-badge kt-badge--light kt-badge--inline">
+                            {{showStartingTimePartTimeBooked}}
+                        </span>
+                        <i v-if="partTimeBooked.is_paid" class="fas fa-coins text-light ml-1"></i>
+                    </div>
                 </div>
-                <span class="kt-badge kt-badge--warning kt-badge--inline" v-else>
+                <span class="kt-badge kt-badge--warning kt-badge--inline col justify-content-center align-items-center"
+                      v-else>
                     {{showGapedTimeLabel}}
                 </span>
             </div>
@@ -287,7 +294,7 @@
             },
 
             partTimeBooked: function () {
-                
+
                 /*
                  * Full paid --> bg-success
                  */
