@@ -24,6 +24,7 @@ window.Events = new Vue();
 Vue.component('bookings', require('./components/booking/Bookings.vue').default);
 Vue.component('bookingModal', require('./components/booking/BookingModal').default);
 Vue.component('bookingManageModal', require('./components/booking/BookingManageModal').default);
+Vue.component('bookingLinkTo', require('./components/booking/BookingLinkTo').default);
 
 
 /**

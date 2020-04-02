@@ -11,7 +11,10 @@
             dynamically resize the viewport based on the browser window height.
         </div>
     </div>
-    <div class="kt-portlet kt-portlet--mobile">
+
+    <booking-link-to></booking-link-to>
+
+    <div class="kt-portlet kt-portlet--mobile" id="amir">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
 										<span class="kt-portlet__head-icon">
@@ -74,7 +77,7 @@
         </div>
         <div class="kt-portlet__body">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover" id="booking-table">
                     <thead>
                     <tr class="d-flex">
                         <th scope="col" class="text-center" style="padding-right: 12.5px;">ساعت</th>

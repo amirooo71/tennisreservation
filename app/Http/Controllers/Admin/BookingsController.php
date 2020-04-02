@@ -19,21 +19,7 @@ class BookingsController extends Controller {
 
 		$club = auth()->user()->club();
 
-		$diffHours = Carbon::parse( $club->opening_time )->diffInHours( $club->closing_time );
-
-		$startHour = Carbon::parse( $club->opening_time )->format( 'H:i' );
-
-		$clubOpeningHours = [ $startHour ];
-
-		for ( $i = 0; $i < $diffHours; $i ++ ) {
-
-			$updatedTime = Carbon::parse( $startHour )->addHour()->format( 'H:i' );
-
-			$clubOpeningHours[] = $updatedTime;
-
-			$startHour = $updatedTime;
-
-		}
+		$clubOpeningHours = $this->getOpeningHours( $club );
 
 		return view( 'admin.bookings.index', compact( 'club', 'clubOpeningHours' ) );
 	}
@@ -116,4 +102,40 @@ class BookingsController extends Controller {
 
 		return response()->json( [ 'msg' => 'هزینه با موفقیت دریافت شد', 'booked' => $booking ] );
 	}
+
+	/**
+	 * @param $club
+	 *
+	 * @return array
+	 */
+	private function getOpeningHours( $club ): array {
+
+		$diffHours = Carbon::parse( $club->opening_time )->diffInHours( $club->closing_time );
+
+		$startHour = Carbon::parse( $club->opening_time )->format( 'H:i' );
+
+		$clubOpeningHours = [ $startHour ];
+
+		for ( $i = 0; $i < $diffHours; $i ++ ) {
+
+			$updatedTime = Carbon::parse( $startHour )->addHour()->format( 'H:i' );
+
+			$clubOpeningHours[] = $updatedTime;
+
+			$startHour = $updatedTime;
+
+		}
+
+		return $clubOpeningHours;
+	}
+
+	public function getHours() {
+
+		$club = auth()->user()->club();
+
+		$data = $this->getOpeningHours( $club );
+
+		return $data;
+	}
+
 }

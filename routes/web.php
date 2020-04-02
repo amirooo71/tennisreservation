@@ -50,4 +50,8 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::delete( 'bookings/{partTimeBooking}/part-time/cancel', 'Admin\PartTimeBookingsController@cancel' )->name( 'admin.bookings.part_time.cancel' );
 
 
+
+
+	Route::get( 'hours', 'Admin\BookingsController@getHours' );
+	Route::get( 'courts', 'Admin\CourtsController@courts' );
 } );

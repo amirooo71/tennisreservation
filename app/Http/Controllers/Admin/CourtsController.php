@@ -91,6 +91,10 @@ class CourtsController extends Controller {
 		return redirect()->route( 'admin.courts.index', compact( 'club' ) );
 	}
 
+	public function courts(){
+		return auth()->user()->club()->courts->pluck('name','id');
+	}
+
 	/**
 	 * @return array
 	 */

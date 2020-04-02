@@ -145,9 +145,6 @@
 </script>
 
 
-<!-- end::Global Config -->
-
-
 <!--begin::Global Theme Bundle(used by all pages) -->
 <script src="{{asset('assets/plugins/global/plugins.bundle.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/js/scripts.bundle.js')}}" type="text/javascript"></script>
