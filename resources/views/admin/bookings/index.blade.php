@@ -76,16 +76,16 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
-                    <tr>
-                        <th scope="col" class="text-center">ساعت</th>
+                    <tr class="d-flex">
+                        <th scope="col" class="text-center" style="padding-right: 12.5px;">ساعت</th>
                         @foreach($club->courts as $court)
-                            <th scope="col" class="text-center">{{$court->name}}</th>
+                            <th scope="col" class="text-center col-1">{{$court->name}}</th>
                         @endforeach
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($clubOpeningHours as $hour)
-                        <tr is="bookings" :courts="{{$club->courts}}" :hour="{{json_encode($hour)}}"
+                        <tr class="d-flex" is="bookings" :courts="{{$club->courts}}" :hour="{{json_encode($hour)}}"
                             :date="{{json_encode(\Carbon\Carbon::now()->toDateString())}}"></tr>
                     @endforeach
                     </tbody>

@@ -1,37 +1,37 @@
 <template>
 
-    <td :class="[defaultClass,dynamicClass]" v-on="{ click: shouldCallBookMethod()  ? onBookClick : onManageClick }">
+    <td :id="court.id + '-' + hour" :class="['col-1',defaultClass,dynamicClass]"
+        v-on="{ click: shouldCallBookMethod()  ? onBookClick : onManageClick }">
 
-        <div class="row" v-if="booked">
+        <div class="row d-flex align-items-center" v-if="booked">
 
-            <div :class="['col d-flex align-items-center' ,booked.start_time ? 'border-left order-2' : 'order-1',!booked.is_part_time ? 'justify-content-center' : 'justify-content-between']">
-                <span>{{showBookedRenterLabel}}</span>
-                <div class="d-flex align-items-center justify-content-between">
-                    <span v-if="booked.start_time || booked.end_time"
-                          class="kt-badge kt-badge--light kt-badge--inline">
-                         {{showPartTimeBookedTimeLabel}}
-                    </span>
-                    <i v-if="booked.is_part_time && booked.is_paid" class="fas fa-coins text-light ml-1"></i>
+            <div :class="['col d-flex flex-column',booked.start_time ? 'order-2' : 'order-1']">
+                <span>{{booked.renter_name}}</span>
+                <div class="d-flex justify-content-center">
+                    <i v-if="booked.partner_name" class="fa fa-user-friends p-1"
+                       v-tooltip="booked.partner_name"></i>
+                    <i v-if="booked.start_time || booked.end_time" class="fa fa-clock p-1"
+                       v-tooltip="showPartTimeBookedTimeLabel"></i>
+                    <i v-if="booked.is_part_time && booked.is_paid" class="fas fa-coins text-light p-1"
+                       v-tooltip="'پرداخت شده'"></i>
                 </div>
             </div>
 
-            <div :class="['col d-flex justify-content-between align-items-center',booked.end_time ? 'border-left order-2' : 'order-1']"
-                 v-if="booked.is_part_time">
-                <div v-if="partTimeBooked" class="col d-flex justify-content-between align-items-center">
-                    <span>{{showPartTimeBookedRenterLabel}}</span>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <span class="kt-badge kt-badge--light kt-badge--inline">
-                            {{showStartingTimePartTimeBooked}}
-                        </span>
-                        <i v-if="partTimeBooked.is_paid" class="fas fa-coins text-light ml-1"></i>
+            <div :class="['col',booked.end_time ? 'order-2' : 'order-1']" v-if="booked.is_part_time">
+                <div v-if="partTimeBooked" class="d-flex flex-column">
+                    <span>{{partTimeBooked.renter_name}}</span>
+                    <div class="d-flex justify-content-center">
+                        <i v-if="partTimeBooked.partner_name" class="fa fa-user-friends p-1"
+                           v-tooltip="partTimeBooked.partner_name"></i>
+                        <i class="fa fa-clock p-1" v-tooltip="showStartingTimePartTimeBooked"></i>
+                        <i v-if="partTimeBooked.is_paid" class="fas fa-coins text-light p-1"
+                           v-tooltip="'پرداخت شده'"></i>
                     </div>
                 </div>
-                <span class="kt-badge kt-badge--warning kt-badge--inline w-100"
-                      v-else>
+                <span class="kt-badge kt-badge--warning kt-badge--inline" v-else>
                     {{showGapedTimeLabel}}
                 </span>
             </div>
-
         </div>
 
     </td>
@@ -41,17 +41,24 @@
 <script>
 
 
+    import VTooltip from 'v-tooltip';
+
+
     export default {
 
         name: "book",
 
         props: ['court', 'hour', 'date'],
 
+        components: {
+            VTooltip
+        },
+
 
         data() {
 
             return {
-                defaultClass: 'text-center td-book',
+                defaultClass: 'text-center td-book align-middle',
                 dynamicClass: '',
                 booked: null,
                 partTimeBooked: null,
@@ -191,23 +198,23 @@
 
         computed: {
 
-            showBookedRenterLabel: function () {
+            showPartnerName: function () {
 
                 if (this.booked.partner_name) {
-                    return `${this.booked.renter_name} - ${this.booked.partner_name}`;
+                    return `<span>${this.booked.renter_name}</span><span>-</span><span>${this.booked.partner_name}</span>`;
                 }
 
-                return this.booked.renter_name;
+                return `<span>${this.booked.renter_name}</span>`;
 
             },
 
             showPartTimeBookedRenterLabel: function () {
 
                 if (this.partTimeBooked.partner_name) {
-                    return `${this.partTimeBooked.renter_name} - ${this.partTimeBooked.partner_name}`;
+                    return `<span>${this.partTimeBooked.renter_name}</span><span>-</span><span>${this.partTimeBooked.partner_name}</span>`;
                 }
 
-                return this.partTimeBooked.renter_name;
+                return `<span>${this.partTimeBooked.renter_name}</span>`;
 
             },
 
@@ -220,10 +227,26 @@
                     return `${this.formatTime(this.booked.start_time)} تا ${finishTime}`;
 
                 } else {
-                    return `${this.hour} تا ${this.formatTime(this.booked.end_time)}`;
+                    return `${this.hour} تا ${this.formatTime(this.booked.end_time)} `;
                 }
 
             },
+
+
+            showStartingTimePartTimeBooked() {
+
+                if (this.booked.start_time) {
+
+                    return `${this.formatTime(this.partTimeBooked.remain_time)} تا ${this.formatTime(this.booked.start_time)}`;
+                } else {
+
+                    let finishTime = moment(this.hour, "HH:mm:ss").add(1, 'hours').format("HH:mm");
+                    return `${this.formatTime(this.partTimeBooked.remain_time)} تا ${finishTime}`;
+
+                }
+
+            },
+
 
             showGapedTimeLabel() {
 
@@ -250,19 +273,6 @@
                 }
 
             },
-
-            showStartingTimePartTimeBooked() {
-
-                if (this.booked.start_time) {
-
-                    return `${this.formatTime(this.partTimeBooked.remain_time)} تا ${this.formatTime(this.booked.start_time)}`;
-                } else {
-                    let finishTime = moment(this.hour, "HH:mm:ss").add(1, 'hours').format("HH:mm");
-                    return `${this.formatTime(this.partTimeBooked.remain_time)} تا ${finishTime}`;
-                }
-
-            }
-
 
         },
 

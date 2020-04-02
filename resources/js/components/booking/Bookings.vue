@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <th scope="col" class="text-center">{{hour}}</th>
+        <th scope="col" class="text-center d-flex align-items-center justify-content-center">{{hour}}</th>
         <booking v-for="court in courts" :court="court" :hour="hour" :date="date" :key="court.id"></booking>
     </tr>
 </template>
