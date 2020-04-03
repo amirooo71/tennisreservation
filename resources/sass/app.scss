@@ -10,7 +10,7 @@
 @import "~toastr";
 @import '~vue2-timepicker/dist/VueTimepicker.css';
 
-.display-time{
+.display-time {
   direction: ltr;
 }
 
@@ -129,8 +129,29 @@
 
 }
 
-//@tailwind base;
-//
-//@tailwind components;
-//
-//@tailwind utilities;
+.col-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  background-color: white;
+}
+
+.col-sticky-top {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: white;
+}
+
+.row.no-gutter {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.row.no-gutter [class*='col-']:not(:first-child),
+.row.no-gutter [class*='col-']:not(:last-child) {
+  padding-right: 0;
+  padding-left: 0;
+}

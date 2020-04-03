@@ -14,7 +14,7 @@
 
     <booking-link-to></booking-link-to>
 
-    <div class="kt-portlet kt-portlet--mobile" id="amir">
+    <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
 										<span class="kt-portlet__head-icon">
@@ -76,29 +76,32 @@
             </div>
         </div>
         <div class="kt-portlet__body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="booking-table">
-                    <thead>
-                    <tr class="d-flex">
-                        <th scope="col" class="text-center" style="padding-right: 12.5px;">ساعت</th>
-                        @foreach($club->courts as $court)
-                            <th scope="col" class="text-center col-1">{{$court->name}}</th>
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" id="datatbl">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="text-center col-sticky" style="padding-right: 12.5px;">ساعت</th>
+                            @foreach($club->courts as $court)
+                                <th scope="col" class="text-center">{{$court->name}}</th>
+                            @endforeach
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($clubOpeningHours as $hour)
+                            <tr class="" is="bookings" :courts="{{$club->courts}}"
+                                :hour="{{json_encode($hour)}}"
+                                :date="{{json_encode(\Carbon\Carbon::now()->toDateString())}}"></tr>
                         @endforeach
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($clubOpeningHours as $hour)
-                        <tr class="d-flex" is="bookings" :courts="{{$club->courts}}" :hour="{{json_encode($hour)}}"
-                            :date="{{json_encode(\Carbon\Carbon::now()->toDateString())}}"></tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         </div>
     </div>
 
     <booking-modal></booking-modal>
     <booking-manage-modal></booking-manage-modal>
-
 
 @endsection

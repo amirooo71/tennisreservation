@@ -21,7 +21,7 @@ class BookingsController extends Controller {
 
 		$clubOpeningHours = $this->getOpeningHours( $club );
 
-		return view( 'admin.bookings.index', compact( 'club', 'clubOpeningHours' ) );
+		return view( 'admin.bookings.index_fullpage', compact( 'club', 'clubOpeningHours' ) );
 	}
 
 	/**

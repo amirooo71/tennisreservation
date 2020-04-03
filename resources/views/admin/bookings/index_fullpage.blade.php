@@ -45,6 +45,9 @@
     <!--end::Layout Skins -->
     <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}"/>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.min.js"></script>
+
     <!-- Scripts -->
 
     <!-- Styles -->
@@ -52,66 +55,39 @@
 
 </head>
 
-<!-- end::Head -->
-
-<!-- begin::Body -->
-<body class="kt-page--loading-enabled kt-page--loading kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--fixed kt-page--loading">
-
-@include('partials._page-loader')
-
-<!-- begin:: Page -->
-
-@include('partials.header._base-mobile')
+<body>
 
 <div id="app">
-
-    <div class="kt-grid kt-grid--hor kt-grid--root">
-
-        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
-
-            @include('partials.aside._base')
-
-            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
-
-                @include('partials.header._base')
-
-                <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
-
-                    <!-- begin:: Content -->
-                    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-
-                        @include('components.flash')
-
-                        @yield('content')
-
-                    </div>
-
+    <test>
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__body">
+                <div class="w-100">
+                    <table class="table table-bordered table-hover" id="datatbl">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="text-center col-sticky" style="padding-right: 12.5px;">ساعت</th>
+                            @foreach($club->courts as $court)
+                                <th scope="col" class="text-center">{{$court->name}}</th>
+                            @endforeach
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($clubOpeningHours as $hour)
+                            <tr class="" is="bookings" :courts="{{$club->courts}}"
+                                :hour="{{json_encode($hour)}}"
+                                :date="{{json_encode(\Carbon\Carbon::now()->toDateString())}}"></tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
-
-                @include('partials._footer')
-
             </div>
-
         </div>
+    </test>
 
-    </div>
+    <booking-modal></booking-modal>
+    <booking-manage-modal></booking-manage-modal>
 
 </div>
-<!-- end:: Page -->
-
-@include('partials.topbar.offcanvas._search')
-
-@include('partials.topbar.offcanvas._notifications')
-
-@include('partials._quick-panel')
-
-@include('partials._scrolltop')
-
-@include('partials._toolbar')
-
-@include('partials._demo-panel')
-
-@include('partials._chat')
 
 <!-- begin::Global Config(global config for global JS sciprts) -->
 <script>
@@ -168,16 +144,18 @@
 <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
 
 
+<script src="{{asset('assets/js/syncscroll.js')}}"></script>
+
 <script src="{{ asset('js/app.js') }}"></script>
 
 
 <script>
     $(document).ready(function () {
         $('#datatbl').DataTable({
-            "scrollX": true,
+            scrollX: true,
             paginate: false,
-            scrollY: "600px",
-            "scrollCollapse": true,
+            scrollY: window.innerHeight - 250 + "px",
+            scrollCollapse: true,
         });
     });
 </script>

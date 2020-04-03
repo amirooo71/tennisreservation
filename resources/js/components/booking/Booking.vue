@@ -1,6 +1,6 @@
 <template>
 
-    <td :id="linkToID" :class="['col-1',defaultClass,dynamicClass]"
+    <td :id="linkToID" :class="['',defaultClass,dynamicClass]"
         v-on="{ click: shouldCallBookMethod()  ? onBookClick : onManageClick }">
 
         <div class="row d-flex align-items-center" v-if="booked">
