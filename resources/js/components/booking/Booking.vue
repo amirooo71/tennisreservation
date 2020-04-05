@@ -3,7 +3,7 @@
     <td :class="[defaultClass,dynamicClass]"
         v-on="{ click: shouldCallBookMethod()  ? onBookClick : onManageClick }">
 
-        <div class="row d-flex align-items-center" v-if="booked">
+        <div class="row d-flex align-items-center" v-if="booked" style="min-width: 300px;">
 
             <div :class="['col d-flex flex-column',booked.start_time ? 'order-2' : 'order-1']">
                 <span>{{booked.renter_name}}</span>
@@ -19,7 +19,7 @@
 
             <div :class="['col',booked.end_time ? 'order-2' : 'order-1']" v-if="booked.is_part_time">
                 <div v-if="partTimeBooked" class="d-flex flex-column">
-                    <span>{{partTimeBooked.renter_name}}</span>
+                    <div>{{partTimeBooked.renter_name}}</div>
                     <div class="d-flex justify-content-center">
                         <i v-if="partTimeBooked.partner_name" class="fa fa-user-friends p-1"
                            v-tooltip="partTimeBooked.partner_name"></i>
@@ -283,7 +283,7 @@
             booked: function () {
 
                 if (!this.booked) {
-                    return this.dynamicClass = 'bg-danger text-white animated zoomOut';
+                    return this.dynamicClass = '';
                 }
 
                 if (!this.booked.is_paid) {

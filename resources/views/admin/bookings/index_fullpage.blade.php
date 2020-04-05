@@ -60,7 +60,6 @@
 <div id="app">
     <test>
         <div class="kt-portlet kt-portlet--mobile h-100">
-            <button id="test">click</button>
             <div class="kt-portlet__body">
                 <table class="table table-bordered table-hover" id="datatbl">
                     <thead>
@@ -160,8 +159,6 @@
 
     });
 
-    document.getElementById('test').addEventListener('click', function () {
-    })
 </script>
 
 
