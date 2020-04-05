@@ -13,7 +13,7 @@
 
         name: "bookings",
 
-        props: ['courts','hour','date'],
+        props: ['courts', 'hour', 'date'],
 
         components: {Booking},
 
