@@ -122,7 +122,6 @@
                 isPartTime: '',
                 remainPartTime: '',
                 hasPartTimeManageTab: false,
-                hasPartTime: false,
                 hasPartnerName: false,
                 url: '/admin/bookings',
             }
@@ -209,7 +208,6 @@
 
             reset() {
                 this.renterName = '';
-                this.hasPartTime = false;
                 this.startTime = '';
                 this.endTime = '';
                 this.hasPartnerName = false;

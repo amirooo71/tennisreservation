@@ -1,6 +1,7 @@
 window._ = require('lodash');
 window.Swal = require('sweetalert2');
 window.moment = require('moment');
+window.jmoment = require('moment-jalaali');
 window.toastr = require('toastr');
 toastr.options.rtl = true;
 toastr.options.positionClass = "toast-bottom-center";

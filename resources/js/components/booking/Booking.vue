@@ -19,7 +19,7 @@
 
             <div :class="['col',booked.end_time ? 'order-2' : 'order-1']" v-if="booked.is_part_time">
                 <div v-if="partTimeBooked" class="d-flex flex-column">
-                    <div>{{partTimeBooked.renter_name}}</div>
+                    <span>{{partTimeBooked.renter_name}}</span>
                     <div class="d-flex justify-content-center">
                         <i v-if="partTimeBooked.partner_name" class="fa fa-user-friends p-1"
                            v-tooltip="partTimeBooked.partner_name"></i>
@@ -75,6 +75,8 @@
 
             Events.$on(`on-success-booking-court-${this.court.id}-at-${this.hour}`, (data) => {
                 this.booked = data.booked;
+
+
             });
 
 

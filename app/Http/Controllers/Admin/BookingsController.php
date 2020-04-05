@@ -71,8 +71,8 @@ class BookingsController extends Controller {
 				'start_time'   => $booking->end_time ? $booking->end_time : null,
 				'end_time'     => $booking->start_time ? $booking->start_time : null,
 				'owner_id'     => $booking->partTime->owner_id,
-				'partner_name' => $booking->partner_name,
-				'is_paid'      => $booking->is_paid,
+				'partner_name' => $booking->partTime->partner_name,
+				'is_paid'      => $booking->partTime->is_paid,
 			] );
 
 			$booking->partTime->delete();
