@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b661653a723886fd8600f4456be4545",
+    "content-hash": "17f601fc692671f90bf8e107ee13a070",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -374,6 +374,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -420,6 +421,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -2991,6 +2993,55 @@
                 "dump"
             ],
             "time": "2020-02-24T13:10:00+00:00"
+        },
+        {
+            "name": "thepinecode/blade-filters",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thepinecode/blade-filters.git",
+                "reference": "761698b4089316953b0ea7fa5298997dacd8c86f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thepinecode/blade-filters/zipball/761698b4089316953b0ea7fa5298997dacd8c86f",
+                "reference": "761698b4089316953b0ea7fa5298997dacd8c86f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~4.5.0"
+            },
+            "type": "project",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Pine\\BladeFilters\\BladeFiltersServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pine\\BladeFilters\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gergő D. Nagy",
+                    "email": "hello@iamgergo.com"
+                }
+            ],
+            "description": "Use filters easily in your blade templates.",
+            "time": "2020-01-15T10:17:11+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

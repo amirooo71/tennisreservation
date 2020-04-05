@@ -90,6 +90,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/finder" />
       <path value="$PROJECT_DIR$/vendor/symfony/routing" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-flash" />
+      <path value="$PROJECT_DIR$/vendor/thepinecode/blade-filters" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

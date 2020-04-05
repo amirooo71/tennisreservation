@@ -1,107 +1,135 @@
-@extends('layouts.app_admin')
+<!DOCTYPE html>
+
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" direction="rtl" dir="rtl" style="direction: rtl">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    <meta name="description" content="Updates and statistics">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-@section('content')
+    <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}"/>
 
+    <link href="{{asset('assets/plugins/global/plugins.bundle.rtl.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('assets/css/style.bundle.rtl.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.rtl.css')}}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{{asset('assets/css/style.bundle.rtl.css')}}" rel="stylesheet" type="text/css"/>
 
-    <div class="alert alert-light alert-elevate" role="alert">
-        <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
-        <div class="alert-text">
-            This example shows a vertically scrolling DataTable that makes use of the CSS3 vh unit in order to
-            dynamically resize the viewport based on the browser window height.
-        </div>
-    </div>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
-    <booking-link-to></booking-link-to>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+</head>
+
+<body class="kt-page--loading-enabled kt-page--loading">
+
+@include('partials._page-loader')
+
+<div id="app" style="overflow: hidden;">
 
     <div class="kt-portlet kt-portlet--mobile">
-        <div class="kt-portlet__head kt-portlet__head--lg">
-            <div class="kt-portlet__head-label">
-										<span class="kt-portlet__head-icon">
-											<i class="kt-font-brand flaticon2-line-chart"></i>
-										</span>
-                <h3 class="kt-portlet__head-title">
-                    لیست زمین های رزرو شده در تاریخ <span
-                            class="kt-badge kt-badge--brand kt-badge--inline kt-badge--pill kt-badge--md kt-badge--rounded">{{\Carbon\Carbon::now()->toDateString()}}</span>
-                </h3>
-            </div>
-            <div class="kt-portlet__head-toolbar">
-                <div class="kt-portlet__head-wrapper">
-                    <div class="kt-portlet__head-actions">
-                        <div class="dropdown dropdown-inline">
-                            <button type="button" class="btn btn-default btn-icon-sm dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="la la-download"></i> Export
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <ul class="kt-nav">
-                                    <li class="kt-nav__section kt-nav__section--first">
-                                        <span class="kt-nav__section-text">Choose an option</span>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link">
-                                            <i class="kt-nav__link-icon la la-print"></i>
-                                            <span class="kt-nav__link-text">Print</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link">
-                                            <i class="kt-nav__link-icon la la-copy"></i>
-                                            <span class="kt-nav__link-text">Copy</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link">
-                                            <i class="kt-nav__link-icon la la-file-excel-o"></i>
-                                            <span class="kt-nav__link-text">Excel</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link">
-                                            <i class="kt-nav__link-icon la la-file-text-o"></i>
-                                            <span class="kt-nav__link-text">CSV</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link">
-                                            <i class="kt-nav__link-icon la la-file-pdf-o"></i>
-                                            <span class="kt-nav__link-text">PDF</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="kt-portlet__body">
-            <div class="row">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="datatbl">
-                        <thead>
-                        <tr>
-                            <th scope="col" class="text-center col-sticky" style="padding-right: 12.5px;">ساعت</th>
-                            @foreach($club->courts as $court)
-                                <th scope="col" class="text-center">{{$court->name}}</th>
-                            @endforeach
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($clubOpeningHours as $hour)
-                            <tr class="" is="bookings" :courts="{{$club->courts}}"
-                                :hour="{{json_encode($hour)}}"
-                                :date="{{json_encode(\Carbon\Carbon::now()->toDateString())}}"></tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
+            <table class="table table-bordered table-hover" id="bookings-data-tbl">
+                <thead>
+                <tr>
+                    <th scope="col" class="text-center col-sticky">ساعت</th>
+                    @foreach($club->courts as $court)
+                        <th scope="col" class="text-center">{{$court->name}}</th>
+                    @endforeach
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($clubOpeningHours as $hour)
+                    <tr is="bookings" :courts="{{$club->courts}}"
+                        :hour="{{json_encode($hour)}}"
+                        :date="{{json_encode(\Carbon\Carbon::now()->toDateString())}}"></tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 
+    <booking-float-buttons></booking-float-buttons>
     <booking-modal></booking-modal>
     <booking-manage-modal></booking-manage-modal>
 
-@endsection
+</div>
+
+<script>
+    var KTAppOptions = {
+        "colors": {
+            "state": {
+                "brand": "#5d78ff",
+                "dark": "#282a3c",
+                "light": "#ffffff",
+                "primary": "#5867dd",
+                "success": "#34bfa3",
+                "info": "#36a3f7",
+                "warning": "#ffb822",
+                "danger": "#fd3995"
+            },
+            "base": {
+                "label": [
+                    "#c5cbe3",
+                    "#a1a8c3",
+                    "#3d4465",
+                    "#3e4466"
+                ],
+                "shape": [
+                    "#f0f3ff",
+                    "#d9dffa",
+                    "#afb4d4",
+                    "#646c9a"
+                ]
+            }
+        }
+    };
+</script>
+
+<script src="{{asset('assets/plugins/global/plugins.bundle.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/js/scripts.bundle.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+
+<script>
+    $(document).ready(function () {
+        window.table = $('#bookings-data-tbl').DataTable({
+            scrollX: true,
+            paginate: false,
+            scrollY: window.innerHeight - 190 + "px",
+            scrollCollapse: true,
+            language: {
+                "sEmptyTable": "هیچ داده‌ای در جدول وجود ندارد",
+                "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ ردیف",
+                "sInfoEmpty": "نمایش 0 تا 0 از 0 ردیف",
+                "sInfoFiltered": "(فیلتر شده از _MAX_ ردیف)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ",",
+                "sLengthMenu": "نمایش _MENU_ ردیف",
+                "sLoadingRecords": "در حال بارگزاری...",
+                "sProcessing": "در حال پردازش...",
+                "sSearch": "جستجو:",
+                "sZeroRecords": "رکوردی با این مشخصات پیدا نشد",
+                "oPaginate": {
+                    "sFirst": "برگه‌ی نخست",
+                    "sLast": "برگه‌ی آخر",
+                    "sNext": "بعدی",
+                    "sPrevious": "قبلی"
+                },
+                "oAria": {
+                    "sSortAscending": ": فعال سازی نمایش به صورت صعودی",
+                    "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
+                }
+            },
+
+        });
+    });
+
+</script>
+
+</body>
+</html>
