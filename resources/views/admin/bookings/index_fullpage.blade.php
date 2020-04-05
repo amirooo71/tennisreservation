@@ -59,27 +59,26 @@
 
 <div id="app">
     <test>
-        <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet kt-portlet--mobile h-100">
+            <button id="test">click</button>
             <div class="kt-portlet__body">
-                <div class="w-100">
-                    <table class="table table-bordered table-hover" id="datatbl">
-                        <thead>
-                        <tr>
-                            <th scope="col" class="text-center col-sticky" style="padding-right: 12.5px;">ساعت</th>
-                            @foreach($club->courts as $court)
-                                <th scope="col" class="text-center">{{$court->name}}</th>
-                            @endforeach
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($clubOpeningHours as $hour)
-                            <tr class="" is="bookings" :courts="{{$club->courts}}"
-                                :hour="{{json_encode($hour)}}"
-                                :date="{{json_encode(\Carbon\Carbon::now()->toDateString())}}"></tr>
+                <table class="table table-bordered table-hover" id="datatbl">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="text-center col-sticky">ساعت</th>
+                        @foreach($club->courts as $court)
+                            <th scope="col" class="text-center">{{$court->name}}</th>
                         @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($clubOpeningHours as $hour)
+                        <tr is="bookings" :courts="{{$club->courts}}"
+                            :hour="{{json_encode($hour)}}"
+                            :date="{{json_encode(\Carbon\Carbon::now()->toDateString())}}"></tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </test>
@@ -151,13 +150,18 @@
 
 <script>
     $(document).ready(function () {
-        $('#datatbl').DataTable({
+
+        window.table = $('#datatbl').DataTable({
             scrollX: true,
             paginate: false,
-            scrollY: window.innerHeight - 250 + "px",
+            scrollY: window.innerHeight - 240 + "px",
             scrollCollapse: true,
         });
+
     });
+
+    document.getElementById('test').addEventListener('click', function () {
+    })
 </script>
 
 

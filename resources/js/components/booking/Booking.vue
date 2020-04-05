@@ -1,6 +1,6 @@
 <template>
 
-    <td :id="linkToID" :class="['',defaultClass,dynamicClass]"
+    <td :class="[defaultClass,dynamicClass]"
         v-on="{ click: shouldCallBookMethod()  ? onBookClick : onManageClick }">
 
         <div class="row d-flex align-items-center" v-if="booked">
@@ -62,14 +62,11 @@
                 dynamicClass: '',
                 booked: null,
                 partTimeBooked: null,
-                linkToID: null,
             }
 
         },
 
         created() {
-
-            this.linkToID = 'court-' + this.court.id + '-at-' + moment(this.hour, "HH:mm").format("HH");
 
             this.showBookings();
         },

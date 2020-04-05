@@ -1961,12 +1961,10 @@ __webpack_require__.r(__webpack_exports__);
       defaultClass: 'text-center td-book align-middle',
       dynamicClass: '',
       booked: null,
-      partTimeBooked: null,
-      linkToID: null
+      partTimeBooked: null
     };
   },
   created: function created() {
-    this.linkToID = 'court-' + this.court.id + '-at-' + moment(this.hour, "HH:mm").format("HH");
     this.showBookings();
   },
   mounted: function mounted() {
@@ -2377,7 +2375,7 @@ __webpack_require__.r(__webpack_exports__);
     cancelPartTimeBooked: function cancelPartTimeBooked() {
       var _this2 = this;
 
-      axios["delete"]("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/cancel")).then(function (res) {
+      var asyncRes = axios["delete"]("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/cancel")).then(function (res) {
         Events.$emit("on-success-part-time-booked-cancel-court-".concat(_this2.court.id, "-at-").concat(_this2.hour), {
           partTimeBooked: res.data.partTimeBooked
         });
@@ -2388,11 +2386,12 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return toastr.warning('خطایی رخ داده');
       });
+      this.redrawTblHeader(asyncRes);
     },
     payPartTimeBooked: function payPartTimeBooked() {
       var _this3 = this;
 
-      axios.patch("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/pay")).then(function (res) {
+      var asyncRes = axios.patch("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/pay")).then(function (res) {
         Events.$emit("on-success-part-time-booked-paid-court-".concat(_this3.court.id, "-at-").concat(_this3.hour), {
           partTimeBooked: res.data.partTimeBooked
         });
@@ -2403,6 +2402,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return toastr.warning('خطایی رخ داده');
       });
+      this.redrawTblHeader(asyncRes);
     }
   },
   computed: {
@@ -2610,7 +2610,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.url = "/admin/bookings/".concat(this.booked.id, "/part-time");
       }
 
-      axios.post(this.url, _objectSpread({
+      var asyncRes = axios.post(this.url, _objectSpread({
         renter_name: name
       }, this.getPostedData())).then(function (res) {
         _this2.booked ? _this2.triggerSuccessSubmitEventOnPartTimeBooking(res) : _this2.triggerSuccessSubmitEvents(res);
@@ -2620,6 +2620,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["catch"](function (err) {
         return toastr.warning('خطایی رخ داده است');
       });
+      this.redrawTblHeader(asyncRes);
     },
     onGuestBookSubmit: function onGuestBookSubmit() {
       this.book(this.renterName);
@@ -64871,10 +64872,7 @@ var render = function() {
   return _c(
     "td",
     _vm._g(
-      {
-        class: ["", _vm.defaultClass, _vm.dynamicClass],
-        attrs: { id: _vm.linkToID }
-      },
+      { class: [_vm.defaultClass, _vm.dynamicClass] },
       {
         click: _vm.shouldCallBookMethod() ? _vm.onBookClick : _vm.onManageClick
       }
@@ -84895,7 +84893,7 @@ __webpack_require__.r(__webpack_exports__);
     cancel: function cancel() {
       var _this = this;
 
-      axios.patch("/admin/bookings/".concat(this.booked.id, "/cancel")).then(function (res) {
+      var asyncRes = axios.patch("/admin/bookings/".concat(this.booked.id, "/cancel")).then(function (res) {
         Events.$emit("on-success-booked-cancel-court-".concat(_this.court.id, "-at-").concat(_this.hour), {
           booked: res.data.booked
         });
@@ -84905,11 +84903,12 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return toastr.warning('خطایی رخ داده');
       });
+      this.redrawTblHeader(asyncRes);
     },
     pay: function pay() {
       var _this2 = this;
 
-      axios.patch("/admin/bookings/".concat(this.booked.id, "/paid")).then(function (res) {
+      var asyncRes = axios.patch("/admin/bookings/".concat(this.booked.id, "/paid")).then(function (res) {
         Events.$emit("on-success-booked-paid-court-".concat(_this2.court.id, "-at-").concat(_this2.hour), {
           booked: res.data.booked
         });
@@ -84919,6 +84918,12 @@ __webpack_require__.r(__webpack_exports__);
         toastr.success(res.data.msg);
       })["catch"](function (err) {
         return toastr.warning('خطایی رخ داده');
+      });
+      this.redrawTblHeader(asyncRes);
+    },
+    redrawTblHeader: function redrawTblHeader(asyncFn) {
+      asyncFn.then(function () {
+        table.columns.adjust().fixedColumns().relayout();
       });
     }
   }

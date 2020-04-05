@@ -112,19 +112,21 @@
         methods: {
 
             cancelPartTimeBooked() {
-                axios.delete(`/admin/bookings/${this.partTimeBooked.id}/part-time/cancel`).then(res => {
+                let asyncRes = axios.delete(`/admin/bookings/${this.partTimeBooked.id}/part-time/cancel`).then(res => {
                     Events.$emit(`on-success-part-time-booked-cancel-court-${this.court.id}-at-${this.hour}`, {partTimeBooked: res.data.partTimeBooked});
                     this.$refs.modal.close();
                     toastr.success(res.data.msg);
                 }).catch(err => toastr.warning('خطایی رخ داده'));
+                this.redrawTblHeader(asyncRes);
             },
 
             payPartTimeBooked() {
-                axios.patch(`/admin/bookings/${this.partTimeBooked.id}/part-time/pay`).then(res => {
+                let asyncRes = axios.patch(`/admin/bookings/${this.partTimeBooked.id}/part-time/pay`).then(res => {
                     Events.$emit(`on-success-part-time-booked-paid-court-${this.court.id}-at-${this.hour}`, {partTimeBooked: res.data.partTimeBooked});
                     this.$refs.modal.close();
                     toastr.success(res.data.msg);
                 }).catch(err => toastr.warning('خطایی رخ داده'));
+                this.redrawTblHeader(asyncRes);
             }
 
         },

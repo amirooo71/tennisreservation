@@ -161,11 +161,13 @@
 
                 }
 
-                axios.post(this.url, {renter_name: name, ...this.getPostedData()}).then(res => {
+                let asyncRes = axios.post(this.url, {renter_name: name, ...this.getPostedData()}).then(res => {
                     this.booked ? this.triggerSuccessSubmitEventOnPartTimeBooking(res) : this.triggerSuccessSubmitEvents(res);
                     toastr.success(res.data.msg);
                     this.$refs.modal.close();
                 }).catch(err => toastr.warning('خطایی رخ داده است'));
+
+                this.redrawTblHeader(asyncRes);
             },
 
             onGuestBookSubmit() {
