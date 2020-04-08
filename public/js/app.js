@@ -67731,7 +67731,7 @@ var render = function() {
     [
       _c(
         "th",
-        { staticClass: "text-center col-sticky", attrs: { scope: "col" } },
+        { staticClass: "text-center tns-col-sticky", attrs: { scope: "col" } },
         [_vm._v(_vm._s(_vm.formatTime(_vm.hour)))]
       ),
       _vm._v(" "),

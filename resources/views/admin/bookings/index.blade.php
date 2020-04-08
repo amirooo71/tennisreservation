@@ -32,11 +32,11 @@
 <div id="app" style="overflow: hidden;">
 
     <div class="kt-portlet kt-portlet--mobile">
-        <div class="kt-portlet__body">
-            <table class="table table-bordered table-hover" id="bookings-data-tbl">
+        <div class="kt-portlet__body vh-100 tns-bg-darker-white">
+            <table class="table table-bordered table-hover tns-bg-white" id="bookings-data-tbl">
                 <thead>
                 <tr>
-                    <th scope="col" class="text-center col-sticky">ساعت</th>
+                    <th scope="col" class="text-center tns-col-sticky">ساعت</th>
                     @foreach($club->courts as $court)
                         <th scope="col" class="text-center">{{$court->name}}</th>
                     @endforeach

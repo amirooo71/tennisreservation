@@ -132,7 +132,11 @@ class BookingsController extends BaseController {
 	 * @return mixed
 	 */
 	private function isAlreadyBooked() {
-		return Booking::where( [ 'date' => request( 'date' ), 'time' => request( 'time' ) ] )->first();
+		return Booking::where( [
+			'date'     => request( 'date' ),
+			'time'     => request( 'time' ),
+			'court_id' => request( 'court_id' )
+		] )->first();
 	}
 
 }

@@ -16,9 +16,7 @@ class ClubsController extends Controller {
 
 		$club = Club::first();
 
-		$partTimeMinutes = unserialize( $club->part_time_minutes );
-
-		return view( 'admin.clubs.index', compact( 'club', 'partTimeMinutes' ) );
+		return view( 'admin.clubs.index', compact( 'club' ) );
 	}
 
 	/**
@@ -43,9 +41,7 @@ class ClubsController extends Controller {
 	 */
 	public function edit( Club $club ) {
 
-		$partTimeMinutes = collect( unserialize( $club->part_time_minutes ) );
-
-		return view( 'admin.clubs.edit', compact( 'club', 'partTimeMinutes' ) );
+		return view( 'admin.clubs.edit', compact( 'club' ));
 
 	}
 
@@ -112,14 +108,7 @@ class ClubsController extends Controller {
 			'closing_time'      => 'required',
 			'cancellation_time' => 'required',
 			'description'       => 'nullable',
-			'part_time_minutes' => 'nullable',
 		] );
-
-		if ( \request( 'part_time_minutes' ) ) {
-			$data['part_time_minutes'] = serialize( $data['part_time_minutes'] );
-		} else {
-			$data['part_time_minutes'] = null;
-		}
 
 		$data['owner_id'] = auth()->id();
 

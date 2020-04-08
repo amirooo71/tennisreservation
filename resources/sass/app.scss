@@ -129,12 +129,20 @@
 
 }
 
-.col-sticky {
+.tns-col-sticky {
   position: -webkit-sticky;
   position: sticky;
   right: 0;
   z-index: 1;
   background-color: white;
+}
+
+.tns-bg-white {
+  background-color: #fff;
+}
+
+.tns-bg-darker-white {
+  background-color: #f8f8f8;
 }
 
 .row.no-gutter {
@@ -173,6 +181,6 @@
 }
 
 .required .control-label:after {
-  content:"*";
-  color:red;
+  content: "*";
+  color: red;
 }

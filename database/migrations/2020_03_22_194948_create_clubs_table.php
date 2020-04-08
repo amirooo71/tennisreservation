@@ -19,7 +19,6 @@ class CreateClubsTable extends Migration {
 			$table->time( 'opening_time' );
 			$table->time( 'closing_time' );
 			$table->integer( 'cancellation_time' );
-			$table->string( 'part_time_minutes' )->nullable();
 			$table->text( 'description' )->nullable();
 			$table->timestamps();
 
