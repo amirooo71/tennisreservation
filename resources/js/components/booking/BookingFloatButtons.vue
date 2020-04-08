@@ -10,6 +10,7 @@
              @nextDay="onNextDay"
              @prevDay="onPrevDay"
              @currentDay="onCurrentDay"
+             @sync="onSync"
         ></fab>
     </div>
 </template>
@@ -50,6 +51,11 @@
                         name: 'prevDay',
                         icon: 'navigate_before',
                         tooltip: `روز قبل`
+                    },
+                    {
+                        name: 'sync',
+                        icon: 'refresh',
+                        tooltip: `همگام سازی`
                     }
                 ]
             }
@@ -103,15 +109,20 @@
 
             },
 
-            onCurrentDay(){
+            onCurrentDay() {
+
+                window.location.href = `/admin/bookings`;
+
+
+            },
+
+            onSync() {
 
                 jmoment.loadPersian({
                     usePersianDigits: false,
                 });
 
-                let currentDate = jmoment().format('jYYYY-jM-jD');
-
-                console.log(currentDate);
+                let currentDate = moment(this.date, 'jYYYY-jM-jD').format('YYYY-M-D');
 
                 window.location.href = `/admin/bookings?date=${currentDate}`;
 

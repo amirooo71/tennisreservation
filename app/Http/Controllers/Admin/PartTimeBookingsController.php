@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Booking;
-use App\Http\Controllers\Controller;
 use App\PartTimeBooking;
-use Illuminate\Http\Request;
 
-class PartTimeBookingsController extends Controller {
+class PartTimeBookingsController extends BaseController {
 
 	/**
 	 * @param Booking $booking
@@ -18,6 +16,10 @@ class PartTimeBookingsController extends Controller {
 
 		$data = $this->getValidateData( $booking );
 
+		if ( $this->isDatePast() ) {
+			return response()->json( [ 'msg' => 'تاریخ رزرو گذشته است' ], 422 );
+		}
+
 		$forceBook = $booking->addPartTime( $data );
 
 		$book = PartTimeBooking::where( [ 'id' => $forceBook->id ] )->first();
@@ -26,6 +28,11 @@ class PartTimeBookingsController extends Controller {
 
 	}
 
+	/**
+	 * @param PartTimeBooking $partTimeBooking
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function pay( PartTimeBooking $partTimeBooking ) {
 
 		$partTimeBooking->update( [ 'is_paid' => true ] );
@@ -34,6 +41,12 @@ class PartTimeBookingsController extends Controller {
 
 	}
 
+	/**
+	 * @param PartTimeBooking $partTimeBooking
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function cancel( PartTimeBooking $partTimeBooking ) {
 
 		$partTimeBooking->delete();

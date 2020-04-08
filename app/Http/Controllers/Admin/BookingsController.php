@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Booking;
 use App\Club;
 use App\Court;
-use Carbon\Carbon;
 use Hekmatinasser\Verta\Verta;
 
 class BookingsController extends BaseController {
@@ -39,6 +38,10 @@ class BookingsController extends BaseController {
 
 		if ( $this->isAlreadyBooked() ) {
 			return response()->json( [ 'msg' => 'این زمین رزرو شده است' ], 422 );
+		}
+
+		if ( $this->isDatePast() ) {
+			return response()->json( [ 'msg' => 'تاریخ رزرو گذشته است' ], 422 );
 		}
 
 		$book = Booking::create( $data );
@@ -165,5 +168,6 @@ class BookingsController extends BaseController {
 
 		return $courts;
 	}
+
 
 }
