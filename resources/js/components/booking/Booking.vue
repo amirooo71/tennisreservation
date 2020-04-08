@@ -42,6 +42,7 @@
 
 
     import VTooltip from 'v-tooltip';
+    import jdatetime from './../../mixins/jdatetime';
 
 
     export default {
@@ -49,6 +50,8 @@
         name: "book",
 
         props: ['court', 'hour', 'date'],
+
+        mixins: [jdatetime],
 
         components: {
             VTooltip
@@ -107,22 +110,17 @@
         methods: {
 
 
-            /*
-             * Good refactor
-             */
             showBookings() {
                 this.court.bookingDates.forEach(booked => {
-                    let time = moment(booked.time, 'HH:mm').format('HH:mm');
-                    if (this.date === booked.date && this.hour === time) {
+                    let jTime = this.formatTime(booked.time);
+                    let jCurrentTime = this.formatTime(this.hour);
+                    if (this.date === booked.date && jTime === jCurrentTime) {
                         this.booked = booked;
                         this.partTimeBooked = booked.part_time ? booked.part_time : null;
                     }
                 });
             },
 
-            /*
-            * Good refactor
-            */
             shouldCallBookMethod() {
 
                 if (!this.booked) {
@@ -137,7 +135,6 @@
                 return false;
 
             },
-
 
             onBookClick() {
 
@@ -178,14 +175,6 @@
                 }
 
 
-            },
-
-
-            /*
-             * Helper
-             */
-            formatTime(time) {
-                return moment(time, 'HH:mm').format('HH:mm');
             },
 
             hasManagePartTimeBookTab() {
@@ -254,25 +243,23 @@
             showGapedTimeLabel() {
 
                 let startGapedTimesMsg = {
-                    15: '۱۵ دقیقه زمان خالی',
-                    30: '۳۰ دقیقه زمان خالی',
-                    45: '۴۵ دقیقه زمان خالی',
+                    '۱۵': '۱۵ دقیقه زمان خالی',
+                    '۳۰': '۳۰ دقیقه زمان خالی',
+                    '۴۵': '۴۵ دقیقه زمان خالی',
                 };
 
                 let endGapedTimesMsg = {
-                    15: '۴۵ دقیقه زمان خالی',
-                    30: '۳۰ دقیقه زمان خالی',
-                    45: '۱۵ دقیقه زمان خالی',
+                    '۱۵': '۴۵ دقیقه زمان خالی',
+                    '۳۰': '۳۰ دقیقه زمان خالی',
+                    '۴۵': '۱۵ دقیقه زمان خالی',
                 };
 
                 if (this.booked.start_time) {
-                    let partTimeMinute = moment(this.booked.start_time, "HH:mm").format("mm");
-                    return startGapedTimesMsg[partTimeMinute];
+                    return startGapedTimesMsg[this.formatTime(this.booked.start_time, 'mm')];
                 }
 
                 if (this.booked.end_time) {
-                    let partTimeMinute = moment(this.booked.end_time, "HH:mm").format("mm");
-                    return endGapedTimesMsg[partTimeMinute];
+                    return endGapedTimesMsg[this.formatTime(this.booked.end_time, 'mm')];
                 }
 
             },

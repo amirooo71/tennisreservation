@@ -1909,6 +1909,7 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var v_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-tooltip */ "./node_modules/v-tooltip/dist/v-tooltip.esm.js");
+/* harmony import */ var _mixins_jdatetime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/jdatetime */ "./resources/js/mixins/jdatetime.js");
 //
 //
 //
@@ -1950,9 +1951,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
   props: ['court', 'hour', 'date'],
+  mixins: [_mixins_jdatetime__WEBPACK_IMPORTED_MODULE_1__["default"]],
   components: {
     VTooltip: v_tooltip__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -1991,25 +1994,20 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    /*
-     * Good refactor
-     */
     showBookings: function showBookings() {
       var _this2 = this;
 
       this.court.bookingDates.forEach(function (booked) {
-        var time = moment(booked.time, 'HH:mm').format('HH:mm');
+        var jTime = _this2.formatTime(booked.time);
 
-        if (_this2.date === booked.date && _this2.hour === time) {
+        var jCurrentTime = _this2.formatTime(_this2.hour);
+
+        if (_this2.date === booked.date && jTime === jCurrentTime) {
           _this2.booked = booked;
           _this2.partTimeBooked = booked.part_time ? booked.part_time : null;
         }
       });
     },
-
-    /*
-    * Good refactor
-    */
     shouldCallBookMethod: function shouldCallBookMethod() {
       if (!this.booked) {
         return true;
@@ -2053,13 +2051,6 @@ __webpack_require__.r(__webpack_exports__);
         return moment(this.booked.end_time, "HH:mm").format("mm");
       }
     },
-
-    /*
-     * Helper
-     */
-    formatTime: function formatTime(time) {
-      return moment(time, 'HH:mm').format('HH:mm');
-    },
     hasManagePartTimeBookTab: function hasManagePartTimeBookTab() {
       if (this.booked && this.booked.is_part_time && !this.partTimeBooked) {
         return true;
@@ -2101,25 +2092,22 @@ __webpack_require__.r(__webpack_exports__);
     },
     showGapedTimeLabel: function showGapedTimeLabel() {
       var startGapedTimesMsg = {
-        15: '۱۵ دقیقه زمان خالی',
-        30: '۳۰ دقیقه زمان خالی',
-        45: '۴۵ دقیقه زمان خالی'
+        '۱۵': '۱۵ دقیقه زمان خالی',
+        '۳۰': '۳۰ دقیقه زمان خالی',
+        '۴۵': '۴۵ دقیقه زمان خالی'
       };
       var endGapedTimesMsg = {
-        15: '۴۵ دقیقه زمان خالی',
-        30: '۳۰ دقیقه زمان خالی',
-        45: '۱۵ دقیقه زمان خالی'
+        '۱۵': '۴۵ دقیقه زمان خالی',
+        '۳۰': '۳۰ دقیقه زمان خالی',
+        '۴۵': '۱۵ دقیقه زمان خالی'
       };
 
       if (this.booked.start_time) {
-        var partTimeMinute = moment(this.booked.start_time, "HH:mm").format("mm");
-        return startGapedTimesMsg[partTimeMinute];
+        return startGapedTimesMsg[this.formatTime(this.booked.start_time, 'mm')];
       }
 
       if (this.booked.end_time) {
-        var _partTimeMinute = moment(this.booked.end_time, "HH:mm").format("mm");
-
-        return endGapedTimesMsg[_partTimeMinute];
+        return endGapedTimesMsg[this.formatTime(this.booked.end_time, 'mm')];
       }
     }
   },
@@ -2780,6 +2768,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Booking__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Booking */ "./resources/js/components/booking/Booking.vue");
+/* harmony import */ var _mixins_jdatetime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/jdatetime */ "./resources/js/mixins/jdatetime.js");
 //
 //
 //
@@ -2788,9 +2777,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "bookings",
   props: ['courts', 'hour', 'date'],
+  mixins: [_mixins_jdatetime__WEBPACK_IMPORTED_MODULE_1__["default"]],
   components: {
     Booking: _Booking__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -67932,7 +67923,7 @@ var render = function() {
       _c(
         "th",
         { staticClass: "text-center col-sticky", attrs: { scope: "col" } },
-        [_vm._v(_vm._s(_vm.hour))]
+        [_vm._v(_vm._s(_vm.formatTime(_vm.hour)))]
       ),
       _vm._v(" "),
       _vm._l(_vm.courts, function(court) {
@@ -87274,6 +87265,9 @@ window.jmoment = __webpack_require__(/*! moment-jalaali */ "./node_modules/momen
 window.toastr = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
 toastr.options.rtl = true;
 toastr.options.positionClass = "toast-bottom-center";
+jmoment.loadPersian({
+  usePersianDigits: true
+});
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -87998,6 +87992,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PartTimeInputHours_vue_vue_type_template_id_1e432e71_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/mixins/jdatetime.js":
+/*!******************************************!*\
+  !*** ./resources/js/mixins/jdatetime.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    formatTime: function formatTime(time) {
+      var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'HH:mm';
+      return moment(time, 'HH:mm').format(format);
+    }
+  }
+});
 
 /***/ }),
 

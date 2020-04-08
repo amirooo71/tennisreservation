@@ -16,7 +16,9 @@
     import fab from 'vue-fab';
 
     export default {
+
         name: "booking-float-buttons",
+
 
         components: {fab},
 
