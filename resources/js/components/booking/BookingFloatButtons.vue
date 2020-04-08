@@ -9,6 +9,7 @@
              @home="onHome"
              @nextDay="onNextDay"
              @prevDay="onPrevDay"
+             @currentDay="onCurrentDay"
         ></fab>
     </div>
 </template>
@@ -36,7 +37,7 @@
                         tooltip: 'بازگشت به خانه'
                     },
                     {
-                        name: '',
+                        name: 'currentDay',
                         icon: 'calendar_today',
                         tooltip: `تاریخ: ${moment(this.date, 'jYYYY-jM-jD').format('YYYY/M/D')}`
                     },
@@ -100,15 +101,26 @@
 
                 window.location.href = `/admin/bookings?date=${this.prevDate}`;
 
-            }
+            },
+
+            onCurrentDay(){
+
+                jmoment.loadPersian({
+                    usePersianDigits: false,
+                });
+
+                let currentDate = jmoment().format('jYYYY-jM-jD');
+
+                console.log(currentDate);
+
+                window.location.href = `/admin/bookings?date=${currentDate}`;
+
+
+            },
 
         },
 
-        computed: {
-            getCurrentDate() {
-                return 'asdfasdf';
-            }
-        }
+
     }
 </script>
 

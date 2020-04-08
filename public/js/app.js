@@ -2183,6 +2183,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "booking-float-buttons",
@@ -2199,7 +2200,7 @@ __webpack_require__.r(__webpack_exports__);
         icon: 'home',
         tooltip: 'بازگشت به خانه'
       }, {
-        name: '',
+        name: 'currentDay',
         icon: 'calendar_today',
         tooltip: "\u062A\u0627\u0631\u06CC\u062E: ".concat(moment(this.date, 'jYYYY-jM-jD').format('YYYY/M/D'))
       }, {
@@ -2248,11 +2249,14 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       window.location.href = "/admin/bookings?date=".concat(this.prevDate);
-    }
-  },
-  computed: {
-    getCurrentDate: function getCurrentDate() {
-      return 'asdfasdf';
+    },
+    onCurrentDay: function onCurrentDay() {
+      jmoment.loadPersian({
+        usePersianDigits: false
+      });
+      var currentDate = jmoment().format('jYYYY-jM-jD');
+      console.log(currentDate);
+      window.location.href = "/admin/bookings?date=".concat(currentDate);
     }
   }
 });
@@ -67299,7 +67303,12 @@ var render = function() {
           fixedTooltip: "true",
           actions: _vm.fabActions
         },
-        on: { home: _vm.onHome, nextDay: _vm.onNextDay, prevDay: _vm.onPrevDay }
+        on: {
+          home: _vm.onHome,
+          nextDay: _vm.onNextDay,
+          prevDay: _vm.onPrevDay,
+          currentDay: _vm.onCurrentDay
+        }
       })
     ],
     1
