@@ -2,18 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b01c91de-d725-464d-91da-470dc09fd2f6" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" afterPath="$PROJECT_DIR$/.idea/php.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/tennis.iml" afterPath="$PROJECT_DIR$/.idea/tennis.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/app/Court.php" afterPath="$PROJECT_DIR$/app/Court.php" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ClubsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ClubsController.php" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_22_194948_create_clubs_table.php" afterPath="$PROJECT_DIR$/database/migrations/2020_03_22_194948_create_clubs_table.php" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" />
+      <change beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" afterPath="$PROJECT_DIR$/config/app.php" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_26_120955_create_bookings_table.php" afterPath="$PROJECT_DIR$/database/migrations/2020_03_26_120955_create_bookings_table.php" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" afterPath="$PROJECT_DIR$/public/css/app.css" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" afterPath="$PROJECT_DIR$/public/js/app.js" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/booking/Bookings.vue" afterPath="$PROJECT_DIR$/resources/js/components/booking/Bookings.vue" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" afterPath="$PROJECT_DIR$/resources/sass/app.scss" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/booking/Booking.vue" afterPath="$PROJECT_DIR$/resources/js/components/booking/Booking.vue" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/booking/BookingFloatButtons.vue" afterPath="$PROJECT_DIR$/resources/js/components/booking/BookingFloatButtons.vue" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/bookings/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/bookings/index.blade.php" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/clubs/_form.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/clubs/_form.blade.php" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/clubs/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/clubs/index.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,78 +29,54 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ClubsController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ClubsController.php">
+      <file leaf-file-name="BookingsController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="33" column="37" lean-forward="false" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
+            <state relative-caret-position="216">
+              <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/clubs/create.blade.php">
+      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/admin/bookings/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="44" lean-forward="true" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+            <state relative-caret-position="360">
+              <caret line="55" column="53" lean-forward="false" selection-start-line="55" selection-start-column="53" selection-end-line="55" selection-end-column="53" />
               <folding>
-                <marker date="1586363562300" expanded="true" signature="9:28" ph="..." />
-                <marker date="1586363562300" expanded="true" signature="41:50" ph="..." />
-                <marker date="1586363562300" expanded="true" signature="154:180" ph="..." />
-                <marker date="1586363562300" expanded="true" signature="248:297" ph="..." />
-                <marker date="1586363562300" expanded="true" signature="329:373" ph="..." />
-                <marker date="1586363562300" expanded="true" signature="329:374" ph="..." />
-                <marker date="1586363562300" expanded="true" signature="403:411" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="31:74" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="177:208" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="412:426" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="471:510" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="535:588" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="645:685" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="742:809" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="876:916" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="1174:1196" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="1295:1318" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="1729:1746" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="1810:1822" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="1958:1980" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="2031:2038" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="2075:2093" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="2130:2148" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="2295:2313" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="3237:3285" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="3337:3373" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="3425:3487" ph="..." />
+                <marker date="1586373858568" expanded="true" signature="3539:3559" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_form.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/clubs/_form.blade.php">
+      <file leaf-file-name="BookingFloatButtons.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/js/components/booking/BookingFloatButtons.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="828">
-              <caret line="46" column="10" lean-forward="true" selection-start-line="39" selection-start-column="3" selection-end-line="46" selection-end-column="10" />
-              <folding>
-                <marker date="1586364707344" expanded="true" signature="242:268" ph="..." />
-                <marker date="1586364707344" expanded="true" signature="292:335" ph="..." />
-                <marker date="1586364707344" expanded="true" signature="592:634" ph="..." />
-                <marker date="1586364707344" expanded="true" signature="658:709" ph="..." />
-                <marker date="1586364707344" expanded="true" signature="1122:1164" ph="..." />
-                <marker date="1586364707344" expanded="true" signature="1188:1239" ph="..." />
-                <marker date="1586364707344" expanded="true" signature="1655:1697" ph="..." />
-                <marker date="1586364707344" expanded="true" signature="1721:1772" ph="..." />
-                <marker date="1586364707344" expanded="true" signature="2571:2611" ph="..." />
-                <marker date="1586364707344" expanded="true" signature="2649:2699" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/clubs/index.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="76" lean-forward="true" selection-start-line="9" selection-start-column="76" selection-end-line="9" selection-end-column="76" />
-              <folding>
-                <marker date="1586364825309" expanded="true" signature="9:28" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="40:49" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="123:128" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="158:206" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="413:424" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="663:682" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="994:1013" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="1245:1264" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="1491:1515" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="1857:1875" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="1974:1982" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="2093:2124" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="2267:2300" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="2397:2405" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="2532:2565" ph="..." />
-                <marker date="1586364825309" expanded="true" signature="3424:3451" ph="..." />
-              </folding>
+            <state relative-caret-position="149">
+              <caret line="60" column="14" lean-forward="true" selection-start-line="60" selection-start-column="14" selection-end-line="60" selection-end-column="14" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -115,9 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>text-cen</find>
-      <find>showPartTimeBookedRenterLabel</find>
-      <find>d-flex</find>
       <find>count</find>
       <find>showPartTimeBookedTimeLabel</find>
       <find>showStartingTimePartTimeBooked</find>
@@ -145,6 +120,9 @@
       <find>readonly</find>
       <find>$club</find>
       <find>partTimeMinutes</find>
+      <find>date</find>
+      <find>Carbon</find>
+      <find>jmoment</find>
     </findStrings>
     <replaceStrings>
       <replace>hasClub</replace>
@@ -157,12 +135,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/js/components/ManageBookingModal.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/Book.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/BookingModal.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/_PartTimeBookingAlert.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/Book.vue" />
-        <option value="$PROJECT_DIR$/app/Court.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_03_28_144858_create_part_time_bookings_table.php" />
         <option value="$PROJECT_DIR$/app/PartTimeBooking.php" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/partials/PartTimeInputHours.vue" />
@@ -178,13 +154,10 @@
         <option value="$PROJECT_DIR$/resources/js/components/booking/Test.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/BookingsWrapper.vue" />
         <option value="$PROJECT_DIR$/resources/views/admin/bookings/index_fullpage.blade.php" />
-        <option value="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/BookingMixins.js" />
         <option value="$PROJECT_DIR$/resources/js/mixins/datetime.js" />
         <option value="$PROJECT_DIR$/resources/js/bootstrap.js" />
         <option value="$PROJECT_DIR$/resources/js/mixins/jdatetime.js" />
-        <option value="$PROJECT_DIR$/resources/js/components/booking/BookingFloatButtons.vue" />
-        <option value="$PROJECT_DIR$/resources/js/components/booking/Booking.vue" />
         <option value="$PROJECT_DIR$/resources/js/app.js" />
         <option value="$PROJECT_DIR$/app/Club.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/BaseController.php" />
@@ -198,16 +171,21 @@
         <option value="$PROJECT_DIR$/resources/views/admin/courts/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app_admin.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/CourtsController.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/bookings/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/Bookings.vue" />
         <option value="$PROJECT_DIR$/resources/sass/app.scss" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_03_26_120955_create_bookings_table.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/clubs/create.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_03_22_194948_create_clubs_table.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/ClubsController.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/clubs/_form.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/clubs/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" />
+        <option value="$PROJECT_DIR$/config/app.php" />
+        <option value="$PROJECT_DIR$/app/Court.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/booking/Booking.vue" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_03_26_120955_create_bookings_table.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/bookings/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/booking/BookingFloatButtons.vue" />
       </list>
     </option>
   </component>
@@ -319,11 +297,14 @@
       <path value="$PROJECT_DIR$/vendor/symfony/routing" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-flash" />
       <path value="$PROJECT_DIR$/vendor/thepinecode/blade-filters" />
+      <path value="$PROJECT_DIR$/vendor/hekmatinasser/notowo" />
+      <path value="$PROJECT_DIR$/vendor/hekmatinasser/verta" />
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="x" value="29" />
+    <option name="width" value="1356" />
+    <option name="height" value="555" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -492,7 +473,7 @@
   <component name="PropertiesComponent">
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mazarat" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../forum" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
   </component>
@@ -555,12 +536,12 @@
       <workItem from="1586010834471" duration="1799000" />
       <workItem from="1586082591778" duration="29057000" />
       <workItem from="1586170613867" duration="30000" />
-      <workItem from="1586342917413" duration="20535000" />
+      <workItem from="1586342917413" duration="31031000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="387009000" />
+    <option name="totallyTimeSpent" value="397505000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
@@ -600,48 +581,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-157">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="55" column="56" lean-forward="false" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/pages/crud/datatables/basic/scrollable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-508">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/syncscroll.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="838">
-          <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/BaseComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/BookingLinkTo.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="41" column="10" lean-forward="true" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/factories/UserFactory.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -671,13 +610,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="6" lean-forward="true" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/booking/BookingMixins.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -686,26 +618,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/bootstrap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="43" lean-forward="false" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/mixins/jdatetime.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="8" lean-forward="false" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/BookingFloatButtons.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="39" column="46" lean-forward="true" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
           <folding />
         </state>
       </provider>
@@ -746,14 +662,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/Booking.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="123" column="12" lean-forward="false" selection-start-line="123" selection-start-column="12" selection-end-line="123" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -806,22 +714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_03_28_144858_create_part_time_bookings_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="26" column="78" lean-forward="false" selection-start-line="26" selection-start-column="78" selection-end-line="26" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_03_22_205316_create_courts_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="5" lean-forward="true" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/components/portlet.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -854,14 +746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Club.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="28" column="20" lean-forward="true" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -962,14 +846,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Court.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="7" column="27" lean-forward="false" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/CourtsController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -978,71 +854,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/bookings/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="43" column="24" lean-forward="false" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
-          <folding>
-            <marker date="1586363166821" expanded="true" signature="31:74" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="177:208" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="412:426" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="471:510" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="535:588" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="645:685" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="742:809" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="876:916" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="1174:1196" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="1295:1318" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="1729:1752" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="1816:1828" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="1964:1986" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="2037:2050" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="2087:2105" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="2142:2192" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="3250:3298" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="3350:3386" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="3438:3500" ph="..." />
-            <marker date="1586363166821" expanded="true" signature="3552:3572" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/Bookings.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="47" lean-forward="false" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/sass/app.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="496">
           <caret line="140" column="25" lean-forward="false" selection-start-line="140" selection-start-column="25" selection-end-line="140" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1445">
-          <caret line="133" column="40" lean-forward="false" selection-start-line="133" selection-start-column="40" selection-end-line="133" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_03_26_120955_create_bookings_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="26" column="55" lean-forward="false" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_03_22_194948_create_clubs_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -1092,8 +907,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/clubs/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="76" lean-forward="true" selection-start-line="9" selection-start-column="76" selection-end-line="9" selection-end-column="76" />
+        <state relative-caret-position="504">
+          <caret line="28" column="109" lean-forward="true" selection-start-line="28" selection-start-column="109" selection-end-line="28" selection-end-column="109" />
           <folding>
             <marker date="1586364825309" expanded="true" signature="9:28" ph="..." />
             <marker date="1586364825309" expanded="true" signature="40:49" ph="..." />
@@ -1112,6 +927,182 @@
             <marker date="1586364825309" expanded="true" signature="2532:2565" ph="..." />
             <marker date="1586364825309" expanded="true" signature="3424:3451" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/nesbot/carbon/src/Carbon/Carbon.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="228" column="3" lean-forward="false" selection-start-line="228" selection-start-column="3" selection-end-line="228" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Http/Concerns/InteractsWithInput.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="282" column="20" lean-forward="false" selection-start-line="282" selection-start-column="20" selection-end-line="282" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/nesbot/carbon/src/Carbon/Traits/Localization.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="714" column="30" lean-forward="false" selection-start-line="714" selection-start-column="30" selection-end-line="714" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="19" lean-forward="false" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
+          <folding>
+            <element signature="e#33#51#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/bootstrap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1314">
+          <caret line="71" column="6" lean-forward="false" selection-start-line="71" selection-start-column="6" selection-end-line="71" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="471" column="27" lean-forward="false" selection-start-line="471" selection-start-column="27" selection-end-line="471" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Court.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/Booking.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="112" column="35" lean-forward="false" selection-start-line="112" selection-start-column="35" selection-end-line="112" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_03_26_120955_create_bookings_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_03_28_144858_create_part_time_bookings_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="26" column="78" lean-forward="false" selection-start-line="26" selection-start-column="78" selection-end-line="26" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_03_22_194948_create_clubs_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_03_22_205316_create_courts_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="5" lean-forward="true" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_08_19_000000_create_failed_jobs_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Club.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="28" column="20" lean-forward="false" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/Bookings.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="24" column="10" lean-forward="false" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/bookings/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="55" column="53" lean-forward="false" selection-start-line="55" selection-start-column="53" selection-end-line="55" selection-end-column="53" />
+          <folding>
+            <marker date="1586373858568" expanded="true" signature="31:74" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="177:208" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="412:426" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="471:510" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="535:588" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="645:685" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="742:809" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="876:916" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="1174:1196" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="1295:1318" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="1729:1746" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="1810:1822" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="1958:1980" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="2031:2038" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="2075:2093" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="2130:2148" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="2295:2313" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="3237:3285" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="3337:3373" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="3425:3487" ph="..." />
+            <marker date="1586373858568" expanded="true" signature="3539:3559" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/BookingFloatButtons.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="60" column="14" lean-forward="true" selection-start-line="60" selection-start-column="14" selection-end-line="60" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>

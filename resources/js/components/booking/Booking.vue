@@ -33,7 +33,6 @@
                 </span>
             </div>
         </div>
-
     </td>
 
 </template>
@@ -111,7 +110,7 @@
 
 
             showBookings() {
-                this.court.bookingDates.forEach(booked => {
+                this.court.bookings.forEach(booked => {
                     let jTime = this.formatTime(booked.time);
                     let jCurrentTime = this.formatTime(this.hour);
                     if (this.date === booked.date && jTime === jCurrentTime) {

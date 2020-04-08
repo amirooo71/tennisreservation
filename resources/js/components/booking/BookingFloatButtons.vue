@@ -7,6 +7,8 @@
              fixedTooltip="true"
              :actions="fabActions"
              @home="onHome"
+             @nextDay="onNextDay"
+             @prevDay="onPrevDay"
         ></fab>
     </div>
 </template>
@@ -19,11 +21,14 @@
 
         name: "booking-float-buttons",
 
+        props: ['date'],
 
         components: {fab},
 
         data() {
             return {
+                nextDate: '',
+                prevDate: '',
                 fabActions: [
                     {
                         name: 'home',
@@ -33,15 +38,15 @@
                     {
                         name: '',
                         icon: 'calendar_today',
-                        tooltip: `تاریخ امروز: ${jmoment().format("jMM/jDD")}`
+                        tooltip: `تاریخ: ${moment(this.date, 'jYYYY-jM-jD').format('YYYY/M/D')}`
                     },
                     {
-                        name: '',
+                        name: 'nextDay',
                         icon: 'navigate_next',
                         tooltip: `روز بعد`
                     },
                     {
-                        name: '',
+                        name: 'prevDay',
                         icon: 'navigate_before',
                         tooltip: `روز قبل`
                     }
@@ -49,13 +54,60 @@
             }
         },
 
-
         methods: {
 
             onHome() {
                 window.location.href = "/admin/dashboard";
+            },
+
+            onNextDay() {
+
+                jmoment.loadPersian({
+                    usePersianDigits: false,
+                });
+
+                let urlParams = new URLSearchParams(window.location.search);
+
+                if (urlParams.has('date')) {
+                    let date = urlParams.get('date');
+                    this.nextDate = moment(date, 'jYYYY-jM-jD').add(1, 'day').format('YYYY-M-D');
+                } else {
+                    console.log(this.date);
+                    this.nextDate = moment(this.date, 'jYYYY-jM-jD').add(1, 'day').format('YYYY-M-D');
+
+                }
+
+                window.location.href = `/admin/bookings?date=${this.nextDate}`;
+
+            },
+
+            onPrevDay() {
+
+                jmoment.loadPersian({
+                    usePersianDigits: false,
+                });
+
+                let urlParams = new URLSearchParams(window.location.search);
+
+                if (urlParams.has('date')) {
+                    let date = urlParams.get('date');
+                    this.prevDate = moment(date, 'jYYYY-jM-jD').subtract(1, 'day').format('YYYY-M-D');
+                } else {
+                    console.log(this.date);
+                    this.prevDate = moment(this.date, 'jYYYY-jM-jD').subtract(1, 'day').format('YYYY-M-D');
+
+                }
+
+                window.location.href = `/admin/bookings?date=${this.prevDate}`;
+
             }
 
+        },
+
+        computed: {
+            getCurrentDate() {
+                return 'asdfasdf';
+            }
         }
     }
 </script>

@@ -15,7 +15,7 @@ class CreateBookingsTable extends Migration {
 			$table->bigIncrements( 'id' );
 			$table->unsignedBigInteger( 'owner_id' )->nullable();
 			$table->unsignedBigInteger( 'court_id' );
-			$table->date( 'date' );
+			$table->string( 'date' );
 			$table->time( 'time' );
 			$table->string( 'renter_name' );
 			$table->boolean( 'is_canceled' )->default( false );

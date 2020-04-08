@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Booking;
 use App\Club;
+use App\Court;
+use Carbon\Carbon;
+use Hekmatinasser\Verta\Verta;
 
 class BookingsController extends BaseController {
 
@@ -12,11 +15,19 @@ class BookingsController extends BaseController {
 	 */
 	public function index() {
 
+		if ( request()->query( 'date' ) ) {
+			$date = request()->query( 'date' );
+		} else {
+			$date = Verta::now()->format( 'Y-n-j' );
+		}
+
 		$club = Club::first();
+
+		$courts = $this->getCourtBookingsByDate( $date );
 
 		$openingHours = $club->openingHours();
 
-		return view( 'admin.bookings.index', compact( 'club', 'openingHours' ) );
+		return view( 'admin.bookings.index', compact( 'openingHours', 'courts', 'date' ) );
 	}
 
 	/**
@@ -137,6 +148,22 @@ class BookingsController extends BaseController {
 			'time'     => request( 'time' ),
 			'court_id' => request( 'court_id' )
 		] )->first();
+	}
+
+	/**
+	 * @param $date
+	 *
+	 * @return mixed
+	 */
+	private function getCourtBookingsByDate( $date ) {
+
+		$courts = Court::with( [
+			'bookings' => function ( $query ) use ( $date ) {
+				$query->where( [ 'date' => $date, 'is_canceled' => false ] );
+			}
+		] )->get();
+
+		return $courts;
 	}
 
 }

@@ -37,23 +37,23 @@
                 <thead>
                 <tr>
                     <th scope="col" class="text-center tns-col-sticky">ساعت</th>
-                    @foreach($club->courts as $court)
+                    @foreach($courts as $court)
                         <th scope="col" class="text-center">{{$court->name}}</th>
                     @endforeach
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($openingHours as $hour)
-                    <tr is="bookings" :courts="{{$club->courts}}"
+                    <tr is="bookings" :courts="{{$courts}}"
                         :hour="{{json_encode($hour)}}"
-                        :date="{{json_encode(\Carbon\Carbon::now()->toDateString())}}"></tr>
+                        :date="{{json_encode($date)}}"></tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 
-    <booking-float-buttons></booking-float-buttons>
+    <booking-float-buttons :date="{{json_encode($date)}}"></booking-float-buttons>
     <booking-modal></booking-modal>
     <booking-manage-modal></booking-manage-modal>
 

@@ -1949,7 +1949,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1997,7 +1996,7 @@ __webpack_require__.r(__webpack_exports__);
     showBookings: function showBookings() {
       var _this2 = this;
 
-      this.court.bookingDates.forEach(function (booked) {
+      this.court.bookings.forEach(function (booked) {
         var jTime = _this2.formatTime(booked.time);
 
         var jCurrentTime = _this2.formatTime(_this2.hour);
@@ -2182,14 +2181,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "booking-float-buttons",
+  props: ['date'],
   components: {
     fab: vue_fab__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   data: function data() {
     return {
+      nextDate: '',
+      prevDate: '',
       fabActions: [{
         name: 'home',
         icon: 'home',
@@ -2197,13 +2201,13 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         name: '',
         icon: 'calendar_today',
-        tooltip: "\u062A\u0627\u0631\u06CC\u062E \u0627\u0645\u0631\u0648\u0632: ".concat(jmoment().format("jMM/jDD"))
+        tooltip: "\u062A\u0627\u0631\u06CC\u062E: ".concat(moment(this.date, 'jYYYY-jM-jD').format('YYYY/M/D'))
       }, {
-        name: '',
+        name: 'nextDay',
         icon: 'navigate_next',
         tooltip: "\u0631\u0648\u0632 \u0628\u0639\u062F"
       }, {
-        name: '',
+        name: 'prevDay',
         icon: 'navigate_before',
         tooltip: "\u0631\u0648\u0632 \u0642\u0628\u0644"
       }]
@@ -2212,6 +2216,43 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     onHome: function onHome() {
       window.location.href = "/admin/dashboard";
+    },
+    onNextDay: function onNextDay() {
+      jmoment.loadPersian({
+        usePersianDigits: false
+      });
+      var urlParams = new URLSearchParams(window.location.search);
+
+      if (urlParams.has('date')) {
+        var date = urlParams.get('date');
+        this.nextDate = moment(date, 'jYYYY-jM-jD').add(1, 'day').format('YYYY-M-D');
+      } else {
+        console.log(this.date);
+        this.nextDate = moment(this.date, 'jYYYY-jM-jD').add(1, 'day').format('YYYY-M-D');
+      }
+
+      window.location.href = "/admin/bookings?date=".concat(this.nextDate);
+    },
+    onPrevDay: function onPrevDay() {
+      jmoment.loadPersian({
+        usePersianDigits: false
+      });
+      var urlParams = new URLSearchParams(window.location.search);
+
+      if (urlParams.has('date')) {
+        var date = urlParams.get('date');
+        this.prevDate = moment(date, 'jYYYY-jM-jD').subtract(1, 'day').format('YYYY-M-D');
+      } else {
+        console.log(this.date);
+        this.prevDate = moment(this.date, 'jYYYY-jM-jD').subtract(1, 'day').format('YYYY-M-D');
+      }
+
+      window.location.href = "/admin/bookings?date=".concat(this.prevDate);
+    }
+  },
+  computed: {
+    getCurrentDate: function getCurrentDate() {
+      return 'asdfasdf';
     }
   }
 });
@@ -67258,7 +67299,7 @@ var render = function() {
           fixedTooltip: "true",
           actions: _vm.fabActions
         },
-        on: { home: _vm.onHome }
+        on: { home: _vm.onHome, nextDay: _vm.onNextDay, prevDay: _vm.onPrevDay }
       })
     ],
     1
