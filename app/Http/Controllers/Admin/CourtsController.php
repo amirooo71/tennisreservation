@@ -27,6 +27,13 @@ class CourtsController extends Controller {
 	 */
 	public function create( Club $club ) {
 
+		if ( $club->courts_count === $club->courts->count() ) {
+
+			flash("مجموعه شما دارای {$club->courts_count} عدد زمین تنیس می باشد و شما تمامی زمین تنیس ها را برای سیستم تعریف کرده اید.", 'info' );
+
+			return redirect()->route( 'admin.courts.index', [ 'club' => $club ] );
+		}
+
 		return view( 'admin.courts.create', compact( 'club' ) );
 	}
 
@@ -37,11 +44,18 @@ class CourtsController extends Controller {
 	 */
 	public function store( Club $club ) {
 
+		if ( $club->courts_count === $club->courts->count() ) {
+
+			flash("مجموعه شما دارای {$club->courts_count} عدد زمین تنیس می باشد و شما تمامی زمین تنیس ها را برای سیستم تعریف کرده اید.", 'info' );
+
+			return redirect()->route( 'admin.courts.index', [ 'club' => $club ] );
+		}
+
 		$data = $this->getValidateData();
 
 		$club->addCourt( $data );
 
-		flash('اطلاعات زمین تنیس با موفقیت ذخیره شد.','success');
+		flash( 'اطلاعات زمین تنیس با موفقیت ذخیره شد.', 'success' );
 
 		return redirect()->route( 'admin.courts.index', [ 'club' => $club ] );
 
@@ -66,11 +80,11 @@ class CourtsController extends Controller {
 	 */
 	public function update( Club $club, Court $court ) {
 
-		$data = $this->getValidateDataOnUpdate($court);
+		$data = $this->getValidateDataOnUpdate( $court );
 
 		$court->update( $data );
 
-		flash('اطلاعات زمین تنیس با موفقیت ویرایش شد.','success');
+		flash( 'اطلاعات زمین تنیس با موفقیت ویرایش شد.', 'success' );
 
 		return redirect()->route( 'admin.courts.index', compact( 'club' ) );
 	}
@@ -86,13 +100,13 @@ class CourtsController extends Controller {
 
 		$court->delete();
 
-		flash('زمین تنیس با موفقیت حذف شد.','success');
+		flash( 'زمین تنیس با موفقیت حذف شد.', 'success' );
 
 		return redirect()->route( 'admin.courts.index', compact( 'club' ) );
 	}
 
-	public function courts(){
-		return auth()->user()->club()->courts->pluck('name','id');
+	public function courts() {
+		return auth()->user()->club()->courts->pluck( 'name', 'id' );
 	}
 
 	/**
@@ -117,7 +131,7 @@ class CourtsController extends Controller {
 	 *
 	 * @return array
 	 */
-	private function getValidateDataOnUpdate($court): array {
+	private function getValidateDataOnUpdate( $court ): array {
 		$data = \request()->validate( [
 			'name'  => 'required|unique:courts,name,' . $court->id,
 			'type'  => 'required',

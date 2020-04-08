@@ -12,36 +12,36 @@
                     <div class="form-group row">
                         <div class="col-md-4">
                             <label>نام کلاب</label>
-                            <input type="text" value="{{$club->name}}" class="form-control" readonly>
+                            <input type="text" value="{{$club->name}}" class="form-control" disabled>
                         </div>
 
 
                         <div class="col-md-4">
                             <label>تعداد زمین تنیس های کلاب</label>
-                            <input type="text" value="{{$club->courts_count}}" class="form-control" readonly>
+                            <input type="text" value="{{$club->courts_count}}" class="form-control" disabled>
                         </div>
 
                         <div class="col-md-4">
                             <label>ساعت شروع به کار کلاب</label>
-                            <input type="text" value="{{$club->opening_time}}" class="form-control" readonly>
+                            <input type="text" value="{{$club->opening_time}}" class="form-control" disabled>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-md-4">
                             <label>ساعت اتمام کار کلاب</label>
-                            <input type="text" value="{{$club->closing_time}}" class="form-control" readonly>
+                            <input type="text" value="{{$club->closing_time}}" class="form-control" disabled>
                         </div>
                         <div class="col-md-4">
                             <label>مدت زمان کنسلی</label>
-                            <input type="text" value="{{$club->cancellation_time}}" class="form-control" readonly>
+                            <input type="text" value="{{$club->cancellation_time}}" class="form-control" disabled>
                         </div>
                         <div class="col-md-4">
                             <label>زمان های پاره وقت</label>
                             @if($partTimeMinutes)
-                                <input type="text" value="{{implode(' ,',$partTimeMinutes)}}" class="form-control" readonly>
+                                <input type="text" value="{{implode(' ,',$partTimeMinutes)}}" class="form-control" disabled>
                             @else
-                                <input type="text" value="بدون زمان" class="form-control" readonly>
+                                <input type="text" value="بدون زمان" class="form-control" disabled>
                             @endif
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>توضیحات تکمیلی کلاب</label>
-                            <textarea class="form-control" cols="30" rows="5" readonly>{{$club->description}}</textarea>
+                            <textarea class="form-control" cols="30" rows="5" disabled>{{$club->description}}</textarea>
                         </div>
                     </div>
 

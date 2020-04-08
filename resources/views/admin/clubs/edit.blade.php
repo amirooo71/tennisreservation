@@ -9,7 +9,7 @@
                 @csrf
                 @method('PATCH')
 
-                @component('components.portlet',['title' => 'فرم ساخت کلاب'])
+                @component('components.portlet',['title' => 'فرم ویرایش کلاب'])
 
                     @include('admin.clubs._form',['club' => $club])
 
