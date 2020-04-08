@@ -1,14 +1,21 @@
 <template>
     <div class="alert alert-secondary" role="alert">
-        <div class="alert-text">{{courtName}} برای ساعت {{hour}}</div>
+        <div class="alert-text" v-if="hour && courtName">{{courtName}} برای ساعت {{this.formatTime(hour)}}</div>
+        <div class="alert-text" v-else>در حال بارگزاری...</div>
     </div>
 </template>
 
 <script>
+
+    import jdatetime from './../../../mixins/jdatetime';
+
     export default {
+
         name: "book-info",
 
-        props: ['hour','courtName']
+        mixins: [jdatetime],
+
+        props: ['hour', 'courtName']
     }
 </script>
 

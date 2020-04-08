@@ -9,20 +9,18 @@ use Illuminate\Http\Request;
 
 class PartTimeBookingsController extends Controller {
 
+	/**
+	 * @param Booking $booking
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function store( Booking $booking ) {
 
-		$data = request()->validate( [
-			'renter_name'  => 'required',
-			'remain_time'  => 'required',
-			'owner_id'     => 'nullable',
-			'partner_name' => 'nullable',
-		] );
+		$data = $this->getValidateData( $booking );
 
-		$data['booking_id'] = $booking->id;
+		$forceBook = $booking->addPartTime( $data );
 
-		$forceBook = PartTimeBooking::create( $data );
-
-		$book = PartTimeBooking::where(['id' => $forceBook->id])->first();
+		$book = PartTimeBooking::where( [ 'id' => $forceBook->id ] )->first();
 
 		return response()->json( [ 'msg' => 'part time was added', 'book' => $book ] );
 
@@ -41,5 +39,24 @@ class PartTimeBookingsController extends Controller {
 		$partTimeBooking->delete();
 
 		return response()->json( [ 'msg' => 'هزینه با موفقیت دریافت شد', 'partTimeBooked' => null ] );
+	}
+
+	/**
+	 * @param Booking $booking
+	 *
+	 * @return array
+	 */
+	private function getValidateData( Booking $booking ): array {
+
+		$data = request()->validate( [
+			'renter_name'  => 'required',
+			'remain_time'  => 'required',
+			'owner_id'     => 'nullable',
+			'partner_name' => 'nullable',
+		] );
+
+		$data['booking_id'] = $booking->id;
+
+		return $data;
 	}
 }

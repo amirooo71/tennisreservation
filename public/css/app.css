@@ -421,3 +421,8 @@ button.toast-close-button {
   background: #808e95;
 }
 
+.required .control-label:after {
+  content: "*";
+  color: red;
+}
+

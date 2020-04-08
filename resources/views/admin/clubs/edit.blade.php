@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <form class="kt-form" action="{{route('admin.clubs.update',$club)}}" method="POST">
                 @csrf
                 @method('PATCH')

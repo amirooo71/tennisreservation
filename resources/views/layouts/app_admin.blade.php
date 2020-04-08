@@ -166,11 +166,10 @@
 
 <script>
     $(document).ready(function () {
-        $('#datatbl').DataTable({
-            "scrollX": true,
-            paginate: false,
-            scrollY: "600px",
-            "scrollCollapse": true,
+        $('#datatbl').DataTable();
+        $('.bs-select').selectpicker({
+            selectAllText: 'انتخاب همه',
+            deselectAllText: 'پاک کردن همه',
         });
     });
 </script>

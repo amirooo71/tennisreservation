@@ -10,7 +10,7 @@ class Booking extends Model {
 
 	protected $with = [ 'partTime' ];
 
-	protected $appends = ['is_full_paid'];
+	protected $appends = [ 'is_full_paid' ];
 
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -26,8 +26,12 @@ class Booking extends Model {
 		return $this->belongsTo( Court::class );
 	}
 
+	public function addPartTime( $data ) {
+		return $this->partTime()->create( $data );
+	}
+
 	public function getIsFullPaidAttribute() {
-		return $this->is_paid && optional($this->partTime)->is_paid;
+		return $this->is_paid && optional( $this->partTime )->is_paid;
 	}
 
 }

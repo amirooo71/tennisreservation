@@ -164,7 +164,7 @@
                     this.booked ? this.triggerSuccessSubmitEventOnPartTimeBooking(res) : this.triggerSuccessSubmitEvents(res);
                     toastr.success(res.data.msg);
                     this.$refs.modal.close();
-                }).catch(err => toastr.warning('خطایی رخ داده است'));
+                }).catch(err => toastr.warning(err.response.data.msg));
 
                 this.redrawTblHeader(asyncRes);
             },

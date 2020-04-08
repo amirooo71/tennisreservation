@@ -15,10 +15,12 @@ class CreateClubsTable extends Migration {
 			$table->bigIncrements( 'id' );
 			$table->unsignedBigInteger( 'owner_id' );
 			$table->string( 'name' );
-			$table->text( 'description' );
 			$table->integer( 'courts_count' );
-			$table->time('opening_time');
-			$table->time('closing_time');
+			$table->time( 'opening_time' );
+			$table->time( 'closing_time' );
+			$table->integer( 'cancellation_time' );
+			$table->string( 'part_time_minutes' )->nullable();
+			$table->text( 'description' )->nullable();
 			$table->timestamps();
 
 			$table->foreign( 'owner_id' )->references( 'id' )->on( 'users' )->onDelete( 'cascade' );
