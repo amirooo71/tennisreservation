@@ -42,6 +42,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * allows your team to easily build robust real-time web applications.
  */
 
+window.toastError = function (msg = null) {
+
+    if (msg) {
+        toastr.warning(msg);
+    } else {
+        toastr.warning('خطایی رخ داده است');
+    }
+
+};
+
 
 // import Echo from 'laravel-echo';
 
