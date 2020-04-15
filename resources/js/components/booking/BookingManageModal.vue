@@ -28,29 +28,23 @@
 
         <sweet-modal-tab title="کنسل" id="tab-cancel">
 
-            <div class="row" v-if="!booked.is_canceled">
-                <div class="col">
-                    <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
-                         role="alert">
-                        <div>
-                            {{showBookedCancelLabel}}
-                        </div>
-                        <button class="btn btn-danger btn-sm" @click="cancel">کنسل کن</button>
-                    </div>
-                </div>
-            </div>
+            <cancel
+                    v-if="!booked.is_canceled"
+                    :label="showBookedCancelLabel"
+                    :booked="booked"
+                    :court="court"
+                    :hour="hour"
+                    :is-part-time="false">
+            </cancel>
 
-            <div class="row" v-if="partTimeBooked && !partTimeBooked.is_canceled">
-                <div class="col">
-                    <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
-                         role="alert">
-                        <div>
-                            {{showPartTimeBookedCancelLabel}}
-                        </div>
-                        <button class="btn btn-danger btn-sm" @click="cancelPartTimeBooked">کنسل کن</button>
-                    </div>
-                </div>
-            </div>
+            <cancel
+                    v-if="partTimeBooked && !partTimeBooked.is_canceled"
+                    :label="showPartTimeBookedCancelLabel"
+                    :part-time-booked="partTimeBooked"
+                    :court="court"
+                    :hour="hour"
+                    :is-part-time="true">
+            </cancel>
 
         </sweet-modal-tab>
 
@@ -64,12 +58,13 @@
     import {SweetModal, SweetModalTab} from 'sweet-modal-vue';
     import BookingInfo from './partials/BookInfo';
     import Pay from './partials/Pay';
+    import Cancel from './partials/Cancel';
 
     export default BaseComponent.extend({
 
         name: "booking-manage-modal",
 
-        components: {SweetModal, SweetModalTab, BookingInfo, Pay},
+        components: {SweetModal, SweetModalTab, BookingInfo, Pay, Cancel},
 
         data() {
             return {
@@ -98,38 +93,12 @@
 
         },
 
-        methods: {
-
-            cancelPartTimeBooked() {
-                let asyncRes = axios.delete(`/admin/bookings/${this.partTimeBooked.id}/part-time/cancel`).then(res => {
-                    Events.$emit(`on-success-part-time-booked-cancel-court-${this.court.id}-at-${this.hour}`, {partTimeBooked: res.data.partTimeBooked});
-                    this.$refs.modal.close();
-                    toastr.success(res.data.msg);
-                }).catch(err => toastr.warning('خطایی رخ داده'));
-                this.redrawTblHeader(asyncRes);
-            },
-
-        },
-
         computed: {
-
-            showBookedPayLabel: function () {
-
-                return `${this.booked.renter_name} مبلغ ${this.court.price} تومان بدهکار است`;
-
-            },
 
             showPartTimeBookedPayLabel: function () {
                 return `${this.partTimeBooked.renter_name} مبلغ ${this.court.price} تومان بدهکار است`;
             },
-
-
-            showBookedCancelLabel: function () {
-
-                return `آیا می خواهید رزرو را برای ${this.booked.renter_name} کنسل کنید؟`;
-
-            },
-
+            
             showPartTimeBookedCancelLabel: function () {
                 return `آیا می خواهید رزرو را برای ${this.partTimeBooked.renter_name} کنسل کنید؟`;
             },

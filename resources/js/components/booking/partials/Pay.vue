@@ -36,6 +36,7 @@
 
             pay() {
                 let asyncRes = axios.patch(`/admin/bookings/${this.booked.id}/paid`).then(res => {
+                    Events.$emit(`close-booking-modal`);
                     Events.$emit(`close-manage-booking-modal`);
                     Events.$emit(`on-success-booked-paid-court-${this.court.id}-at-${this.hour}`, {booked: res.data.booked});
                     toastr.success(res.data.msg);

@@ -21,8 +21,8 @@
                     <part-time-input-hours
                             :booked="booked"
                             :hour="hour"
-                            @timeChanged="onTimeChanged"
-                    ></part-time-input-hours>
+                            @timeChanged="onTimeChanged">
+                    </part-time-input-hours>
 
                     <div class="form-group">
                         <button class="btn btn-primary">ذخیره</button>
@@ -47,8 +47,8 @@
                     <part-time-input-hours
                             :booked="booked"
                             :hour="hour"
-                            @timeChanged="onTimeChanged"
-                    ></part-time-input-hours>
+                            @timeChanged="onTimeChanged">
+                    </part-time-input-hours>
 
                     <div class="form-group text-left">
                         <label class="kt-checkbox">
@@ -76,8 +76,23 @@
             <sweet-modal-tab :disabled="!hasPartTimeManageTab"
                              :title="hasPartTimeManageTab ? 'مدیریت رزرو' : ''"
                              id="part-time-manage-tab">
-                <button class="btn btn-danger" @click="cancel">کنسل</button>
-                <button v-if="booked && !booked.is_paid" class="btn btn-success" @click="pay">هزینه پرداخت شد</button>
+
+                <pay v-if="booked && !booked.is_paid"
+                     :label="showBookedPayLabel"
+                     :booked="booked"
+                     :court="court"
+                     :hour="hour"
+                     :is-part-time="false">
+                </pay>
+
+                <cancel
+                        :label="showBookedCancelLabel"
+                        :booked="booked"
+                        :court="court"
+                        :hour="hour"
+                        :is-part-time="false">
+                </cancel>
+
             </sweet-modal-tab>
 
         </sweet-modal>
@@ -92,6 +107,8 @@
     import PartTimeBookingAlert from './partials/PartTimeBookingAlert';
     import PartTimeInputHours from './partials/PartTimeInputHours';
     import BookingInfo from './partials/BookInfo';
+    import Pay from './partials/Pay';
+    import Cancel from './partials/Cancel';
 
     export default BaseComponent.extend({
 
@@ -102,7 +119,9 @@
             SweetModalTab,
             PartTimeBookingAlert,
             PartTimeInputHours,
-            BookingInfo
+            BookingInfo,
+            Pay,
+            Cancel,
         },
 
         data() {
@@ -147,7 +166,12 @@
                 }
 
                 this.$refs.modal.open('tab-guest');
-            })
+            });
+
+
+            Events.$on('close-booking-modal', () => {
+                this.$refs.modal.close();
+            });
         },
 
         methods: {
@@ -254,7 +278,6 @@
                 this.coaches.forEach(coach => {
                     if (coach.id === val) {
                         this.coachName = coach.name;
-
                     }
                 });
             }
