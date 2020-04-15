@@ -2,68 +2,52 @@
     <!--Manage book modal-->
     <sweet-modal ref="modal" overlay-theme="dark">
 
-
         <booking-info :hour="hour" :court-name="court.name"></booking-info>
 
         <sweet-modal-tab title="پرداخت" id="tab-pay">
 
-            <div v-if="isAlreadyPaid">
-                <h4 class="text-success">پرداخت شده</h4>
-            </div>
-            <div>
-                <div class="row" v-if="!booked.is_paid">
-                    <div class="col">
-                        <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
-                             role="alert">
-                            <div>
-                                {{showBookedPayLabel}}
-                            </div>
-                            <button class="btn btn-success btn-sm" @click="pay">پرداخت شد</button>
-                        </div>
-                    </div>
-                </div>
+            <h4 v-if="isAlreadyPaid" class="text-success">پرداخت شده</h4>
 
-                <div class="row" v-if="partTimeBooked && !partTimeBooked.is_paid">
-                    <div class="col">
-                        <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
-                             role="alert">
-                            <div>
-                                {{showPartTimeBookedPayLabel}}
-                            </div>
-                            <button class="btn btn-success btn-sm" @click="payPartTimeBooked">پرداخت شد</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <pay v-if="!booked.is_paid"
+                 :label="showBookedPayLabel"
+                 :booked="booked"
+                 :court="court"
+                 :hour="hour"
+                 :is-part-time="false">
+            </pay>
 
+            <pay v-if="partTimeBooked && !partTimeBooked.is_paid"
+                 :label="showPartTimeBookedPayLabel"
+                 :part-time-booked="partTimeBooked"
+                 :court="court"
+                 :hour="hour"
+                 :is-part-time="true">
+            </pay>
 
         </sweet-modal-tab>
 
-
         <sweet-modal-tab title="کنسل" id="tab-cancel">
 
-            <div>
-                <div class="row" v-if="!booked.is_canceled">
-                    <div class="col">
-                        <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
-                             role="alert">
-                            <div>
-                                {{showBookedCancelLabel}}
-                            </div>
-                            <button class="btn btn-danger btn-sm" @click="cancel">کنسل کن</button>
+            <div class="row" v-if="!booked.is_canceled">
+                <div class="col">
+                    <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
+                         role="alert">
+                        <div>
+                            {{showBookedCancelLabel}}
                         </div>
+                        <button class="btn btn-danger btn-sm" @click="cancel">کنسل کن</button>
                     </div>
                 </div>
+            </div>
 
-                <div class="row" v-if="partTimeBooked && !partTimeBooked.is_canceled">
-                    <div class="col">
-                        <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
-                             role="alert">
-                            <div>
-                                {{showPartTimeBookedCancelLabel}}
-                            </div>
-                            <button class="btn btn-danger btn-sm" @click="cancelPartTimeBooked">کنسل کن</button>
+            <div class="row" v-if="partTimeBooked && !partTimeBooked.is_canceled">
+                <div class="col">
+                    <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
+                         role="alert">
+                        <div>
+                            {{showPartTimeBookedCancelLabel}}
                         </div>
+                        <button class="btn btn-danger btn-sm" @click="cancelPartTimeBooked">کنسل کن</button>
                     </div>
                 </div>
             </div>
@@ -79,12 +63,13 @@
     import BaseComponent from './BaseComponent';
     import {SweetModal, SweetModalTab} from 'sweet-modal-vue';
     import BookingInfo from './partials/BookInfo';
+    import Pay from './partials/Pay';
 
     export default BaseComponent.extend({
 
         name: "booking-manage-modal",
 
-        components: {SweetModal, SweetModalTab, BookingInfo},
+        components: {SweetModal, SweetModalTab, BookingInfo, Pay},
 
         data() {
             return {
@@ -107,6 +92,10 @@
                 this.$refs.modal.open('tab-pay');
             });
 
+            Events.$on(`close-manage-booking-modal`, () => {
+                this.$refs.modal.close();
+            });
+
         },
 
         methods: {
@@ -119,15 +108,6 @@
                 }).catch(err => toastr.warning('خطایی رخ داده'));
                 this.redrawTblHeader(asyncRes);
             },
-
-            payPartTimeBooked() {
-                let asyncRes = axios.patch(`/admin/bookings/${this.partTimeBooked.id}/part-time/pay`).then(res => {
-                    Events.$emit(`on-success-part-time-booked-paid-court-${this.court.id}-at-${this.hour}`, {partTimeBooked: res.data.partTimeBooked});
-                    this.$refs.modal.close();
-                    toastr.success(res.data.msg);
-                }).catch(err => toastr.warning('خطایی رخ داده'));
-                this.redrawTblHeader(asyncRes);
-            }
 
         },
 

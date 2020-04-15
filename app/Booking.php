@@ -16,7 +16,7 @@ class Booking extends Model {
 	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
 	 */
 	public function partTime() {
-		return $this->hasOne( PartTimeBooking::class );
+		return $this->hasOne( PartTimeBooking::class )->where( [ 'is_canceled' => false ] );
 	}
 
 	/**
@@ -26,10 +26,18 @@ class Booking extends Model {
 		return $this->belongsTo( Court::class );
 	}
 
+	/**
+	 * @param $data
+	 *
+	 * @return Model
+	 */
 	public function addPartTime( $data ) {
 		return $this->partTime()->create( $data );
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function getIsFullPaidAttribute() {
 		return $this->is_paid && optional( $this->partTime )->is_paid;
 	}

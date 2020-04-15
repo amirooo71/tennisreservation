@@ -61,7 +61,7 @@ class BookingsController extends BaseController {
 
 			$booking->update( [ 'is_canceled' => true ] );
 
-			$booked = $this->bookingOnCancelPartTime( $booking );
+			$booked = $this->bookingWithPartTime( $booking );
 
 			$booking->partTime->delete();
 
@@ -91,6 +91,9 @@ class BookingsController extends BaseController {
 		return response()->json( [ 'msg' => 'هزینه با موفقیت دریافت شد', 'booked' => $booking ] );
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function getHours() {
 
 		$club = auth()->user()->club();
@@ -124,7 +127,7 @@ class BookingsController extends BaseController {
 	 *
 	 * @return mixed
 	 */
-	private function bookingOnCancelPartTime( Booking $booking ) {
+	private function bookingWithPartTime( Booking $booking ) {
 
 		$booked = Booking::create( [
 			'court_id'     => $booking->court->id,

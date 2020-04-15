@@ -49,7 +49,7 @@ class PartTimeBookingsController extends BaseController {
 	 */
 	public function cancel( PartTimeBooking $partTimeBooking ) {
 
-		$partTimeBooking->delete();
+		$partTimeBooking->update( [ 'is_canceled' => true ] );
 
 		return response()->json( [ 'msg' => 'هزینه با موفقیت دریافت شد', 'partTimeBooked' => null ] );
 	}

@@ -24,7 +24,6 @@ class CreateBookingsTable extends Migration {
 			$table->time( 'start_time' )->nullable();
 			$table->time( 'end_time' )->nullable();
 			$table->boolean( 'is_part_time' )->default( false );
-			$table->unique( [ 'date', 'time', 'court_id' ] );
 			$table->timestamps();
 
 			$table->foreign( 'court_id' )->references( 'id' )->on( 'courts' )->onDelete( 'cascade' );
