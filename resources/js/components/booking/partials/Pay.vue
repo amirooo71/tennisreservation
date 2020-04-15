@@ -1,16 +1,19 @@
 <template>
 
-    <div class="alert alert-light alert-elevate" role="alert">
-        <div class="alert-text">
-            <p>{{label}}</p>
-            <button class="btn btn-primary btn-sm btn-elevate" @click="showInput = !showInput">مبلغ دلخواه</button>
-            <button class="btn btn-success btn-sm btn-elevate" v-on="{ click: isPartTime  ? payPartTimeBooked : pay }">
-                پرداخت شد
-            </button>
-            <p class="mt-3" v-if="showInput">
-                <input type="text" class="form-control">
-                <span class="form-text text-muted">مبلغ به صورت پیش فرض برابر با هزینه ی زمین است</span>
-            </p>
+    <div class="alert alert-light alert-elevate row" role="alert">
+        <div class="d-flex col-md-12 justify-content-between align-items-center">
+            <p class="pt-3">{{label}}</p>
+            <div>
+                <button class="btn btn-primary btn-sm btn-elevate m-1" @click="showInput = !showInput">مبلغ دلخواه</button>
+                <button class="btn btn-success btn-sm btn-elevate m-1"
+                        v-on="{ click: isPartTime  ? payPartTimeBooked : pay }">
+                    پرداخت شد
+                </button>
+            </div>
+        </div>
+        <div class="mt-3 col-md-12" v-if="showInput">
+            <input type="text" class="form-control form-control-sm">
+            <span class="form-text text-muted">مبلغ به صورت پیش فرض برابر با هزینه ی زمین است</span>
         </div>
     </div>
 

@@ -2981,6 +2981,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = (_BaseComponent__WEBPACK_IMPORTED_MODULE_0__["default"].extend({
   name: "pay.vue",
@@ -68120,48 +68123,57 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "alert alert-light alert-elevate",
+      staticClass: "alert alert-light alert-elevate row",
       attrs: { role: "alert" }
     },
     [
-      _c("div", { staticClass: "alert-text" }, [
-        _c("p", [_vm._v(_vm._s(_vm.label))]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary btn-sm btn-elevate",
-            on: {
-              click: function($event) {
-                _vm.showInput = !_vm.showInput
-              }
-            }
-          },
-          [_vm._v("مبلغ دلخواه")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          _vm._g(
-            { staticClass: "btn btn-success btn-sm btn-elevate" },
-            { click: _vm.isPartTime ? _vm.payPartTimeBooked : _vm.pay }
-          ),
-          [_vm._v("\n            پرداخت شد\n        ")]
-        ),
-        _vm._v(" "),
-        _vm.showInput
-          ? _c("p", { staticClass: "mt-3" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text" }
-              }),
-              _vm._v(" "),
-              _c("span", { staticClass: "form-text text-muted" }, [
-                _vm._v("مبلغ به صورت پیش فرض برابر با هزینه ی زمین است")
-              ])
+      _c(
+        "div",
+        {
+          staticClass:
+            "d-flex col-md-12 justify-content-between align-items-center"
+        },
+        [
+          _c("p", { staticClass: "pt-3" }, [_vm._v(_vm._s(_vm.label))]),
+          _vm._v(" "),
+          _c("div", [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn-sm btn-elevate m-1",
+                on: {
+                  click: function($event) {
+                    _vm.showInput = !_vm.showInput
+                  }
+                }
+              },
+              [_vm._v("مبلغ دلخواه")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              _vm._g(
+                { staticClass: "btn btn-success btn-sm btn-elevate m-1" },
+                { click: _vm.isPartTime ? _vm.payPartTimeBooked : _vm.pay }
+              ),
+              [_vm._v("\n                پرداخت شد\n            ")]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _vm.showInput
+        ? _c("div", { staticClass: "mt-3 col-md-12" }, [
+            _c("input", {
+              staticClass: "form-control form-control-sm",
+              attrs: { type: "text" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "form-text text-muted" }, [
+              _vm._v("مبلغ به صورت پیش فرض برابر با هزینه ی زمین است")
             ])
-          : _vm._e()
-      ])
+          ])
+        : _vm._e()
     ]
   )
 }
