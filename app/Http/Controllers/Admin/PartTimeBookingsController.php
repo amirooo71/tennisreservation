@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Booking;
 use App\PartTimeBooking;
+use App\Payment;
 
 class PartTimeBookingsController extends BaseController {
 
@@ -34,6 +35,16 @@ class PartTimeBookingsController extends BaseController {
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function pay( PartTimeBooking $partTimeBooking ) {
+
+
+		request()->validate( [
+			'price' => 'required:numeric'
+		] );
+
+		Payment::create( [
+			'part_time_booking_id' => $partTimeBooking->id,
+			'amount'               => request( 'price' )
+		] );
 
 		$partTimeBooking->update( [ 'is_paid' => true ] );
 

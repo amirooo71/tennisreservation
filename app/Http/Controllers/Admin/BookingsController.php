@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Booking;
 use App\Club;
 use App\Court;
+use App\Payment;
 use Hekmatinasser\Verta\Verta;
 
 class BookingsController extends BaseController {
@@ -80,11 +81,16 @@ class BookingsController extends BaseController {
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function paid( Booking $booking ) {
+	public function pay( Booking $booking ) {
 
-		if ( ! $booking ) {
-			return response()->json( 'Not found' );
-		}
+		request()->validate( [
+			'price' => 'required:numeric'
+		] );
+
+		Payment::create( [
+			'booking_id' => $booking->id,
+			'amount'     => request( 'price' ),
+		] );
 
 		$booking->update( [ 'is_paid' => true ] );
 

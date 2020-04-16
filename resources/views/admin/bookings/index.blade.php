@@ -33,7 +33,7 @@
 
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__body vh-100 tns-bg-darker-white">
-            <table class="table table-bordered table-hover tns-bg-white" id="bookings-data-tbl">
+            <table class="table table-bordered table-hover tns-bg-white booking-tbl" id="bookings-data-tbl">
                 <thead>
                 <tr>
                     <th scope="col" class="text-center tns-col-sticky">ساعت</th>

@@ -44,7 +44,9 @@ __webpack_require__.r(__webpack_exports__);
     pay: function pay() {
       var _this = this;
 
-      var asyncRes = axios.patch("/admin/bookings/".concat(this.booked.id, "/paid")).then(function (res) {
+      var asyncRes = axios.patch("/admin/bookings/".concat(this.booked.id, "/pay"), {
+        price: this.price
+      }).then(function (res) {
         Events.$emit("close-booking-modal");
         Events.$emit("close-manage-booking-modal");
         Events.$emit("on-success-booked-paid-court-".concat(_this.court.id, "-at-").concat(_this.hour), {
@@ -59,7 +61,9 @@ __webpack_require__.r(__webpack_exports__);
     payPartTimeBooked: function payPartTimeBooked() {
       var _this2 = this;
 
-      var asyncRes = axios.patch("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/pay")).then(function (res) {
+      var asyncRes = axios.patch("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/pay"), {
+        price: this.price
+      }).then(function (res) {
         Events.$emit("close-manage-booking-modal");
         Events.$emit("on-success-part-time-booked-paid-court-".concat(_this2.court.id, "-at-").concat(_this2.hour), {
           partTimeBooked: res.data.partTimeBooked

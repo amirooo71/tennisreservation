@@ -10,8 +10,10 @@
             <!--Book for guest tab-->
             <sweet-modal-tab title="رزرو مهمان" id="tab-guest">
 
-                <part-time-booking-alert v-if="booked" :booked="booked"
-                                         :empty-time="emptyTime"></part-time-booking-alert>
+                <part-time-booking-alert v-if="booked"
+                                         :booked="booked"
+                                         :empty-time="emptyTime">
+                </part-time-booking-alert>
 
                 <form class="kt-form" @submit.prevent="onGuestBookSubmit">
                     <div class="form-group text-left">
@@ -36,8 +38,10 @@
             <!--Book for coach tab-->
             <sweet-modal-tab title="رزرو مربی" id="tab-coach">
 
-                <part-time-booking-alert v-if="booked" :booked="booked"
-                                         :empty-time="emptyTime"></part-time-booking-alert>
+                <part-time-booking-alert v-if="booked"
+                                         :booked="booked"
+                                         :empty-time="emptyTime">
+                </part-time-booking-alert>
 
                 <form class="kt-form" @submit.prevent="onCoachBookSubmit">
                     <div class="form-group text-left">

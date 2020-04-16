@@ -38,7 +38,7 @@
         methods: {
 
             pay() {
-                let asyncRes = axios.patch(`/admin/bookings/${this.booked.id}/paid`).then(res => {
+                let asyncRes = axios.patch(`/admin/bookings/${this.booked.id}/pay`, {price: this.price}).then(res => {
                     Events.$emit(`close-booking-modal`);
                     Events.$emit(`close-manage-booking-modal`);
                     Events.$emit(`on-success-booked-paid-court-${this.court.id}-at-${this.hour}`, {booked: res.data.booked});
@@ -48,7 +48,7 @@
             },
 
             payPartTimeBooked() {
-                let asyncRes = axios.patch(`/admin/bookings/${this.partTimeBooked.id}/part-time/pay`).then(res => {
+                let asyncRes = axios.patch(`/admin/bookings/${this.partTimeBooked.id}/part-time/pay`,{price: this.price}).then(res => {
                     Events.$emit(`close-manage-booking-modal`);
                     Events.$emit(`on-success-part-time-booked-paid-court-${this.court.id}-at-${this.hour}`, {partTimeBooked: res.data.partTimeBooked});
                     toastr.success(res.data.msg);

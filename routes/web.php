@@ -40,7 +40,7 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::get( 'bookings', 'Admin\BookingsController@index' )->name( 'admin.bookings.index' );
 	Route::post( 'bookings', 'Admin\BookingsController@store' )->name( 'admin.bookings.store' );
 	Route::patch( 'bookings/{booking}/cancel', 'Admin\BookingsController@cancel' )->name( 'admin.bookings.cancel' );
-	Route::patch( 'bookings/{booking}/paid', 'Admin\BookingsController@paid' )->name( 'admin.bookings.paid' );
+	Route::patch( 'bookings/{booking}/pay', 'Admin\BookingsController@pay' )->name( 'admin.bookings.pay' );
 
 	Route::get( 'ajax/coaches', 'Admin\CoachesController@getCoaches' )->name( 'admin.coaches.getCoaches' );
 
@@ -48,8 +48,6 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::post( 'bookings/{booking}/part-time', 'Admin\PartTimeBookingsController@store' )->name( 'admin.bookings.part_time.store' );
 	Route::patch( 'bookings/{partTimeBooking}/part-time/pay', 'Admin\PartTimeBookingsController@pay' )->name( 'admin.bookings.part_time.pay' );
 	Route::delete( 'bookings/{partTimeBooking}/part-time/cancel', 'Admin\PartTimeBookingsController@cancel' )->name( 'admin.bookings.part_time.cancel' );
-
-
 
 
 	Route::get( 'hours', 'Admin\BookingsController@getHours' );
