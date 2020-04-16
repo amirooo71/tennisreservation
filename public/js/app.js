@@ -2453,6 +2453,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = (_BaseComponent__WEBPACK_IMPORTED_MODULE_0__["default"].extend({
@@ -2476,7 +2478,8 @@ __webpack_require__.r(__webpack_exports__);
       partTimeBooked: '',
       hour: '',
       date: '',
-      court: ''
+      court: '',
+      showPay: false
     };
   },
   mounted: function mounted() {
@@ -2488,12 +2491,18 @@ __webpack_require__.r(__webpack_exports__);
       _this.date = data.date;
       _this.booked = data.booked;
       _this.partTimeBooked = data.partTimeBooked;
+      _this.showPay = true;
 
       _this.$refs.modal.open('tab-pay');
     });
     Events.$on("close-manage-booking-modal", function () {
       _this.$refs.modal.close();
     });
+  },
+  methods: {
+    onCloseModal: function onCloseModal() {
+      this.showPay = false;
+    }
   },
   computed: {
     showPartTimeBookedPayLabel: function showPartTimeBookedPayLabel() {
@@ -67308,7 +67317,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "sweet-modal",
-    { ref: "modal", attrs: { "overlay-theme": "dark" } },
+    {
+      ref: "modal",
+      attrs: { "overlay-theme": "dark" },
+      on: { close: _vm.onCloseModal }
+    },
     [
       _vm.hour || _vm.court
         ? _c("info", {
@@ -67316,40 +67329,43 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      _c(
-        "sweet-modal-tab",
-        { attrs: { title: "پرداخت", id: "tab-pay" } },
-        [
-          _vm.isAlreadyPaid
-            ? _c("h4", { staticClass: "text-success" }, [_vm._v("پرداخت شده")])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.booked && !_vm.booked.is_paid
-            ? _c("pay", {
-                attrs: {
-                  label: _vm.showBookedPayLabel,
-                  booked: _vm.booked,
-                  court: _vm.court,
-                  hour: _vm.hour,
-                  "is-part-time": false
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.partTimeBooked && !_vm.partTimeBooked.is_paid
-            ? _c("pay", {
-                attrs: {
-                  label: _vm.showPartTimeBookedPayLabel,
-                  "part-time-booked": _vm.partTimeBooked,
-                  court: _vm.court,
-                  hour: _vm.hour,
-                  "is-part-time": true
-                }
-              })
-            : _vm._e()
-        ],
-        1
-      ),
+      _c("sweet-modal-tab", { attrs: { title: "پرداخت", id: "tab-pay" } }, [
+        _vm.isAlreadyPaid
+          ? _c("h4", { staticClass: "text-success" }, [_vm._v("پرداخت شده")])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.showPay
+          ? _c(
+              "div",
+              [
+                _vm.booked && !_vm.booked.is_paid
+                  ? _c("pay", {
+                      attrs: {
+                        label: _vm.showBookedPayLabel,
+                        booked: _vm.booked,
+                        court: _vm.court,
+                        hour: _vm.hour,
+                        "is-part-time": false
+                      }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.partTimeBooked && !_vm.partTimeBooked.is_paid
+                  ? _c("pay", {
+                      attrs: {
+                        label: _vm.showPartTimeBookedPayLabel,
+                        "part-time-booked": _vm.partTimeBooked,
+                        court: _vm.court,
+                        hour: _vm.hour,
+                        "is-part-time": true
+                      }
+                    })
+                  : _vm._e()
+              ],
+              1
+            )
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _c(
         "sweet-modal-tab",

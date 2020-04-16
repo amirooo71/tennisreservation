@@ -31,8 +31,26 @@
         data() {
             return {
                 showInput: false,
-                price: this.court.price,
+                price: '',
             }
+        },
+
+
+        mounted() {
+            
+            let multipy = {
+                '15': 1,
+                '30': 2,
+                '45': 3,
+                '60': 4
+            };
+
+            if (this.isPartTime) {
+                this.price = (this.court.price * multipy[this.partTimeBooked.duration]) / 4;
+            } else {
+                this.price = (this.court.price * multipy[this.booked.duration]) / 4;
+            }
+
         },
 
         methods: {
@@ -48,7 +66,7 @@
             },
 
             payPartTimeBooked() {
-                let asyncRes = axios.patch(`/admin/bookings/${this.partTimeBooked.id}/part-time/pay`,{price: this.price}).then(res => {
+                let asyncRes = axios.patch(`/admin/bookings/${this.partTimeBooked.id}/part-time/pay`, {price: this.price}).then(res => {
                     Events.$emit(`close-manage-booking-modal`);
                     Events.$emit(`on-success-part-time-booked-paid-court-${this.court.id}-at-${this.hour}`, {partTimeBooked: res.data.partTimeBooked});
                     toastr.success(res.data.msg);

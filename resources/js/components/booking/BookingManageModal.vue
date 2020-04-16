@@ -1,6 +1,6 @@
 <template>
     <!--Manage book modal-->
-    <sweet-modal ref="modal" overlay-theme="dark">
+    <sweet-modal ref="modal" overlay-theme="dark" @close="onCloseModal">
 
         <info v-if="hour || court" :hour="hour" :court-name="court.name"></info>
 
@@ -8,21 +8,23 @@
 
             <h4 v-if="isAlreadyPaid" class="text-success">پرداخت شده</h4>
 
-            <pay v-if="booked && !booked.is_paid"
-                 :label="showBookedPayLabel"
-                 :booked="booked"
-                 :court="court"
-                 :hour="hour"
-                 :is-part-time="false">
-            </pay>
+            <div v-if="showPay">
+                <pay v-if="booked && !booked.is_paid"
+                     :label="showBookedPayLabel"
+                     :booked="booked"
+                     :court="court"
+                     :hour="hour"
+                     :is-part-time="false">
+                </pay>
 
-            <pay v-if="partTimeBooked && !partTimeBooked.is_paid"
-                 :label="showPartTimeBookedPayLabel"
-                 :part-time-booked="partTimeBooked"
-                 :court="court"
-                 :hour="hour"
-                 :is-part-time="true">
-            </pay>
+                <pay v-if="partTimeBooked && !partTimeBooked.is_paid"
+                     :label="showPartTimeBookedPayLabel"
+                     :part-time-booked="partTimeBooked"
+                     :court="court"
+                     :hour="hour"
+                     :is-part-time="true">
+                </pay>
+            </div>
 
         </sweet-modal-tab>
 
@@ -76,6 +78,7 @@
                 hour: '',
                 date: '',
                 court: '',
+                showPay: false,
             }
         },
 
@@ -87,12 +90,21 @@
                 this.date = data.date;
                 this.booked = data.booked;
                 this.partTimeBooked = data.partTimeBooked;
+                this.showPay = true;
                 this.$refs.modal.open('tab-pay');
             });
 
             Events.$on(`close-manage-booking-modal`, () => {
                 this.$refs.modal.close();
             });
+
+        },
+
+        methods: {
+
+            onCloseModal() {
+                this.showPay = false;
+            }
 
         },
 

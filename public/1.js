@@ -37,8 +37,22 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showInput: false,
-      price: this.court.price
+      price: ''
     };
+  },
+  mounted: function mounted() {
+    var multipy = {
+      '15': 1,
+      '30': 2,
+      '45': 3,
+      '60': 4
+    };
+
+    if (this.isPartTime) {
+      this.price = this.court.price * multipy[this.partTimeBooked.duration] / 4;
+    } else {
+      this.price = this.court.price * multipy[this.booked.duration] / 4;
+    }
   },
   methods: {
     pay: function pay() {
