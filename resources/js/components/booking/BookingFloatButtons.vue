@@ -110,23 +110,11 @@
             },
 
             onCurrentDay() {
-
                 window.location.href = `/admin/bookings`;
-
-
             },
 
             onSync() {
-
-                jmoment.loadPersian({
-                    usePersianDigits: false,
-                });
-
-                let currentDate = moment(this.date, 'jYYYY-jM-jD').format('YYYY-M-D');
-
-                window.location.href = `/admin/bookings?date=${currentDate}`;
-
-
+                location.reload();
             },
 
         },

@@ -4,15 +4,14 @@
         <div class="d-flex col-md-12 justify-content-between align-items-center">
             <p class="pt-3">{{label}}</p>
             <div>
-                <button class="btn btn-primary btn-sm btn-elevate m-1" @click="showInput = !showInput">مبلغ دلخواه</button>
                 <button class="btn btn-success btn-sm btn-elevate m-1"
                         v-on="{ click: isPartTime  ? payPartTimeBooked : pay }">
                     پرداخت شد
                 </button>
             </div>
         </div>
-        <div class="mt-3 col-md-12" v-if="showInput">
-            <input type="text" class="form-control form-control-sm">
+        <div class="mt-3 col-md-12">
+            <input v-model="price" type="number" class="form-control form-control-sm">
             <span class="form-text text-muted">مبلغ به صورت پیش فرض برابر با هزینه ی زمین است</span>
         </div>
     </div>
@@ -32,6 +31,7 @@
         data() {
             return {
                 showInput: false,
+                price: this.court.price,
             }
         },
 
@@ -55,7 +55,6 @@
                 }).catch(err => toastr.warning('خطایی رخ داده'));
                 this.redrawTblHeader(asyncRes);
             },
-
         }
 
     });

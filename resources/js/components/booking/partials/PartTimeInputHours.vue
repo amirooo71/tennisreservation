@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!booked">
+    <div>
         <div class="form-group text-left">
             <label class="kt-checkbox">
                 <input type="checkbox" @change="hasPartTime = !hasPartTime" :checked="hasPartTime">

@@ -5,12 +5,13 @@
         <!--Book modal-->
         <sweet-modal ref="modal" overlay-theme="dark" @close="reset">
 
-            <booking-info :hour="hour" :court-name="court.name"></booking-info>
+            <info v-if="hour || court" :hour="hour" :court-name="court.name"></info>
 
             <!--Book for guest tab-->
             <sweet-modal-tab title="رزرو مهمان" id="tab-guest">
 
-                <part-time-booking-alert :booked="booked" :empty-time="emptyTime"></part-time-booking-alert>
+                <part-time-booking-alert v-if="booked" :booked="booked"
+                                         :empty-time="emptyTime"></part-time-booking-alert>
 
                 <form class="kt-form" @submit.prevent="onGuestBookSubmit">
                     <div class="form-group text-left">
@@ -19,6 +20,7 @@
                     </div>
 
                     <part-time-input-hours
+                            v-if="!booked"
                             :booked="booked"
                             :hour="hour"
                             @timeChanged="onTimeChanged">
@@ -34,7 +36,8 @@
             <!--Book for coach tab-->
             <sweet-modal-tab title="رزرو مربی" id="tab-coach">
 
-                <part-time-booking-alert :booked="booked" :empty-time="emptyTime"></part-time-booking-alert>
+                <part-time-booking-alert v-if="booked" :booked="booked"
+                                         :empty-time="emptyTime"></part-time-booking-alert>
 
                 <form class="kt-form" @submit.prevent="onCoachBookSubmit">
                     <div class="form-group text-left">
@@ -45,6 +48,7 @@
                     </div>
 
                     <part-time-input-hours
+                            v-if="!booked"
                             :booked="booked"
                             :hour="hour"
                             @timeChanged="onTimeChanged">
@@ -85,7 +89,7 @@
                      :is-part-time="false">
                 </pay>
 
-                <cancel
+                <cancel v-if="booked && !booked.is_canceled"
                         :label="showBookedCancelLabel"
                         :booked="booked"
                         :court="court"
@@ -104,11 +108,6 @@
 
     import BaseComponent from './BaseComponent';
     import {SweetModal, SweetModalTab} from 'sweet-modal-vue'
-    import PartTimeBookingAlert from './partials/PartTimeBookingAlert';
-    import PartTimeInputHours from './partials/PartTimeInputHours';
-    import BookingInfo from './partials/BookInfo';
-    import Pay from './partials/Pay';
-    import Cancel from './partials/Cancel';
 
     export default BaseComponent.extend({
 
@@ -117,11 +116,11 @@
         components: {
             SweetModal,
             SweetModalTab,
-            PartTimeBookingAlert,
-            PartTimeInputHours,
-            BookingInfo,
-            Pay,
-            Cancel,
+            PartTimeBookingAlert: () => import('./partials/PartTimeBookingAlert'),
+            PartTimeInputHours: () => import('./partials/PartTimeInputHours'),
+            Info: () => import('./partials/Info'),
+            Pay: () => import('./partials/Pay'),
+            Cancel: () => import('./partials/Cancel'),
         },
 
         data() {

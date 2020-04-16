@@ -1,5 +1,5 @@
 <template>
-    <div role="alert" class="alert alert-primary" v-if="booked">
+    <div role="alert" class="alert alert-primary">
         <div class="alert-icon">
             <i class="flaticon-warning"></i>
         </div>
@@ -14,7 +14,7 @@
 
         name: "part-time-booking-alert",
 
-        props: ['booked', 'emptyTime']
+        props: ['booked', 'emptyTime'],
 
     }
 </script>

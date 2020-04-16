@@ -2,13 +2,13 @@
     <!--Manage book modal-->
     <sweet-modal ref="modal" overlay-theme="dark">
 
-        <booking-info :hour="hour" :court-name="court.name"></booking-info>
+        <info v-if="hour || court" :hour="hour" :court-name="court.name"></info>
 
         <sweet-modal-tab title="پرداخت" id="tab-pay">
 
             <h4 v-if="isAlreadyPaid" class="text-success">پرداخت شده</h4>
 
-            <pay v-if="!booked.is_paid"
+            <pay v-if="booked && !booked.is_paid"
                  :label="showBookedPayLabel"
                  :booked="booked"
                  :court="court"
@@ -29,7 +29,7 @@
         <sweet-modal-tab title="کنسل" id="tab-cancel">
 
             <cancel
-                    v-if="!booked.is_canceled"
+                    v-if="booked && !booked.is_canceled"
                     :label="showBookedCancelLabel"
                     :booked="booked"
                     :court="court"
@@ -56,15 +56,18 @@
 
     import BaseComponent from './BaseComponent';
     import {SweetModal, SweetModalTab} from 'sweet-modal-vue';
-    import BookingInfo from './partials/BookInfo';
-    import Pay from './partials/Pay';
-    import Cancel from './partials/Cancel';
 
     export default BaseComponent.extend({
 
         name: "booking-manage-modal",
 
-        components: {SweetModal, SweetModalTab, BookingInfo, Pay, Cancel},
+        components: {
+            SweetModal,
+            SweetModalTab,
+            Info: () => import('./partials/Info'),
+            Pay: () => import('./partials/Pay'),
+            Cancel: () => import('./partials/Cancel'),
+        },
 
         data() {
             return {
@@ -98,7 +101,7 @@
             showPartTimeBookedPayLabel: function () {
                 return `${this.partTimeBooked.renter_name} مبلغ ${this.court.price} تومان بدهکار است`;
             },
-            
+
             showPartTimeBookedCancelLabel: function () {
                 return `آیا می خواهید رزرو را برای ${this.partTimeBooked.renter_name} کنسل کنید؟`;
             },

@@ -11,11 +11,11 @@
 
     export default {
 
-        name: "book-info",
+        name: "info",
 
         mixins: [jdatetime],
 
-        props: ['hour', 'courtName']
+        props: ['hour', 'courtName'],
     }
 </script>
 
