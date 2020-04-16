@@ -81,18 +81,26 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onStartTimeChange: function onStartTimeChange() {
-      this.$emit('timeChanged', {
-        startTime: this.start
-      });
+      var time = this.start.split(':');
+
+      if (time[1] !== "00") {
+        this.$emit('timeChanged', {
+          startTime: this.start
+        });
+      }
     },
     onEndTimeChange: function onEndTimeChange() {
-      this.$emit('timeChanged', {
-        endTime: this.end
-      });
+      var time = this.end.split(':');
+
+      if (time[1] !== "00") {
+        this.$emit('timeChanged', {
+          endTime: this.end
+        });
+      }
     }
   },
   computed: {
-    getValidCustomHour: function getValidCustomHour() {
+    getCurrentHour: function getCurrentHour() {
       var firstChar = this.hour.charAt(0);
 
       if (firstChar !== 0) {
@@ -154,7 +162,7 @@ var render = function() {
                 "input-class": "form-control",
                 "minute-interval": 15,
                 "minute-range": [15, 30, 45],
-                "hour-range": [_vm.getValidCustomHour]
+                "hour-range": [_vm.getCurrentHour]
               },
               on: {
                 open: function($event) {
@@ -197,7 +205,7 @@ var render = function() {
                 "input-class": "form-control",
                 "minute-interval": 15,
                 "minute-range": [15, 30, 45],
-                "hour-range": [_vm.getValidCustomHour]
+                "hour-range": [_vm.getCurrentHour]
               },
               on: {
                 open: function($event) {

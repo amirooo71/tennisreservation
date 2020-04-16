@@ -111,11 +111,14 @@
 <script>
 
     import BaseComponent from './BaseComponent';
-    import {SweetModal, SweetModalTab} from 'sweet-modal-vue'
+    import {SweetModal, SweetModalTab} from 'sweet-modal-vue';
+    import jdatetime from './../../mixins/jdatetime';
 
     export default BaseComponent.extend({
 
         name: "booking-modal",
+
+        mixins: [jdatetime],
 
         components: {
             SweetModal,
@@ -142,7 +145,7 @@
                 partnerName: '',
                 emptyTime: '',
                 isPartTime: '',
-                remainPartTime: '',
+                partTimeStartAt: '',
                 hasPartTimeManageTab: false,
                 hasPartnerName: false,
                 url: '/admin/bookings',
@@ -165,7 +168,7 @@
                 this.hasPartTimeManageTab = data.hasPartTimeManageTab;
 
                 if (data.booked) {
-                    this.remainPartTime = data.booked.start_time ? data.hour : data.booked.end_time;
+                    this.partTimeStartAt = data.booked.start_time ? data.hour : data.booked.end_time;
                 }
 
                 this.$refs.modal.open('tab-guest');
@@ -229,7 +232,8 @@
                     start_time: this.startTime,
                     end_time: this.endTime,
                     is_part_time: this.isPartTimeBook(),
-                    remain_time: this.remainPartTime,
+                    start_at: this.partTimeStartAt,
+                    duration: 15,
                 }
             },
 
@@ -247,7 +251,7 @@
                 this.court = '';
                 this.emptyTime = '';
                 this.isPartTime = '';
-                this.remainPartTime = '';
+                this.partTimeStartAt = '';
                 this.hasPartTimeManageTab = false;
                 this.url = '/admin/bookings'
             },
@@ -255,6 +259,9 @@
             isPartTimeBook() {
 
                 if (this.startTime || this.endTime) {
+
+                    console.log();
+
                     return true;
                 }
 
@@ -283,7 +290,20 @@
                         this.coachName = coach.name;
                     }
                 });
+            },
+
+            startTime: function (val) {
+                if(val){
+                    console.log(moment(val, "HH:mm").format("mm"));
+                }
+            },
+
+            endTime: function (val) {
+                if(val){
+                    console.log(moment(val, "HH:mm").format("mm"));
+                }
             }
+
 
         },
 

@@ -3,15 +3,14 @@
     <td :class="[defaultClass,dynamicClass]"
         v-on="{ click: shouldCallBookMethod()  ? onBookClick : onManageClick }">
 
-        <div class="row d-flex align-items-center" v-if="booked" style="min-width: 300px;">
-
+        <div class="row d-flex align-items-center" v-if="booked" style="min-width: 300px; min-height: 38.5px;">
             <div :class="['col d-flex flex-column',booked.start_time ? 'order-2' : 'order-1']">
                 <span>{{booked.renter_name}}</span>
                 <div class="d-flex justify-content-center">
                     <i v-if="booked.partner_name" class="fa fa-user-friends p-1"
                        v-tooltip="booked.partner_name"></i>
                     <i v-if="booked.start_time || booked.end_time" class="fa fa-clock p-1"
-                       v-tooltip="showPartTimeBookedTimeLabel"></i>
+                       v-tooltip="showDurationTimes"></i>
                     <i v-if="booked.is_part_time && booked.is_paid" class="fas fa-coins text-light p-1"
                        v-tooltip="'پرداخت شده'"></i>
                 </div>
@@ -23,7 +22,7 @@
                     <div class="d-flex justify-content-center">
                         <i v-if="partTimeBooked.partner_name" class="fa fa-user-friends p-1"
                            v-tooltip="partTimeBooked.partner_name"></i>
-                        <i class="fa fa-clock p-1" v-tooltip="showStartingTimePartTimeBooked"></i>
+                        <i class="fa fa-clock p-1" v-tooltip="showPartTimeDurationTimes"></i>
                         <i v-if="partTimeBooked.is_paid" class="fas fa-coins text-light p-1"
                            v-tooltip="'پرداخت شده'"></i>
                     </div>
@@ -32,6 +31,8 @@
                     {{showGapedTimeLabel}}
                 </span>
             </div>
+        </div>
+        <div v-else style="min-width: 300px; min-height: 38.5px;">
         </div>
     </td>
 
@@ -77,8 +78,6 @@
 
             Events.$on(`on-success-booking-court-${this.court.id}-at-${this.hour}`, (data) => {
                 this.booked = data.booked;
-
-
             });
 
 
@@ -107,7 +106,6 @@
         },
 
         methods: {
-
 
             showBookings() {
                 this.court.bookings.forEach(booked => {
@@ -166,11 +164,23 @@
                 }
 
                 if (this.booked.start_time) {
+
                     return moment(this.booked.start_time, "HH:mm").format("mm");
+
                 }
 
                 if (this.booked.end_time) {
-                    return moment(this.booked.end_time, "HH:mm").format("mm");
+
+                    let gaped = {
+                        '۱۵': '۴۵',
+                        '۳۰': '۳۰',
+                        '۴۵': '۱۵',
+                    };
+
+                    let endAt = moment(this.booked.end_time, "HH:mm").format("mm");
+
+                    return gaped[endAt];
+
                 }
 
 
@@ -210,7 +220,8 @@
             },
 
 
-            showPartTimeBookedTimeLabel() {
+            showDurationTimes() {
+
                 if (this.booked.start_time) {
 
                     let finishTime = moment(this.hour, "HH:mm:ss").add(1, 'hours').format("HH:mm");
@@ -218,21 +229,21 @@
                     return `${this.formatTime(this.booked.start_time)} تا ${finishTime}`;
 
                 } else {
-                    return `${this.hour} تا ${this.formatTime(this.booked.end_time)} `;
+                    return `${this.formatTime(this.hour)} تا ${this.formatTime(this.booked.end_time)} `;
                 }
 
             },
 
 
-            showStartingTimePartTimeBooked() {
+            showPartTimeDurationTimes() {
 
                 if (this.booked.start_time) {
 
-                    return `${this.formatTime(this.partTimeBooked.remain_time)} تا ${this.formatTime(this.booked.start_time)}`;
+                    return `${this.formatTime(this.partTimeBooked.start_at)} تا ${this.formatTime(this.booked.start_time)}`;
                 } else {
 
                     let finishTime = moment(this.hour, "HH:mm:ss").add(1, 'hours').format("HH:mm");
-                    return `${this.formatTime(this.partTimeBooked.remain_time)} تا ${finishTime}`;
+                    return `${this.formatTime(this.partTimeBooked.start_at)} تا ${finishTime}`;
 
                 }
 

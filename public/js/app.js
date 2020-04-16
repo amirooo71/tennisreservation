@@ -2064,6 +2064,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2162,7 +2163,13 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (this.booked.end_time) {
-        return moment(this.booked.end_time, "HH:mm").format("mm");
+        var gaped = {
+          '۱۵': '۴۵',
+          '۳۰': '۳۰',
+          '۴۵': '۱۵'
+        };
+        var endAt = moment(this.booked.end_time, "HH:mm").format("mm");
+        return gaped[endAt];
       }
     },
     hasManagePartTimeBookTab: function hasManagePartTimeBookTab() {
@@ -2188,20 +2195,20 @@ __webpack_require__.r(__webpack_exports__);
 
       return "<span>".concat(this.partTimeBooked.renter_name, "</span>");
     },
-    showPartTimeBookedTimeLabel: function showPartTimeBookedTimeLabel() {
+    showDurationTimes: function showDurationTimes() {
       if (this.booked.start_time) {
         var finishTime = moment(this.hour, "HH:mm:ss").add(1, 'hours').format("HH:mm");
         return "".concat(this.formatTime(this.booked.start_time), " \u062A\u0627 ").concat(finishTime);
       } else {
-        return "".concat(this.hour, " \u062A\u0627 ").concat(this.formatTime(this.booked.end_time), " ");
+        return "".concat(this.formatTime(this.hour), " \u062A\u0627 ").concat(this.formatTime(this.booked.end_time), " ");
       }
     },
-    showStartingTimePartTimeBooked: function showStartingTimePartTimeBooked() {
+    showPartTimeDurationTimes: function showPartTimeDurationTimes() {
       if (this.booked.start_time) {
-        return "".concat(this.formatTime(this.partTimeBooked.remain_time), " \u062A\u0627 ").concat(this.formatTime(this.booked.start_time));
+        return "".concat(this.formatTime(this.partTimeBooked.start_at), " \u062A\u0627 ").concat(this.formatTime(this.booked.start_time));
       } else {
         var finishTime = moment(this.hour, "HH:mm:ss").add(1, 'hours').format("HH:mm");
-        return "".concat(this.formatTime(this.partTimeBooked.remain_time), " \u062A\u0627 ").concat(finishTime);
+        return "".concat(this.formatTime(this.partTimeBooked.start_at), " \u062A\u0627 ").concat(finishTime);
       }
     },
     showGapedTimeLabel: function showGapedTimeLabel() {
@@ -2526,6 +2533,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BaseComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseComponent */ "./resources/js/components/booking/BaseComponent.js");
 /* harmony import */ var sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweet-modal-vue */ "./node_modules/sweet-modal-vue/src/main.js");
+/* harmony import */ var _mixins_jdatetime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../mixins/jdatetime */ "./resources/js/mixins/jdatetime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2644,8 +2652,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = (_BaseComponent__WEBPACK_IMPORTED_MODULE_0__["default"].extend({
   name: "booking-modal",
+  mixins: [_mixins_jdatetime__WEBPACK_IMPORTED_MODULE_2__["default"]],
   components: {
     SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModal"],
     SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModalTab"],
@@ -2680,7 +2690,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       partnerName: '',
       emptyTime: '',
       isPartTime: '',
-      remainPartTime: '',
+      partTimeStartAt: '',
       hasPartTimeManageTab: false,
       hasPartnerName: false,
       url: '/admin/bookings'
@@ -2701,7 +2711,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       _this.hasPartTimeManageTab = data.hasPartTimeManageTab;
 
       if (data.booked) {
-        _this.remainPartTime = data.booked.start_time ? data.hour : data.booked.end_time;
+        _this.partTimeStartAt = data.booked.start_time ? data.hour : data.booked.end_time;
       }
 
       _this.$refs.modal.open('tab-guest');
@@ -2766,7 +2776,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         start_time: this.startTime,
         end_time: this.endTime,
         is_part_time: this.isPartTimeBook(),
-        remain_time: this.remainPartTime
+        start_at: this.partTimeStartAt,
+        duration: 15
       };
     },
     reset: function reset() {
@@ -2783,12 +2794,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.court = '';
       this.emptyTime = '';
       this.isPartTime = '';
-      this.remainPartTime = '';
+      this.partTimeStartAt = '';
       this.hasPartTimeManageTab = false;
       this.url = '/admin/bookings';
     },
     isPartTimeBook: function isPartTimeBook() {
       if (this.startTime || this.endTime) {
+        console.log();
         return true;
       }
 
@@ -2813,6 +2825,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this4.coachName = coach.name;
         }
       });
+    },
+    startTime: function startTime(val) {
+      if (val) {
+        console.log(moment(val, "HH:mm").format("mm"));
+      }
+    },
+    endTime: function endTime(val) {
+      if (val) {
+        console.log(moment(val, "HH:mm").format("mm"));
+      }
     }
   }
 }));
@@ -67059,7 +67081,7 @@ var render = function() {
             "div",
             {
               staticClass: "row d-flex align-items-center",
-              staticStyle: { "min-width": "300px" }
+              staticStyle: { "min-width": "300px", "min-height": "38.5px" }
             },
             [
               _c(
@@ -67094,8 +67116,8 @@ var render = function() {
                             {
                               name: "tooltip",
                               rawName: "v-tooltip",
-                              value: _vm.showPartTimeBookedTimeLabel,
-                              expression: "showPartTimeBookedTimeLabel"
+                              value: _vm.showDurationTimes,
+                              expression: "showDurationTimes"
                             }
                           ],
                           staticClass: "fa fa-clock p-1"
@@ -67160,9 +67182,8 @@ var render = function() {
                                     {
                                       name: "tooltip",
                                       rawName: "v-tooltip",
-                                      value: _vm.showStartingTimePartTimeBooked,
-                                      expression:
-                                        "showStartingTimePartTimeBooked"
+                                      value: _vm.showPartTimeDurationTimes,
+                                      expression: "showPartTimeDurationTimes"
                                     }
                                   ],
                                   staticClass: "fa fa-clock p-1"
@@ -67203,7 +67224,9 @@ var render = function() {
                 : _vm._e()
             ]
           )
-        : _vm._e()
+        : _c("div", {
+            staticStyle: { "min-width": "300px", "min-height": "38.5px" }
+          })
     ]
   )
 }

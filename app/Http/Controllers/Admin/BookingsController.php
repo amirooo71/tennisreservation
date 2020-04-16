@@ -113,12 +113,14 @@ class BookingsController extends BaseController {
 	 * @return array
 	 */
 	private function getValidateData(): array {
+
 		$data = \request()->validate( [
 			'court_id'     => 'required',
 			'renter_name'  => 'required',
 			'date'         => 'required',
 			'time'         => 'required',
 			'is_part_time' => 'required',
+			'duration'     => 'required',
 			'owner_id'     => 'nullable',
 			'start_time'   => 'nullable',
 			'end_time'     => 'nullable',
@@ -139,7 +141,7 @@ class BookingsController extends BaseController {
 			'court_id'     => $booking->court->id,
 			'renter_name'  => $booking->partTime->renter_name,
 			'date'         => $booking->date,
-			'time'         => $booking->partTime->remain_time,
+			'time'         => $booking->partTime->start_at,
 			'is_part_time' => true,
 			'start_time'   => $booking->end_time ? $booking->end_time : null,
 			'end_time'     => $booking->start_time ? $booking->start_time : null,

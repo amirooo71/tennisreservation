@@ -18,7 +18,7 @@
                     input-class="form-control"
                     :minute-interval="15"
                     :minute-range="[15,30,45]"
-                    :hour-range="[getValidCustomHour]"
+                    :hour-range="[getCurrentHour]"
                     @open="start = hour"
                     @change="onStartTimeChange"></vue-timepicker>
             <span class="form-text text-muted pt-3">شما می توانید ساعت شروع رزرو را در اینجا تغییر دهید به عنوان مثال (16:30)</span>
@@ -34,7 +34,7 @@
                     input-class="form-control"
                     :minute-interval="15"
                     :minute-range="[15,30,45]"
-                    :hour-range="[getValidCustomHour]"
+                    :hour-range="[getCurrentHour]"
                     @open="end = hour"
                     @change="onEndTimeChange"
             ></vue-timepicker>
@@ -75,18 +75,25 @@
         methods: {
 
             onStartTimeChange() {
-                this.$emit('timeChanged', {startTime: this.start})
+                let time = this.start.split(':');
+                if (time[1] !== "00") {
+                    this.$emit('timeChanged', {startTime: this.start})
+                }
+
             },
 
             onEndTimeChange() {
-                this.$emit('timeChanged', {endTime: this.end})
+                let time = this.end.split(':');
+                if (time[1] !== "00") {
+                    this.$emit('timeChanged', {endTime: this.end})
+                }
             }
 
         },
 
         computed: {
 
-            getValidCustomHour: function () {
+            getCurrentHour: function () {
 
                 let firstChar = this.hour.charAt(0);
 
