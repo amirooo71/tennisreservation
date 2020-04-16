@@ -149,6 +149,7 @@
                 hasPartTimeManageTab: false,
                 hasPartnerName: false,
                 url: '/admin/bookings',
+                duration: '',
             }
         },
 
@@ -233,7 +234,7 @@
                     end_time: this.endTime,
                     is_part_time: this.isPartTimeBook(),
                     start_at: this.partTimeStartAt,
-                    duration: 15,
+                    duration: this.duration ? this.duration : 60,
                 }
             },
 
@@ -293,14 +294,21 @@
             },
 
             startTime: function (val) {
-                if(val){
-                    console.log(moment(val, "HH:mm").format("mm"));
+                if (val) {
+                    let time = val.split(':');
+                    let durations = {
+                        '15': '45',
+                        '30': '30',
+                        '45': '15',
+                    };
+                    this.duration = durations[time[1]];
                 }
             },
 
             endTime: function (val) {
-                if(val){
-                    console.log(moment(val, "HH:mm").format("mm"));
+                if (val) {
+                    let time = val.split(':');
+                    this.duration = time[1];
                 }
             }
 

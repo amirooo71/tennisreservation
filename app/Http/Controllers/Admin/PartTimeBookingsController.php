@@ -21,9 +21,9 @@ class PartTimeBookingsController extends BaseController {
 			return response()->json( [ 'msg' => 'تاریخ رزرو گذشته است' ], 422 );
 		}
 
-		$forceBook = $booking->addPartTime( $data );
+		$freshBook = $booking->addPartTime( $data );
 
-		$book = PartTimeBooking::where( [ 'id' => $forceBook->id ] )->first();
+		$book = PartTimeBooking::where( [ 'id' => $freshBook->id ] )->first();
 
 		return response()->json( [ 'msg' => 'part time was added', 'book' => $book ] );
 
@@ -75,13 +75,44 @@ class PartTimeBookingsController extends BaseController {
 		$data = request()->validate( [
 			'renter_name'  => 'required',
 			'start_at'     => 'required',
-			'duration'     => 'required',
 			'owner_id'     => 'nullable',
 			'partner_name' => 'nullable',
 		] );
 
 		$data['booking_id'] = $booking->id;
+		$data['duration']   = $this->calculateDuration( $booking );
 
 		return $data;
+	}
+
+	/**
+	 * @param Booking $booking
+	 *
+	 * @return mixed|null
+	 */
+	private function calculateDuration( Booking $booking ) {
+
+		$duration = null;
+
+		if ( $booking->is_part_time ) {
+
+			if ( $booking->start_time ) {
+
+				$time     = explode( ':', $booking->start_time );
+				$duration = $time[1];
+
+			} else {
+
+				$time      = explode( ':', $booking->end_time );
+				$durations = [
+					15 => 45,
+					30 => 30,
+					45 => 15,
+				];
+				$duration  = $durations[ $time[1] ];
+			}
+		}
+
+		return $duration;
 	}
 }

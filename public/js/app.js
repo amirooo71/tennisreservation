@@ -2693,7 +2693,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       partTimeStartAt: '',
       hasPartTimeManageTab: false,
       hasPartnerName: false,
-      url: '/admin/bookings'
+      url: '/admin/bookings',
+      duration: ''
     };
   },
   created: function created() {
@@ -2777,7 +2778,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         end_time: this.endTime,
         is_part_time: this.isPartTimeBook(),
         start_at: this.partTimeStartAt,
-        duration: 15
+        duration: this.duration ? this.duration : 60
       };
     },
     reset: function reset() {
@@ -2828,12 +2829,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     startTime: function startTime(val) {
       if (val) {
-        console.log(moment(val, "HH:mm").format("mm"));
+        var time = val.split(':');
+        var durations = {
+          '15': '45',
+          '30': '30',
+          '45': '15'
+        };
+        this.duration = durations[time[1]];
       }
     },
     endTime: function endTime(val) {
       if (val) {
-        console.log(moment(val, "HH:mm").format("mm"));
+        var time = val.split(':');
+        this.duration = time[1];
       }
     }
   }
