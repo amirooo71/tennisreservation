@@ -76,17 +76,26 @@
 
             onStartTimeChange() {
                 let time = this.start.split(':');
-                if (time[1] !== "00") {
-                    this.$emit('timeChanged', {startTime: this.start})
-                }
+                let durations = {
+                    '15': '45',
+                    '30': '30',
+                    '45': '15',
+                };
+                // SartTime must be have different than hour
+                this.$emit('timeChanged', {
+                    startTime: time[1] !== '00' ? this.start : null,
+                    duration: durations[time[1]]
+                })
 
             },
 
             onEndTimeChange() {
                 let time = this.end.split(':');
-                if (time[1] !== "00") {
-                    this.$emit('timeChanged', {endTime: this.end})
-                }
+                // Endtime must be have different than hour
+                this.$emit('timeChanged', {
+                    endTime: time[1] !== '00' ? this.end : null,
+                    duration: time[1] !== '00' ? time[1] : 60
+                })
             }
 
         },

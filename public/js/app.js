@@ -2659,6 +2659,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -2703,7 +2705,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       hasPartTimeManageTab: false,
       hasPartnerName: false,
       url: '/admin/bookings',
-      duration: ''
+      duration: '',
+      showPay: false
     };
   },
   created: function created() {
@@ -2723,6 +2726,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (data.booked) {
         _this.partTimeStartAt = data.booked.start_time ? data.hour : data.booked.end_time;
       }
+
+      _this.showPay = true;
 
       _this.$refs.modal.open('tab-guest');
     });
@@ -2807,6 +2812,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.partTimeStartAt = '';
       this.hasPartTimeManageTab = false;
       this.url = '/admin/bookings';
+      this.duration = '';
+      this.showPay = false;
     },
     isPartTimeBook: function isPartTimeBook() {
       if (this.startTime || this.endTime) {
@@ -2824,6 +2831,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.endTime = data.endTime;
         this.startTime = '';
       }
+
+      this.duration = data.duration;
     }
   },
   watch: {
@@ -2835,24 +2844,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this4.coachName = coach.name;
         }
       });
-    },
-    startTime: function startTime(val) {
-      if (val) {
-        var time = val.split(':');
-        var durations = {
-          '15': '45',
-          '30': '30',
-          '45': '15'
-        };
-        this.duration = durations[time[1]];
-      }
-    },
-    endTime: function endTime(val) {
-      if (val) {
-        var time = val.split(':');
-        this.duration = time[1];
-      }
-    }
+    } // startTime: function (val) {
+    //     if (val) {
+    //         let time = val.split(':');
+    //         let durations = {
+    //             '15': '45',
+    //             '30': '30',
+    //             '45': '15',
+    //         };
+    //         this.duration = durations[time[1]];
+    //     }
+    // },
+    //
+    // endTime: function (val) {
+    //     if (val) {
+    //         let time = val.split(':');
+    //         this.duration = time[1];
+    //     }
+    // }
+
   }
 }));
 
@@ -67650,16 +67660,24 @@ var render = function() {
               }
             },
             [
-              _vm.booked && !_vm.booked.is_paid
-                ? _c("pay", {
-                    attrs: {
-                      label: _vm.showBookedPayLabel,
-                      booked: _vm.booked,
-                      court: _vm.court,
-                      hour: _vm.hour,
-                      "is-part-time": false
-                    }
-                  })
+              _vm.showPay
+                ? _c(
+                    "div",
+                    [
+                      _vm.booked && !_vm.booked.is_paid
+                        ? _c("pay", {
+                            attrs: {
+                              label: _vm.showBookedPayLabel,
+                              booked: _vm.booked,
+                              court: _vm.court,
+                              hour: _vm.hour,
+                              "is-part-time": false
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  )
                 : _vm._e(),
               _vm._v(" "),
               _vm.booked && !_vm.booked.is_canceled

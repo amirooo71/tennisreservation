@@ -85,13 +85,15 @@
                              :title="hasPartTimeManageTab ? 'مدیریت رزرو' : ''"
                              id="part-time-manage-tab">
 
-                <pay v-if="booked && !booked.is_paid"
-                     :label="showBookedPayLabel"
-                     :booked="booked"
-                     :court="court"
-                     :hour="hour"
-                     :is-part-time="false">
-                </pay>
+                <div v-if="showPay">
+                    <pay v-if="booked && !booked.is_paid"
+                         :label="showBookedPayLabel"
+                         :booked="booked"
+                         :court="court"
+                         :hour="hour"
+                         :is-part-time="false">
+                    </pay>
+                </div>
 
                 <cancel v-if="booked && !booked.is_canceled"
                         :label="showBookedCancelLabel"
@@ -150,6 +152,7 @@
                 hasPartnerName: false,
                 url: '/admin/bookings',
                 duration: '',
+                showPay: false,
             }
         },
 
@@ -171,6 +174,8 @@
                 if (data.booked) {
                     this.partTimeStartAt = data.booked.start_time ? data.hour : data.booked.end_time;
                 }
+
+                this.showPay = true;
 
                 this.$refs.modal.open('tab-guest');
             });
@@ -255,6 +260,8 @@
                 this.partTimeStartAt = '';
                 this.hasPartTimeManageTab = false;
                 this.url = '/admin/bookings'
+                this.duration = '';
+                this.showPay = false;
             },
 
             isPartTimeBook() {
@@ -279,6 +286,8 @@
                     this.startTime = '';
                 }
 
+                this.duration = data.duration;
+
             },
 
         },
@@ -293,24 +302,24 @@
                 });
             },
 
-            startTime: function (val) {
-                if (val) {
-                    let time = val.split(':');
-                    let durations = {
-                        '15': '45',
-                        '30': '30',
-                        '45': '15',
-                    };
-                    this.duration = durations[time[1]];
-                }
-            },
-
-            endTime: function (val) {
-                if (val) {
-                    let time = val.split(':');
-                    this.duration = time[1];
-                }
-            }
+            // startTime: function (val) {
+            //     if (val) {
+            //         let time = val.split(':');
+            //         let durations = {
+            //             '15': '45',
+            //             '30': '30',
+            //             '45': '15',
+            //         };
+            //         this.duration = durations[time[1]];
+            //     }
+            // },
+            //
+            // endTime: function (val) {
+            //     if (val) {
+            //         let time = val.split(':');
+            //         this.duration = time[1];
+            //     }
+            // }
 
 
         },

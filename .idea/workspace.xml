@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b01c91de-d725-464d-91da-470dc09fd2f6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/public/1.js" afterPath="$PROJECT_DIR$/public/1.js" />
+      <change beforePath="$PROJECT_DIR$/public/4.js" afterPath="$PROJECT_DIR$/public/4.js" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" afterPath="$PROJECT_DIR$/public/js/app.js" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/booking/BookingManageModal.vue" afterPath="$PROJECT_DIR$/resources/js/components/booking/BookingManageModal.vue" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/booking/partials/Pay.vue" afterPath="$PROJECT_DIR$/resources/js/components/booking/partials/Pay.vue" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/booking/BookingModal.vue" afterPath="$PROJECT_DIR$/resources/js/components/booking/BookingModal.vue" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/booking/partials/PartTimeInputHours.vue" afterPath="$PROJECT_DIR$/resources/js/components/booking/partials/PartTimeInputHours.vue" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Pay.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/js/components/booking/partials/Pay.vue">
+      <file leaf-file-name="PartTimeInputHours.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/js/components/booking/partials/PartTimeInputHours.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="39" column="12" lean-forward="false" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
+            <state relative-caret-position="594">
+              <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -33,20 +33,8 @@
       <file leaf-file-name="BookingManageModal.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/components/booking/BookingManageModal.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="87" column="40" lean-forward="true" selection-start-line="87" selection-start-column="40" selection-end-line="87" selection-end-column="40" />
-              <folding>
-                <element signature="e#1804#1848#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BookingModal.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/components/booking/BookingModal.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="662">
-              <caret line="310" column="0" lean-forward="false" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
+            <state relative-caret-position="576">
+              <caret line="87" column="40" lean-forward="false" selection-start-line="87" selection-start-column="40" selection-end-line="87" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -64,7 +52,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>showBookings</find>
       <find>computed</find>
       <find>renter_name</find>
       <find>BookInfo</find>
@@ -94,6 +81,7 @@
       <find>payPartTimeBooked</find>
       <find>close-manage-booking-modal</find>
       <find>@close</find>
+      <find>timeChanged</find>
     </findStrings>
     <replaceStrings>
       <replace>hasClub</replace>
@@ -154,11 +142,11 @@
         <option value="$PROJECT_DIR$/database/migrations/2020_03_28_144858_create_part_time_bookings_table.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/Booking.vue" />
-        <option value="$PROJECT_DIR$/resources/js/components/booking/partials/PartTimeInputHours.vue" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/PartTimeBookingsController.php" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/BookingManageModal.vue" />
-        <option value="$PROJECT_DIR$/resources/js/components/booking/BookingModal.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/partials/Pay.vue" />
+        <option value="$PROJECT_DIR$/resources/js/components/booking/BookingModal.vue" />
+        <option value="$PROJECT_DIR$/resources/js/components/booking/partials/PartTimeInputHours.vue" />
       </list>
     </option>
   </component>
@@ -495,12 +483,12 @@
       <workItem from="1586342917413" duration="36844000" />
       <workItem from="1586513245762" duration="47000" />
       <workItem from="1586976222494" duration="15433000" />
-      <workItem from="1587036174335" duration="25309000" />
+      <workItem from="1587036174335" duration="29260000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="444107000" />
+    <option name="totallyTimeSpent" value="448058000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="29" y="0" width="1920" height="1080" extended-state="6" />
@@ -512,7 +500,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26145834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26145834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -929,14 +917,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/partials/PartTimeInputHours.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="96" column="0" lean-forward="true" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/booking/Booking.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -953,28 +933,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/partials/Pay.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="39" column="12" lean-forward="false" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/booking/BookingModal.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="662">
-          <caret line="310" column="0" lean-forward="false" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="438">
+          <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+          <folding>
+            <element signature="e#4364#4408#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/booking/BookingManageModal.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="87" column="40" lean-forward="true" selection-start-line="87" selection-start-column="40" selection-end-line="87" selection-end-column="40" />
-          <folding>
-            <element signature="e#1804#1848#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="576">
+          <caret line="87" column="40" lean-forward="false" selection-start-line="87" selection-start-column="40" selection-end-line="87" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/partials/Pay.vue">
+    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/partials/PartTimeInputHours.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="39" column="12" lean-forward="false" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
+        <state relative-caret-position="594">
+          <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
           <folding />
         </state>
       </provider>

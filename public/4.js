@@ -82,21 +82,24 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     onStartTimeChange: function onStartTimeChange() {
       var time = this.start.split(':');
+      var durations = {
+        '15': '45',
+        '30': '30',
+        '45': '15'
+      }; // SartTime must be have different than hour
 
-      if (time[1] !== "00") {
-        this.$emit('timeChanged', {
-          startTime: this.start
-        });
-      }
+      this.$emit('timeChanged', {
+        startTime: time[1] !== '00' ? this.start : null,
+        duration: durations[time[1]]
+      });
     },
     onEndTimeChange: function onEndTimeChange() {
-      var time = this.end.split(':');
+      var time = this.end.split(':'); // Endtime must be have different than hour
 
-      if (time[1] !== "00") {
-        this.$emit('timeChanged', {
-          endTime: this.end
-        });
-      }
+      this.$emit('timeChanged', {
+        endTime: time[1] !== '00' ? this.end : null,
+        duration: time[1] !== '00' ? time[1] : 60
+      });
     }
   },
   computed: {
