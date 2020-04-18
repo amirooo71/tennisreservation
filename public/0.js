@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _BaseComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../BaseComponent */ "./resources/js/components/booking/BaseComponent.js");
+/* harmony import */ var _mixins_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../mixins/helper */ "./resources/js/mixins/helper.js");
 //
 //
 //
@@ -22,8 +22,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = (_BaseComponent__WEBPACK_IMPORTED_MODULE_0__["default"].extend({
+/* harmony default export */ __webpack_exports__["default"] = ({
   name: "cancel",
+  mixins: [_mixins_helper__WEBPACK_IMPORTED_MODULE_0__["default"]],
   props: ['label', 'isPartTime', 'booked', 'partTimeBooked', 'hour', 'court'],
   methods: {
     cancel: function cancel() {
@@ -55,8 +56,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.redrawTblHeader(asyncRes);
     }
+  },
+  computed: {
+    showBookedCancelLabel: function showBookedCancelLabel() {
+      if (this.booked) {
+        return "\u0622\u06CC\u0627 \u0645\u06CC \u062E\u0648\u0627\u0647\u06CC\u062F \u0631\u0632\u0631\u0648 \u0631\u0627 \u0628\u0631\u0627\u06CC ".concat(this.booked.renter_name, " \u06A9\u0646\u0633\u0644 \u06A9\u0646\u06CC\u062F\u061F");
+      }
+    },
+    showPartTimeBookedCancelLabel: function showPartTimeBookedCancelLabel() {
+      return "\u0622\u06CC\u0627 \u0645\u06CC \u062E\u0648\u0627\u0647\u06CC\u062F \u0631\u0632\u0631\u0648 \u0631\u0627 \u0628\u0631\u0627\u06CC ".concat(this.partTimeBooked.renter_name, " \u06A9\u0646\u0633\u0644 \u06A9\u0646\u06CC\u062F\u061F");
+    }
   }
-}));
+});
 
 /***/ }),
 
@@ -83,7 +94,17 @@ var render = function() {
       attrs: { role: "alert" }
     },
     [
-      _c("div", [_vm._v("\n        " + _vm._s(_vm.label) + "\n    ")]),
+      _c("div", [
+        _vm._v(
+          "\n        " +
+            _vm._s(
+              _vm.isPartTime
+                ? _vm.showPartTimeBookedCancelLabel
+                : _vm.showBookedCancelLabel
+            ) +
+            "\n    "
+        )
+      ]),
       _vm._v(" "),
       _c(
         "button",

@@ -42,7 +42,7 @@
 
 
     import VTooltip from 'v-tooltip';
-    import jdatetime from './../../mixins/jdatetime';
+    import helper from './../../mixins/helper';
 
 
     export default {
@@ -51,7 +51,7 @@
 
         props: ['court', 'hour', 'date'],
 
-        mixins: [jdatetime],
+        mixins: [helper],
 
         components: {
             VTooltip

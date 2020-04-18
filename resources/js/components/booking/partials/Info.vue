@@ -7,13 +7,13 @@
 
 <script>
 
-    import jdatetime from './../../../mixins/jdatetime';
+    import helper from './../../../mixins/helper';
 
     export default {
 
         name: "info",
 
-        mixins: [jdatetime],
+        mixins: [helper],
 
         props: ['hour', 'courtName'],
     }

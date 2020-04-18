@@ -8,7 +8,7 @@
 <script>
 
     import Booking from './Booking';
-    import jdatetime from './../../mixins/jdatetime';
+    import helper from './../../mixins/helper';
 
     export default {
 
@@ -16,7 +16,7 @@
 
         props: ['courts', 'hour', 'date'],
 
-        mixins: [jdatetime],
+        mixins: [helper],
 
         components: {Booking},
 

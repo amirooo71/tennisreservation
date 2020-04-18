@@ -2024,7 +2024,7 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var v_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-tooltip */ "./node_modules/v-tooltip/dist/v-tooltip.esm.js");
-/* harmony import */ var _mixins_jdatetime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/jdatetime */ "./resources/js/mixins/jdatetime.js");
+/* harmony import */ var _mixins_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/helper */ "./resources/js/mixins/helper.js");
 //
 //
 //
@@ -2070,7 +2070,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
   props: ['court', 'hour', 'date'],
-  mixins: [_mixins_jdatetime__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_mixins_helper__WEBPACK_IMPORTED_MODULE_1__["default"]],
   components: {
     VTooltip: v_tooltip__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -2306,7 +2306,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "booking-float-buttons",
@@ -2397,12 +2396,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _BaseComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseComponent */ "./resources/js/components/booking/BaseComponent.js");
-/* harmony import */ var sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweet-modal-vue */ "./node_modules/sweet-modal-vue/src/main.js");
-//
-//
-//
-//
+/* harmony import */ var sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweet-modal-vue */ "./node_modules/sweet-modal-vue/src/main.js");
+/* harmony import */ var _mixins_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/helper */ "./resources/js/mixins/helper.js");
 //
 //
 //
@@ -2457,16 +2452,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
-/* harmony default export */ __webpack_exports__["default"] = (_BaseComponent__WEBPACK_IMPORTED_MODULE_0__["default"].extend({
+/* harmony default export */ __webpack_exports__["default"] = ({
   name: "booking-manage-modal",
+  mixins: [_mixins_helper__WEBPACK_IMPORTED_MODULE_1__["default"]],
   components: {
-    SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModal"],
-    SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModalTab"],
+    SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModal"],
+    SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModalTab"],
     Info: function Info() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./partials/Info */ "./resources/js/components/booking/partials/Info.vue"));
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./partials/Info */ "./resources/js/components/booking/partials/Info.vue"));
     },
     Pay: function Pay() {
-      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./partials/Pay */ "./resources/js/components/booking/partials/Pay.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./partials/Pay */ "./resources/js/components/booking/partials/Pay.vue"));
     },
     Cancel: function Cancel() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./partials/Cancel */ "./resources/js/components/booking/partials/Cancel.vue"));
@@ -2505,12 +2501,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
-    showPartTimeBookedPayLabel: function showPartTimeBookedPayLabel() {
-      return "".concat(this.partTimeBooked.renter_name, " \u0645\u0628\u0644\u063A ").concat(this.court.price, " \u062A\u0648\u0645\u0627\u0646 \u0628\u062F\u0647\u06A9\u0627\u0631 \u0627\u0633\u062A");
-    },
-    showPartTimeBookedCancelLabel: function showPartTimeBookedCancelLabel() {
-      return "\u0622\u06CC\u0627 \u0645\u06CC \u062E\u0648\u0627\u0647\u06CC\u062F \u0631\u0632\u0631\u0648 \u0631\u0627 \u0628\u0631\u0627\u06CC ".concat(this.partTimeBooked.renter_name, " \u06A9\u0646\u0633\u0644 \u06A9\u0646\u06CC\u062F\u061F");
-    },
     isAlreadyPaid: function isAlreadyPaid() {
       if (this.partTimeBooked && this.partTimeBooked.is_paid && this.booked.is_paid) {
         return true;
@@ -2527,7 +2517,7 @@ __webpack_require__.r(__webpack_exports__);
       return false;
     }
   }
-}));
+});
 
 /***/ }),
 
@@ -2540,9 +2530,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _BaseComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseComponent */ "./resources/js/components/booking/BaseComponent.js");
-/* harmony import */ var sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweet-modal-vue */ "./node_modules/sweet-modal-vue/src/main.js");
-/* harmony import */ var _mixins_jdatetime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../mixins/jdatetime */ "./resources/js/mixins/jdatetime.js");
+/* harmony import */ var sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweet-modal-vue */ "./node_modules/sweet-modal-vue/src/main.js");
+/* harmony import */ var _mixins_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/helper */ "./resources/js/mixins/helper.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2659,17 +2648,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
-
-/* harmony default export */ __webpack_exports__["default"] = (_BaseComponent__WEBPACK_IMPORTED_MODULE_0__["default"].extend({
+/* harmony default export */ __webpack_exports__["default"] = ({
   name: "booking-modal",
-  mixins: [_mixins_jdatetime__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  mixins: [_mixins_helper__WEBPACK_IMPORTED_MODULE_1__["default"]],
   components: {
-    SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModal"],
-    SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_1__["SweetModalTab"],
+    SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModal"],
+    SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModalTab"],
     PartTimeBookingAlert: function PartTimeBookingAlert() {
       return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./partials/PartTimeBookingAlert */ "./resources/js/components/booking/partials/PartTimeBookingAlert.vue"));
     },
@@ -2677,10 +2663,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./partials/PartTimeInputHours */ "./resources/js/components/booking/partials/PartTimeInputHours.vue"));
     },
     Info: function Info() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./partials/Info */ "./resources/js/components/booking/partials/Info.vue"));
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./partials/Info */ "./resources/js/components/booking/partials/Info.vue"));
     },
     Pay: function Pay() {
-      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./partials/Pay */ "./resources/js/components/booking/partials/Pay.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./partials/Pay */ "./resources/js/components/booking/partials/Pay.vue"));
     },
     Cancel: function Cancel() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./partials/Cancel */ "./resources/js/components/booking/partials/Cancel.vue"));
@@ -2844,27 +2830,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this4.coachName = coach.name;
         }
       });
-    } // startTime: function (val) {
-    //     if (val) {
-    //         let time = val.split(':');
-    //         let durations = {
-    //             '15': '45',
-    //             '30': '30',
-    //             '45': '15',
-    //         };
-    //         this.duration = durations[time[1]];
-    //     }
-    // },
-    //
-    // endTime: function (val) {
-    //     if (val) {
-    //         let time = val.split(':');
-    //         this.duration = time[1];
-    //     }
-    // }
-
+    }
   }
-}));
+});
 
 /***/ }),
 
@@ -2878,7 +2846,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Booking__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Booking */ "./resources/js/components/booking/Booking.vue");
-/* harmony import */ var _mixins_jdatetime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/jdatetime */ "./resources/js/mixins/jdatetime.js");
+/* harmony import */ var _mixins_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/helper */ "./resources/js/mixins/helper.js");
 //
 //
 //
@@ -2891,7 +2859,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "bookings",
   props: ['courts', 'hour', 'date'],
-  mixins: [_mixins_jdatetime__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_mixins_helper__WEBPACK_IMPORTED_MODULE_1__["default"]],
   components: {
     Booking: _Booking__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -67286,7 +67254,6 @@ var render = function() {
         attrs: {
           bgColor: "#C51162",
           "icon-size": "small",
-          startOpened: "true",
           position: "bottom-left",
           fixedTooltip: "true",
           actions: _vm.fabActions
@@ -67351,7 +67318,6 @@ var render = function() {
                 _vm.booked && !_vm.booked.is_paid
                   ? _c("pay", {
                       attrs: {
-                        label: _vm.showBookedPayLabel,
                         booked: _vm.booked,
                         court: _vm.court,
                         hour: _vm.hour,
@@ -67363,7 +67329,6 @@ var render = function() {
                 _vm.partTimeBooked && !_vm.partTimeBooked.is_paid
                   ? _c("pay", {
                       attrs: {
-                        label: _vm.showPartTimeBookedPayLabel,
                         "part-time-booked": _vm.partTimeBooked,
                         court: _vm.court,
                         hour: _vm.hour,
@@ -67384,7 +67349,6 @@ var render = function() {
           _vm.booked && !_vm.booked.is_canceled
             ? _c("cancel", {
                 attrs: {
-                  label: _vm.showBookedCancelLabel,
                   booked: _vm.booked,
                   court: _vm.court,
                   hour: _vm.hour,
@@ -67396,7 +67360,6 @@ var render = function() {
           _vm.partTimeBooked && !_vm.partTimeBooked.is_canceled
             ? _c("cancel", {
                 attrs: {
-                  label: _vm.showPartTimeBookedCancelLabel,
                   "part-time-booked": _vm.partTimeBooked,
                   court: _vm.court,
                   hour: _vm.hour,
@@ -67667,7 +67630,6 @@ var render = function() {
                       _vm.booked && !_vm.booked.is_paid
                         ? _c("pay", {
                             attrs: {
-                              label: _vm.showBookedPayLabel,
                               booked: _vm.booked,
                               court: _vm.court,
                               hour: _vm.hour,
@@ -67683,7 +67645,6 @@ var render = function() {
               _vm.booked && !_vm.booked.is_canceled
                 ? _c("cancel", {
                     attrs: {
-                      label: _vm.showBookedCancelLabel,
                       booked: _vm.booked,
                       court: _vm.court,
                       hour: _vm.hour,
@@ -80282,39 +80243,6 @@ window.toastError = function () {
 
 /***/ }),
 
-/***/ "./resources/js/components/booking/BaseComponent.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/components/booking/BaseComponent.js ***!
-  \**********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (Vue.extend({
-  methods: {
-    redrawTblHeader: function redrawTblHeader(asyncFn) {
-      asyncFn.then(function () {
-        table.columns.adjust().fixedColumns().relayout();
-      });
-    }
-  },
-  computed: {
-    showBookedPayLabel: function showBookedPayLabel() {
-      if (this.booked) {
-        return "".concat(this.booked.renter_name, " \u0645\u0628\u0644\u063A ").concat(this.court.price, " \u062A\u0648\u0645\u0627\u0646 \u0628\u062F\u0647\u06A9\u0627\u0631 \u0627\u0633\u062A");
-      }
-    },
-    showBookedCancelLabel: function showBookedCancelLabel() {
-      if (this.booked) {
-        return "\u0622\u06CC\u0627 \u0645\u06CC \u062E\u0648\u0627\u0647\u06CC\u062F \u0631\u0632\u0631\u0648 \u0631\u0627 \u0628\u0631\u0627\u06CC ".concat(this.booked.renter_name, " \u06A9\u0646\u0633\u0644 \u06A9\u0646\u06CC\u062F\u061F");
-      }
-    }
-  }
-}));
-
-/***/ }),
-
 /***/ "./resources/js/components/booking/Booking.vue":
 /*!*****************************************************!*\
   !*** ./resources/js/components/booking/Booking.vue ***!
@@ -80678,10 +80606,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/mixins/jdatetime.js":
-/*!******************************************!*\
-  !*** ./resources/js/mixins/jdatetime.js ***!
-  \******************************************/
+/***/ "./resources/js/mixins/helper.js":
+/*!***************************************!*\
+  !*** ./resources/js/mixins/helper.js ***!
+  \***************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80692,6 +80620,11 @@ __webpack_require__.r(__webpack_exports__);
     formatTime: function formatTime(time) {
       var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'HH:mm';
       return moment(time, 'HH:mm').format(format);
+    },
+    redrawTblHeader: function redrawTblHeader(asyncFn) {
+      asyncFn.then(function () {
+        table.columns.adjust().fixedColumns().relayout();
+      });
     }
   }
 });

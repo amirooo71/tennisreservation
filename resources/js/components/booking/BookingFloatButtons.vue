@@ -2,7 +2,6 @@
     <div>
         <fab bgColor="#C51162"
              icon-size="small"
-             startOpened="true"
              position="bottom-left"
              fixedTooltip="true"
              :actions="fabActions"

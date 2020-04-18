@@ -58,6 +58,19 @@ class BookingsController extends BaseController {
 	 */
 	public function cancel( Booking $booking ) {
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 		if ( $booking->partTime ) {
 
 			$booking->update( [ 'is_canceled' => true ] );

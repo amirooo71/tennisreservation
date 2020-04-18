@@ -2,7 +2,7 @@
     <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
          role="alert">
         <div>
-            {{label}}
+            {{isPartTime ? showPartTimeBookedCancelLabel : showBookedCancelLabel}}
         </div>
         <button class="btn btn-danger btn-sm" v-on="{ click: isPartTime  ? cancelPartTimeBooked : cancel }">کنسل کن
         </button>
@@ -11,13 +11,15 @@
 
 <script>
 
-    import BaseComponent from './../BaseComponent';
+    import helper from './../../../mixins/helper';
 
-    export default BaseComponent.extend({
+    export default {
 
         name: "cancel",
 
-        props: ['label', 'isPartTime','booked','partTimeBooked','hour','court'],
+        mixins: [helper],
+
+        props: ['label', 'isPartTime', 'booked', 'partTimeBooked', 'hour', 'court'],
 
         methods: {
 
@@ -39,10 +41,25 @@
                 }).catch(err => toastr.warning('خطایی رخ داده'));
                 this.redrawTblHeader(asyncRes);
             },
-        }
+        },
+
+        computed: {
+
+            showBookedCancelLabel: function () {
+
+                if (this.booked) {
+                    return `آیا می خواهید رزرو را برای ${this.booked.renter_name} کنسل کنید؟`;
+                }
+
+            },
+
+            showPartTimeBookedCancelLabel: function () {
+                return `آیا می خواهید رزرو را برای ${this.partTimeBooked.renter_name} کنسل کنید؟`;
+            },
+        },
 
 
-    });
+    }
 </script>
 
 <style scoped>

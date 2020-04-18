@@ -1,8 +1,8 @@
 <template>
 
-    <div class="alert alert-light alert-elevate row" role="alert">
+    <div class="alert alert-light alert-elevate row p-2" role="alert">
         <div class="d-flex col-md-12 justify-content-between align-items-center">
-            <p class="pt-3">{{label}}</p>
+            <p class="pt-3">{{isPartTime ? showPartTimeBookedPayLabel : showBookedPayLabel}}</p>
             <div>
                 <button class="btn btn-success btn-sm btn-elevate m-1"
                         v-on="{ click: isPartTime  ? payPartTimeBooked : pay }">
@@ -20,9 +20,9 @@
 
 <script>
 
-    import BaseComponent from './../BaseComponent';
+    import helper from './../../../mixins/helper';
 
-    export default BaseComponent.extend({
+    export default {
 
         name: "pay.vue",
 
@@ -37,7 +37,7 @@
 
 
         mounted() {
-            
+
             let multipy = {
                 '15': 1,
                 '30': 2,
@@ -73,9 +73,28 @@
                 }).catch(err => toastr.warning('خطایی رخ داده'));
                 this.redrawTblHeader(asyncRes);
             },
+        },
+
+
+        computed: {
+
+            showBookedPayLabel: function () {
+
+                if (this.booked) {
+
+                    return `${this.booked.renter_name} مبلغ ${this.price} تومان بدهکار است`;
+
+                }
+
+            },
+
+            showPartTimeBookedPayLabel: function () {
+                return `${this.partTimeBooked.renter_name} مبلغ ${this.price} تومان بدهکار است`;
+            },
+
         }
 
-    });
+    }
 
 </script>
 

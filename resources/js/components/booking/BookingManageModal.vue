@@ -10,7 +10,6 @@
 
             <div v-if="showPay">
                 <pay v-if="booked && !booked.is_paid"
-                     :label="showBookedPayLabel"
                      :booked="booked"
                      :court="court"
                      :hour="hour"
@@ -18,7 +17,6 @@
                 </pay>
 
                 <pay v-if="partTimeBooked && !partTimeBooked.is_paid"
-                     :label="showPartTimeBookedPayLabel"
                      :part-time-booked="partTimeBooked"
                      :court="court"
                      :hour="hour"
@@ -32,7 +30,6 @@
 
             <cancel
                     v-if="booked && !booked.is_canceled"
-                    :label="showBookedCancelLabel"
                     :booked="booked"
                     :court="court"
                     :hour="hour"
@@ -41,7 +38,6 @@
 
             <cancel
                     v-if="partTimeBooked && !partTimeBooked.is_canceled"
-                    :label="showPartTimeBookedCancelLabel"
                     :part-time-booked="partTimeBooked"
                     :court="court"
                     :hour="hour"
@@ -56,12 +52,14 @@
 
 <script>
 
-    import BaseComponent from './BaseComponent';
     import {SweetModal, SweetModalTab} from 'sweet-modal-vue';
+    import helper from './../../mixins/helper';
 
-    export default BaseComponent.extend({
+    export default {
 
         name: "booking-manage-modal",
+
+        mixins: [helper],
 
         components: {
             SweetModal,
@@ -110,14 +108,6 @@
 
         computed: {
 
-            showPartTimeBookedPayLabel: function () {
-                return `${this.partTimeBooked.renter_name} مبلغ ${this.court.price} تومان بدهکار است`;
-            },
-
-            showPartTimeBookedCancelLabel: function () {
-                return `آیا می خواهید رزرو را برای ${this.partTimeBooked.renter_name} کنسل کنید؟`;
-            },
-
             isAlreadyPaid() {
 
                 if (this.partTimeBooked && this.partTimeBooked.is_paid && this.booked.is_paid) {
@@ -139,7 +129,7 @@
 
         },
 
-    });
+    }
 </script>
 
 <style scoped>

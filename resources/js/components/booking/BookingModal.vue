@@ -87,7 +87,6 @@
 
                 <div v-if="showPay">
                     <pay v-if="booked && !booked.is_paid"
-                         :label="showBookedPayLabel"
                          :booked="booked"
                          :court="court"
                          :hour="hour"
@@ -96,7 +95,6 @@
                 </div>
 
                 <cancel v-if="booked && !booked.is_canceled"
-                        :label="showBookedCancelLabel"
                         :booked="booked"
                         :court="court"
                         :hour="hour"
@@ -112,15 +110,14 @@
 
 <script>
 
-    import BaseComponent from './BaseComponent';
     import {SweetModal, SweetModalTab} from 'sweet-modal-vue';
-    import jdatetime from './../../mixins/jdatetime';
+    import helper from './../../mixins/helper';
 
-    export default BaseComponent.extend({
+    export default {
 
         name: "booking-modal",
 
-        mixins: [jdatetime],
+        mixins: [helper],
 
         components: {
             SweetModal,
@@ -302,30 +299,10 @@
                 });
             },
 
-            // startTime: function (val) {
-            //     if (val) {
-            //         let time = val.split(':');
-            //         let durations = {
-            //             '15': '45',
-            //             '30': '30',
-            //             '45': '15',
-            //         };
-            //         this.duration = durations[time[1]];
-            //     }
-            // },
-            //
-            // endTime: function (val) {
-            //     if (val) {
-            //         let time = val.split(':');
-            //         this.duration = time[1];
-            //     }
-            // }
-
-
         },
 
 
-    });
+    }
 
 </script>
 
