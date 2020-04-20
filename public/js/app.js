@@ -2584,9 +2584,9 @@ __webpack_require__.r(__webpack_exports__);
           partTimeBooked: res.data.partTimeBooked
         });
 
-        _this3.$refs.chargeDebtorPartTimeModal();
+        _this3.$refs.chargeDebtorPartTimeModal.close();
 
-        _this3.$refs.chargeCreditorPartTimeModal();
+        _this3.$refs.chargeCreditorPartTimeModal.close();
 
         Events.$emit("close-manage-booking-modal");
         toastr.success(res.data.msg);

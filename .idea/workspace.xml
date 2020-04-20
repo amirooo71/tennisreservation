@@ -2,23 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b01c91de-d725-464d-91da-470dc09fd2f6" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/Creditor.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/Debtor.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CreditorsController.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DebtorsController.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/database/migrations/2020_04_20_215123_create_debtors_table.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/database/migrations/2020_04_20_215149_create_creditors_table.php" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/Booking.php" afterPath="$PROJECT_DIR$/app/Booking.php" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" />
-      <change beforePath="$PROJECT_DIR$/public/0.js" afterPath="$PROJECT_DIR$/public/0.js" />
-      <change beforePath="$PROJECT_DIR$/public/2.js" afterPath="$PROJECT_DIR$/public/2.js" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PartTimeBookingsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PartTimeBookingsController.php" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" afterPath="$PROJECT_DIR$/public/js/app.js" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/booking/BookingManageModal.vue" afterPath="$PROJECT_DIR$/resources/js/components/booking/BookingManageModal.vue" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/booking/BookingModal.vue" afterPath="$PROJECT_DIR$/resources/js/components/booking/BookingModal.vue" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/booking/partials/Cancel.vue" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/booking/partials/Pay.vue" afterPath="$PROJECT_DIR$/resources/js/components/booking/partials/Pay.vue" />
-      <change beforePath="$PROJECT_DIR$/resources/js/mixins/helper.js" afterPath="$PROJECT_DIR$/resources/js/mixins/helper.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,11 +19,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BookingManageModal.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BookingManageModal.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/components/booking/BookingManageModal.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="170" column="14" lean-forward="true" selection-start-line="170" selection-start-column="14" selection-end-line="170" selection-end-column="14" />
+            <state relative-caret-position="337">
+              <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Booking.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/js/components/booking/Booking.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2736">
+              <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PartTimeBookingsController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/PartTimeBookingsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="563">
+              <caret line="160" column="24" lean-forward="false" selection-start-line="160" selection-start-column="24" selection-end-line="160" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BookingsController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="725">
+              <caret line="237" column="5" lean-forward="false" selection-start-line="221" selection-start-column="0" selection-end-line="237" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -135,7 +152,6 @@
         <option value="$PROJECT_DIR$/resources/js/components/booking/Bookings.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/partials/CancelTab.vue" />
         <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/PartTimeBookingsController.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_04_20_215123_create_debtors_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_04_20_215149_create_creditors_table.php" />
         <option value="$PROJECT_DIR$/app/Debtor.php" />
@@ -146,9 +162,10 @@
         <option value="$PROJECT_DIR$/resources/js/components/booking/partials/Cancel.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/BookingModal.vue" />
         <option value="$PROJECT_DIR$/resources/js/mixins/helper.js" />
-        <option value="$PROJECT_DIR$/resources/js/components/booking/Booking.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/partials/Pay.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/booking/BookingManageModal.vue" />
+        <option value="$PROJECT_DIR$/resources/js/components/booking/Booking.vue" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/PartTimeBookingsController.php" />
       </list>
     </option>
   </component>
@@ -429,12 +446,12 @@
       <workItem from="1587299518745" duration="23000" />
       <workItem from="1587314714908" duration="16985000" />
       <workItem from="1587376939114" duration="42000" />
-      <workItem from="1587378995917" duration="28812000" />
+      <workItem from="1587378995917" duration="30265000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="499003000" />
+    <option name="totallyTimeSpent" value="500456000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="204" y="0" width="1920" height="1080" extended-state="6" />
@@ -446,7 +463,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26145834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26145834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -797,22 +814,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="64" column="29" lean-forward="false" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/PartTimeBookingsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="941">
-          <caret line="84" column="65" lean-forward="false" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -837,14 +838,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/Booking.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/booking/partials/Pay.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="467">
@@ -855,8 +848,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/booking/BookingManageModal.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="170" column="14" lean-forward="true" selection-start-line="170" selection-start-column="14" selection-end-line="170" selection-end-column="14" />
+        <state relative-caret-position="337">
+          <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/booking/Booking.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2736">
+          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="725">
+          <caret line="237" column="5" lean-forward="false" selection-start-line="221" selection-start-column="0" selection-end-line="237" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/PartTimeBookingsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="160" column="24" lean-forward="false" selection-start-line="160" selection-start-column="24" selection-end-line="160" selection-end-column="24" />
           <folding />
         </state>
       </provider>

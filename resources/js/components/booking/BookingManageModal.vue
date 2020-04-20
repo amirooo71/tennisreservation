@@ -159,7 +159,6 @@
 
             cancel(params = null) {
 
-
                 let asyncRes = axios.patch(`/admin/bookings/${this.booked.id}/cancel`, null, {params: params}).then(res => {
                     Events.$emit(`on-success-booked-cancel-court-${this.court.id}-at-${this.hour}`, {booked: res.data.booked});
                     this.$refs.chargeCreditorModal.close();
@@ -174,8 +173,8 @@
 
                 let asyncRes = axios.patch(`/admin/bookings/${this.partTimeBooked.id}/part-time/cancel`, null, {params: params}).then(res => {
                     Events.$emit(`on-success-part-time-booked-cancel-court-${this.court.id}-at-${this.hour}`, {partTimeBooked: res.data.partTimeBooked});
-                    this.$refs.chargeDebtorPartTimeModal();
-                    this.$refs.chargeCreditorPartTimeModal();
+                    this.$refs.chargeDebtorPartTimeModal.close();
+                    this.$refs.chargeCreditorPartTimeModal.close();
                     Events.$emit(`close-manage-booking-modal`);
                     toastr.success(res.data.msg);
                 }).catch(err => toastError());

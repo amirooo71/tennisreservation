@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Booking;
 use App\Club;
+use App\Creditor;
+use App\Debtor;
 use App\PartTimeBooking;
 use App\Payment;
 use Hekmatinasser\Verta\Verta;
@@ -62,6 +64,22 @@ class PartTimeBookingsController extends BaseController {
 	 */
 	public function cancel( PartTimeBooking $partTimeBooking ) {
 
+		if ( request()->has( 'chargeDebtor' ) ) {
+			Debtor::create( [
+				'part_time_booking_id' => $partTimeBooking->id,
+				'name'                 => $partTimeBooking->renter_name,
+				'amount'               => $this->calculateAmountByDurationTime( $partTimeBooking ),
+			] );
+		}
+
+		if ( request()->has( 'chargeCreditor' ) ) {
+			Creditor::create( [
+				'booking_id' => $partTimeBooking->id,
+				'name'       => $partTimeBooking->renter_name,
+				'amount'     => $this->calculateAmountByDurationTime( $partTimeBooking ),
+			] );
+		}
+
 		$partTimeBooking->update( [ 'is_canceled' => true ] );
 
 		return response()->json( [ 'msg' => 'هزینه با موفقیت دریافت شد', 'partTimeBooked' => null ] );
@@ -82,7 +100,7 @@ class PartTimeBookingsController extends BaseController {
 
 		$now = Verta::now();
 
-		return ['isValidTime' => $now->lt( $validTime ) ? 1 : 0];
+		return [ 'isValidTime' => $now->lt( $validTime ) ? 1 : 0 ];
 
 	}
 
@@ -136,4 +154,23 @@ class PartTimeBookingsController extends BaseController {
 
 		return $duration;
 	}
+
+	/**
+	 * @param PartTimeBooking $partTimeBooking
+	 *
+	 * @return float|int
+	 */
+	private function calculateAmountByDurationTime( PartTimeBooking $partTimeBooking ) {
+		$multipy = [
+			15 => 1,
+			30 => 2,
+			45 => 3,
+			60 => 4,
+		];
+
+		$price = ( $partTimeBooking->booking->court->price * $multipy[ $partTimeBooking->duration ] ) / 4;
+
+		return $price;
+	}
+
 }
