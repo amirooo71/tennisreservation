@@ -89,21 +89,44 @@
                     <pay v-if="booked && !booked.is_paid"
                          :booked="booked"
                          :court="court"
-                         :hour="hour"
-                         :is-part-time="false">
+                         :hour="hour">
                     </pay>
                 </div>
 
-                <cancel v-if="booked && !booked.is_canceled"
-                        :booked="booked"
-                        :court="court"
-                        :hour="hour"
-                        :is-part-time="false">
-                </cancel>
+                <div v-if="showCancel">
+                    <cancel v-if="booked && !booked.is_canceled"
+                            :is-manage="false"
+                            :booked="booked"
+                            :court="court"
+                            :hour="hour">
+                    </cancel>
+                </div>
 
             </sweet-modal-tab>
 
         </sweet-modal>
+
+        <sweet-modal overlay-theme="dark" ref="chargeCreditorModal">
+
+            <h4>آیا می خواهید هزینه را به رزرو کننده برگردانید؟</h4>
+            <div class="mt-3">
+                <button class="btn btn-success" @click="chargeCreditorInBookingModal">بله</button>
+                <button class="btn btn-danger" @click="doNotChargeCreditorInBookingModal">خیر</button>
+            </div>
+
+        </sweet-modal>
+
+        <sweet-modal overlay-theme="dark" ref="chargeDebtorModal">
+
+            <h2 class="text-danger">تایم کنسلی گذشته است!</h2>
+            <h4> آیا می خواهید هزینه را از رزرو کننده بگیرید؟</h4>
+            <div class="mt-3">
+                <button class="btn btn-success" @click="chargeDebtorInBookingModal">بله</button>
+                <button class="btn btn-danger" @click="doNotChargeDebtorInBookingModal">خیر</button>
+            </div>
+
+        </sweet-modal>
+
     </div>
 
 </template>
@@ -150,6 +173,8 @@
                 url: '/admin/bookings',
                 duration: '',
                 showPay: false,
+                showCancel: false,
+                cancelId: '',
             }
         },
 
@@ -173,6 +198,7 @@
                 }
 
                 this.showPay = true;
+                this.showCancel = true;
 
                 this.$refs.modal.open('tab-guest');
             });
@@ -181,6 +207,26 @@
             Events.$on('close-booking-modal', () => {
                 this.$refs.modal.close();
             });
+
+
+            Events.$on('open-charge-creditor-modal', (data) => {
+                this.cancelId = data.cancelId;
+                this.$refs.chargeCreditorModal.open();
+            });
+
+            Events.$on('open-charge-debtor-modal', (data) => {
+                this.cancelId = data.cancelId;
+                this.$refs.chargeDebtorModal.open();
+            });
+
+            Events.$on('close-charge-creditor-modal', () => {
+                this.$refs.chargeCreditorModal.close();
+            });
+
+            Events.$on('close-charge-debtor-modal', () => {
+                this.$refs.chargeDebtorModal.close();
+            });
+
         },
 
         methods: {
@@ -259,13 +305,13 @@
                 this.url = '/admin/bookings'
                 this.duration = '';
                 this.showPay = false;
+                this.showCancel = false;
+                this.cancelId = '';
             },
 
             isPartTimeBook() {
 
                 if (this.startTime || this.endTime) {
-
-                    console.log();
 
                     return true;
                 }

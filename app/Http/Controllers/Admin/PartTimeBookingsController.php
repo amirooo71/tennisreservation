@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Booking;
+use App\Club;
 use App\PartTimeBooking;
 use App\Payment;
+use Hekmatinasser\Verta\Verta;
 
 class PartTimeBookingsController extends BaseController {
 
@@ -63,6 +65,25 @@ class PartTimeBookingsController extends BaseController {
 		$partTimeBooking->update( [ 'is_canceled' => true ] );
 
 		return response()->json( [ 'msg' => 'هزینه با موفقیت دریافت شد', 'partTimeBooked' => null ] );
+	}
+
+	/**
+	 * @param PartTimeBooking $partTimeBooking
+	 *
+	 * @return array
+	 */
+	public function isValidTimeForPartTimeCanceling( PartTimeBooking $partTimeBooking ) {
+
+		$cancellationTime = Club::first()->cancellation_time;
+
+		$booking = $partTimeBooking->booking;
+
+		$validTime = Verta::parse( $booking->date . ' ' . $booking->time )->subHours( $cancellationTime );
+
+		$now = Verta::now();
+
+		return ['isValidTime' => $now->lt( $validTime ) ? 1 : 0];
+
 	}
 
 	/**

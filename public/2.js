@@ -33,6 +33,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "pay.vue",
+  mixins: [_mixins_helper__WEBPACK_IMPORTED_MODULE_0__["default"]],
   props: ['label', 'isPartTime', 'booked', 'partTimeBooked', 'court', 'hour'],
   data: function data() {
     return {

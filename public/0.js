@@ -21,40 +21,185 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "cancel",
   mixins: [_mixins_helper__WEBPACK_IMPORTED_MODULE_0__["default"]],
-  props: ['label', 'isPartTime', 'booked', 'partTimeBooked', 'hour', 'court'],
-  methods: {
-    cancel: function cancel() {
-      var _this = this;
+  props: ['isManage', 'booked', 'partTimeBooked', 'hour', 'court'],
+  mounted: function mounted() {
+    var _this = this;
 
-      var asyncRes = axios.patch("/admin/bookings/".concat(this.booked.id, "/cancel")).then(function (res) {
-        Events.$emit("close-booking-modal");
-        Events.$emit("close-manage-booking-modal");
-        Events.$emit("on-success-booked-cancel-court-".concat(_this.court.id, "-at-").concat(_this.hour), {
+    if (this.booked) {
+      if (this.isManage) {
+        Events.$on("charge-debtor-with-booked-id-".concat(this.booked.id), function () {
+          console.log('Charge Debtor');
+        });
+        Events.$on("do-not-charge-debtor-with-booked-id-".concat(this.booked.id), function () {
+          console.log('Called');
+
+          _this.cancel();
+        });
+        Events.$on("charge-creditor-with-booked-id-".concat(this.booked.id), function () {
+          console.log('Charge creditor');
+        });
+        Events.$on("do-not-charge-creditor-with-booked-id-".concat(this.booked.id), function () {
+          _this.cancel();
+        });
+      } else {
+        Events.$on("charge-debtor-with-booked-id-".concat(this.booked.id, "-in-booking-modal"), function () {
+          console.log('Charge Debtor');
+        });
+        Events.$on("do-not-charge-debtor-with-booked-id-".concat(this.booked.id, "-in-booking-modal"), function () {
+          console.log('Called');
+
+          _this.cancel();
+        });
+        Events.$on("charge-creditor-with-booked-id-".concat(this.booked.id, "-in-booking-modal"), function () {
+          console.log('Charge creditor');
+        });
+        Events.$on("do-not-charge-creditor-with-booked-id-".concat(this.booked.id, "-in-booking-modal"), function () {
+          _this.cancel();
+        });
+      }
+    } else {
+      Events.$on("pt-charge-debtor-with-booked-id-".concat(this.partTimeBooked.id), function () {
+        console.log('PT charge Debtor');
+      });
+      Events.$on("pt-do-not-charge-debtor-with-booked-id-".concat(this.partTimeBooked.id), function () {
+        _this.cancelPartTimeBooked();
+      });
+      Events.$on("pt-charge-creditor-with-booked-id-".concat(this.partTimeBooked.id), function () {
+        console.log('PT charge creditor');
+      });
+      Events.$on("pt-do-not-charge-creditor-with-booked-id-".concat(this.partTimeBooked.id), function () {
+        _this.cancelPartTimeBooked();
+      });
+    }
+  },
+  methods: {
+    handleCancel: function handleCancel() {
+      if (this.booked) {
+        if (this.booked.is_paid) {
+          this.emitCreditorEvents();
+        } else {
+          this.checkIsValidTimeForCanceling();
+        }
+      } else {
+        if (this.partTimeBooked.is_paid) {
+          this.emitCreditorPTEvents();
+        } else {
+          this.checkIsValidTimeForCancelingPartTime();
+        }
+      }
+    },
+    cancel: function cancel() {
+      var _this2 = this;
+
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var asyncRes = axios.patch("/admin/bookings/".concat(this.booked.id, "/cancel"), {
+        params: params
+      }).then(function (res) {
+        _this2.closeAllModal();
+
+        Events.$emit("on-success-booked-cancel-court-".concat(_this2.court.id, "-at-").concat(_this2.hour), {
           booked: res.data.booked
         });
         toastr.success(res.data.msg);
       })["catch"](function (err) {
-        return toastr.warning('خطایی رخ داده');
+        return toastError();
       });
       this.redrawTblHeader(asyncRes);
     },
     cancelPartTimeBooked: function cancelPartTimeBooked() {
-      var _this2 = this;
+      var _this3 = this;
 
-      var asyncRes = axios["delete"]("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/cancel")).then(function (res) {
-        Events.$emit("close-manage-booking-modal");
-        Events.$emit("on-success-part-time-booked-cancel-court-".concat(_this2.court.id, "-at-").concat(_this2.hour), {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var asyncRes = axios.patch("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/cancel"), {
+        params: params
+      }).then(function (res) {
+        _this3.closeAllModal();
+
+        Events.$emit("on-success-part-time-booked-cancel-court-".concat(_this3.court.id, "-at-").concat(_this3.hour), {
           partTimeBooked: res.data.partTimeBooked
         });
         toastr.success(res.data.msg);
       })["catch"](function (err) {
-        return toastr.warning('خطایی رخ داده');
+        return toastError();
       });
       this.redrawTblHeader(asyncRes);
+    },
+    checkIsValidTimeForCanceling: function checkIsValidTimeForCanceling() {
+      var _this4 = this;
+
+      axios.get("/admin/bookings/".concat(this.booked.id, "/cancel/is-valid-time")).then(function (res) {
+        if (res.data.isValidTime) {
+          _this4.cancel();
+        } else {
+          _this4.emitDebtorEvents();
+        }
+      })["catch"](function (err) {
+        return toastError();
+      });
+    },
+    checkIsValidTimeForCancelingPartTime: function checkIsValidTimeForCancelingPartTime() {
+      var _this5 = this;
+
+      axios.get("/admin/bookings/part-time/".concat(this.partTimeBooked.id, "/cancel/is-valid-time")).then(function (res) {
+        if (res.data.isValidTime) {
+          _this5.cancelPartTimeBooked();
+        } else {
+          _this5.emitDebtorPTEvents();
+        }
+      })["catch"](function (err) {
+        return toastError();
+      });
+    },
+    emitCreditorEvents: function emitCreditorEvents() {
+      if (!this.isManage) {
+        Events.$emit('open-charge-creditor-modal', {
+          cancelId: this.booked.id
+        });
+      } else {
+        Events.$emit('open-manage-charge-creditor-modal', {
+          cancelId: this.booked.id
+        });
+      }
+    },
+    emitDebtorEvents: function emitDebtorEvents() {
+      if (!this.isManage) {
+        Events.$emit('open-charge-debtor-modal', {
+          cancelId: this.booked.id
+        });
+      } else {
+        Events.$emit('open-manage-charge-debtor-modal', {
+          cancelId: this.booked.id
+        });
+      }
+    },
+    emitCreditorPTEvents: function emitCreditorPTEvents() {
+      if (!this.isManage) {
+        Events.$emit('open-charge-creditor-pt-modal', {
+          PTCancelId: this.partTimeBooked.id
+        });
+      } else {
+        Events.$emit('open-manage-charge-creditor-pt-modal', {
+          PTCancelId: this.partTimeBooked.id
+        });
+      }
+    },
+    emitDebtorPTEvents: function emitDebtorPTEvents() {
+      if (!this.isManage) {
+        Events.$emit('open-charge-debtor-pt-modal', {
+          PTCancelId: this.partTimeBooked.id
+        });
+      } else {
+        Events.$emit('open-manage-charge-debtor-pt-modal', {
+          PTCancelId: this.partTimeBooked.id
+        });
+      }
     }
   },
   computed: {
@@ -98,7 +243,7 @@ var render = function() {
         _vm._v(
           "\n        " +
             _vm._s(
-              _vm.isPartTime
+              _vm.partTimeBooked
                 ? _vm.showPartTimeBookedCancelLabel
                 : _vm.showBookedCancelLabel
             ) +
@@ -108,11 +253,11 @@ var render = function() {
       _vm._v(" "),
       _c(
         "button",
-        _vm._g(
-          { staticClass: "btn btn-danger btn-sm" },
-          { click: _vm.isPartTime ? _vm.cancelPartTimeBooked : _vm.cancel }
-        ),
-        [_vm._v("کنسل کن\n    ")]
+        {
+          staticClass: "btn btn-danger btn-sm",
+          on: { click: _vm.handleCancel }
+        },
+        [_vm._v("\n        کنسل\n        کن\n    ")]
       )
     ]
   )

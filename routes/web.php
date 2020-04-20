@@ -15,6 +15,21 @@ Route::get( '/', function () {
 	return view( 'welcome' );
 } );
 
+
+Route::get( '/playground', function () {
+
+	$b = \App\Booking::find( 62 );
+
+	$now        = \Hekmatinasser\Verta\Facades\Verta::now();
+	$bookedTime = \Hekmatinasser\Verta\Facades\Verta::parse( $b->date . ' ' . $b->time );
+
+
+	dd( $now->lt( $bookedTime->subHours( 12 ) ) );
+
+
+} );
+
+
 Auth::routes();
 
 Route::get( '/home', 'HomeController@index' )->name( 'home' );
@@ -38,16 +53,17 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::patch( 'clubs/{club}/courts/{court}', 'Admin\CourtsController@update' )->name( 'admin.courts.update' );
 
 	Route::get( 'bookings', 'Admin\BookingsController@index' )->name( 'admin.bookings.index' );
+	Route::get( 'bookings/{booking}/cancel/is-valid-time', 'Admin\BookingsController@isValidTimeForCanceling' )->name( 'admin.bookings.isValidTimeForCanceling' );
 	Route::post( 'bookings', 'Admin\BookingsController@store' )->name( 'admin.bookings.store' );
 	Route::patch( 'bookings/{booking}/cancel', 'Admin\BookingsController@cancel' )->name( 'admin.bookings.cancel' );
 	Route::patch( 'bookings/{booking}/pay', 'Admin\BookingsController@pay' )->name( 'admin.bookings.pay' );
 
 	Route::get( 'ajax/coaches', 'Admin\CoachesController@getCoaches' )->name( 'admin.coaches.getCoaches' );
 
-
+	Route::get( 'bookings/part-time/{partTimeBooking}/cancel/is-valid-time', 'Admin\PartTimeBookingsController@isValidTimeForPartTimeCanceling' )->name( 'admin.bookings.isValidTimeForPartTimeCanceling' );
 	Route::post( 'bookings/{booking}/part-time', 'Admin\PartTimeBookingsController@store' )->name( 'admin.bookings.part_time.store' );
 	Route::patch( 'bookings/{partTimeBooking}/part-time/pay', 'Admin\PartTimeBookingsController@pay' )->name( 'admin.bookings.part_time.pay' );
-	Route::delete( 'bookings/{partTimeBooking}/part-time/cancel', 'Admin\PartTimeBookingsController@cancel' )->name( 'admin.bookings.part_time.cancel' );
+	Route::patch( 'bookings/{partTimeBooking}/part-time/cancel', 'Admin\PartTimeBookingsController@cancel' )->name( 'admin.bookings.part_time.cancel' );
 
 
 	Route::get( 'hours', 'Admin\BookingsController@getHours' );

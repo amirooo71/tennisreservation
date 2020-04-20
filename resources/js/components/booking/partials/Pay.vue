@@ -26,6 +26,8 @@
 
         name: "pay.vue",
 
+        mixins: [helper],
+
         props: ['label', 'isPartTime', 'booked', 'partTimeBooked', 'court', 'hour'],
 
         data() {

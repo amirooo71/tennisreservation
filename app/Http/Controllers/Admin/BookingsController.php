@@ -58,19 +58,6 @@ class BookingsController extends BaseController {
 	 */
 	public function cancel( Booking $booking ) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 		if ( $booking->partTime ) {
 
 			$booking->update( [ 'is_canceled' => true ] );
@@ -123,6 +110,23 @@ class BookingsController extends BaseController {
 	}
 
 	/**
+	 * @param Booking $booking
+	 *
+	 * @return array
+	 */
+	public function isValidTimeForCanceling( Booking $booking ) {
+
+		$cancellationTime = Club::first()->cancellation_time;
+
+		$validTime = Verta::parse( $booking->date . ' ' . $booking->time )->subHours( $cancellationTime );
+
+		$now = Verta::now();
+
+		return [ 'isValidTime' => $now->lt( $validTime ) ? 1 : 0 ];
+
+	}
+
+	/**
 	 * @return array
 	 */
 	private function getValidateData(): array {
@@ -161,6 +165,7 @@ class BookingsController extends BaseController {
 			'owner_id'     => $booking->partTime->owner_id,
 			'partner_name' => $booking->partner_name,
 			'is_paid'      => $booking->is_paid,
+			'duration'     => $booking->partTime->duration,
 		] );
 
 		return $booked;
