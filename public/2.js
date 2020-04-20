@@ -34,7 +34,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "pay.vue",
   mixins: [_mixins_helper__WEBPACK_IMPORTED_MODULE_0__["default"]],
-  props: ['label', 'isPartTime', 'booked', 'partTimeBooked', 'court', 'hour'],
+  props: ['booked', 'partTimeBooked', 'court', 'hour'],
   data: function data() {
     return {
       showInput: false,
@@ -49,7 +49,7 @@ __webpack_require__.r(__webpack_exports__);
       '60': 4
     };
 
-    if (this.isPartTime) {
+    if (this.partTimeBooked) {
       this.price = this.court.price * multipy[this.partTimeBooked.duration] / 4;
     } else {
       this.price = this.court.price * multipy[this.booked.duration] / 4;
@@ -136,7 +136,7 @@ var render = function() {
           _c("p", { staticClass: "pt-3" }, [
             _vm._v(
               _vm._s(
-                _vm.isPartTime
+                _vm.partTimeBooked
                   ? _vm.showPartTimeBookedPayLabel
                   : _vm.showBookedPayLabel
               )
@@ -148,7 +148,7 @@ var render = function() {
               "button",
               _vm._g(
                 { staticClass: "btn btn-success btn-sm btn-elevate m-1" },
-                { click: _vm.isPartTime ? _vm.payPartTimeBooked : _vm.pay }
+                { click: _vm.partTimeBooked ? _vm.payPartTimeBooked : _vm.pay }
               ),
               [_vm._v("\n                پرداخت شد\n            ")]
             )

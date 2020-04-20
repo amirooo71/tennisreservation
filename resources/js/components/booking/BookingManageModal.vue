@@ -17,6 +17,7 @@
                          :hour="hour"
                          :is-part-time="false">
                     </pay>
+
                     <pay v-if="partTimeBooked && !partTimeBooked.is_paid"
                          :part-time-booked="partTimeBooked"
                          :court="court"
@@ -29,21 +30,31 @@
 
             <sweet-modal-tab title="کنسل" id="tab-cancel">
 
-                <div v-if="showCancel">
-                    <cancel
-                            v-if="booked && !booked.is_canceled"
-                            :is-manage="true"
-                            :booked="booked"
-                            :court="court"
-                            :hour="hour">
-                    </cancel>
-                    <cancel
-                            v-if="partTimeBooked && !partTimeBooked.is_canceled"
-                            :is-manage="true"
-                            :part-time-booked="partTimeBooked"
-                            :court="court"
-                            :hour="hour">
-                    </cancel>
+                <div v-if="booked && !booked.is_canceled">
+                    <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
+                         role="alert">
+                        <div>
+                            {{showBookedCancelLabel}}
+                        </div>
+                        <button class="btn btn-danger btn-sm" @click="handleCancel">
+                            کنسل
+                            کن
+                        </button>
+                    </div>
+                </div>
+
+
+                <div v-if="partTimeBooked && !partTimeBooked.is_canceled">
+                    <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
+                         role="alert">
+                        <div>
+                            {{showPartTimeBookedCancelLabel}}
+                        </div>
+                        <button class="btn btn-danger btn-sm" @click="handlePartTimeCancel">
+                            کنسل
+                            کن
+                        </button>
+                    </div>
                 </div>
 
             </sweet-modal-tab>
@@ -54,8 +65,8 @@
 
             <h4>آیا می خواهید هزینه را به رزرو کننده برگردانید؟</h4>
             <div class="mt-3">
-                <button class="btn btn-success" @click="chargeCreditor">بله</button>
-                <button class="btn btn-danger" @click="doNotChargeCreditor">خیر</button>
+                <button class="btn btn-success" @click="cancel({chargeCreditor: 1})">بله</button>
+                <button class="btn btn-danger" @click="cancel">خیر</button>
             </div>
 
         </sweet-modal>
@@ -65,31 +76,31 @@
             <h2 class="text-danger">تایم کنسلی گذشته است!</h2>
             <h4> آیا می خواهید هزینه را از رزرو کننده بگیرید؟</h4>
             <div class="mt-3">
-                <button class="btn btn-success" @click="chargeDebtor">بله</button>
-                <button class="btn btn-danger" @click="doNotChargeDebtor">خیر</button>
+                <button class="btn btn-success" @click="cancel({chargeDebtor: 1})">بله</button>
+                <button class="btn btn-danger" @click="cancel">خیر</button>
             </div>
 
         </sweet-modal>
 
-        //Part Time
+        <!--Part Time-->
 
-        <sweet-modal overlay-theme="dark" ref="chargeCreditorPTModal">
+        <sweet-modal overlay-theme="dark" ref="chargeCreditorPartTimeModal">
 
             <h4>آیا می خواهید هزینه را به رزرو کننده برگردانید؟</h4>
             <div class="mt-3">
-                <button class="btn btn-success" @click="chargeCreditorPT">بله</button>
-                <button class="btn btn-danger" @click="doNotChargeCreditorPT">خیر</button>
+                <button class="btn btn-success" @click="cancelPartTime({chargeCreditor: 1})">بله</button>
+                <button class="btn btn-danger" @click="cancelPartTime">خیر</button>
             </div>
 
         </sweet-modal>
 
-        <sweet-modal overlay-theme="dark" ref="chargeDebtorPTModal">
+        <sweet-modal overlay-theme="dark" ref="chargeDebtorPartTimeModal">
 
             <h2 class="text-danger">تایم کنسلی گذشته است!</h2>
             <h4> آیا می خواهید هزینه را از رزرو کننده بگیرید؟</h4>
             <div class="mt-3">
-                <button class="btn btn-success" @click="chargeDebtorPT">بله</button>
-                <button class="btn btn-danger" @click="doNotChargeDebtorPT">خیر</button>
+                <button class="btn btn-success" @click="cancelPartTime({chargeDebtor: 1})">بله</button>
+                <button class="btn btn-danger" @click="cancelPartTime">خیر</button>
             </div>
 
         </sweet-modal>
@@ -113,7 +124,6 @@
             SweetModalTab,
             Info: () => import('./partials/Info'),
             Pay: () => import('./partials/Pay'),
-            Cancel: () => import('./partials/Cancel'),
         },
 
         data() {
@@ -124,9 +134,6 @@
                 date: '',
                 court: '',
                 showPay: false,
-                showCancel: false,
-                cancelId: '',
-                PTCancelId: '',
             }
         },
 
@@ -139,7 +146,6 @@
                 this.booked = data.booked;
                 this.partTimeBooked = data.partTimeBooked;
                 this.showPay = true;
-                this.showCancel = true;
                 this.$refs.modal.open('tab-pay');
             });
 
@@ -147,56 +153,89 @@
                 this.$refs.modal.close();
             });
 
-            Events.$on('open-manage-charge-creditor-modal', (data) => {
-                this.cancelId = data.cancelId;
-                this.$refs.chargeCreditorModal.open();
-            });
-
-            Events.$on('open-manage-charge-debtor-modal', (data) => {
-                this.cancelId = data.cancelId;
-                this.$refs.chargeDebtorModal.open();
-            });
-
-            Events.$on('close-manage-charge-creditor-modal', () => {
-                this.$refs.chargeCreditorModal.close();
-            });
-
-            Events.$on('close-manage-charge-debtor-modal', () => {
-                this.$refs.chargeDebtorModal.close();
-            });
-
-
-            //Part Time
-
-            Events.$on('open-manage-charge-creditor-pt-modal', (data) => {
-                this.PTCancelId = data.PTCancelId;
-                this.$refs.chargeCreditorPTModal.open();
-            });
-
-            Events.$on('open-manage-charge-debtor-pt-modal', (data) => {
-                this.PTCancelId = data.PTCancelId;
-                this.$refs.chargeDebtorPTModal.open();
-            });
-
-            Events.$on('close-manage-charge-creditor-pt-modal', () => {
-                this.$refs.chargeCreditorPTModal.close();
-            });
-
-            Events.$on('close-manage-charge-debtor-pt-modal', () => {
-                this.$refs.chargeDebtorPTModal.close();
-            });
-
-
         },
 
         methods: {
 
+            cancel(params = null) {
+
+
+                let asyncRes = axios.patch(`/admin/bookings/${this.booked.id}/cancel`, null, {params: params}).then(res => {
+                    Events.$emit(`on-success-booked-cancel-court-${this.court.id}-at-${this.hour}`, {booked: res.data.booked});
+                    this.$refs.chargeCreditorModal.close();
+                    this.$refs.chargeDebtorModal.close();
+                    Events.$emit(`close-manage-booking-modal`);
+                    toastr.success(res.data.msg);
+                }).catch(err => toastError());
+                this.redrawTblHeader(asyncRes);
+            },
+
+            cancelPartTime(params = null) {
+
+                let asyncRes = axios.patch(`/admin/bookings/${this.partTimeBooked.id}/part-time/cancel`, null, {params: params}).then(res => {
+                    Events.$emit(`on-success-part-time-booked-cancel-court-${this.court.id}-at-${this.hour}`, {partTimeBooked: res.data.partTimeBooked});
+                    this.$refs.chargeDebtorPartTimeModal();
+                    this.$refs.chargeCreditorPartTimeModal();
+                    Events.$emit(`close-manage-booking-modal`);
+                    toastr.success(res.data.msg);
+                }).catch(err => toastError());
+                this.redrawTblHeader(asyncRes);
+            },
+
+            checkIsValidTimeForCanceling() {
+
+                axios.get(`/admin/bookings/${this.booked.id}/cancel/is-valid-time`).then(res => {
+                    if (res.data.isValidTime) {
+                        this.cancel();
+                    } else {
+                        this.$refs.chargeDebtorModal.open();
+                    }
+                }).catch(err => toastError());
+
+            },
+
+            checkIsValidTimeForPartTimeCanceling() {
+                axios.get(`/admin/bookings/part-time/${this.partTimeBooked.id}/cancel/is-valid-time`).then(res => {
+                    if (res.data.isValidTime) {
+                        this.cancelPartTime();
+                    } else {
+                        this.$refs.chargeDebtorPartTimeModal.open();
+                    }
+                }).catch(err => toastError());
+            },
+
             onCloseModal() {
                 this.showPay = false;
-                this.showCancel = false;
-                this.cancelId = '';
-                this.PTCancelId = '';
             },
+
+            handleCancel() {
+
+                if (this.booked.is_paid) {
+
+                    this.$refs.chargeCreditorModal.open();
+
+                } else {
+
+                    this.checkIsValidTimeForCanceling();
+
+                }
+
+            },
+
+            handlePartTimeCancel() {
+
+                if (this.partTimeBooked.is_paid) {
+
+                    this.$refs.chargeCreditorPartTimeModal.open();
+
+                } else {
+
+                    this.checkIsValidTimeForPartTimeCanceling();
+
+                }
+
+            },
+
 
         },
 
@@ -219,7 +258,20 @@
                 }
 
                 return false;
-            }
+            },
+
+            showBookedCancelLabel: function () {
+
+                if (this.booked) {
+                    return `آیا می خواهید رزرو را برای ${this.booked.renter_name} کنسل کنید؟`;
+                }
+
+            },
+
+            showPartTimeBookedCancelLabel: function () {
+                return `آیا می خواهید رزرو را برای ${this.partTimeBooked.renter_name} کنسل کنید؟`;
+            },
+
 
         },
 

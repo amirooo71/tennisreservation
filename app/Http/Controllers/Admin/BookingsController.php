@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Booking;
 use App\Club;
 use App\Court;
+use App\Creditor;
+use App\Debtor;
 use App\Payment;
 use Hekmatinasser\Verta\Verta;
 
@@ -57,6 +59,23 @@ class BookingsController extends BaseController {
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function cancel( Booking $booking ) {
+
+
+		if ( request()->has( 'chargeDebtor' ) ) {
+			Debtor::create( [
+				'booking_id' => $booking->id,
+				'name'       => $booking->renter_name,
+				'amount'     => $this->calculateAmountByDurationTime( $booking ),
+			] );
+		}
+
+		if ( request()->has( 'chargeCreditor' ) ) {
+			Creditor::create( [
+				'booking_id' => $booking->id,
+				'name'       => $booking->renter_name,
+				'amount'     => $this->calculateAmountByDurationTime( $booking ),
+			] );
+		}
 
 		if ( $booking->partTime ) {
 
@@ -197,6 +216,25 @@ class BookingsController extends BaseController {
 		] )->get();
 
 		return $courts;
+	}
+
+
+	/**
+	 * @param Booking $booking
+	 *
+	 * @return float|int
+	 */
+	private function calculateAmountByDurationTime( Booking $booking ) {
+		$multipy = [
+			15 => 1,
+			30 => 2,
+			45 => 3,
+			60 => 4,
+		];
+
+		$price = ( $booking->court->price * $multipy[ $booking->duration ] ) / 4;
+
+		return $price;
 	}
 
 

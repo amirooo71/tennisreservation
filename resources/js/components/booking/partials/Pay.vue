@@ -2,10 +2,10 @@
 
     <div class="alert alert-light alert-elevate row p-2" role="alert">
         <div class="d-flex col-md-12 justify-content-between align-items-center">
-            <p class="pt-3">{{isPartTime ? showPartTimeBookedPayLabel : showBookedPayLabel}}</p>
+            <p class="pt-3">{{partTimeBooked ? showPartTimeBookedPayLabel : showBookedPayLabel}}</p>
             <div>
                 <button class="btn btn-success btn-sm btn-elevate m-1"
-                        v-on="{ click: isPartTime  ? payPartTimeBooked : pay }">
+                        v-on="{ click: partTimeBooked  ? payPartTimeBooked : pay }">
                     پرداخت شد
                 </button>
             </div>
@@ -28,7 +28,7 @@
 
         mixins: [helper],
 
-        props: ['label', 'isPartTime', 'booked', 'partTimeBooked', 'court', 'hour'],
+        props: ['booked', 'partTimeBooked', 'court', 'hour'],
 
         data() {
             return {
@@ -47,7 +47,7 @@
                 '60': 4
             };
 
-            if (this.isPartTime) {
+            if (this.partTimeBooked) {
                 this.price = (this.court.price * multipy[this.partTimeBooked.duration]) / 4;
             } else {
                 this.price = (this.court.price * multipy[this.booked.duration]) / 4;

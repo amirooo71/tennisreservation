@@ -93,13 +93,17 @@
                     </pay>
                 </div>
 
-                <div v-if="showCancel">
-                    <cancel v-if="booked && !booked.is_canceled"
-                            :is-manage="false"
-                            :booked="booked"
-                            :court="court"
-                            :hour="hour">
-                    </cancel>
+                <div v-if="booked && !booked.is_canceled">
+                    <div class="alert alert-elevate alert-light d-flex justify-content-between align-items-center"
+                         role="alert">
+                        <div>
+                            {{showBookedCancelLabel}}
+                        </div>
+                        <button class="btn btn-danger btn-sm" @click="handleCancel">
+                            کنسل
+                            کن
+                        </button>
+                    </div>
                 </div>
 
             </sweet-modal-tab>
@@ -110,8 +114,8 @@
 
             <h4>آیا می خواهید هزینه را به رزرو کننده برگردانید؟</h4>
             <div class="mt-3">
-                <button class="btn btn-success" @click="chargeCreditorInBookingModal">بله</button>
-                <button class="btn btn-danger" @click="doNotChargeCreditorInBookingModal">خیر</button>
+                <button class="btn btn-success" @click="cancel({chargeCreditor: 1})">بله</button>
+                <button class="btn btn-danger" @click="cancel">خیر</button>
             </div>
 
         </sweet-modal>
@@ -121,8 +125,8 @@
             <h2 class="text-danger">تایم کنسلی گذشته است!</h2>
             <h4> آیا می خواهید هزینه را از رزرو کننده بگیرید؟</h4>
             <div class="mt-3">
-                <button class="btn btn-success" @click="chargeDebtorInBookingModal">بله</button>
-                <button class="btn btn-danger" @click="doNotChargeDebtorInBookingModal">خیر</button>
+                <button class="btn btn-success" @click="cancel({chargeDebtor: 1})">بله</button>
+                <button class="btn btn-danger" @click="cancel">خیر</button>
             </div>
 
         </sweet-modal>
@@ -149,7 +153,6 @@
             PartTimeInputHours: () => import('./partials/PartTimeInputHours'),
             Info: () => import('./partials/Info'),
             Pay: () => import('./partials/Pay'),
-            Cancel: () => import('./partials/Cancel'),
         },
 
         data() {
@@ -173,8 +176,6 @@
                 url: '/admin/bookings',
                 duration: '',
                 showPay: false,
-                showCancel: false,
-                cancelId: '',
             }
         },
 
@@ -198,7 +199,6 @@
                 }
 
                 this.showPay = true;
-                this.showCancel = true;
 
                 this.$refs.modal.open('tab-guest');
             });
@@ -206,25 +206,6 @@
 
             Events.$on('close-booking-modal', () => {
                 this.$refs.modal.close();
-            });
-
-
-            Events.$on('open-charge-creditor-modal', (data) => {
-                this.cancelId = data.cancelId;
-                this.$refs.chargeCreditorModal.open();
-            });
-
-            Events.$on('open-charge-debtor-modal', (data) => {
-                this.cancelId = data.cancelId;
-                this.$refs.chargeDebtorModal.open();
-            });
-
-            Events.$on('close-charge-creditor-modal', () => {
-                this.$refs.chargeCreditorModal.close();
-            });
-
-            Events.$on('close-charge-debtor-modal', () => {
-                this.$refs.chargeDebtorModal.close();
             });
 
         },
@@ -305,8 +286,6 @@
                 this.url = '/admin/bookings'
                 this.duration = '';
                 this.showPay = false;
-                this.showCancel = false;
-                this.cancelId = '';
             },
 
             isPartTimeBook() {
@@ -333,6 +312,43 @@
 
             },
 
+            handleCancel() {
+
+                if (this.booked.is_paid) {
+
+                    this.$refs.chargeCreditorModal.open();
+
+                } else {
+
+                    this.checkIsValidTimeForCanceling();
+
+                }
+
+            },
+
+            cancel(params = {}) {
+                let asyncRes = axios.patch(`/admin/bookings/${this.booked.id}/cancel`, null, {params: params}).then(res => {
+                    Events.$emit(`on-success-booked-cancel-court-${this.court.id}-at-${this.hour}`, {booked: res.data.booked});
+                    this.$refs.chargeCreditorModal.close();
+                    this.$refs.chargeDebtorModal.close();
+                    Events.$emit(`close-booking-modal`);
+                    toastr.success(res.data.msg);
+                }).catch(err => toastError());
+                this.redrawTblHeader(asyncRes);
+            },
+
+            checkIsValidTimeForCanceling() {
+
+                axios.get(`/admin/bookings/${this.booked.id}/cancel/is-valid-time`).then(res => {
+                    if (res.data.isValidTime) {
+                        this.cancel();
+                    } else {
+                        this.$refs.chargeDebtorModal.open();
+                    }
+                }).catch(err => toastError());
+
+            },
+
         },
 
         watch: {
@@ -346,6 +362,18 @@
             },
 
         },
+
+
+        computed: {
+
+            showBookedCancelLabel: function () {
+
+                if (this.booked) {
+                    return `آیا می خواهید رزرو را برای ${this.booked.renter_name} کنسل کنید؟`;
+                }
+
+            },
+        }
 
 
     }

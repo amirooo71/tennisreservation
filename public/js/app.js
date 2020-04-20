@@ -2497,6 +2497,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2510,9 +2521,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     Pay: function Pay() {
       return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./partials/Pay */ "./resources/js/components/booking/partials/Pay.vue"));
-    },
-    Cancel: function Cancel() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./partials/Cancel */ "./resources/js/components/booking/partials/Cancel.vue"));
     }
   },
   data: function data() {
@@ -2522,10 +2530,7 @@ __webpack_require__.r(__webpack_exports__);
       hour: '',
       date: '',
       court: '',
-      showPay: false,
-      showCancel: false,
-      cancelId: '',
-      PTCancelId: ''
+      showPay: false
     };
   },
   mounted: function mounted() {
@@ -2538,53 +2543,100 @@ __webpack_require__.r(__webpack_exports__);
       _this.booked = data.booked;
       _this.partTimeBooked = data.partTimeBooked;
       _this.showPay = true;
-      _this.showCancel = true;
 
       _this.$refs.modal.open('tab-pay');
     });
     Events.$on("close-manage-booking-modal", function () {
       _this.$refs.modal.close();
     });
-    Events.$on('open-manage-charge-creditor-modal', function (data) {
-      _this.cancelId = data.cancelId;
-
-      _this.$refs.chargeCreditorModal.open();
-    });
-    Events.$on('open-manage-charge-debtor-modal', function (data) {
-      _this.cancelId = data.cancelId;
-
-      _this.$refs.chargeDebtorModal.open();
-    });
-    Events.$on('close-manage-charge-creditor-modal', function () {
-      _this.$refs.chargeCreditorModal.close();
-    });
-    Events.$on('close-manage-charge-debtor-modal', function () {
-      _this.$refs.chargeDebtorModal.close();
-    }); //Part Time
-
-    Events.$on('open-manage-charge-creditor-pt-modal', function (data) {
-      _this.PTCancelId = data.PTCancelId;
-
-      _this.$refs.chargeCreditorPTModal.open();
-    });
-    Events.$on('open-manage-charge-debtor-pt-modal', function (data) {
-      _this.PTCancelId = data.PTCancelId;
-
-      _this.$refs.chargeDebtorPTModal.open();
-    });
-    Events.$on('close-manage-charge-creditor-pt-modal', function () {
-      _this.$refs.chargeCreditorPTModal.close();
-    });
-    Events.$on('close-manage-charge-debtor-pt-modal', function () {
-      _this.$refs.chargeDebtorPTModal.close();
-    });
   },
   methods: {
+    cancel: function cancel() {
+      var _this2 = this;
+
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var asyncRes = axios.patch("/admin/bookings/".concat(this.booked.id, "/cancel"), null, {
+        params: params
+      }).then(function (res) {
+        Events.$emit("on-success-booked-cancel-court-".concat(_this2.court.id, "-at-").concat(_this2.hour), {
+          booked: res.data.booked
+        });
+
+        _this2.$refs.chargeCreditorModal.close();
+
+        _this2.$refs.chargeDebtorModal.close();
+
+        Events.$emit("close-manage-booking-modal");
+        toastr.success(res.data.msg);
+      })["catch"](function (err) {
+        return toastError();
+      });
+      this.redrawTblHeader(asyncRes);
+    },
+    cancelPartTime: function cancelPartTime() {
+      var _this3 = this;
+
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var asyncRes = axios.patch("/admin/bookings/".concat(this.partTimeBooked.id, "/part-time/cancel"), null, {
+        params: params
+      }).then(function (res) {
+        Events.$emit("on-success-part-time-booked-cancel-court-".concat(_this3.court.id, "-at-").concat(_this3.hour), {
+          partTimeBooked: res.data.partTimeBooked
+        });
+
+        _this3.$refs.chargeDebtorPartTimeModal();
+
+        _this3.$refs.chargeCreditorPartTimeModal();
+
+        Events.$emit("close-manage-booking-modal");
+        toastr.success(res.data.msg);
+      })["catch"](function (err) {
+        return toastError();
+      });
+      this.redrawTblHeader(asyncRes);
+    },
+    checkIsValidTimeForCanceling: function checkIsValidTimeForCanceling() {
+      var _this4 = this;
+
+      axios.get("/admin/bookings/".concat(this.booked.id, "/cancel/is-valid-time")).then(function (res) {
+        if (res.data.isValidTime) {
+          _this4.cancel();
+        } else {
+          _this4.$refs.chargeDebtorModal.open();
+        }
+      })["catch"](function (err) {
+        return toastError();
+      });
+    },
+    checkIsValidTimeForPartTimeCanceling: function checkIsValidTimeForPartTimeCanceling() {
+      var _this5 = this;
+
+      axios.get("/admin/bookings/part-time/".concat(this.partTimeBooked.id, "/cancel/is-valid-time")).then(function (res) {
+        if (res.data.isValidTime) {
+          _this5.cancelPartTime();
+        } else {
+          _this5.$refs.chargeDebtorPartTimeModal.open();
+        }
+      })["catch"](function (err) {
+        return toastError();
+      });
+    },
     onCloseModal: function onCloseModal() {
       this.showPay = false;
-      this.showCancel = false;
-      this.cancelId = '';
-      this.PTCancelId = '';
+    },
+    handleCancel: function handleCancel() {
+      if (this.booked.is_paid) {
+        this.$refs.chargeCreditorModal.open();
+      } else {
+        this.checkIsValidTimeForCanceling();
+      }
+    },
+    handlePartTimeCancel: function handlePartTimeCancel() {
+      if (this.partTimeBooked.is_paid) {
+        this.$refs.chargeCreditorPartTimeModal.open();
+      } else {
+        this.checkIsValidTimeForPartTimeCanceling();
+      }
     }
   },
   computed: {
@@ -2602,6 +2654,14 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return false;
+    },
+    showBookedCancelLabel: function showBookedCancelLabel() {
+      if (this.booked) {
+        return "\u0622\u06CC\u0627 \u0645\u06CC \u062E\u0648\u0627\u0647\u06CC\u062F \u0631\u0632\u0631\u0648 \u0631\u0627 \u0628\u0631\u0627\u06CC ".concat(this.booked.renter_name, " \u06A9\u0646\u0633\u0644 \u06A9\u0646\u06CC\u062F\u061F");
+      }
+    },
+    showPartTimeBookedCancelLabel: function showPartTimeBookedCancelLabel() {
+      return "\u0622\u06CC\u0627 \u0645\u06CC \u062E\u0648\u0627\u0647\u06CC\u062F \u0631\u0632\u0631\u0648 \u0631\u0627 \u0628\u0631\u0627\u06CC ".concat(this.partTimeBooked.renter_name, " \u06A9\u0646\u0633\u0644 \u06A9\u0646\u06CC\u062F\u061F");
     }
   }
 });
@@ -2758,6 +2818,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2777,9 +2841,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     Pay: function Pay() {
       return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./partials/Pay */ "./resources/js/components/booking/partials/Pay.vue"));
-    },
-    Cancel: function Cancel() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./partials/Cancel */ "./resources/js/components/booking/partials/Cancel.vue"));
     }
   },
   data: function data() {
@@ -2802,9 +2863,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       hasPartnerName: false,
       url: '/admin/bookings',
       duration: '',
-      showPay: false,
-      showCancel: false,
-      cancelId: ''
+      showPay: false
     };
   },
   created: function created() {
@@ -2826,28 +2885,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       _this.showPay = true;
-      _this.showCancel = true;
 
       _this.$refs.modal.open('tab-guest');
     });
     Events.$on('close-booking-modal', function () {
       _this.$refs.modal.close();
-    });
-    Events.$on('open-charge-creditor-modal', function (data) {
-      _this.cancelId = data.cancelId;
-
-      _this.$refs.chargeCreditorModal.open();
-    });
-    Events.$on('open-charge-debtor-modal', function (data) {
-      _this.cancelId = data.cancelId;
-
-      _this.$refs.chargeDebtorModal.open();
-    });
-    Events.$on('close-charge-creditor-modal', function () {
-      _this.$refs.chargeCreditorModal.close();
-    });
-    Events.$on('close-charge-debtor-modal', function () {
-      _this.$refs.chargeDebtorModal.close();
     });
   },
   methods: {
@@ -2929,8 +2971,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.url = '/admin/bookings';
       this.duration = '';
       this.showPay = false;
-      this.showCancel = false;
-      this.cancelId = '';
     },
     isPartTimeBook: function isPartTimeBook() {
       if (this.startTime || this.endTime) {
@@ -2949,17 +2989,66 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       this.duration = data.duration;
+    },
+    handleCancel: function handleCancel() {
+      if (this.booked.is_paid) {
+        this.$refs.chargeCreditorModal.open();
+      } else {
+        this.checkIsValidTimeForCanceling();
+      }
+    },
+    cancel: function cancel() {
+      var _this4 = this;
+
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var asyncRes = axios.patch("/admin/bookings/".concat(this.booked.id, "/cancel"), null, {
+        params: params
+      }).then(function (res) {
+        Events.$emit("on-success-booked-cancel-court-".concat(_this4.court.id, "-at-").concat(_this4.hour), {
+          booked: res.data.booked
+        });
+
+        _this4.$refs.chargeCreditorModal.close();
+
+        _this4.$refs.chargeDebtorModal.close();
+
+        Events.$emit("close-booking-modal");
+        toastr.success(res.data.msg);
+      })["catch"](function (err) {
+        return toastError();
+      });
+      this.redrawTblHeader(asyncRes);
+    },
+    checkIsValidTimeForCanceling: function checkIsValidTimeForCanceling() {
+      var _this5 = this;
+
+      axios.get("/admin/bookings/".concat(this.booked.id, "/cancel/is-valid-time")).then(function (res) {
+        if (res.data.isValidTime) {
+          _this5.cancel();
+        } else {
+          _this5.$refs.chargeDebtorModal.open();
+        }
+      })["catch"](function (err) {
+        return toastError();
+      });
     }
   },
   watch: {
     ownerId: function ownerId(val) {
-      var _this4 = this;
+      var _this6 = this;
 
       this.coaches.forEach(function (coach) {
         if (coach.id === val) {
-          _this4.coachName = coach.name;
+          _this6.coachName = coach.name;
         }
       });
+    }
+  },
+  computed: {
+    showBookedCancelLabel: function showBookedCancelLabel() {
+      if (this.booked) {
+        return "\u0622\u06CC\u0627 \u0645\u06CC \u062E\u0648\u0627\u0647\u06CC\u062F \u0631\u0632\u0631\u0648 \u0631\u0627 \u0628\u0631\u0627\u06CC ".concat(this.booked.renter_name, " \u06A9\u0646\u0633\u0644 \u06A9\u0646\u06CC\u062F\u061F");
+      }
     }
   }
 });
@@ -67481,34 +67570,74 @@ var render = function() {
             "sweet-modal-tab",
             { attrs: { title: "کنسل", id: "tab-cancel" } },
             [
-              _vm.showCancel
-                ? _c(
-                    "div",
-                    [
-                      _vm.booked && !_vm.booked.is_canceled
-                        ? _c("cancel", {
-                            attrs: {
-                              "is-manage": true,
-                              booked: _vm.booked,
-                              court: _vm.court,
-                              hour: _vm.hour
-                            }
-                          })
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.partTimeBooked && !_vm.partTimeBooked.is_canceled
-                        ? _c("cancel", {
-                            attrs: {
-                              "is-manage": true,
-                              "part-time-booked": _vm.partTimeBooked,
-                              court: _vm.court,
-                              hour: _vm.hour
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  )
+              _vm.booked && !_vm.booked.is_canceled
+                ? _c("div", [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "alert alert-elevate alert-light d-flex justify-content-between align-items-center",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _c("div", [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.showBookedCancelLabel) +
+                              "\n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-sm",
+                            on: { click: _vm.handleCancel }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        کنسل\n                        کن\n                    "
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.partTimeBooked && !_vm.partTimeBooked.is_canceled
+                ? _c("div", [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "alert alert-elevate alert-light d-flex justify-content-between align-items-center",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _c("div", [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.showPartTimeBookedCancelLabel) +
+                              "\n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-sm",
+                            on: { click: _vm.handlePartTimeCancel }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        کنسل\n                        کن\n                    "
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ])
                 : _vm._e()
             ]
           )
@@ -67527,17 +67656,18 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-success",
-                on: { click: _vm.chargeCreditor }
+                on: {
+                  click: function($event) {
+                    return _vm.cancel({ chargeCreditor: 1 })
+                  }
+                }
               },
               [_vm._v("بله")]
             ),
             _vm._v(" "),
             _c(
               "button",
-              {
-                staticClass: "btn btn-danger",
-                on: { click: _vm.doNotChargeCreditor }
-              },
+              { staticClass: "btn btn-danger", on: { click: _vm.cancel } },
               [_vm._v("خیر")]
             )
           ])
@@ -67559,26 +67689,30 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-success",
-                on: { click: _vm.chargeDebtor }
+                on: {
+                  click: function($event) {
+                    return _vm.cancel({ chargeDebtor: 1 })
+                  }
+                }
               },
               [_vm._v("بله")]
             ),
             _vm._v(" "),
             _c(
               "button",
-              {
-                staticClass: "btn btn-danger",
-                on: { click: _vm.doNotChargeDebtor }
-              },
+              { staticClass: "btn btn-danger", on: { click: _vm.cancel } },
               [_vm._v("خیر")]
             )
           ])
         ]
       ),
-      _vm._v("\n\n    //Part Time\n\n    "),
+      _vm._v(" "),
       _c(
         "sweet-modal",
-        { ref: "chargeCreditorPTModal", attrs: { "overlay-theme": "dark" } },
+        {
+          ref: "chargeCreditorPartTimeModal",
+          attrs: { "overlay-theme": "dark" }
+        },
         [
           _c("h4", [_vm._v("آیا می خواهید هزینه را به رزرو کننده برگردانید؟")]),
           _vm._v(" "),
@@ -67587,7 +67721,11 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-success",
-                on: { click: _vm.chargeCreditorPT }
+                on: {
+                  click: function($event) {
+                    return _vm.cancelPartTime({ chargeCreditor: 1 })
+                  }
+                }
               },
               [_vm._v("بله")]
             ),
@@ -67596,7 +67734,7 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-danger",
-                on: { click: _vm.doNotChargeCreditorPT }
+                on: { click: _vm.cancelPartTime }
               },
               [_vm._v("خیر")]
             )
@@ -67606,7 +67744,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "sweet-modal",
-        { ref: "chargeDebtorPTModal", attrs: { "overlay-theme": "dark" } },
+        {
+          ref: "chargeDebtorPartTimeModal",
+          attrs: { "overlay-theme": "dark" }
+        },
         [
           _c("h2", { staticClass: "text-danger" }, [
             _vm._v("تایم کنسلی گذشته است!")
@@ -67619,7 +67760,11 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-success",
-                on: { click: _vm.chargeDebtorPT }
+                on: {
+                  click: function($event) {
+                    return _vm.cancelPartTime({ chargeDebtor: 1 })
+                  }
+                }
               },
               [_vm._v("بله")]
             ),
@@ -67628,7 +67773,7 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-danger",
-                on: { click: _vm.doNotChargeDebtorPT }
+                on: { click: _vm.cancelPartTime }
               },
               [_vm._v("خیر")]
             )
@@ -67906,23 +68051,39 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.showCancel
-                ? _c(
-                    "div",
-                    [
-                      _vm.booked && !_vm.booked.is_canceled
-                        ? _c("cancel", {
-                            attrs: {
-                              "is-manage": false,
-                              booked: _vm.booked,
-                              court: _vm.court,
-                              hour: _vm.hour
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  )
+              _vm.booked && !_vm.booked.is_canceled
+                ? _c("div", [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "alert alert-elevate alert-light d-flex justify-content-between align-items-center",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _c("div", [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.showBookedCancelLabel) +
+                              "\n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-sm",
+                            on: { click: _vm.handleCancel }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        کنسل\n                        کن\n                    "
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ])
                 : _vm._e()
             ]
           )
@@ -67941,17 +68102,18 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-success",
-                on: { click: _vm.chargeCreditorInBookingModal }
+                on: {
+                  click: function($event) {
+                    return _vm.cancel({ chargeCreditor: 1 })
+                  }
+                }
               },
               [_vm._v("بله")]
             ),
             _vm._v(" "),
             _c(
               "button",
-              {
-                staticClass: "btn btn-danger",
-                on: { click: _vm.doNotChargeCreditorInBookingModal }
-              },
+              { staticClass: "btn btn-danger", on: { click: _vm.cancel } },
               [_vm._v("خیر")]
             )
           ])
@@ -67973,17 +68135,18 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-success",
-                on: { click: _vm.chargeDebtorInBookingModal }
+                on: {
+                  click: function($event) {
+                    return _vm.cancel({ chargeDebtor: 1 })
+                  }
+                }
               },
               [_vm._v("بله")]
             ),
             _vm._v(" "),
             _c(
               "button",
-              {
-                staticClass: "btn btn-danger",
-                on: { click: _vm.doNotChargeDebtorInBookingModal }
-              },
+              { staticClass: "btn btn-danger", on: { click: _vm.cancel } },
               [_vm._v("خیر")]
             )
           ])
@@ -80956,55 +81119,6 @@ __webpack_require__.r(__webpack_exports__);
       asyncFn.then(function () {
         table.columns.adjust().fixedColumns().relayout();
       });
-    },
-    closeAllModal: function closeAllModal() {
-      Events.$emit("close-booking-modal");
-      Events.$emit("close-manage-booking-modal");
-      Events.$emit('close-charge-debtor-modal');
-      Events.$emit('close-charge-creditor-modal');
-      Events.$emit('close-manage-charge-debtor-modal');
-      Events.$emit('close-manage-charge-creditor-modal');
-      Events.$emit('close-manage-charge-debtor-pt-modal');
-      Events.$emit('close-manage-charge-creditor-pt-modal');
-    },
-    //Booking modal
-    chargeDebtorInBookingModal: function chargeDebtorInBookingModal() {
-      Events.$emit("charge-debtor-with-booked-id-".concat(this.cancelId, "-in-booking-modal"));
-    },
-    doNotChargeDebtorInBookingModal: function doNotChargeDebtorInBookingModal() {
-      Events.$emit("do-not-charge-debtor-with-booked-id-".concat(this.cancelId, "-in-booking-modal"));
-    },
-    chargeCreditorInBookingModal: function chargeCreditorInBookingModal() {
-      Events.$emit("charge-creditor-with-booked-id-".concat(this.cancelId, "-in-booking-modal"));
-    },
-    doNotChargeCreditorInBookingModal: function doNotChargeCreditorInBookingModal() {
-      Events.$emit("do-not-charge-creditor-with-booked-id-".concat(this.cancelId, "-in-booking-modal"));
-    },
-    // Manage modal
-    chargeDebtor: function chargeDebtor() {
-      Events.$emit("charge-debtor-with-booked-id-".concat(this.cancelId));
-    },
-    doNotChargeDebtor: function doNotChargeDebtor() {
-      Events.$emit("do-not-charge-debtor-with-booked-id-".concat(this.cancelId));
-    },
-    chargeCreditor: function chargeCreditor() {
-      Events.$emit("charge-creditor-with-booked-id-".concat(this.cancelId));
-    },
-    doNotChargeCreditor: function doNotChargeCreditor() {
-      Events.$emit("do-not-charge-creditor-with-booked-id-".concat(this.cancelId));
-    },
-    //Part Time
-    chargeDebtorPT: function chargeDebtorPT() {
-      Events.$emit("pt-charge-debtor-with-booked-id-".concat(this.PTCancelId));
-    },
-    doNotChargeDebtorPT: function doNotChargeDebtorPT() {
-      Events.$emit("pt-do-not-charge-debtor-with-booked-id-".concat(this.PTCancelId));
-    },
-    chargeCreditorPT: function chargeCreditorPT() {
-      Events.$emit("pt-charge-creditor-with-booked-id-".concat(this.PTCancelId));
-    },
-    doNotChargeCreditorPT: function doNotChargeCreditorPT() {
-      Events.$emit("pt-do-not-charge-creditor-with-booked-id-".concat(this.PTCancelId));
     }
   }
 });

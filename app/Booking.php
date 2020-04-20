@@ -27,6 +27,13 @@ class Booking extends Model {
 	}
 
 	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
+	 */
+	public function payment() {
+		return $this->hasOne( Payment::class );
+	}
+
+	/**
 	 * @param $data
 	 *
 	 * @return Model
