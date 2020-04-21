@@ -19,16 +19,14 @@ Route::get( '/', function () {
 Route::get( '/playground', function () {
 
 
-
-	dd(\Hekmatinasser\Verta\Verta::now()->subMinutes(date('i'))->subSeconds(date('s')));
+	dd( \Hekmatinasser\Verta\Verta::now()->subMinutes( date( 'i' ) )->subSeconds( date( 's' ) ) );
 
 	$b = \App\Booking::first();
 
 
-	$t = \Hekmatinasser\Verta\Verta::parse($b->date . ' ' . $b->time);
+	$t = \Hekmatinasser\Verta\Verta::parse( $b->date . ' ' . $b->time );
 
-	dd($t);
-
+	dd( $t );
 
 
 } );
@@ -70,6 +68,13 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::patch( 'bookings/{partTimeBooking}/part-time/cancel', 'Admin\PartTimeBookingsController@cancel' )->name( 'admin.bookings.part_time.cancel' );
 
 
-	Route::get( 'hours', 'Admin\BookingsController@getHours' );
-	Route::get( 'courts', 'Admin\CourtsController@courts' );
+	Route::get( '/group/bookings', 'Admin\GroupBookingsController@index' )->name( 'admin.group_bookings.index' );
+
+
+	Route::get( 'ajax/activity/date-time/dates', 'Admin\ActivityDateAndTimeController@dates' );
+	Route::get( 'ajax/activity/date-time/hours', 'Admin\ActivityDateAndTimeController@hours' );
+
+
+//	Route::get( 'hours', 'Admin\BookingsController@getHours' );
+//	Route::get( 'courts', 'Admin\CourtsController@courts' );
 } );
