@@ -60,6 +60,9 @@ class BookingsController extends BaseController {
 	 */
 	public function cancel( Booking $booking ) {
 
+		if ( $booking->is_canceled ) {
+			return response()->json( [ 'msg' => 'کنسل شده است' ], 422 );
+		}
 
 		if ( request()->has( 'chargeDebtor' ) ) {
 			Debtor::create( [
@@ -105,6 +108,10 @@ class BookingsController extends BaseController {
 		request()->validate( [
 			'price' => 'required:numeric'
 		] );
+
+		if ( $booking->is_paid ) {
+			return response()->json( [ 'msg' => 'پرداخت شده است' ], 422 );
+		}
 
 		Payment::create( [
 			'booking_id' => $booking->id,
@@ -235,6 +242,19 @@ class BookingsController extends BaseController {
 		$price = ( $booking->court->price * $multipy[ $booking->duration ] ) / 4;
 
 		return $price;
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function isDatePast(): bool {
+
+		$currentFormatDate = Verta::now()->format( 'Y-n-j' );
+
+		return Verta::parse( $currentFormatDate )->gt( Verta::parse( request( 'date' ) ) ) ||
+		       Verta::parse( request( 'date' ) . ' ' . request( 'time' ) )->lt( Verta::now()->subMinutes( date( 'i' ) )->subSeconds( date( 's' ) ) );
+
+
 	}
 
 

@@ -2517,10 +2517,10 @@ __webpack_require__.r(__webpack_exports__);
     SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModal"],
     SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModalTab"],
     Info: function Info() {
-      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./partials/Info */ "./resources/js/components/booking/partials/Info.vue"));
+      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./partials/Info */ "./resources/js/components/booking/partials/Info.vue"));
     },
     Pay: function Pay() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./partials/Pay */ "./resources/js/components/booking/partials/Pay.vue"));
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./partials/Pay */ "./resources/js/components/booking/partials/Pay.vue"));
     }
   },
   data: function data() {
@@ -2831,16 +2831,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModal"],
     SweetModalTab: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModalTab"],
     PartTimeBookingAlert: function PartTimeBookingAlert() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./partials/PartTimeBookingAlert */ "./resources/js/components/booking/partials/PartTimeBookingAlert.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./partials/PartTimeBookingAlert */ "./resources/js/components/booking/partials/PartTimeBookingAlert.vue"));
     },
     PartTimeInputHours: function PartTimeInputHours() {
-      return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./partials/PartTimeInputHours */ "./resources/js/components/booking/partials/PartTimeInputHours.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./partials/PartTimeInputHours */ "./resources/js/components/booking/partials/PartTimeInputHours.vue"));
     },
     Info: function Info() {
-      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./partials/Info */ "./resources/js/components/booking/partials/Info.vue"));
+      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./partials/Info */ "./resources/js/components/booking/partials/Info.vue"));
     },
     Pay: function Pay() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./partials/Pay */ "./resources/js/components/booking/partials/Pay.vue"));
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./partials/Pay */ "./resources/js/components/booking/partials/Pay.vue"));
     }
   },
   data: function data() {

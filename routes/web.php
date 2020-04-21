@@ -18,13 +18,17 @@ Route::get( '/', function () {
 
 Route::get( '/playground', function () {
 
-	$b = \App\Booking::find( 62 );
-
-	$now        = \Hekmatinasser\Verta\Facades\Verta::now();
-	$bookedTime = \Hekmatinasser\Verta\Facades\Verta::parse( $b->date . ' ' . $b->time );
 
 
-	dd( $now->lt( $bookedTime->subHours( 12 ) ) );
+	dd(\Hekmatinasser\Verta\Verta::now()->subMinutes(date('i'))->subSeconds(date('s')));
+
+	$b = \App\Booking::first();
+
+
+	$t = \Hekmatinasser\Verta\Verta::parse($b->date . ' ' . $b->time);
+
+	dd($t);
+
 
 
 } );

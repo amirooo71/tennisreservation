@@ -21,7 +21,7 @@ class PartTimeBookingsController extends BaseController {
 
 		$data = $this->getValidateData( $booking );
 
-		if ( $this->isDatePast() ) {
+		if ( $this->isDatePast( $booking ) ) {
 			return response()->json( [ 'msg' => 'تاریخ رزرو گذشته است' ], 422 );
 		}
 
@@ -45,6 +45,11 @@ class PartTimeBookingsController extends BaseController {
 			'price' => 'required:numeric'
 		] );
 
+
+		if ( $partTimeBooking->is_paid ) {
+			return response()->json( [ 'msg' => 'پرداخت شده است' ], 422 );
+		}
+
 		Payment::create( [
 			'part_time_booking_id' => $partTimeBooking->id,
 			'amount'               => request( 'price' )
@@ -63,6 +68,12 @@ class PartTimeBookingsController extends BaseController {
 	 * @throws \Exception
 	 */
 	public function cancel( PartTimeBooking $partTimeBooking ) {
+
+
+		if ( $partTimeBooking->is_canceled ) {
+			return response()->json( [ 'msg' => 'کنسل شده است' ] );
+		}
+
 
 		if ( request()->has( 'chargeDebtor' ) ) {
 			Debtor::create( [
@@ -171,6 +182,17 @@ class PartTimeBookingsController extends BaseController {
 		$price = ( $partTimeBooking->booking->court->price * $multipy[ $partTimeBooking->duration ] ) / 4;
 
 		return $price;
+	}
+
+
+	protected function isDatePast( Booking $booking ): bool {
+
+		$currentFormatDate = Verta::now()->format( 'Y-n-j' );
+
+		return Verta::parse( $currentFormatDate )->gt( Verta::parse( request( 'date' ) ) ) ||
+		       Verta::parse( $booking->date . ' ' . $booking->time )->lt( Verta::now()->subMinutes( date( 'i' ) )->subSeconds( date( 's' ) ) );
+
+
 	}
 
 }
