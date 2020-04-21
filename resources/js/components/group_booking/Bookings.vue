@@ -1,12 +1,31 @@
 <template>
 
     <div class="kt-portlet kt-portlet--tabs">
+        <div class="row mt-5 mx-4">
+            <div class="form-group col-md-6">
+                <label>انتخاب زمین</label>
+                <select name="" class="form-control">
+                    <option value="">123</option>
+                    <option value="">123</option>
+                    <option value="">123</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label>انتخاب مربی</label>
+                <select name="" class="form-control">
+                    <option value="">123</option>
+                    <option value="">123</option>
+                    <option value="">123</option>
+                </select>
+            </div>
+        </div>
         <div class="kt-portlet__head d-flex justify-content-center">
             <div class="kt-portlet__head-toolbar">
                 <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-brand nav-tabs-line-2x nav-tabs-line-right nav-tabs-bold"
                     role="tablist">
                     <li class="nav-item" v-for="date in dates">
-                        <a href="#" :class="['nav-link',{active: date.date === activeDate}]" @click="onActiveDateClick(date.date)">
+                        <a href="#" :class="['nav-link',{active: date.date === activeDate}]"
+                           @click="onActiveDateClick(date.date)">
                             <div class="d-flex flex-column align-items-center">
                                 <span>{{date.readableDay}}</span>
                                 <span>{{date.readableDate}}</span>
@@ -17,8 +36,10 @@
             </div>
         </div>
         <div class="kt-portlet__body">
-            <div class="d-flex justify-content-between flex-wrap">
-                <a href="#" class="bg-light py-2 px-4 m-1" v-for="hour in hours">{{formatTime(hour)}}</a>
+            <div class="row mt-3">
+                <div class="col-2 mb-5 text-center" v-for="hour in hours">
+                    <a href="#" class="bg-light py-2 px-4">{{formatTime(hour)}}</a>
+                </div>
             </div>
         </div>
     </div>
@@ -49,6 +70,7 @@
         },
 
         methods: {
+
             getDates() {
                 axios.get('/admin/ajax/activity/date-time/dates').then(res => this.dates = res.data);
             },
@@ -57,10 +79,11 @@
                 axios.get('/admin/ajax/activity/date-time/hours').then(res => this.hours = res.data);
             },
 
-            onActiveDateClick(date){
+            onActiveDateClick(date) {
                 console.log(date);
                 this.activeDate = date;
-            }
+            },
+
         }
     }
 </script>

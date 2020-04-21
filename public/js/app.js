@@ -3127,6 +3127,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "bookings",
@@ -68297,6 +68318,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "kt-portlet kt-portlet--tabs" }, [
+    _vm._m(0),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "kt-portlet__head d-flex justify-content-center" },
@@ -68348,20 +68371,53 @@ var render = function() {
     _c("div", { staticClass: "kt-portlet__body" }, [
       _c(
         "div",
-        { staticClass: "d-flex justify-content-between flex-wrap" },
+        { staticClass: "row mt-3" },
         _vm._l(_vm.hours, function(hour) {
-          return _c(
-            "a",
-            { staticClass: "bg-light py-2 px-4 m-1", attrs: { href: "#" } },
-            [_vm._v(_vm._s(_vm.formatTime(hour)))]
-          )
+          return _c("div", { staticClass: "col-2 mb-5 text-center" }, [
+            _c(
+              "a",
+              { staticClass: "bg-light py-2 px-4", attrs: { href: "#" } },
+              [_vm._v(_vm._s(_vm.formatTime(hour)))]
+            )
+          ])
         }),
         0
       )
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mt-5 mx-4" }, [
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", [_vm._v("انتخاب زمین")]),
+        _vm._v(" "),
+        _c("select", { staticClass: "form-control", attrs: { name: "" } }, [
+          _c("option", { attrs: { value: "" } }, [_vm._v("123")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "" } }, [_vm._v("123")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "" } }, [_vm._v("123")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", [_vm._v("انتخاب مربی")]),
+        _vm._v(" "),
+        _c("select", { staticClass: "form-control", attrs: { name: "" } }, [
+          _c("option", { attrs: { value: "" } }, [_vm._v("123")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "" } }, [_vm._v("123")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "" } }, [_vm._v("123")])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
