@@ -2184,6 +2184,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     onDeleteClick: function onDeleteClick() {
+      var _this3 = this;
+
       Swal.fire({
         title: 'آیا اطمینان دارید؟',
         text: 'امکان بازگشت اطلاعات بعد از حذف رزرو وجود ندارد',
@@ -2195,10 +2197,23 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: this.booked.renter_name,
         cancelButtonText: this.partTimeBooked ? this.partTimeBooked.renter_name : null
       }).then(function (result) {
-        console.log(result);
-
         if (result.value) {
-          Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+          axios["delete"]("/admin/bookings/".concat(_this3.booked.id, "/delete")).then(function (res) {
+            _this3.booked = res.data.booked;
+            _this3.partTimeBooked = null;
+            toastr.success(res.data.msg);
+          })["catch"](function (err) {
+            return toastError();
+          });
+        }
+
+        if (result.dismiss === 'cancel') {
+          axios["delete"]("/admin/bookings/".concat(_this3.partTimeBooked.id, "/part-time/delete")).then(function (res) {
+            _this3.partTimeBooked = null;
+            toastr.success(res.data.msg);
+          })["catch"](function (err) {
+            return toastError();
+          });
         }
       });
     }

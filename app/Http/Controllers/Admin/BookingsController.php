@@ -57,6 +57,30 @@ class BookingsController extends BaseController {
 	 * @param Booking $booking
 	 *
 	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
+	public function delete( Booking $booking ) {
+
+		if ( $booking->partTime ) {
+
+			$booked = $this->bookingWithPartTime( $booking );
+
+			$booking->delete();
+
+			return response()->json( [ 'msg' => 'رزرو با موفقیت حذف شد', 'booked' => $booked ] );
+
+		}
+
+		$booking->delete();
+
+		return response()->json( [ 'msg' => 'رزرو با موفقیت حذف شد', 'booked' => null ] );
+
+	}
+
+	/**
+	 * @param Booking $booking
+	 *
+	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function cancel( Booking $booking ) {
 
@@ -163,7 +187,7 @@ class BookingsController extends BaseController {
 				'date'        => request( 'date' ),
 				'is_canceled' => false
 			] )->get();
-		}
+	}
 
 
 	/**

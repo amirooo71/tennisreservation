@@ -37,6 +37,20 @@ class PartTimeBookingsController extends BaseController {
 	 * @param PartTimeBooking $partTimeBooking
 	 *
 	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
+	public function delete( PartTimeBooking $partTimeBooking ) {
+
+		$partTimeBooking->delete();
+
+		return response()->json( [ 'msg' => 'رزرو با موفقیت حذف شد', 'partTimeBooked' => null ] );
+	}
+
+
+	/**
+	 * @param PartTimeBooking $partTimeBooking
+	 *
+	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function pay( PartTimeBooking $partTimeBooking ) {
 
@@ -93,7 +107,7 @@ class PartTimeBookingsController extends BaseController {
 
 		$partTimeBooking->update( [ 'is_canceled' => true ] );
 
-		return response()->json( [ 'msg' => 'هزینه با موفقیت دریافت شد', 'partTimeBooked' => null ] );
+		return response()->json( [ 'msg' => 'با موفقیت کنسل شد', 'partTimeBooked' => null ] );
 	}
 
 	/**

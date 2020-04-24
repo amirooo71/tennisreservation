@@ -211,13 +211,18 @@
                     confirmButtonText: this.booked.renter_name,
                     cancelButtonText: this.partTimeBooked ? this.partTimeBooked.renter_name : null,
                 }).then((result) => {
-                    console.log(result);
                     if (result.value) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
+                        axios.delete(`/admin/bookings/${this.booked.id}/delete`).then(res => {
+                            this.booked = res.data.booked;
+                            this.partTimeBooked = null;
+                            toastr.success(res.data.msg);
+                        }).catch(err => toastError());
+                    }
+                    if (result.dismiss === 'cancel') {
+                        axios.delete(`/admin/bookings/${this.partTimeBooked.id}/part-time/delete`).then(res => {
+                            this.partTimeBooked = null;
+                            toastr.success(res.data.msg);
+                        }).catch(err => toastError());
                     }
                 })
             }
