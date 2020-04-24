@@ -25,7 +25,7 @@ class BookingsController extends BaseController {
 
 		$club = Club::first();
 
-		$courts = $this->getCourtBookingsByDate( $date );
+		$courts = $this->getAllCourtBookingsByDate( $date );
 
 		$openingHours = $club->openingHours();
 
@@ -153,6 +153,20 @@ class BookingsController extends BaseController {
 	}
 
 	/**
+	 * @return mixed
+	 */
+	public function getCourtBookings() {
+
+		return Booking::where(
+			[
+				'court_id'    => request( 'courtId' ),
+				'date'        => request( 'date' ),
+				'is_canceled' => false
+			] )->get();
+		}
+
+
+	/**
 	 * @return array
 	 */
 	private function getValidateData(): array {
@@ -214,7 +228,7 @@ class BookingsController extends BaseController {
 	 *
 	 * @return mixed
 	 */
-	private function getCourtBookingsByDate( $date ) {
+	private function getAllCourtBookingsByDate( $date ) {
 
 		$courts = Court::with( [
 			'bookings' => function ( $query ) use ( $date ) {

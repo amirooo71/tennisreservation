@@ -29,7 +29,7 @@ class CourtsController extends Controller {
 
 		if ( $club->courts_count === $club->courts->count() ) {
 
-			flash("مجموعه شما دارای {$club->courts_count} عدد زمین تنیس می باشد و شما تمامی زمین تنیس ها را برای سیستم تعریف کرده اید.", 'info' );
+			flash( "مجموعه شما دارای {$club->courts_count} عدد زمین تنیس می باشد و شما تمامی زمین تنیس ها را برای سیستم تعریف کرده اید.", 'info' );
 
 			return redirect()->route( 'admin.courts.index', [ 'club' => $club ] );
 		}
@@ -46,7 +46,7 @@ class CourtsController extends Controller {
 
 		if ( $club->courts_count === $club->courts->count() ) {
 
-			flash("مجموعه شما دارای {$club->courts_count} عدد زمین تنیس می باشد و شما تمامی زمین تنیس ها را برای سیستم تعریف کرده اید.", 'info' );
+			flash( "مجموعه شما دارای {$club->courts_count} عدد زمین تنیس می باشد و شما تمامی زمین تنیس ها را برای سیستم تعریف کرده اید.", 'info' );
 
 			return redirect()->route( 'admin.courts.index', [ 'club' => $club ] );
 		}
@@ -109,7 +109,7 @@ class CourtsController extends Controller {
 	 * @return mixed
 	 */
 	public function courts() {
-		return auth()->user()->club()->courts->pluck( 'name', 'id' );
+		return Club::first()->courts;
 	}
 
 	/**
