@@ -1,38 +1,42 @@
 <template>
 
-    <td :class="[defaultClass,dynamicClass]"
-        v-on="{ click: shouldCallBookMethod()  ? onBookClick : onManageClick }">
-
-        <div class="row d-flex align-items-center" v-if="booked" style="min-width: 300px; min-height: 38.5px;">
-            <div :class="['col d-flex flex-column',booked.start_time ? 'order-2' : 'order-1']">
-                <span>{{booked.renter_name}}</span>
-                <div class="d-flex justify-content-center">
-                    <i v-if="booked.partner_name" class="fa fa-user-friends p-1"
-                       v-tooltip="booked.partner_name"></i>
-                    <i v-if="booked.start_time || booked.end_time" class="fa fa-clock p-1"
-                       v-tooltip="showDurationTimes"></i>
-                    <i v-if="booked.is_part_time && booked.is_paid" class="fas fa-coins text-light p-1"
-                       v-tooltip="'پرداخت شده'"></i>
-                </div>
-            </div>
-
-            <div :class="['col',booked.end_time ? 'order-2' : 'order-1']" v-if="booked.is_part_time">
-                <div v-if="partTimeBooked" class="d-flex flex-column">
-                    <span>{{partTimeBooked.renter_name}}</span>
+    <td :class="[defaultClass,dynamicClass]" style="position: relative;">
+        <div v-if="booked" style="position: absolute; top: 0; right: 0; padding: 5px; z-index: 1;"
+             @click="onDeleteClick">
+            <i class="fas fa-trash"></i>
+        </div>
+        <div v-on="{ click: shouldCallBookMethod()  ? onBookClick : onManageClick }">
+            <div class="row d-flex align-items-center" v-if="booked" style="min-width: 300px; min-height: 38.5px;">
+                <div :class="['col d-flex flex-column',booked.start_time ? 'order-2' : 'order-1']">
+                    <span>{{booked.renter_name}}</span>
                     <div class="d-flex justify-content-center">
-                        <i v-if="partTimeBooked.partner_name" class="fa fa-user-friends p-1"
-                           v-tooltip="partTimeBooked.partner_name"></i>
-                        <i class="fa fa-clock p-1" v-tooltip="showPartTimeDurationTimes"></i>
-                        <i v-if="partTimeBooked.is_paid" class="fas fa-coins text-light p-1"
+                        <i v-if="booked.partner_name" class="fa fa-user-friends p-1"
+                           v-tooltip="booked.partner_name"></i>
+                        <i v-if="booked.start_time || booked.end_time" class="fa fa-clock p-1"
+                           v-tooltip="showDurationTimes"></i>
+                        <i v-if="booked.is_part_time && booked.is_paid" class="fas fa-coins text-light p-1"
                            v-tooltip="'پرداخت شده'"></i>
                     </div>
                 </div>
-                <span class="kt-badge kt-badge--warning kt-badge--inline" v-else>
+
+                <div :class="['col',booked.end_time ? 'order-2' : 'order-1']" v-if="booked.is_part_time">
+                    <div v-if="partTimeBooked" class="d-flex flex-column">
+                        <span>{{partTimeBooked.renter_name}}</span>
+                        <div class="d-flex justify-content-center">
+                            <i v-if="partTimeBooked.partner_name" class="fa fa-user-friends p-1"
+                               v-tooltip="partTimeBooked.partner_name"></i>
+                            <i class="fa fa-clock p-1" v-tooltip="showPartTimeDurationTimes"></i>
+                            <i v-if="partTimeBooked.is_paid" class="fas fa-coins text-light p-1"
+                               v-tooltip="'پرداخت شده'"></i>
+                        </div>
+                    </div>
+                    <span class="kt-badge kt-badge--warning kt-badge--inline" v-else>
                     {{showGapedTimeLabel}}
                 </span>
+                </div>
             </div>
-        </div>
-        <div v-else style="min-width: 300px; min-height: 38.5px;">
+            <div v-else style="min-width: 300px; min-height: 38.5px;">
+            </div>
         </div>
     </td>
 
@@ -193,6 +197,30 @@
                     return false;
                 }
             },
+
+            onDeleteClick() {
+
+                Swal.fire({
+                    title: 'آیا اطمینان دارید؟',
+                    text: 'امکان بازگشت اطلاعات بعد از حذف رزرو وجود ندارد',
+                    showCancelButton: !!this.partTimeBooked,
+                    showConfirmButton: true,
+                    showCloseButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: this.booked.renter_name,
+                    cancelButtonText: this.partTimeBooked ? this.partTimeBooked.renter_name : null,
+                }).then((result) => {
+                    console.log(result);
+                    if (result.value) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            }
 
 
         },

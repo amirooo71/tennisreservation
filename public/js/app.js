@@ -2065,6 +2065,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2178,6 +2182,25 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return false;
       }
+    },
+    onDeleteClick: function onDeleteClick() {
+      Swal.fire({
+        title: 'آیا اطمینان دارید؟',
+        text: 'امکان بازگشت اطلاعات بعد از حذف رزرو وجود ندارد',
+        showCancelButton: !!this.partTimeBooked,
+        showConfirmButton: true,
+        showCloseButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#d33',
+        confirmButtonText: this.booked.renter_name,
+        cancelButtonText: this.partTimeBooked ? this.partTimeBooked.renter_name : null
+      }).then(function (result) {
+        console.log(result);
+
+        if (result.value) {
+          Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+        }
+      });
     }
   },
   computed: {
@@ -2971,6 +2994,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.url = '/admin/bookings';
       this.duration = '';
       this.showPay = false;
+      Events.$emit('reset-part-time-hours');
     },
     isPartTimeBook: function isPartTimeBook() {
       if (this.startTime || this.endTime) {
@@ -67439,164 +67463,200 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "td",
-    _vm._g(
-      { class: [_vm.defaultClass, _vm.dynamicClass] },
-      {
-        click: _vm.shouldCallBookMethod() ? _vm.onBookClick : _vm.onManageClick
-      }
-    ),
+    {
+      class: [_vm.defaultClass, _vm.dynamicClass],
+      staticStyle: { position: "relative" }
+    },
     [
       _vm.booked
         ? _c(
             "div",
             {
-              staticClass: "row d-flex align-items-center",
-              staticStyle: { "min-width": "300px", "min-height": "38.5px" }
+              staticStyle: {
+                position: "absolute",
+                top: "0",
+                right: "0",
+                padding: "5px",
+                "z-index": "1"
+              },
+              on: { click: _vm.onDeleteClick }
             },
-            [
-              _c(
+            [_c("i", { staticClass: "fas fa-trash" })]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        _vm._g(
+          {},
+          {
+            click: _vm.shouldCallBookMethod()
+              ? _vm.onBookClick
+              : _vm.onManageClick
+          }
+        ),
+        [
+          _vm.booked
+            ? _c(
                 "div",
                 {
-                  class: [
-                    "col d-flex flex-column",
-                    _vm.booked.start_time ? "order-2" : "order-1"
-                  ]
+                  staticClass: "row d-flex align-items-center",
+                  staticStyle: { "min-width": "300px", "min-height": "38.5px" }
                 },
                 [
-                  _c("span", [_vm._v(_vm._s(_vm.booked.renter_name))]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "d-flex justify-content-center" }, [
-                    _vm.booked.partner_name
-                      ? _c("i", {
-                          directives: [
-                            {
-                              name: "tooltip",
-                              rawName: "v-tooltip",
-                              value: _vm.booked.partner_name,
-                              expression: "booked.partner_name"
-                            }
-                          ],
-                          staticClass: "fa fa-user-friends p-1"
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.booked.start_time || _vm.booked.end_time
-                      ? _c("i", {
-                          directives: [
-                            {
-                              name: "tooltip",
-                              rawName: "v-tooltip",
-                              value: _vm.showDurationTimes,
-                              expression: "showDurationTimes"
-                            }
-                          ],
-                          staticClass: "fa fa-clock p-1"
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.booked.is_part_time && _vm.booked.is_paid
-                      ? _c("i", {
-                          directives: [
-                            {
-                              name: "tooltip",
-                              rawName: "v-tooltip",
-                              value: "پرداخت شده",
-                              expression: "'پرداخت شده'"
-                            }
-                          ],
-                          staticClass: "fas fa-coins text-light p-1"
-                        })
-                      : _vm._e()
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _vm.booked.is_part_time
-                ? _c(
+                  _c(
                     "div",
                     {
                       class: [
-                        "col",
-                        _vm.booked.end_time ? "order-2" : "order-1"
+                        "col d-flex flex-column",
+                        _vm.booked.start_time ? "order-2" : "order-1"
                       ]
                     },
                     [
-                      _vm.partTimeBooked
-                        ? _c("div", { staticClass: "d-flex flex-column" }, [
-                            _c("span", [
-                              _vm._v(_vm._s(_vm.partTimeBooked.renter_name))
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "d-flex justify-content-center" },
-                              [
-                                _vm.partTimeBooked.partner_name
-                                  ? _c("i", {
-                                      directives: [
-                                        {
-                                          name: "tooltip",
-                                          rawName: "v-tooltip",
-                                          value:
-                                            _vm.partTimeBooked.partner_name,
-                                          expression:
-                                            "partTimeBooked.partner_name"
-                                        }
-                                      ],
-                                      staticClass: "fa fa-user-friends p-1"
-                                    })
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c("i", {
-                                  directives: [
-                                    {
-                                      name: "tooltip",
-                                      rawName: "v-tooltip",
-                                      value: _vm.showPartTimeDurationTimes,
-                                      expression: "showPartTimeDurationTimes"
-                                    }
-                                  ],
-                                  staticClass: "fa fa-clock p-1"
-                                }),
-                                _vm._v(" "),
-                                _vm.partTimeBooked.is_paid
-                                  ? _c("i", {
-                                      directives: [
-                                        {
-                                          name: "tooltip",
-                                          rawName: "v-tooltip",
-                                          value: "پرداخت شده",
-                                          expression: "'پرداخت شده'"
-                                        }
-                                      ],
-                                      staticClass: "fas fa-coins text-light p-1"
-                                    })
-                                  : _vm._e()
-                              ]
-                            )
-                          ])
-                        : _c(
-                            "span",
-                            {
-                              staticClass:
-                                "kt-badge kt-badge--warning kt-badge--inline"
-                            },
-                            [
-                              _vm._v(
-                                "\n                " +
-                                  _vm._s(_vm.showGapedTimeLabel) +
-                                  "\n            "
-                              )
-                            ]
-                          )
+                      _c("span", [_vm._v(_vm._s(_vm.booked.renter_name))]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center" },
+                        [
+                          _vm.booked.partner_name
+                            ? _c("i", {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: _vm.booked.partner_name,
+                                    expression: "booked.partner_name"
+                                  }
+                                ],
+                                staticClass: "fa fa-user-friends p-1"
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.booked.start_time || _vm.booked.end_time
+                            ? _c("i", {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: _vm.showDurationTimes,
+                                    expression: "showDurationTimes"
+                                  }
+                                ],
+                                staticClass: "fa fa-clock p-1"
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.booked.is_part_time && _vm.booked.is_paid
+                            ? _c("i", {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "پرداخت شده",
+                                    expression: "'پرداخت شده'"
+                                  }
+                                ],
+                                staticClass: "fas fa-coins text-light p-1"
+                              })
+                            : _vm._e()
+                        ]
+                      )
                     ]
-                  )
-                : _vm._e()
-            ]
-          )
-        : _c("div", {
-            staticStyle: { "min-width": "300px", "min-height": "38.5px" }
-          })
+                  ),
+                  _vm._v(" "),
+                  _vm.booked.is_part_time
+                    ? _c(
+                        "div",
+                        {
+                          class: [
+                            "col",
+                            _vm.booked.end_time ? "order-2" : "order-1"
+                          ]
+                        },
+                        [
+                          _vm.partTimeBooked
+                            ? _c("div", { staticClass: "d-flex flex-column" }, [
+                                _c("span", [
+                                  _vm._v(_vm._s(_vm.partTimeBooked.renter_name))
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "d-flex justify-content-center"
+                                  },
+                                  [
+                                    _vm.partTimeBooked.partner_name
+                                      ? _c("i", {
+                                          directives: [
+                                            {
+                                              name: "tooltip",
+                                              rawName: "v-tooltip",
+                                              value:
+                                                _vm.partTimeBooked.partner_name,
+                                              expression:
+                                                "partTimeBooked.partner_name"
+                                            }
+                                          ],
+                                          staticClass: "fa fa-user-friends p-1"
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c("i", {
+                                      directives: [
+                                        {
+                                          name: "tooltip",
+                                          rawName: "v-tooltip",
+                                          value: _vm.showPartTimeDurationTimes,
+                                          expression:
+                                            "showPartTimeDurationTimes"
+                                        }
+                                      ],
+                                      staticClass: "fa fa-clock p-1"
+                                    }),
+                                    _vm._v(" "),
+                                    _vm.partTimeBooked.is_paid
+                                      ? _c("i", {
+                                          directives: [
+                                            {
+                                              name: "tooltip",
+                                              rawName: "v-tooltip",
+                                              value: "پرداخت شده",
+                                              expression: "'پرداخت شده'"
+                                            }
+                                          ],
+                                          staticClass:
+                                            "fas fa-coins text-light p-1"
+                                        })
+                                      : _vm._e()
+                                  ]
+                                )
+                              ])
+                            : _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "kt-badge kt-badge--warning kt-badge--inline"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                " +
+                                      _vm._s(_vm.showGapedTimeLabel) +
+                                      "\n            "
+                                  )
+                                ]
+                              )
+                        ]
+                      )
+                    : _vm._e()
+                ]
+              )
+            : _c("div", {
+                staticStyle: { "min-width": "300px", "min-height": "38.5px" }
+              })
+        ]
+      )
     ]
   )
 }

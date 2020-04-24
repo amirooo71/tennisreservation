@@ -283,9 +283,10 @@
                 this.isPartTime = '';
                 this.partTimeStartAt = '';
                 this.hasPartTimeManageTab = false;
-                this.url = '/admin/bookings'
+                this.url = '/admin/bookings';
                 this.duration = '';
                 this.showPay = false;
+                Events.$emit('reset-part-time-hours');
             },
 
             isPartTimeBook() {
