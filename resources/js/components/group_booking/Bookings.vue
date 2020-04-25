@@ -111,6 +111,7 @@
                 activeDate: '',
                 courtId: '',
                 ownerId: '',
+                renterName: '',
                 from: '',
                 to: '',
                 loading: false,
@@ -149,7 +150,6 @@
                         courtId: this.courtId
                     }
                 }).then(res => {
-                    console.log(res.data);
                     this.bookings = res.data;
                 });
             },
@@ -173,7 +173,7 @@
                 this.loading = true;
                 axios.post('/admin/group/bookings', {
                     court_id: this.courtId,
-                    renter_name: 'jafar',
+                    renter_name: this.renterName,
                     date: this.formatDate(this.activeDate),
                     from: this.from,
                     to: this.to,
@@ -185,6 +185,7 @@
                     this.bookings = [];
                     this.from = '';
                     this.to = '';
+                    this.renterName = '';
                     this.loading = false;
                     toastr.success(res.data.msg);
                 }).catch(err => {
@@ -193,6 +194,16 @@
                 });
             },
 
+        },
+
+        watch: {
+            ownerId: function (val) {
+                this.coaches.forEach(c => {
+                    if (c.id === val) {
+                        this.renterName = c.name;
+                    }
+                });
+            }
         }
     }
 </script>

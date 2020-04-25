@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Booking;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
 
 class GroupBookingsController extends Controller {
@@ -27,20 +28,28 @@ class GroupBookingsController extends Controller {
 		$from = \request( 'from' );
 		$to   = \request( 'to' );
 
+		$pastHours = 0;
+
 		foreach ( $this->getBookingHours( $from, $to ) as $hour ) {
 
-			Booking::create( [
-				'court_id'    => \request( 'court_id' ),
-				'renter_name' => \request( 'renter_name' ),
-				'date'        => \request( 'date' ),
-				'time'        => $hour,
-				'duration'    => 60,
-				'owner_id'    => \request( 'owner_id' )
-			] );
+			if ( ! $this->isDatePast( $hour ) ) {
+
+				Booking::create( [
+					'court_id'    => \request( 'court_id' ),
+					'renter_name' => \request( 'renter_name' ),
+					'date'        => \request( 'date' ),
+					'time'        => $hour,
+					'duration'    => 60,
+					'owner_id'    => \request( 'owner_id' )
+				] );
+
+			} else {
+				$pastHours ++;
+			}
 
 		}
 
-		return response()->json( [ 'msg' => 'was added successfully' ] );
+		return response()->json( [ 'msg' => 'was added successfully' . ' Past ' . $pastHours ] );
 
 
 	}
@@ -84,6 +93,16 @@ class GroupBookingsController extends Controller {
 				'date'        => request( 'date' ),
 				'is_canceled' => false
 			] )->get()->count();
+	}
+
+	private function isDatePast( $time ): bool {
+
+		$currentFormatDate = Verta::now()->format( 'Y-n-j' );
+
+		return Verta::parse( $currentFormatDate )->gt( Verta::parse( request( 'date' ) ) ) ||
+		       Verta::parse( request( 'date' ) . ' ' . $time )->lt( Verta::now()->subMinutes( date( 'i' ) )->subSeconds( date( 's' ) ) );
+
+
 	}
 
 }

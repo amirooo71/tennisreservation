@@ -21,6 +21,10 @@ class PartTimeBookingsController extends BaseController {
 
 		$data = $this->getValidateData( $booking );
 
+		if ( $booking->partTime ) {
+			return response()->json( [ 'msg' => 'زمین رزرو شده است' ], 422 );
+		}
+
 		if ( $this->isDatePast( $booking ) ) {
 			return response()->json( [ 'msg' => 'تاریخ رزرو گذشته است' ], 422 );
 		}

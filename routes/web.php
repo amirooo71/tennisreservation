@@ -17,6 +17,7 @@ Route::get( '/', function () {
 
 
 Route::get( '/playground', function () {
+		$b = \App\Booking::first();
 
 
 } );

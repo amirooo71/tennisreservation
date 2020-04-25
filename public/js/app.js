@@ -3247,6 +3247,7 @@ __webpack_require__.r(__webpack_exports__);
       activeDate: '',
       courtId: '',
       ownerId: '',
+      renterName: '',
       from: '',
       to: '',
       loading: false
@@ -3296,7 +3297,6 @@ __webpack_require__.r(__webpack_exports__);
           courtId: this.courtId
         }
       }).then(function (res) {
-        console.log(res.data);
         _this5.bookings = res.data;
       });
     },
@@ -3318,7 +3318,7 @@ __webpack_require__.r(__webpack_exports__);
       this.loading = true;
       axios.post('/admin/group/bookings', {
         court_id: this.courtId,
-        renter_name: 'jafar',
+        renter_name: this.renterName,
         date: this.formatDate(this.activeDate),
         from: this.from,
         to: this.to,
@@ -3330,11 +3330,23 @@ __webpack_require__.r(__webpack_exports__);
         _this6.bookings = [];
         _this6.from = '';
         _this6.to = '';
+        _this6.renterName = '';
         _this6.loading = false;
         toastr.success(res.data.msg);
       })["catch"](function (err) {
         _this6.loading = false;
         toastError(err.response.data.msg);
+      });
+    }
+  },
+  watch: {
+    ownerId: function ownerId(val) {
+      var _this7 = this;
+
+      this.coaches.forEach(function (c) {
+        if (c.id === val) {
+          _this7.renterName = c.name;
+        }
       });
     }
   }
