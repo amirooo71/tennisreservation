@@ -20,18 +20,22 @@ class GroupBookingsController extends Controller {
 
 		$this->validateData();
 
+		if ( $this->getBookingsCourt() ) {
+			return response()->json( [ 'msg' => 'Has booking' ], 422 );
+		}
+
 		$from = \request( 'from' );
 		$to   = \request( 'to' );
 
 		foreach ( $this->getBookingHours( $from, $to ) as $hour ) {
 
 			Booking::create( [
-				'court_id'   => \request( 'court_id' ),
+				'court_id'    => \request( 'court_id' ),
 				'renter_name' => \request( 'renter_name' ),
-				'date'       => \request( 'date' ),
-				'time'       => $hour,
-				'duration'   => 60,
-				'owner_id' => \request('owner_id')
+				'date'        => \request( 'date' ),
+				'time'        => $hour,
+				'duration'    => 60,
+				'owner_id'    => \request( 'owner_id' )
 			] );
 
 		}
@@ -64,13 +68,22 @@ class GroupBookingsController extends Controller {
 
 	private function validateData(): void {
 		\request()->validate( [
-			'court_id'     => 'required',
-			'renter_name'  => 'required',
-			'date'         => 'required',
-			'to'           => 'required',
-			'from'         => 'required',
-			'owner_id'     => 'nullable',
+			'court_id'    => 'required',
+			'renter_name' => 'required',
+			'date'        => 'required',
+			'to'          => 'required',
+			'from'        => 'required',
+			'owner_id'    => 'nullable',
 		] );
+	}
+
+	private function getBookingsCourt() {
+		return Booking::where(
+			[
+				'court_id'    => request( 'court_id' ),
+				'date'        => request( 'date' ),
+				'is_canceled' => false
+			] )->get()->count();
 	}
 
 }

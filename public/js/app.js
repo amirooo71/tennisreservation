@@ -3296,6 +3296,7 @@ __webpack_require__.r(__webpack_exports__);
           courtId: this.courtId
         }
       }).then(function (res) {
+        console.log(res.data);
         _this5.bookings = res.data;
       });
     },
@@ -3332,7 +3333,8 @@ __webpack_require__.r(__webpack_exports__);
         _this6.loading = false;
         toastr.success(res.data.msg);
       })["catch"](function (err) {
-        return console.log('Error was happend');
+        _this6.loading = false;
+        toastError(err.response.data.msg);
       });
     }
   }

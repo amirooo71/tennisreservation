@@ -149,6 +149,7 @@
                         courtId: this.courtId
                     }
                 }).then(res => {
+                    console.log(res.data);
                     this.bookings = res.data;
                 });
             },
@@ -186,7 +187,10 @@
                     this.to = '';
                     this.loading = false;
                     toastr.success(res.data.msg);
-                }).catch(err => console.log('Error was happend'));
+                }).catch(err => {
+                    this.loading = false;
+                    toastError(err.response.data.msg)
+                });
             },
 
         }
