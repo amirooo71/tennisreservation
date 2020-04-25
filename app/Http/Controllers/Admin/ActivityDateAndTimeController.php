@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Club;
-use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Hekmatinasser\Verta\Verta;
-use Illuminate\Http\Request;
 
-class ActivityDateAndTimeController extends Controller {
+class ActivityDateAndTimeController extends BaseController {
 
 	/**
 	 * @return array

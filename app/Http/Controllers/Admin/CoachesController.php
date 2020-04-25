@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Booking;
-use App\Http\Controllers\Controller;
 use App\User;
-use Illuminate\Http\Request;
 
-class CoachesController extends Controller {
+class CoachesController extends BaseController {
 
 	/**
 	 * @return mixed

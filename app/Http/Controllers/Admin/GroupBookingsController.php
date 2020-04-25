@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Booking;
-use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Verta;
-use Illuminate\Http\Request;
 
-class GroupBookingsController extends Controller {
+class GroupBookingsController extends BaseController {
 
 	/**
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

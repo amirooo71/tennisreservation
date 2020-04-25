@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Club;
 use App\Court;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
-class CourtsController extends Controller {
+class CourtsController extends BaseController {
 
 	/**
 	 * @param Club $club
