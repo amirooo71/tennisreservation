@@ -270,6 +270,11 @@ class BookingsController extends BaseController {
 	 * @return float|int
 	 */
 	private function calculateAmountByDurationTime( Booking $booking ) {
+
+		if ( $booking->is_paid ) {
+			return $booking->payment->amount;
+		}
+
 		$multipy = [
 			15 => 1,
 			30 => 2,
