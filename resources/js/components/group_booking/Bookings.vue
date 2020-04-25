@@ -1,6 +1,9 @@
 <template>
 
     <div class="kt-portlet kt-portlet--tabs">
+
+        <loading :active.sync="loading" :is-full-page="true"></loading>
+
         <div class="row mt-5 mx-4">
             <div class="form-group col-md-6">
                 <label>انتخاب زمین</label>
@@ -10,42 +13,72 @@
             </div>
             <div class="form-group col-md-6">
                 <label>انتخاب مربی</label>
-                <select v-model="ownerId" class="form-control">
+                <select v-model="ownerId" class="form-control" :disabled="!courtId" @change="onCoachChange">
                     <option v-for="coach in coaches" :value="coach.id">{{coach.name}}</option>
                 </select>
             </div>
         </div>
-        <div class="kt-portlet__head d-flex justify-content-center">
-            <div class="kt-portlet__head-toolbar">
-                <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-brand nav-tabs-line-2x nav-tabs-line-right nav-tabs-bold"
-                    role="tablist">
-                    <li class="nav-item" v-for="date in dates">
-                        <a href="#" :class="['nav-link',{active: date.date === activeDate}]"
-                           @click="onActiveDateClick(date.date)">
-                            <div class="d-flex flex-column align-items-center">
-                                <span>{{date.readableDay}}</span>
-                                <span>{{date.readableDate}}</span>
+        <div v-if="ownerId">
+            <div class="kt-portlet__head d-flex justify-content-center">
+                <div class="kt-portlet__head-toolbar">
+                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-brand nav-tabs-line-2x nav-tabs-line-right nav-tabs-bold"
+                        role="tablist">
+                        <li class="nav-item" v-for="date in dates">
+                            <a href="#" :class="['nav-link',{active: date.date === activeDate}]"
+                               @click="onActiveDateClick(date.date)">
+                                <div class="d-flex flex-column align-items-center">
+                                    <span>{{date.readableDay}}</span>
+                                    <span>{{date.readableDate}}</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="row mt-3">
+                    <div class="col-md-6 offset-md-3">
+                        <div v-if="activeDate">
+                            <div class="alert alert-danger fade show" role="alert" v-if="bookings.length > 0">
+                                <div class="alert-icon"><i class="flaticon-questions-circular-button"></i></div>
+                                <div class="alert-text">در این تاریخ رزرو انجام شده است و شما امکان انجام عملیات رزرو
+                                    گروهی را ندارید
+                                </div>
                             </div>
-                        </a>
-                    </li>
-                </ul>
+                            <form action="" v-else>
+                                <div class="form-group">
+                                    <select v-model="from" class="form-control">
+                                        <option v-for="hour in hours" :value="hour">{{hour}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select v-model="to" class="form-control">
+                                        <option v-for="hour in hours" :value="hour">{{hour}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-success" @click.prevent="onClick">
+                                        رزرو
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div v-else>
+                            <div class="text-center">
+                                <h4 class="text-muted">تاریخ مورد نظر را انتخاب کنید</h4>
+                                <i class="text-secondary fas fa-calendar-week my-5" style="font-size: 15rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="kt-portlet__body">
-            <div class="row mt-3">
-                <div class="col-md-6 offset-md-3">
-                    <div class="form-group">
-                        <select v-model="from" class="form-control">
-                            <option v-for="hour in hours" :value="hour">{{hour}}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select v-model="to" class="form-control">
-                            <option v-for="hour in hours" :value="hour">{{hour}}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-success" @click="onClick">رزرو</button>
+        <div v-else>
+            <div class="row">
+                <div class="col">
+                    <div class="text-center">
+                        <h4 class="text-muted">زمین و مربی مورد نظر را انتخاب کنید</h4>
+                        <i class="fas fa-running text-secondary my-5" style="font-size: 20rem;"></i>
                     </div>
                 </div>
             </div>
@@ -57,11 +90,16 @@
 <script>
 
     import helper from './../../mixins/helper';
+    import Loading from 'vue-loading-overlay';
 
     export default {
         name: "bookings",
 
         mixins: [helper],
+
+        components: {
+            Loading,
+        },
 
         data() {
             return {
@@ -75,6 +113,7 @@
                 ownerId: '',
                 from: '',
                 to: '',
+                loading: false,
             }
         },
 
@@ -110,7 +149,7 @@
                         courtId: this.courtId
                     }
                 }).then(res => {
-                    console.log(res.data);
+                    this.bookings = res.data;
                 });
             },
 
@@ -120,11 +159,17 @@
             },
 
             onCourtChange() {
-                this.getCourtBookings();
+                this.activeDate = '';
+                this.bookings = [];
+            },
+
+            onCoachChange() {
+                this.activeDate = '';
+                this.bookings = [];
             },
 
             onClick() {
-                console.log(this.activeDate);
+                this.loading = true;
                 axios.post('/admin/group/bookings', {
                     court_id: this.courtId,
                     renter_name: 'jafar',
@@ -132,7 +177,16 @@
                     from: this.from,
                     to: this.to,
                     owner_id: this.ownerId,
-                }).then(res => console.log(res.data.msg)).catch(err => console.log('Error was happend'));
+                }).then(res => {
+                    this.activeDate = '';
+                    this.courtId = '';
+                    this.ownerId = '';
+                    this.bookings = [];
+                    this.from = '';
+                    this.to = '';
+                    this.loading = false;
+                    toastr.success(res.data.msg);
+                }).catch(err => console.log('Error was happend'));
             },
 
         }
