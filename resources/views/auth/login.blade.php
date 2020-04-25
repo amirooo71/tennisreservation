@@ -6,7 +6,7 @@
         <div class="kt-login__body">
             <div class="kt-login__logo">
                 <a href="#">
-                    <img src="assets/media/company-logos/logo-2.png">
+                    <img src="{{asset('images/tennis-128x128.png')}}">
                 </a>
             </div>
             <div class="kt-login__signin">

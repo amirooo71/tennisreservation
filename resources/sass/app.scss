@@ -11,6 +11,19 @@
 @import '~vue2-timepicker/dist/VueTimepicker.css';
 @import '~vue-loading-overlay/dist/vue-loading.css';
 
+#tennis-loading {
+  -webkit-animation: rotation 2s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
 .display-time {
   direction: ltr;
 }

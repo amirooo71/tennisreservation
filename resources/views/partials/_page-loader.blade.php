@@ -1,8 +1,7 @@
 
 <!-- begin::Page loader -->
 <div class="kt-page-loader kt-page-loader--logo">
-	<img alt="Logo" src="assets/media/logos/logo-mini-md.png" />
-	<div class="kt-spinner kt-spinner--danger"></div>
+	<img id="tennis-loading"  alt="Logo" src="{{asset('images/tennis1.png')}}" />
 </div>
 
 <!-- end::Page Loader -->
