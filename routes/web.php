@@ -70,6 +70,7 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 
 	Route::get( 'creditors', 'Admin\FinancialController@creditors' )->name( 'admin.creditors.index' );
 	Route::get( 'debtors', 'Admin\FinancialController@debtors' )->name( 'admin.debtors.index' );
+	Route::get( 'payments', 'Admin\FinancialController@payments' )->name( 'admin.payments.index' );
 
 
 //	Route::get( 'hours', 'Admin\BookingsController@getHours' );

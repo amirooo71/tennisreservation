@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Creditor;
 use App\Debtor;
 use App\Http\Controllers\Controller;
+use App\Payment;
 use Illuminate\Http\Request;
 
 class FinancialController extends BaseController {
@@ -27,5 +28,13 @@ class FinancialController extends BaseController {
 		$debtors = Debtor::paginate( 30 );
 
 		return view( 'admin.financial.debtors', compact( 'debtors' ) );
+	}
+
+	public function payments() {
+		
+		$payments = Payment::paginate( 30 );
+
+		return view( 'admin.financial.payments', compact( 'payments' ) );
+
 	}
 }

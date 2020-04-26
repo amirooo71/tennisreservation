@@ -54,7 +54,7 @@
                     <span class="kt-menu__link-icon">
                         <i class="fas fa-square"></i>
                     </span>
-                        <span class="kt-menu__link-text">زمین تنیس ها</span>
+                        <span class="kt-menu__link-text">کورت</span>
                         <i class="kt-menu__ver-arrow la la-angle-right"></i>
                     </a>
                     <div class="kt-menu__submenu ">
@@ -89,7 +89,7 @@
                     <span class="kt-menu__link-icon">
                         <i class="far fa-clipboard"></i>
                     </span>
-                        <span class="kt-menu__link-text">رزرو ها</span>
+                        <span class="kt-menu__link-text">رزرو</span>
                         <i class="kt-menu__ver-arrow la la-angle-right"></i>
                     </a>
                     <div class="kt-menu__submenu ">
@@ -125,7 +125,7 @@
                     <span class="kt-menu__link-icon">
                         <i class="fas fa-running"></i>
                     </span>
-                        <span class="kt-menu__link-text">مربیان</span>
+                        <span class="kt-menu__link-text">مربی</span>
                         <i class="kt-menu__ver-arrow la la-angle-right"></i>
                     </a>
                     <div class="kt-menu__submenu ">
@@ -192,7 +192,7 @@
                     </div>
                 </li>
 
-                <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['admin.creditors.index','admin.debtors.index']) ? 'kt-menu__item--open' : ''}}"
+                <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['admin.creditors.index','admin.debtors.index','admin.payments.index']) ? 'kt-menu__item--open' : ''}}"
                     aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                     <span class="kt-menu__link-icon">
@@ -222,6 +222,17 @@
                                         <span></span>
                                     </i>
                                     <span class="kt-menu__link-text">بدهکاران</span>
+                                </a>
+                            </li>
+                            </li>
+                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.payments.index' ? 'kt-menu__item--active' : ''}}"
+                                aria-haspopup="true">
+                                <a href="{{route('admin.payments.index')}}"
+                                   class="kt-menu__link ">
+                                    <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="kt-menu__link-text">پرداختی ها</span>
                                 </a>
                             </li>
                         </ul>
