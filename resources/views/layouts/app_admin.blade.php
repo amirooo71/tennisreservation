@@ -165,6 +165,8 @@
 <script>
     $(document).ready(function () {
         $('#datatbl').DataTable({
+            paginate: false,
+            responsive: true,
             language: {
                 "sEmptyTable": "هیچ داده‌ای در جدول وجود ندارد",
                 "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ ردیف",

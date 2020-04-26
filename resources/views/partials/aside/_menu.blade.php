@@ -156,11 +156,11 @@
                 </li>
 
 
-                <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['admin.bookings.index','admin.group_bookings.index']) ? 'kt-menu__item--open' : ''}}"
+                <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['aadmin.bookings.index','aadmin.group_bookings.index']) ? 'kt-menu__item--open' : ''}}"
                     aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                     <span class="kt-menu__link-icon">
-                        <i class="far fa-clipboard"></i>
+                        <i class="fas fa-chart-pie"></i>
                     </span>
                         <span class="kt-menu__link-text">آمار</span>
                         <i class="kt-menu__ver-arrow la la-angle-right"></i>
@@ -168,9 +168,9 @@
                     <div class="kt-menu__submenu ">
                         <span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.bookings.index' ? 'kt-menu__item--active' : ''}}"
+                            <li class="kt-menu__item {{Route::currentRouteName() === 'aadmin.bookings.index' ? 'kt-menu__item--active' : ''}}"
                                 aria-haspopup="true">
-                                <a href="{{route('admin.bookings.index')}}"
+                                <a href="#"
                                    class="kt-menu__link ">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                         <span></span>
@@ -178,9 +178,9 @@
                                     <span class="kt-menu__link-text">لیست</span>
                                 </a>
                             </li>
-                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.group_bookings.index' ? 'kt-menu__item--active' : ''}}"
+                            <li class="kt-menu__item {{Route::currentRouteName() === 'aadmin.group_bookings.index' ? 'kt-menu__item--active' : ''}}"
                                 aria-haspopup="true">
-                                <a href="{{route('admin.group_bookings.index')}}"
+                                <a href="#"
                                    class="kt-menu__link ">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                         <span></span>
@@ -192,11 +192,11 @@
                     </div>
                 </li>
 
-                <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['admin.bookings.index','admin.group_bookings.index']) ? 'kt-menu__item--open' : ''}}"
+                <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['admin.creditors.index','admin.debtors.index']) ? 'kt-menu__item--open' : ''}}"
                     aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                     <span class="kt-menu__link-icon">
-                        <i class="far fa-clipboard"></i>
+                        <i class="fas fa-coins"></i>
                     </span>
                         <span class="kt-menu__link-text">مالی</span>
                         <i class="kt-menu__ver-arrow la la-angle-right"></i>
@@ -204,24 +204,24 @@
                     <div class="kt-menu__submenu ">
                         <span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.bookings.index' ? 'kt-menu__item--active' : ''}}"
+                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.creditors.index' ? 'kt-menu__item--active' : ''}}"
                                 aria-haspopup="true">
-                                <a href="{{route('admin.bookings.index')}}"
+                                <a href="{{route('admin.creditors.index')}}"
                                    class="kt-menu__link ">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                         <span></span>
                                     </i>
-                                    <span class="kt-menu__link-text">لیست</span>
+                                    <span class="kt-menu__link-text">بستانکاران</span>
                                 </a>
                             </li>
-                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.group_bookings.index' ? 'kt-menu__item--active' : ''}}"
+                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.debtors.index' ? 'kt-menu__item--active' : ''}}"
                                 aria-haspopup="true">
-                                <a href="{{route('admin.group_bookings.index')}}"
+                                <a href="{{route('admin.debtors.index')}}"
                                    class="kt-menu__link ">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                         <span></span>
                                     </i>
-                                    <span class="kt-menu__link-text">اضافه کردن</span>
+                                    <span class="kt-menu__link-text">بدهکاران</span>
                                 </a>
                             </li>
                         </ul>

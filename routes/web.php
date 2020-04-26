@@ -68,6 +68,9 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::post( 'coaches', 'Admin\CoachesController@store' )->name( 'admin.coaches.store' );
 	Route::patch( 'coaches/{coach}', 'Admin\CoachesController@update' )->name( 'admin.coaches.update' );
 
+	Route::get( 'creditors', 'Admin\FinancialController@creditors' )->name( 'admin.creditors.index' );
+	Route::get( 'debtors', 'Admin\FinancialController@debtors' )->name( 'admin.debtors.index' );
+
 
 //	Route::get( 'hours', 'Admin\BookingsController@getHours' );
 //	Route::get( 'courts', 'Admin\CourtsController@courts' );
