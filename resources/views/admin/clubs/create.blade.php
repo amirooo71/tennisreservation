@@ -7,7 +7,7 @@
 
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <form class="kt-form" action="{{route('admin.clubs.store')}}" method="POST">
                 @csrf
                 @component('components.portlet',['title' => 'فرم ساخت کلاب'])

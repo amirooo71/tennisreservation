@@ -20,16 +20,14 @@
                             <input class="form-control" type="text" placeholder="ایمیل" name="email" id="email"
                                    autocomplete="off"
                                    value="{{old('email')}}">
-                            @error('email')
-                            <span class="form-text text-danger">{{$message}}</span>
-                            @enderror
+                            @component('components.validation',['field' => 'email'])
+                            @endcomponent
                         </div>
                         <div class="form-group">
                             <input class="form-control form-control-last" type="password" placeholder="رمز عبور"
                                    name="password" id="password" value="{{old('password')}}">
-                            @error('password')
-                            <span class="form-text text-danger">{{$message}}</span>
-                            @enderror
+                            @component('components.validation',['field' => 'password'])
+                            @endcomponent
                         </div>
                         <div class="kt-login__extra">
                             <label class="kt-checkbox">
@@ -49,6 +47,13 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="kt-login__account">
+        {{--<span class="kt-login__account-msg">--}}
+        {{--Don't have an account yet ?--}}
+        {{--</span>&nbsp;&nbsp;--}}
+        <a href="{{route('register')}}" class="kt-login__account-link">ثبت نام</a>
     </div>
 
 @endsection

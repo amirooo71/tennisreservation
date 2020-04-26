@@ -3,46 +3,40 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
 
             @if($club)
 
                 @component('components.portlet',['title' => 'اطلاعات کلاب'])
 
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                            <label>نام کلاب</label>
-                            <input type="text" value="{{$club->name}}" class="form-control" disabled>
-                        </div>
-
-
-                        <div class="col-md-6">
-                            <label>تعداد زمین تنیس های کلاب</label>
-                            <input type="text" value="{{$club->courts_count}}" class="form-control" disabled>
-                        </div>
-
+                    <div class="form-group">
+                        <label>نام کلاب</label>
+                        <input type="text" value="{{$club->name}}" class="form-control" disabled>
                     </div>
 
-                    <div class="form-group row">
-                        <div class="col-md-4">
-                            <label>ساعت شروع به کار کلاب</label>
-                            <input type="text" value="{{$club->opening_time}}" class="form-control" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>ساعت اتمام کار کلاب</label>
-                            <input type="text" value="{{$club->closing_time}}" class="form-control" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>مدت زمان کنسلی</label>
-                            <input type="text" value="{{$club->cancellation_time}}" class="form-control" disabled>
-                        </div>
+
+                    <div class="form-group">
+                        <label>تعداد زمین تنیس های کلاب</label>
+                        <input type="text" value="{{$club->courts_count}}" class="form-control" disabled>
                     </div>
 
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                            <label>توضیحات تکمیلی کلاب</label>
-                            <textarea class="form-control" cols="30" rows="5" disabled>{{$club->description}}</textarea>
-                        </div>
+
+                    <div class="form-group">
+                        <label>ساعت شروع به کار کلاب</label>
+                        <input type="text" value="{{$club->opening_time}}" class="form-control" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>ساعت اتمام کار کلاب</label>
+                        <input type="text" value="{{$club->closing_time}}" class="form-control" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>مدت زمان کنسلی</label>
+                        <input type="text" value="{{$club->cancellation_time}}" class="form-control" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>توضیحات تکمیلی کلاب</label>
+                        <textarea class="form-control" cols="30" rows="5" disabled>{{$club->description}}</textarea>
                     </div>
 
                     @slot('footer')
