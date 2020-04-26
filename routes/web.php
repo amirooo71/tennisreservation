@@ -61,6 +61,14 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::get( 'ajax/court/bookings', 'Admin\BookingsController@getCourtBookings' )->name( 'admin.bookings.getCourtBookings' );
 
 
+	Route::get( 'coaches', 'Admin\CoachesController@index' )->name( 'admin.coaches.index' );
+	Route::get( 'coaches/create', 'Admin\CoachesController@create' )->name( 'admin.coaches.create' );
+	Route::get( 'coaches/{coach}/edit', 'Admin\CoachesController@edit' )->name( 'admin.coaches.edit' );
+	Route::get( 'coaches/{coach}/delete', 'Admin\CoachesController@delete' )->name( 'admin.coaches.delete' );
+	Route::post( 'coaches', 'Admin\CoachesController@store' )->name( 'admin.coaches.store' );
+	Route::patch( 'coaches/{coach}', 'Admin\CoachesController@update' )->name( 'admin.coaches.update' );
+
+
 //	Route::get( 'hours', 'Admin\BookingsController@getHours' );
 //	Route::get( 'courts', 'Admin\CourtsController@courts' );
 } );
