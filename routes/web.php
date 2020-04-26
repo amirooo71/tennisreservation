@@ -32,6 +32,7 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::patch( 'clubs/{club}/courts/{court}', 'Admin\CourtsController@update' )->name( 'admin.courts.update' );
 
 	Route::get( 'bookings', 'Admin\BookingsController@index' )->name( 'admin.bookings.index' );
+	Route::get( 'bookings/canceled', 'Admin\BookingsController@canceled' )->name( 'admin.bookings.canceled' );
 	Route::get( 'bookings/{booking}/cancel/is-valid-time', 'Admin\BookingsController@isValidTimeForCanceling' )->name( 'admin.bookings.isValidTimeForCanceling' );
 	Route::post( 'bookings', 'Admin\BookingsController@store' )->name( 'admin.bookings.store' );
 	Route::patch( 'bookings/{booking}/cancel', 'Admin\BookingsController@cancel' )->name( 'admin.bookings.cancel' );

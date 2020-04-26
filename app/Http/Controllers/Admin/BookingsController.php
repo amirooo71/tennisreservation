@@ -33,6 +33,17 @@ class BookingsController extends BaseController {
 	}
 
 	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function canceled() {
+
+		$canceled = Booking::where( 'is_canceled', '=', true )->paginate(30);
+
+		return view( 'admin.bookings.canceled', compact( 'canceled' ) );
+
+	}
+
+	/**
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function store() {
