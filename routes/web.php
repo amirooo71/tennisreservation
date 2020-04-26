@@ -73,7 +73,7 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::get( 'financial/debtors', 'Admin\FinancialController@debtors' )->name( 'admin.debtors.index' );
 	Route::get( 'financial/payments', 'Admin\FinancialController@payments' )->name( 'admin.payments.index' );
 	Route::patch( 'financial/creditors/{creditor}/refund', 'Admin\FinancialController@refundCreditorMoney' )->name( 'admin.refund_creditors.index' );
-	Route::patch( 'financial/debtors/{debtor}/pay', 'Admin\FinancialController@debtorPaid' )->name( 'admin.debtor_paid.index' );
+	Route::patch( 'financial/debtors/{debtor}/pay', 'Admin\FinancialController@debtorPaid' )->name( 'admin.debtor_pay.index' );
 
 
 //	Route::get( 'hours', 'Admin\BookingsController@getHours' );

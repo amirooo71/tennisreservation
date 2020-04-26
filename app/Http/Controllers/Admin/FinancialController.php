@@ -45,7 +45,9 @@ class FinancialController extends BaseController {
 	 */
 	public function debtorPaid( Debtor $debtor ) {
 
-		$debtor->update( [ 'is_paid' => true ] );
+		$data = \request()->validate( [ 'amount' => 'required|numeric' ] );
+
+		$debtor->update( [ 'is_paid' => true, 'amount' => $data['amount'] ] );
 
 		flash( 'عملیات با موفقیت انجام شد', 'success' );
 
