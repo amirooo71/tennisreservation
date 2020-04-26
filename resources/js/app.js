@@ -26,6 +26,7 @@ Vue.component('bookingModal', require('./components/booking/BookingModal').defau
 Vue.component('bookingManageModal', require('./components/booking/BookingManageModal').default);
 Vue.component('bookingFloatButtons', require('./components/booking/BookingFloatButtons').default);
 Vue.component('groupBookings', require('./components/group_booking/Bookings').default);
+Vue.component('revenue', require('./components/statistic/Revenue').default);
 
 
 /**

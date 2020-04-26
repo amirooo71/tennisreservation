@@ -13,7 +13,6 @@
                         <th scope="col">ساعت رزرو</th>
                         <th scope="col">زمین</th>
                         <th scope="col">مبلغ</th>
-                        <th scope="col">عملیات</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -31,10 +30,7 @@
                                 <td>{{$p->partTimeBooked->booking->court->name}}</td>
                                 <td>{{$p->partTimeBooked->booking->renter_name}}</td>
                             @endif
-                            <td>{{$p->amount}}</td>
-                            <td>
-                                <a href="#" class="btn btn-success btn-sm">پرداخت نکرده</a>
-                            </td>
+                            <td>{{$p->amount}} تومان</td>
                         </tr>
 
                     @endforeach
