@@ -31,7 +31,14 @@
                             @endif
                             <td>{{$c->amount}}</td>
                             <td>
-                                <a href="#" class="btn btn-success btn-sm">مبلغ بازگشت داده شد</a>
+                                <form action="{{route('admin.refund_creditors.index',$c)}}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button class="btn btn-success btn-sm">
+                                        <i class="fas fa-redo"></i>
+                                        <span>مبلغ بازگشت داده شد</span>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
 

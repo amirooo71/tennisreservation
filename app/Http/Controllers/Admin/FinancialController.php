@@ -15,7 +15,7 @@ class FinancialController extends BaseController {
 	 */
 	public function creditors() {
 
-		$creditors = Creditor::paginate( 30 );
+		$creditors = Creditor::where( [ 'is_refunded' => false ] )->paginate( 30 );
 
 		return view( 'admin.financial.creditors', compact( 'creditors' ) );
 	}
@@ -25,16 +25,46 @@ class FinancialController extends BaseController {
 	 */
 	public function debtors() {
 
-		$debtors = Debtor::paginate( 30 );
+		$debtors = Debtor::where( [ 'is_paid' => false ] )->paginate( 30 );
 
 		return view( 'admin.financial.debtors', compact( 'debtors' ) );
 	}
 
 	public function payments() {
-		
+
 		$payments = Payment::paginate( 30 );
 
 		return view( 'admin.financial.payments', compact( 'payments' ) );
+
+	}
+
+	/**
+	 * @param Debtor $debtor
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function debtorPaid( Debtor $debtor ) {
+
+		$debtor->update( [ 'is_paid' => true ] );
+
+		flash( 'عملیات با موفقیت انجام شد', 'success' );
+
+		return redirect()->route( 'admin.debtors.index' );
+
+	}
+
+	/**
+	 * @param Creditor $creditor
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function refundCreditorMoney( Creditor $creditor ) {
+
+		$creditor->update( [ 'is_refunded' => true ] );
+
+		flash( 'عملیات با موفقیت انجام شد.', 'success' );
+
+		return redirect()->route( 'admin.creditors.index' );
 
 	}
 }

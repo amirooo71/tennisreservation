@@ -18,7 +18,7 @@ class CreateCreditorsTable extends Migration {
 			$table->unsignedBigInteger( 'part_time_booking_id' )->nullable();
 			$table->string( 'name' );
 			$table->double( 'amount' );
-			$table->boolean( 'is_refund' )->default( false );
+			$table->boolean( 'is_refunded' )->default( false );
 			$table->timestamps();
 		} );
 	}
