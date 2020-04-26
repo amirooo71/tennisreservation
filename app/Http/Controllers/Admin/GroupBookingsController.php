@@ -98,7 +98,7 @@ class GroupBookingsController extends BaseController {
 		$currentFormatDate = Verta::now()->format( 'Y-n-j' );
 
 		return Verta::parse( $currentFormatDate )->gt( Verta::parse( request( 'date' ) ) ) ||
-		       Verta::parse( request( 'date' ) . ' ' . $time )->lt( Verta::now()->subMinutes( date( 'i' ) )->subSeconds( date( 's' ) ) );
+		       Verta::parse( request( 'date' ) . ' ' . $time )->lt( Verta::now() );
 
 
 	}

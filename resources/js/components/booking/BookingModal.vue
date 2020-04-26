@@ -47,7 +47,7 @@
                     <div class="form-group text-left">
                         <label>مربی مورد نظر را انتخاب کنید</label>
                         <select v-model="ownerId" class="form-control">
-                            <option v-for="coach in coaches" :value="coach.id">{{coach.name}}</option>
+                            <option v-for="coach in coaches" :value="coach.id">{{coach.first_name}}</option>
                         </select>
                     </div>
 

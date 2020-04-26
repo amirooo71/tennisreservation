@@ -14,7 +14,7 @@
             <div class="form-group col-md-6">
                 <label>انتخاب مربی</label>
                 <select v-model="ownerId" class="form-control" :disabled="!courtId" @change="onCoachChange">
-                    <option v-for="coach in coaches" :value="coach.id">{{coach.name}}</option>
+                    <option v-for="coach in coaches" :value="coach.id">{{coach.first_name}}</option>
                 </select>
             </div>
         </div>

@@ -97,7 +97,7 @@ class CoachesController extends BaseController {
 	 */
 	public function getCoaches() {
 
-		return User::where( [ 'is_coach' => true ] )->get();
+		return Coach::all();
 	}
 
 	/**
