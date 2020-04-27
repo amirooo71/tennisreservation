@@ -3,6 +3,7 @@ window.Swal = require('sweetalert2');
 window.moment = require('moment');
 window.jmoment = require('moment-jalaali');
 window.toastr = require('toastr');
+window.numeral = require('numeral');
 
 toastr.options.rtl = true;
 toastr.options.positionClass = "toast-bottom-center";

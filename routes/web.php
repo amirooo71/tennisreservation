@@ -2,7 +2,17 @@
 
 
 Route::get( '/playground', function () {
-	$b = \App\Booking::first();
+
+
+	$b = \App\Payment::where( 'created_at', '>=', \Carbon\Carbon::now()->startOfYear() )->orderBy( 'created_at' )->get()->groupBy( function ( $val ) {
+		return \Hekmatinasser\Verta\Verta::instance( $val->created_at )->formatWord( 'F' );
+	} )->map( function ( $month ) {
+		return $month->sum( 'amount' );
+	} );
+
+
+	dd( $b );
+
 
 } );
 
@@ -76,6 +86,10 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::patch( 'financial/debtors/{debtor}/pay', 'Admin\FinancialController@debtorPaid' )->name( 'admin.debtor_pay.index' );
 
 	Route::get( 'statistic/revenue', 'Admin\StatisticsController@revenue' )->name( 'admin.statistics.revenue' );
+
+	Route::get( 'ajax/statistic/revenue/weekly', 'Admin\StatisticsController@revenueWeekly' );
+	Route::get( 'ajax/statistic/revenue/monthly', 'Admin\StatisticsController@revenueMonthly' );
+	Route::get( 'ajax/statistic/revenue/annually', 'Admin\StatisticsController@revenueAnnually' );
 
 
 //	Route::get( 'hours', 'Admin\BookingsController@getHours' );

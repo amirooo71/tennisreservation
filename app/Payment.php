@@ -2,9 +2,13 @@
 
 namespace App;
 
+use App\Traits\ShamsiTimestamps;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model {
+
+	use ShamsiTimestamps;
+
 	protected $guarded = [];
 
 	/**

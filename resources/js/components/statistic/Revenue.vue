@@ -1,39 +1,54 @@
 <template>
     <div>
-       <line-chart :chart-data="datacollection" :options="options"></line-chart>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label>بازه زمانی:</label>
+                <select class="form-control" @change="getRevenue($event.target.value)">
+                    <option value="weekly">هفتگی</option>
+                    <option value="monthly">ماهیانه</option>
+                    <option value="annually">سالانه</option>
+                </select>
+            </div>
+        </div>
+        <line-chart v-if="loaded" :chart-data="data" :chart-labels="labels" :chart-label="label"></line-chart>
     </div>
 </template>
 
 <script>
-
-    Chart.defaults.global.defaultFontFamily = 'IRANSans4';
 
     import LineChart from './../chart/Line';
 
     export default {
         name: "revenue",
 
+        props: ['keys', 'values'],
+
         components: {LineChart},
 
-        data(){
-            return {
-                datacollection: {
-                    labels: ['فروردین', 'اردیبهشت'],
-                    datasets: [
-                        {
-                            label: 'Data One',
-                            backgroundColor: '#f87979',
-                            data: [40, 20]
-                        }
-                    ]
-                },
+        created() {
+            this.getRevenue('weekly');
+        },
 
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                }
+        data() {
+            return {
+                loaded: false,
+                label: 'درآمد',
+                labels: [],
+                data: [],
             }
         },
+
+        methods: {
+
+            getRevenue(range) {
+                this.loaded = false;
+                axios.get('/admin/ajax/statistic/revenue/' + range).then(res => {
+                    this.labels = res.data.labels;
+                    this.data = res.data.data;
+                    this.loaded = true;
+                });
+            }
+        }
 
     }
 </script>
