@@ -87,6 +87,7 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 
 	Route::get( 'statistic/revenue', 'Admin\StatisticsController@revenue' )->name( 'admin.statistics.revenue' );
 	Route::get( 'statistic/bookings', 'Admin\StatisticsController@bookings' )->name( 'admin.statistics.bookings' );
+	Route::get( 'statistic/canceled', 'Admin\StatisticsController@canceled' )->name( 'admin.statistics.canceled' );
 
 	Route::get( 'ajax/statistic/revenue/weekly', 'Admin\StatisticsController@revenueWeekly' );
 	Route::get( 'ajax/statistic/revenue/monthly', 'Admin\StatisticsController@revenueMonthly' );
@@ -95,6 +96,10 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::get( 'ajax/statistic/bookings/weekly', 'Admin\StatisticsController@bookingsWeekly' );
 	Route::get( 'ajax/statistic/bookings/monthly', 'Admin\StatisticsController@bookingsMonthly' );
 	Route::get( 'ajax/statistic/bookings/annually', 'Admin\StatisticsController@bookingsAnnually' );
+
+	Route::get( 'ajax/statistic/canceled/weekly', 'Admin\StatisticsController@canceledWeekly' );
+	Route::get( 'ajax/statistic/canceled/monthly', 'Admin\StatisticsController@canceledMonthly' );
+	Route::get( 'ajax/statistic/canceled/annually', 'Admin\StatisticsController@canceledAnnually' );
 
 
 //	Route::get( 'hours', 'Admin\BookingsController@getHours' );

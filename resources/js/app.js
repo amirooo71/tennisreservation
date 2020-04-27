@@ -28,8 +28,7 @@ Vue.component('bookingFloatButtons', require('./components/booking/BookingFloatB
 Vue.component('groupBookings', require('./components/group_booking/Bookings').default);
 Vue.component('revenue-chart', require('./components/statistic/Revenue').default);
 Vue.component('bookings-chart', require('./components/statistic/Bookings').default);
-
-
+Vue.component('canceled-chart', require('./components/statistic/Canceled').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

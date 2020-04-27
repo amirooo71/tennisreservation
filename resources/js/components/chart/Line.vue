@@ -15,7 +15,9 @@
                     datasets: [
                         {
                             label: this.chartLabel,
-                            data: this.chartData
+                            data: this.chartData,
+                            borderWidth: 3,
+                            borderColor: '#fe346e',
                         }
                     ]
                 },
