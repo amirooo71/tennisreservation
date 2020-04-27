@@ -49,6 +49,12 @@ class FinancialController extends BaseController {
 
 		$debtor->update( [ 'is_paid' => true, 'amount' => $data['amount'] ] );
 
+		Payment::create( [
+			'booking_id'           => optional($debtor->booked)->id,
+			'part_time_booking_id' => optional($debtor->partTimeBooked)->id,
+			'amount'               => $data['amount']
+		] );
+
 		flash( 'عملیات با موفقیت انجام شد', 'success' );
 
 		return redirect()->route( 'admin.debtors.index' );
