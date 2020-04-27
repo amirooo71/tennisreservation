@@ -188,6 +188,16 @@
                                     <span class="kt-menu__link-text">درآمد</span>
                                 </a>
                             </li>
+                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.statistics.bookings' ? 'kt-menu__item--active' : ''}}"
+                                aria-haspopup="true">
+                                <a href="{{route('admin.statistics.bookings')}}"
+                                   class="kt-menu__link ">
+                                    <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="kt-menu__link-text">رزرو</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

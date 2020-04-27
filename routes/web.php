@@ -86,6 +86,7 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::patch( 'financial/debtors/{debtor}/pay', 'Admin\FinancialController@debtorPaid' )->name( 'admin.debtor_pay.index' );
 
 	Route::get( 'statistic/revenue', 'Admin\StatisticsController@revenue' )->name( 'admin.statistics.revenue' );
+	Route::get( 'statistic/bookings', 'Admin\StatisticsController@bookings' )->name( 'admin.statistics.bookings' );
 
 	Route::get( 'ajax/statistic/revenue/weekly', 'Admin\StatisticsController@revenueWeekly' );
 	Route::get( 'ajax/statistic/revenue/monthly', 'Admin\StatisticsController@revenueMonthly' );

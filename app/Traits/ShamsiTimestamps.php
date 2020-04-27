@@ -15,12 +15,12 @@ trait ShamsiTimestamps {
 
 	public function getCreatedAtAttribute( $value ) {
 
-		return Verta::instance( $value )->formatDatetime();
+		return Verta::instance( $value )->format('Y-n-j H:i:s');
 	}
 
 	public function getUpdatedAtAttribute( $value ) {
 
-		return Verta::instance( $value )->formatDatetime();
+		return Verta::instance( $value )->format('Y-n-j H:i:s');
 	}
 
 }

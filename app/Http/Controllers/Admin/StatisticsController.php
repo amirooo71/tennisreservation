@@ -11,15 +11,28 @@ use Illuminate\Http\Request;
 
 class StatisticsController extends BaseController {
 
-
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function revenue() {
 
 		return view( 'admin.statistics.revenue' );
 	}
 
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function bookings() {
+
+		return view( 'admin.statistics.bookings' );
+	}
+
+	/**
+	 * @return array
+	 */
 	public function revenueWeekly() {
 
-		$revenue = Payment::where( 'created_at', '>=', Carbon::now()->startOfWeek() )->get()->groupBy( function ( $val ) {
+		$revenue = Payment::where( 'created_at', '>=', Verta::now()->startWeek() )->get()->groupBy( function ( $val ) {
 			return Verta::parse( $val->created_at )->formatWord( 'l' );
 		} )->map( function ( $month ) {
 			return $month->sum( 'amount' );
@@ -30,10 +43,12 @@ class StatisticsController extends BaseController {
 
 	}
 
-
+	/**
+	 * @return array
+	 */
 	public function revenueMonthly() {
 
-		$revenue = Payment::where( 'created_at', '>=', Carbon::now()->startOfMonth() )->get()->groupBy( function ( $val ) {
+		$revenue = Payment::where( 'created_at', '>=', Verta::now()->startMonth() )->get()->groupBy( function ( $val ) {
 			return Verta::parse( $val->created_at )->format( 'dS' );
 		} )->map( function ( $month ) {
 			return $month->sum( 'amount' );
@@ -44,9 +59,12 @@ class StatisticsController extends BaseController {
 
 	}
 
+	/**
+	 * @return array
+	 */
 	public function revenueAnnually() {
 
-		$revenue = Payment::where( 'created_at', '>=', Carbon::now()->startOfYear() )->get()->groupBy( function ( $val ) {
+		$revenue = Payment::where( 'created_at', '>=', Verta::now()->startYear() )->get()->groupBy( function ( $val ) {
 			return Verta::parse( $val->created_at )->format( 'F' );
 		} )->map( function ( $month ) {
 			return $month->sum( 'amount' );
