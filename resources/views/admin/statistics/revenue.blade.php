@@ -7,7 +7,7 @@
         <div class="col">
             @component('components.portletWithoutFooter',['title' => 'نمودار درآمد'])
 
-                <revenue></revenue>
+                <revenue-chart></revenue-chart>
 
             @endcomponent
 

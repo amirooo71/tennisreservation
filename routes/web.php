@@ -92,6 +92,10 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::get( 'ajax/statistic/revenue/monthly', 'Admin\StatisticsController@revenueMonthly' );
 	Route::get( 'ajax/statistic/revenue/annually', 'Admin\StatisticsController@revenueAnnually' );
 
+	Route::get( 'ajax/statistic/bookings/weekly', 'Admin\StatisticsController@bookingsWeekly' );
+	Route::get( 'ajax/statistic/bookings/monthly', 'Admin\StatisticsController@bookingsMonthly' );
+	Route::get( 'ajax/statistic/bookings/annually', 'Admin\StatisticsController@bookingsAnnually' );
+
 
 //	Route::get( 'hours', 'Admin\BookingsController@getHours' );
 //	Route::get( 'courts', 'Admin\CourtsController@courts' );
