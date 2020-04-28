@@ -3,15 +3,11 @@
 
 Route::get( '/playground', function () {
 
-
-	$b = \App\Payment::where( 'created_at', '>=', \Carbon\Carbon::now()->startOfYear() )->orderBy( 'created_at' )->get()->groupBy( function ( $val ) {
-		return \Hekmatinasser\Verta\Verta::instance( $val->created_at )->formatWord( 'F' );
-	} )->map( function ( $month ) {
-		return $month->sum( 'amount' );
-	} );
+	$books = ['ali','mammad','mehdi','akbar'];
 
 
-	dd( $b );
+
+
 
 
 } );

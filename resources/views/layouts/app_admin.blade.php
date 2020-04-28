@@ -49,7 +49,7 @@
 <!-- end::Head -->
 
 <!-- begin::Body -->
-<body class="kt-page--loading-enabled kt-page--loading kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-footer--fixed kt-aside--enabled kt-aside--fixed kt-page--loading">
+<body class="kt-page--loading-enabled kt-page--loading kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--fixed kt-page--loading">
 
 @include('partials._page-loader')
 
