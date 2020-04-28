@@ -46,7 +46,7 @@
                 <form class="kt-form" @submit.prevent="onCoachBookSubmit">
                     <div class="form-group text-left">
                         <label>مربی مورد نظر را انتخاب کنید</label>
-                        <select v-model="ownerId" class="form-control">
+                        <select v-model="coachId" class="form-control">
                             <option v-for="coach in coaches" :value="coach.id">{{coach.first_name}}</option>
                         </select>
                     </div>
@@ -164,7 +164,7 @@
                 court: '',
                 renterName: '',
                 coachName: '',
-                ownerId: '',
+                coachId: '',
                 startTime: '',
                 endTime: '',
                 partnerName: '',
@@ -257,7 +257,7 @@
                     court_id: this.court.id,
                     date: this.date,
                     time: this.hour,
-                    owner_id: this.ownerId,
+                    coach_id: this.coachId,
                     partner_name: this.partnerName,
                     start_time: this.startTime,
                     end_time: this.endTime,
@@ -273,7 +273,7 @@
                 this.endTime = '';
                 this.hasPartnerName = false;
                 this.partnerName = '';
-                this.ownerId = '';
+                this.coachId = '';
                 this.bookedId = '';
                 this.coachName = '';
                 this.hour = '';
@@ -354,10 +354,10 @@
 
         watch: {
 
-            ownerId: function (val) {
+            coachId: function (val) {
                 this.coaches.forEach(coach => {
                     if (coach.id === val) {
-                        this.coachName = coach.name;
+                        this.coachName = coach.first_name + ' ' + coach.last_name;
                     }
                 });
             },

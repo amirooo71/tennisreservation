@@ -143,7 +143,7 @@ class PartTimeBookingsController extends BaseController {
 		$data = request()->validate( [
 			'renter_name'  => 'required',
 			'start_at'     => 'required',
-			'owner_id'     => 'nullable',
+			'coach_id'     => 'nullable',
 			'partner_name' => 'nullable',
 		] );
 

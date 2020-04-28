@@ -13,7 +13,7 @@ class CreatePartTimeBookingsTable extends Migration {
 	public function up() {
 		Schema::create( 'part_time_bookings', function ( Blueprint $table ) {
 			$table->bigIncrements( 'id' );
-			$table->unsignedBigInteger( 'owner_id' )->nullable();
+			$table->unsignedBigInteger( 'coach_id' )->nullable();
 			$table->unsignedBigInteger( 'booking_id' );
 			$table->string( 'renter_name' );
 			$table->boolean( 'is_canceled' )->default( false );

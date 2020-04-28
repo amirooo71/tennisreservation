@@ -13,7 +13,7 @@ class CreateBookingsTable extends Migration {
 	public function up() {
 		Schema::create( 'bookings', function ( Blueprint $table ) {
 			$table->bigIncrements( 'id' );
-			$table->unsignedBigInteger( 'owner_id' )->nullable();
+			$table->unsignedBigInteger( 'coach_id' )->nullable();
 			$table->unsignedBigInteger( 'court_id' );
 			$table->string( 'date' );
 			$table->time( 'time' );

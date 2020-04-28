@@ -19,11 +19,11 @@
                                         </span>
                                     </div>
                                     <span class="kt-widget24__stats kt-font-brand">
-										۱۲
+										{{\App\BladeHelper::toHours($bookings)}}
                                     </span>
                                 </div>
                                 <div class="progress progress--sm">
-                                    <div class="progress-bar kt-bg-brand" role="progressbar" style="width: 78%;"
+                                    <div class="progress-bar kt-bg-brand" role="progressbar" style="width: {{round($bookingPercent)}}%;"
                                          aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <div class="kt-widget24__action">
@@ -31,7 +31,7 @@
 										آمار
 									</span>
                                     <span class="kt-widget24__number">
-										78%
+										%{{\App\BladeHelper::toPersianNumbers(round($bookingPercent))}}
 									</span>
                                 </div>
                             </div>
@@ -47,18 +47,18 @@
 											کل کنسلی های امروز
 										</span>
                                     </div>
-                                    <span class="kt-widget24__stats kt-font-warning">
-									    ۲۳
+                                    <span class="kt-widget24__stats kt-font-danger">
+									    {{\App\BladeHelper::toHours($canceled)}}
 									</span>
                                 </div>
                                 <div class="progress progress--sm">
-                                    <div class="progress-bar kt-bg-warning" role="progressbar" style="width: 84%;"
+                                    <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{round($canceledPercent)}}%;"
                                          aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <div class="kt-widget24__action">
                                     <span class="kt-widget24__change">آمار</span>
                                     <span class="kt-widget24__number">
-                                        84%
+                                        %{{\App\BladeHelper::toPersianNumbers(round($canceledPercent))}}
                                     </span>
                                 </div>
                             </div>
@@ -71,18 +71,18 @@
                                             پرداختی ها
                                         </h4>
                                         <span class="kt-widget24__desc">
-															کل پرداختی های امروز
+										    کل پرداختی های امروز
 										</span>
                                     </div>
-                                    <span class="kt-widget24__stats kt-font-danger">۱۲۳۴۵</span>
+                                    <span class="kt-widget24__stats kt-font-success">{{\App\BladeHelper::toPersianNumbers($paids,true)}}</span>
                                 </div>
                                 <div class="progress progress--sm">
-                                    <div class="progress-bar kt-bg-danger" role="progressbar" style="width: 69%;"
+                                    <div class="progress-bar kt-bg-success" role="progressbar" style="width: {{round($paidPercent)}}%;"
                                          aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <div class="kt-widget24__action">
                                     <span class="kt-widget24__change">آمار</span>
-                                    <span class="kt-widget24__number">69%</span>
+                                    <span class="kt-widget24__number">%{{\App\BladeHelper::toPersianNumbers(round($paidPercent))}}</span>
                                 </div>
                             </div>
 
@@ -95,11 +95,11 @@
                                             تاریخ امروز
                                         </h4>
                                         <span class="kt-widget24__desc">
-                                            {{\Hekmatinasser\Verta\Verta::now()->formatWord('l')}} {{\Hekmatinasser\Verta\Verta::now()->formatTime()}}
+                                            {{\Hekmatinasser\Verta\Verta::now()->formatWord('l')}} {{\App\BladeHelper::toPersianNumbers(\Hekmatinasser\Verta\Verta::now()->formatTime()) }}
                                         </span>
                                     </div>
                                     <span class="kt-widget24__stats kt-font-success">
-                                        {{\Hekmatinasser\Verta\Verta::now()->formatDate()}}
+                                        {{\App\BladeHelper::toPersianNumbers(\Hekmatinasser\Verta\Verta::now()->formatDate())}}
                                     </span>
                                 </div>
 
@@ -113,38 +113,40 @@
 
 
     <div class="row">
-        <div class="col-md-3">
-            <div class="kt-portlet">
-                <div class="kt-portlet__head kt-portlet__head--noborder">
-                    <div class="kt-portlet__head-label">
-                        <h3 class="kt-portlet__head-title">
-                            کورت شماره ۱
-                        </h3>
-                    </div>
-                    <div class="kt-portlet__head-toolbar">
-                        <div class="kt-portlet__head-actions">
-                            <span class="pulsating-circle"></span>
-                            <span class="pulsating-label">در حال بازی</span>
+        @foreach($courts as $c)
+            <div class="col-md-3">
+                <div class="kt-portlet">
+                    <div class="kt-portlet__head kt-portlet__head--noborder">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                {{$c->name}}
+                            </h3>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <div class="kt-portlet__head-actions">
+                                <span class="pulsating-circle"></span>
+                                <span class="pulsating-label">در حال بازی</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="kt-portlet__body">
-                    <img src="{{asset('images/court-h-512x512.png')}}" class="img-fluid" alt="">
-                </div>
-                <div class="kt-portlet__foot">
-                    <div class="row align-items-center">
-                        <div class="col-md-6 d-flex justify-content-between">
-                            <span class="text-muted">مربی فعال: </span>
-                            <span class="kt-badge kt-badge--brand kt-badge--inline">امیر شجاعی</span>
-                        </div>
-                        <div class="col-md-6 d-flex justify-content-between">
-                            <span class="text-muted">رزرو: </span>
-                            <span class="kt-badge kt-badge--brand kt-badge--inline">۱۲ ساعت</span>
+                    <div class="kt-portlet__body">
+                        <img src="{{asset('images/court-h-512x512.png')}}" class="img-fluid" alt="">
+                    </div>
+                    <div class="kt-portlet__foot">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 d-flex justify-content-between">
+                                <span class="text-muted">مربی فعال: </span>
+                                <span class="kt-badge kt-badge--brand kt-badge--inline">امیر شجاعی</span>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-between">
+                                <span class="text-muted">رزرو: </span>
+                                <span class="kt-badge kt-badge--brand kt-badge--inline">۱۲ ساعت</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endforeach
     </div>
 
 

@@ -37,6 +37,13 @@ class Booking extends Model {
 	}
 
 	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function coach() {
+		return $this->belongsTo( Coach::class );
+	}
+
+	/**
 	 * @param $data
 	 *
 	 * @return Model

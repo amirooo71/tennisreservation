@@ -18,6 +18,7 @@ class CreateClubsTable extends Migration {
 			$table->integer( 'courts_count' );
 			$table->time( 'opening_time' );
 			$table->time( 'closing_time' );
+			$table->integer('opening_hours');
 			$table->integer( 'cancellation_time' );
 			$table->text( 'description' )->nullable();
 			$table->timestamps();

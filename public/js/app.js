@@ -2890,7 +2890,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       court: '',
       renterName: '',
       coachName: '',
-      ownerId: '',
+      coachId: '',
       startTime: '',
       endTime: '',
       partnerName: '',
@@ -2981,7 +2981,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         court_id: this.court.id,
         date: this.date,
         time: this.hour,
-        owner_id: this.ownerId,
+        coach_id: this.coachId,
         partner_name: this.partnerName,
         start_time: this.startTime,
         end_time: this.endTime,
@@ -2996,7 +2996,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.endTime = '';
       this.hasPartnerName = false;
       this.partnerName = '';
-      this.ownerId = '';
+      this.coachId = '';
       this.bookedId = '';
       this.coachName = '';
       this.hour = '';
@@ -3073,12 +3073,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   watch: {
-    ownerId: function ownerId(val) {
+    coachId: function coachId(val) {
       var _this6 = this;
 
       this.coaches.forEach(function (coach) {
         if (coach.id === val) {
-          _this6.coachName = coach.name;
+          _this6.coachName = coach.first_name + ' ' + coach.last_name;
         }
       });
     }
@@ -85911,8 +85911,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.ownerId,
-                            expression: "ownerId"
+                            value: _vm.coachId,
+                            expression: "coachId"
                           }
                         ],
                         staticClass: "form-control",
@@ -85926,7 +85926,7 @@ var render = function() {
                                 var val = "_value" in o ? o._value : o.value
                                 return val
                               })
-                            _vm.ownerId = $event.target.multiple
+                            _vm.coachId = $event.target.multiple
                               ? $$selectedVal
                               : $$selectedVal[0]
                           }

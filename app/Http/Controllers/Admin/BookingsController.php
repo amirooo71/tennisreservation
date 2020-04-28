@@ -37,7 +37,7 @@ class BookingsController extends BaseController {
 	 */
 	public function canceled() {
 
-		$canceled = Booking::where( 'is_canceled', '=', true )->paginate(30);
+		$canceled = Booking::where( 'is_canceled', '=', true )->paginate( 30 );
 
 		return view( 'admin.bookings.canceled', compact( 'canceled' ) );
 
@@ -213,7 +213,7 @@ class BookingsController extends BaseController {
 			'time'         => 'required',
 			'is_part_time' => 'required',
 			'duration'     => 'required',
-			'owner_id'     => 'nullable',
+			'coach_id'     => 'nullable',
 			'start_time'   => 'nullable',
 			'end_time'     => 'nullable',
 			'partner_name' => 'nullable',
@@ -237,7 +237,7 @@ class BookingsController extends BaseController {
 			'is_part_time' => true,
 			'start_time'   => $booking->end_time ? $booking->end_time : null,
 			'end_time'     => $booking->start_time ? $booking->start_time : null,
-			'owner_id'     => $booking->partTime->owner_id,
+			'coach_id'     => $booking->partTime->coach_id,
 			'partner_name' => $booking->partner_name,
 			'is_paid'      => $booking->is_paid,
 			'duration'     => $booking->partTime->duration,

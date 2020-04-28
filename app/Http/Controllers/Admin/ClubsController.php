@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Club;
+use Carbon\Carbon;
 
 class ClubsController extends BaseController {
 
@@ -98,6 +99,7 @@ class ClubsController extends BaseController {
 	 * @return array
 	 */
 	private function getValidateData(): array {
+
 		$data = \request()->validate( [
 			'name'              => 'required|string|min:3',
 			'courts_count'      => 'required|numeric|min:1|max:100',
@@ -106,6 +108,8 @@ class ClubsController extends BaseController {
 			'cancellation_time' => 'required',
 			'description'       => 'nullable',
 		] );
+
+		$data['opening_hours'] = Carbon::parse($data['opening_time'])->diffInHours(Carbon::parse($data['closing_time'])->addHour());
 
 		$data['owner_id'] = auth()->id();
 
