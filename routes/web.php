@@ -3,9 +3,9 @@
 
 Route::get( '/playground', function () {
 
-	$books = ['ali','mammad','mehdi','akbar'];
 
 
+	dd(\Hekmatinasser\Verta\Verta::now()->subMinutes( date( 'i' ) )->subSeconds( date( 's' ) )->formatTime());
 
 
 

@@ -24,39 +24,47 @@ class DashboardController extends BaseController {
 
 		$courts = Court::all();
 
-		$bookings = Booking::where( 'date', '=', Verta::now()->format( 'Y-n-j' ) )->where( 'is_canceled', '=', false )->sum( 'duration' );
+		$bookings = Booking::today();
 
-		$canceled = Booking::where( 'date', '=', Verta::now()->format( 'Y-n-j' ) )->where( 'is_canceled', '=', true )->sum( 'duration' );
+		$canceled = Booking::today( true );
 
-		$paids = Payment::where( 'created_at', '>=', Carbon::now() )->sum( 'amount' );
+		$bookingMinutes = $bookings->sum( 'duration' ) + $bookings->partTimeMinutes();
 
-		$bookingCount  = Booking::where( 'date', '=', Verta::now()->format( 'Y-n-j' ) )->where( 'is_canceled', '=', false )->count();
-		$canceledCount = Booking::where( 'date', '=', Verta::now()->format( 'Y-n-j' ) )->where( 'is_canceled', '=', true )->count();
+		$canceledMinutes = $canceled->sum( 'duration' ) + $canceled->partTimeMinutes();
+
+		$paids = Payment::where( 'created_at', '>=', Carbon::today() )->sum( 'amount' );
 
 		if ( $courts->count() ) {
 
-			$bookingPercent = $bookingCount * 100 / ( Club::first()->opening_hours * $courts->count() );
+			$bookingPercent = $this->calculatePercentage( $bookings, $courts );
 
-			$canceledPercent = $canceledCount * 100 / ( Club::first()->opening_hours * $courts->count() );
+			$canceledPercent = $this->calculatePercentage( $canceled, $courts );
 
-			$paidPercent = $paids * 100 / ( $courts->sum( 'price' ) * $courts->count() );
+			$paidPercent = $this->calculatePaidPercentage( $paids, $courts );
 
-		} else {
-
-			$bookingPercent = 0;
-
-			$canceledPercent = 0;
-
-			$paidPercent = 0;
 		}
 
+		return view( 'admin.dashboard.index', compact( 'courts','paids', 'bookingPercent', 'canceledPercent', 'paidPercent', 'bookingMinutes', 'canceledMinutes' ) );
 
-//		return Booking::whereHas( 'coach', function ( Builder $query ) {
-//			return $query->where( 'date', '=', Verta::now()->format( 'Y-n-j' ) );
-//		} )->get();
+	}
 
+	/**
+	 * @param $query
+	 * @param $courts
+	 *
+	 * @return float|int
+	 */
+	private function calculatePercentage( $query, $courts ) {
+		return round( $query->count() * 100 / ( Club::first()->opening_hours * $courts->count() ) );
+	}
 
-		return view( 'admin.dashboard.index', compact( 'courts', 'bookings', 'canceled', 'paids', 'bookingPercent', 'canceledPercent', 'paidPercent' ) );
-
+	/**
+	 * @param $paids
+	 * @param $courts
+	 *
+	 * @return float|int
+	 */
+	private function calculatePaidPercentage( $paids, $courts ) {
+		return round( $paids * 100 / ( $courts->sum( 'price' ) * $courts->count() ) );
 	}
 }

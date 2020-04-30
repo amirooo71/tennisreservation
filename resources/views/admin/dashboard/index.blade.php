@@ -19,11 +19,12 @@
                                         </span>
                                     </div>
                                     <span class="kt-widget24__stats kt-font-brand">
-										{{\App\BladeHelper::toHours($bookings)}}
+                                        @toHours($bookingMinutes)
                                     </span>
                                 </div>
                                 <div class="progress progress--sm">
-                                    <div class="progress-bar kt-bg-brand" role="progressbar" style="width: {{round($bookingPercent)}}%;"
+                                    <div class="progress-bar kt-bg-brand" role="progressbar"
+                                         style="width: {{$bookingPercent}}%;"
                                          aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <div class="kt-widget24__action">
@@ -31,7 +32,7 @@
 										آمار
 									</span>
                                     <span class="kt-widget24__number">
-										%{{\App\BladeHelper::toPersianNumbers(round($bookingPercent))}}
+										%@faNum($bookingPercent,false)
 									</span>
                                 </div>
                             </div>
@@ -48,17 +49,18 @@
 										</span>
                                     </div>
                                     <span class="kt-widget24__stats kt-font-danger">
-									    {{\App\BladeHelper::toHours($canceled)}}
+									   @toHours($canceledMinutes)
 									</span>
                                 </div>
                                 <div class="progress progress--sm">
-                                    <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{round($canceledPercent)}}%;"
+                                    <div class="progress-bar kt-bg-danger" role="progressbar"
+                                         style="width: {{$canceledPercent}}%;"
                                          aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <div class="kt-widget24__action">
                                     <span class="kt-widget24__change">آمار</span>
                                     <span class="kt-widget24__number">
-                                        %{{\App\BladeHelper::toPersianNumbers(round($canceledPercent))}}
+                                        %@faNum($canceledPercent,false)
                                     </span>
                                 </div>
                             </div>
@@ -74,15 +76,16 @@
 										    کل پرداختی های امروز
 										</span>
                                     </div>
-                                    <span class="kt-widget24__stats kt-font-success">{{\App\BladeHelper::toPersianNumbers($paids,true)}}</span>
+                                    <span class="kt-widget24__stats kt-font-success">@faNum($paids,true)</span>
                                 </div>
                                 <div class="progress progress--sm">
-                                    <div class="progress-bar kt-bg-success" role="progressbar" style="width: {{round($paidPercent)}}%;"
+                                    <div class="progress-bar kt-bg-success" role="progressbar"
+                                         style="width: {{$paidPercent}}%;"
                                          aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <div class="kt-widget24__action">
                                     <span class="kt-widget24__change">آمار</span>
-                                    <span class="kt-widget24__number">%{{\App\BladeHelper::toPersianNumbers(round($paidPercent))}}</span>
+                                    <span class="kt-widget24__number">%@faNum($paidPercent,false)</span>
                                 </div>
                             </div>
 
@@ -95,11 +98,11 @@
                                             تاریخ امروز
                                         </h4>
                                         <span class="kt-widget24__desc">
-                                            {{\Hekmatinasser\Verta\Verta::now()->formatWord('l')}} {{\App\BladeHelper::toPersianNumbers(\Hekmatinasser\Verta\Verta::now()->formatTime()) }}
+                                            {{\Hekmatinasser\Verta\Verta::now()->formatWord('l')}} {{\App\FaNumber::toPersianNumbers(\Hekmatinasser\Verta\Verta::now()->formatTime()) }}
                                         </span>
                                     </div>
                                     <span class="kt-widget24__stats kt-font-success">
-                                        {{\App\BladeHelper::toPersianNumbers(\Hekmatinasser\Verta\Verta::now()->formatDate())}}
+                                        {{\App\FaNumber::toPersianNumbers(\Hekmatinasser\Verta\Verta::now()->formatDate())}}
                                     </span>
                                 </div>
 
@@ -124,8 +127,12 @@
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-portlet__head-actions">
-                                <span class="pulsating-circle"></span>
-                                <span class="pulsating-label">در حال بازی</span>
+                                @if($c->isPlaying())
+                                    <span class="pulsating-circle"></span>
+                                    <span class="pulsating-label">در حال بازی</span>
+                                    @else
+                                    <span class="kt-badge kt-badge--danger kt-badge--inline">خالی</span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -134,13 +141,10 @@
                     </div>
                     <div class="kt-portlet__foot">
                         <div class="row align-items-center">
-                            <div class="col-md-6 d-flex justify-content-between">
-                                <span class="text-muted">مربی فعال: </span>
-                                <span class="kt-badge kt-badge--brand kt-badge--inline">امیر شجاعی</span>
-                            </div>
-                            <div class="col-md-6 d-flex justify-content-between">
-                                <span class="text-muted">رزرو: </span>
-                                <span class="kt-badge kt-badge--brand kt-badge--inline">۱۲ ساعت</span>
+                            <div class="col-md-12 d-flex justify-content-between">
+                                <span class="text-muted">ساعات رزروی: </span>
+                                <span class="kt-badge kt-badge--brand kt-badge--inline">@faNum($c->todayBooked->count(),false)
+                                    ساعت</span>
                             </div>
                         </div>
                     </div>

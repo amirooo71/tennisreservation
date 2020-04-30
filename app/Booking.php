@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\ShamsiTimestamps;
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model {
@@ -58,5 +59,29 @@ class Booking extends Model {
 	public function getIsFullPaidAttribute() {
 		return $this->is_paid && optional( $this->partTime )->is_paid;
 	}
+
+	/**
+	 * @param $query
+	 * @param bool $canceled
+	 *
+	 * @return mixed
+	 */
+	public function scopeToday( $query, $canceled = false ) {
+
+		return $query->where( 'date', '=', Verta::now()->format( 'Y-n-j' ) )->where( 'is_canceled', '=', $canceled );
+
+	}
+
+	/**
+	 * @param $query
+	 *
+	 * @return int
+	 */
+	public function scopePartTimeMinutes( $query ) {
+		return (int) $query->get()->reduce( function ( $carry, $item ) {
+			return $carry + ( $item->partTime ? $item->partTime->duration : 0 );
+		} );
+	}
+
 
 }

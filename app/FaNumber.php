@@ -3,7 +3,7 @@
 namespace App;
 
 
-class BladeHelper {
+class FaNumber {
 
 	public static function toPersianNumbers( $string, $formatNumber = false ) {
 
