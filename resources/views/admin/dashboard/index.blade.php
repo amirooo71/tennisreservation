@@ -2,6 +2,11 @@
 
 @section('content')
 
+
+
+
+
+
     <div class="row">
         <div class="col">
             <div class="kt-portlet">
@@ -116,6 +121,41 @@
 
 
     <div class="row">
+        <div class="col-md-6">
+            <div class="kt-portlet kt-callout">
+                <div class="kt-portlet__body">
+                    <div class="kt-callout__body">
+                        <div class="kt-callout__content">
+                            @if($bookingPercent > 70)
+                                <h3 class="kt-callout__title text-danger">شلوغ</h3>
+                                <p class="kt-callout__desc">
+                                    امروز روز شلوغی را در پیش دارید، امیدواریم که امروز رو به بهترین نحو پشت سر بزارید.
+                                </p>
+                            @elseif($bookingPercent > 40 && $bookingPercent < 70)
+                                <h3 class="kt-callout__title text-info">متعادل</h3>
+                                <p class="kt-callout__desc">
+                                    امروز وضعیت مجموعه مثل همیشه عادی هست پس نگران چیزی نباش.
+                                </p>
+                            @else
+                                <h3 class="kt-callout__title text-success">خلوت</h3>
+                                <p class="kt-callout__desc">
+                                    امروز روز خلوتی را در پیش دارید، خوب هست که واسه فردا یه برنامه ریزی عالی کنی.
+                                </p>
+                            @endif
+                        </div>
+                        <div class="kt-callout__action">
+                            <a href="{{route('admin.bookings.index')}}"
+                               class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-brand" target="_blank">لیست
+                                رزروی ها</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
         @foreach($courts as $c)
             <div class="col-md-3">
                 <div class="kt-portlet">
@@ -130,7 +170,7 @@
                                 @if($c->isPlaying())
                                     <span class="pulsating-circle"></span>
                                     <span class="pulsating-label">در حال بازی</span>
-                                    @else
+                                @else
                                     <span class="kt-badge kt-badge--danger kt-badge--inline">خالی</span>
                                 @endif
                             </div>
