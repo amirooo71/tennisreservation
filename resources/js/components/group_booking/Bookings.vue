@@ -19,7 +19,12 @@
             </div>
         </div>
         <div v-if="ownerId">
-            <div class="kt-portlet__head d-flex justify-content-center">
+            <div class="kt-portlet__head d-flex justify-content-between align-items-center">
+
+                <a href="#" @click.prevent="onPrevWeek">
+                    <i class="fas fa-arrow-alt-circle-right" style="font-size: 3rem;"></i>
+                </a>
+
                 <div class="kt-portlet__head-toolbar">
                     <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-brand nav-tabs-line-2x nav-tabs-line-right nav-tabs-bold"
                         role="tablist">
@@ -34,6 +39,11 @@
                         </li>
                     </ul>
                 </div>
+
+                <a href="#" @click.prevent="onNextWeek">
+                    <i class="fas fa-arrow-alt-circle-left" style="font-size: 3rem;"></i>
+                </a>
+
             </div>
             <div class="kt-portlet__body">
                 <div class="row mt-3">
@@ -115,6 +125,7 @@
                 from: '',
                 to: '',
                 loading: false,
+                endOfWeek: '',
             }
         },
 
@@ -127,8 +138,11 @@
 
         methods: {
 
-            getDates() {
-                axios.get('/admin/ajax/activity/date-time/dates').then(res => this.dates = res.data);
+            getDates(param = null) {
+                axios.get('/admin/ajax/activity/date-time/dates', param).then(res => {
+                    this.endOfWeek = res.data.endOfWeek;
+                    this.dates = res.data.week;
+                });
             },
 
             getHours() {
@@ -192,6 +206,18 @@
                     this.loading = false;
                     toastError(err.response.data.msg)
                 });
+            },
+
+            onPrevWeek() {
+                this.getDates({params: {prevWeek: 1, endOfWeek: this.endOfWeek}});
+                this.activeDate = '';
+                this.bookings = [];
+            },
+
+            onNextWeek() {
+                this.getDates({params: {nextWeek: 1, endOfWeek: this.endOfWeek}});
+                this.activeDate = '';
+                this.bookings = [];
             },
 
         },

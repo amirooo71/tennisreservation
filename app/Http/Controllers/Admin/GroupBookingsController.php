@@ -8,6 +8,8 @@ use Hekmatinasser\Verta\Verta;
 
 class GroupBookingsController extends BaseController {
 
+	private $pastHours = 0;
+
 	/**
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
@@ -42,12 +44,14 @@ class GroupBookingsController extends BaseController {
 				] );
 
 			} else {
-				$pastHours ++;
+				$this->pastHours ++;
+
+				return response()->json( [ 'msg' => 'تاریخ گذشته است' ], 422 );
 			}
 
 		}
 
-		return response()->json( [ 'msg' => 'was added successfully' . ' Past ' . $pastHours ] );
+		return response()->json( [ 'msg' => 'was added successfully' . ' Past ' . $this->pastHours ] );
 
 
 	}

@@ -3268,6 +3268,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3289,7 +3299,8 @@ __webpack_require__.r(__webpack_exports__);
       renterName: '',
       from: '',
       to: '',
-      loading: false
+      loading: false,
+      endOfWeek: ''
     };
   },
   created: function created() {
@@ -3302,8 +3313,10 @@ __webpack_require__.r(__webpack_exports__);
     getDates: function getDates() {
       var _this = this;
 
-      axios.get('/admin/ajax/activity/date-time/dates').then(function (res) {
-        return _this.dates = res.data;
+      var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      axios.get('/admin/ajax/activity/date-time/dates', param).then(function (res) {
+        _this.endOfWeek = res.data.endOfWeek;
+        _this.dates = res.data.week;
       });
     },
     getHours: function getHours() {
@@ -3376,6 +3389,26 @@ __webpack_require__.r(__webpack_exports__);
         _this6.loading = false;
         toastError(err.response.data.msg);
       });
+    },
+    onPrevWeek: function onPrevWeek() {
+      this.getDates({
+        params: {
+          prevWeek: 1,
+          endOfWeek: this.endOfWeek
+        }
+      });
+      this.activeDate = '';
+      this.bookings = [];
+    },
+    onNextWeek: function onNextWeek() {
+      this.getDates({
+        params: {
+          nextWeek: 1,
+          endOfWeek: this.endOfWeek
+        }
+      });
+      this.activeDate = '';
+      this.bookings = [];
     }
   },
   watch: {
@@ -86314,8 +86347,30 @@ var render = function() {
         ? _c("div", [
             _c(
               "div",
-              { staticClass: "kt-portlet__head d-flex justify-content-center" },
+              {
+                staticClass:
+                  "kt-portlet__head d-flex justify-content-between align-items-center"
+              },
               [
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.onPrevWeek($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-arrow-alt-circle-right",
+                      staticStyle: { "font-size": "3rem" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
                 _c("div", { staticClass: "kt-portlet__head-toolbar" }, [
                   _c(
                     "ul",
@@ -86359,7 +86414,26 @@ var render = function() {
                     }),
                     0
                   )
-                ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.onNextWeek($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-arrow-alt-circle-left",
+                      staticStyle: { "font-size": "3rem" }
+                    })
+                  ]
+                )
               ]
             ),
             _vm._v(" "),
@@ -99997,6 +100071,12 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
+    today: function today() {
+      jmoment.loadPersian({
+        usePersianDigits: false
+      });
+      return moment().format('YYYY-M-D');
+    },
     formatTime: function formatTime(time) {
       var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'HH:mm';
       return moment(time, 'HH:mm').format(format);

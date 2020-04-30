@@ -2,6 +2,13 @@ export default {
 
     methods: {
 
+        today() {
+            jmoment.loadPersian({
+                usePersianDigits: false,
+            });
+            return moment().format('YYYY-M-D')
+        },
+
         formatTime(time, format = 'HH:mm') {
             return moment(time, 'HH:mm').format(format);
         },

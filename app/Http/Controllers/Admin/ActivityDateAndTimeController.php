@@ -14,29 +14,19 @@ class ActivityDateAndTimeController extends BaseController {
 
 		$weekDays = 7;
 
-		$now = Verta::now();
+		$date = $this->getBeginDate();
 
-		$dates = [
-			[
-				'date'     => $now->format( 'Y-m-j' ),
-				'readableDay' => $now->formatWord('l'),
-				'readableDate' => $now->formatWord('dS F')
-			]
-		];
+		$dates = [ $this->dateSerializer( $date ) ];
 
 		for ( $i = 1; $i < $weekDays; $i ++ ) {
 
-			$newDate = $now->addDay( 1 );
+			$newDate = $date->addDay( 1 );
 
-			$dates[] = [
-				'date'     => $newDate->format( 'Y-m-j' ),
-				'readableDay' => $newDate->formatWord('l'),
-				'readableDate' => $newDate->formatWord('dS F'),
-			];
+			$dates[] = $this->dateSerializer( $newDate );
 
 		}
 
-		return $dates;
+		return [ 'week' => $dates, 'endOfWeek' => $date->format( 'Y-n-j' ) ];
 
 	}
 
@@ -45,5 +35,38 @@ class ActivityDateAndTimeController extends BaseController {
 	 */
 	public function hours() {
 		return Club::first()->openingHours();
+	}
+
+	/**
+	 * @param $date
+	 *
+	 * @return array
+	 */
+	public function dateSerializer( $date ) {
+		return [
+			'date'         => $date->format( 'Y-m-j' ),
+			'readableDay'  => $date->formatWord( 'l' ),
+			'readableDate' => $date->formatWord( 'dS F' ),
+		];
+	}
+
+
+	private function getBeginDate() {
+
+		if ( request()->has( 'nextWeek' ) ) {
+
+			$date = Verta::parse( request( 'endOfWeek' ) )->addDay( 1 );
+
+		} elseif ( request()->has( 'prevWeek' ) ) {
+
+			$date = Verta::parse( request( 'endOfWeek' ) )->subDays( 13 );
+
+		} else {
+
+			$date = Verta::now();
+
+		}
+
+		return $date;
 	}
 }
