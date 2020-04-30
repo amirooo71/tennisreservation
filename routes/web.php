@@ -5,9 +5,11 @@ Route::get( '/playground', function () {
 
 
 
-	dd(\Hekmatinasser\Verta\Verta::now()->subMinutes( date( 'i' ) )->subSeconds( date( 's' ) )->formatTime());
+	$current = \Hekmatinasser\Verta\Verta::instance('22:01:00');
 
+	$time = \Hekmatinasser\Verta\Verta::instance( '21:30:00' );
 
+	dd($time->diffMinutes($current));
 
 
 } );

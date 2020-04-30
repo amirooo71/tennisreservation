@@ -182,9 +182,12 @@
                     <div class="kt-portlet__foot">
                         <div class="row align-items-center">
                             <div class="col-md-12 d-flex justify-content-between">
-                                <span class="text-muted">ساعات رزروی: </span>
-                                <span class="kt-badge kt-badge--brand kt-badge--inline">@faNum($c->todayBooked->count(),false)
-                                    ساعت</span>
+                                <span class="text-muted">مدت زمان رزوی: </span>
+                                @if($c->todayBookedMinutes())
+                                    <span class="kt-badge kt-badge--brand kt-badge--inline">@toHours($c->todayBookedMinutes())</span>
+                                @else
+                                    <span class="kt-badge kt-badge--danger kt-badge--inline">بدون رزرو</span>
+                                @endif
                             </div>
                         </div>
                     </div>

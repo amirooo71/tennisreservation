@@ -28,9 +28,9 @@ class DashboardController extends BaseController {
 
 		$canceled = Booking::today( true );
 
-		$bookingMinutes = $bookings->sum( 'duration' ) + $bookings->partTimeMinutes();
+		$bookingMinutes = $bookings->sum( 'duration' ) + $bookings->partTimeBookedMinutes();
 
-		$canceledMinutes = $canceled->sum( 'duration' ) + $canceled->partTimeMinutes();
+		$canceledMinutes = $canceled->sum( 'duration' ) + $canceled->partTimeBookedMinutes();
 
 		$paids = Payment::where( 'created_at', '>=', Carbon::today() )->sum( 'amount' );
 

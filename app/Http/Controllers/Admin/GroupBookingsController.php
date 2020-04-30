@@ -38,7 +38,7 @@ class GroupBookingsController extends BaseController {
 					'date'        => \request( 'date' ),
 					'time'        => $hour,
 					'duration'    => 60,
-					'owner_id'    => \request( 'owner_id' )
+					'coach_id'    => \request( 'owner_id' )
 				] );
 
 			} else {

@@ -27,18 +27,25 @@ class Court extends Model {
 	/**
 	 * @return mixed
 	 */
-	public function todayBooked() {
+	public function todayBookedMinutes() {
 		return $this->bookings()
 		            ->where( 'date', '=', Verta::now()->format( 'Y-n-j' ) )
-		            ->where( 'is_canceled', '=', false );
+		            ->where( 'is_canceled', '=', false )->sum( 'duration' ) + $this->bookings()->partTimeBookedMinutes();
 	}
 
+	/**
+	 * @return Model|null|object|static
+	 */
 	public function isPlaying() {
+
+		$beginHour = Verta::now()->subMinutes( date( 'i' ) )->subSeconds( date( 's' ) );
+
 		return $this->bookings()
 		            ->where( 'date', '=', Verta::now()->format( 'Y-n-j' ) )
-		            ->where( 'time', '=', Verta::now()->subMinutes( date( 'i' ) )->subSeconds( date( 's' ) )->formatTime() )
+		            ->where( 'time', '=', $beginHour->formatTime() )
 		            ->where( 'is_canceled', '=', false )
 		            ->first();
+
 	}
 
 

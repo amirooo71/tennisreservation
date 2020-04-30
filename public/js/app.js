@@ -3384,7 +3384,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.coaches.forEach(function (c) {
         if (c.id === val) {
-          _this7.renterName = c.name;
+          _this7.renterName = c.first_name + ' ' + c.last_name;
         }
       });
     }

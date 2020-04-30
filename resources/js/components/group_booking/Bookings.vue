@@ -200,7 +200,7 @@
             ownerId: function (val) {
                 this.coaches.forEach(c => {
                     if (c.id === val) {
-                        this.renterName = c.name;
+                        this.renterName = c.first_name + ' ' + c.last_name;
                     }
                 });
             }

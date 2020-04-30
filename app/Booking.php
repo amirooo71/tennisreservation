@@ -77,7 +77,7 @@ class Booking extends Model {
 	 *
 	 * @return int
 	 */
-	public function scopePartTimeMinutes( $query ) {
+	public function scopePartTimeBookedMinutes( $query ) {
 		return (int) $query->get()->reduce( function ( $carry, $item ) {
 			return $carry + ( $item->partTime ? $item->partTime->duration : 0 );
 		} );
