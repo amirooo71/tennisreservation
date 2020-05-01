@@ -219,6 +219,8 @@ class BookingsController extends BaseController {
 			'partner_name' => 'nullable',
 		] );
 
+		$data['amount'] = ( request( 'duration' ) / 60 ) * Court::find( request( 'court_id' ) )->price;
+
 		return $data;
 	}
 
@@ -241,6 +243,7 @@ class BookingsController extends BaseController {
 			'partner_name' => $booking->partner_name,
 			'is_paid'      => $booking->is_paid,
 			'duration'     => $booking->partTime->duration,
+			'amount'       => ( $booking->partTime->duration / 60 ) * $booking->court->price,
 		] );
 
 		return $booked;

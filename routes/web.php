@@ -4,12 +4,11 @@
 Route::get( '/playground', function () {
 
 
-
-	$current = \Hekmatinasser\Verta\Verta::instance('22:01:00');
+	$current = \Hekmatinasser\Verta\Verta::instance( '22:01:00' );
 
 	$time = \Hekmatinasser\Verta\Verta::instance( '21:30:00' );
 
-	dd($time->diffMinutes($current));
+	dd( $time->diffMinutes( $current ) );
 
 
 } );
@@ -78,6 +77,7 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::patch( 'coaches/{coach}', 'Admin\CoachesController@update' )->name( 'admin.coaches.update' );
 
 	Route::get( 'financial/creditors', 'Admin\FinancialController@creditors' )->name( 'admin.creditors.index' );
+	Route::get( 'financial/coaches/debt', 'Admin\FinancialController@coachesDebt' )->name( 'admin.coaches_debt.index' );
 	Route::get( 'financial/debtors', 'Admin\FinancialController@debtors' )->name( 'admin.debtors.index' );
 	Route::get( 'financial/payments', 'Admin\FinancialController@payments' )->name( 'admin.payments.index' );
 	Route::patch( 'financial/creditors/{creditor}/refund', 'Admin\FinancialController@refundCreditorMoney' )->name( 'admin.refund_creditors.index' );

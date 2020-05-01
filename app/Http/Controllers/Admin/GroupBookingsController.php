@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Booking;
+use App\Court;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Verta;
 
@@ -28,8 +29,6 @@ class GroupBookingsController extends BaseController {
 		$from = \request( 'from' );
 		$to   = \request( 'to' );
 
-		$pastHours = 0;
-
 		foreach ( $this->getBookingHours( $from, $to ) as $hour ) {
 
 			if ( ! $this->isDatePast( $hour ) ) {
@@ -40,7 +39,8 @@ class GroupBookingsController extends BaseController {
 					'date'        => \request( 'date' ),
 					'time'        => $hour,
 					'duration'    => 60,
-					'coach_id'    => \request( 'owner_id' )
+					'coach_id'    => \request( 'coach_id' ),
+					'amount'      => Court::find( request( 'court_id' ) )->price,
 				] );
 
 			} else {

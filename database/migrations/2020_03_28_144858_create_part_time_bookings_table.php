@@ -21,6 +21,7 @@ class CreatePartTimeBookingsTable extends Migration {
 			$table->string( 'partner_name' )->nullable();
 			$table->time( 'start_at' )->nullable();
 			$table->integer( 'duration' );
+			$table->double( 'amount' );
 			$table->timestamps();
 
 			$table->foreign( 'booking_id' )->references( 'id' )->on( 'bookings' )->onDelete( 'cascade' );

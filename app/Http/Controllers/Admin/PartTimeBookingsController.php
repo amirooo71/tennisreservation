@@ -149,6 +149,7 @@ class PartTimeBookingsController extends BaseController {
 
 		$data['booking_id'] = $booking->id;
 		$data['duration']   = $this->calculateDuration( $booking );
+		$data['amount']     = ( $this->calculateDuration( $booking ) / 60 ) * $booking->court->price;
 
 		return $data;
 	}

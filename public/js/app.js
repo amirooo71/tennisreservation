@@ -3295,7 +3295,7 @@ __webpack_require__.r(__webpack_exports__);
       bookings: [],
       activeDate: '',
       courtId: '',
-      ownerId: '',
+      coachId: '',
       renterName: '',
       from: '',
       to: '',
@@ -3354,14 +3354,20 @@ __webpack_require__.r(__webpack_exports__);
     },
     onActiveDateClick: function onActiveDateClick(date) {
       this.activeDate = date;
+      this.from = '';
+      this.to = '';
       this.getCourtBookings();
     },
     onCourtChange: function onCourtChange() {
       this.activeDate = '';
+      this.from = '';
+      this.to = '';
       this.bookings = [];
     },
     onCoachChange: function onCoachChange() {
       this.activeDate = '';
+      this.from = '';
+      this.to = '';
       this.bookings = [];
     },
     onClick: function onClick() {
@@ -3374,11 +3380,11 @@ __webpack_require__.r(__webpack_exports__);
         date: this.formatDate(this.activeDate),
         from: this.from,
         to: this.to,
-        owner_id: this.ownerId
+        coach_id: this.coachId
       }).then(function (res) {
         _this6.activeDate = '';
         _this6.courtId = '';
-        _this6.ownerId = '';
+        _this6.coachId = '';
         _this6.bookings = [];
         _this6.from = '';
         _this6.to = '';
@@ -3412,7 +3418,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
-    ownerId: function ownerId(val) {
+    coachId: function coachId(val) {
       var _this7 = this;
 
       this.coaches.forEach(function (c) {
@@ -86308,8 +86314,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.ownerId,
-                  expression: "ownerId"
+                  value: _vm.coachId,
+                  expression: "coachId"
                 }
               ],
               staticClass: "form-control",
@@ -86325,7 +86331,7 @@ var render = function() {
                         var val = "_value" in o ? o._value : o.value
                         return val
                       })
-                    _vm.ownerId = $event.target.multiple
+                    _vm.coachId = $event.target.multiple
                       ? $$selectedVal
                       : $$selectedVal[0]
                   },
@@ -86343,7 +86349,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.ownerId
+      _vm.coachId
         ? _c("div", [
             _c(
               "div",

@@ -21,4 +21,9 @@ class Coach extends Model {
 		return $this->hasMany( PartTimeBooking::class );
 	}
 
+
+	public function debtAmount(){
+		return $this->bookings->where('is_canceled','=',false)->where('is_paid','=',false)->sum();
+	}
+
 }

@@ -13,12 +13,12 @@
             </div>
             <div class="form-group col-md-6">
                 <label>انتخاب مربی</label>
-                <select v-model="ownerId" class="form-control" :disabled="!courtId" @change="onCoachChange">
+                <select v-model="coachId" class="form-control" :disabled="!courtId" @change="onCoachChange">
                     <option v-for="coach in coaches" :value="coach.id">{{coach.first_name}}</option>
                 </select>
             </div>
         </div>
-        <div v-if="ownerId">
+        <div v-if="coachId">
             <div class="kt-portlet__head d-flex justify-content-between align-items-center">
 
                 <a href="#" @click.prevent="onPrevWeek">
@@ -120,7 +120,7 @@
                 bookings: [],
                 activeDate: '',
                 courtId: '',
-                ownerId: '',
+                coachId: '',
                 renterName: '',
                 from: '',
                 to: '',
@@ -170,16 +170,22 @@
 
             onActiveDateClick(date) {
                 this.activeDate = date;
+                this.from = '';
+                this.to = '';
                 this.getCourtBookings();
             },
 
             onCourtChange() {
                 this.activeDate = '';
+                this.from = '';
+                this.to = '';
                 this.bookings = [];
             },
 
             onCoachChange() {
                 this.activeDate = '';
+                this.from = '';
+                this.to = '';
                 this.bookings = [];
             },
 
@@ -191,11 +197,11 @@
                     date: this.formatDate(this.activeDate),
                     from: this.from,
                     to: this.to,
-                    owner_id: this.ownerId,
+                    coach_id: this.coachId,
                 }).then(res => {
                     this.activeDate = '';
                     this.courtId = '';
-                    this.ownerId = '';
+                    this.coachId = '';
                     this.bookings = [];
                     this.from = '';
                     this.to = '';
@@ -223,7 +229,7 @@
         },
 
         watch: {
-            ownerId: function (val) {
+            coachId: function (val) {
                 this.coaches.forEach(c => {
                     if (c.id === val) {
                         this.renterName = c.first_name + ' ' + c.last_name;
