@@ -77,7 +77,10 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::patch( 'coaches/{coach}', 'Admin\CoachesController@update' )->name( 'admin.coaches.update' );
 
 	Route::get( 'financial/creditors', 'Admin\FinancialController@creditors' )->name( 'admin.creditors.index' );
-	Route::get( 'financial/coaches/debt', 'Admin\FinancialController@coachesDebt' )->name( 'admin.coaches_debt.index' );
+	Route::get( 'financial/coaches/debt', 'Admin\FinancialController@coachesDebtList' )->name( 'admin.financial.coaches_debt_list' );
+	Route::get( 'financial/coaches/{coach}/pay', 'Admin\FinancialController@coachPay' )->name( 'admin.financial.coach_pay_form' );
+	Route::patch( 'financial/coaches/{coach}/pay', 'Admin\FinancialController@storeCoachPay' )->name( 'admin.financial.coach_pay' );
+	Route::patch( 'financial/coaches/{coach}/increase-balance', 'Admin\FinancialController@increaseCoachBalance' )->name( 'admin.financial.increase_balance' );
 	Route::get( 'financial/debtors', 'Admin\FinancialController@debtors' )->name( 'admin.debtors.index' );
 	Route::get( 'financial/payments', 'Admin\FinancialController@payments' )->name( 'admin.payments.index' );
 	Route::patch( 'financial/creditors/{creditor}/refund', 'Admin\FinancialController@refundCreditorMoney' )->name( 'admin.refund_creditors.index' );
@@ -100,6 +103,4 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::get( 'ajax/statistic/canceled/annually', 'Admin\StatisticsController@canceledAnnually' );
 
 
-//	Route::get( 'hours', 'Admin\BookingsController@getHours' );
-//	Route::get( 'courts', 'Admin\CourtsController@courts' );
 } );

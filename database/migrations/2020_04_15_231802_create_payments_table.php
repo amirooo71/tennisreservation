@@ -13,9 +13,11 @@ class CreatePaymentsTable extends Migration {
 	public function up() {
 		Schema::create( 'payments', function ( Blueprint $table ) {
 			$table->bigIncrements( 'id' );
+			$table->unsignedBigInteger( 'coach_id' )->nullable();
 			$table->unsignedBigInteger( 'booking_id' )->nullable();
 			$table->unsignedBigInteger( 'part_time_booking_id' )->nullable();
 			$table->double( 'amount' );
+			$table->boolean( 'is_coach_paid' )->default( 'false' );
 			$table->timestamps();
 		} );
 	}

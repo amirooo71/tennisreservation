@@ -7,7 +7,6 @@
 
     <div class="row">
         <div class="col">
-            <a href="{{route('admin.coaches.create')}}" class="btn btn-light btn-elevate mb-3">اضافه کردن</a>
             @component('components.portletWithoutFooter',['title' => 'لیست مربیان'])
                 <table class="table table-bordered table-hover" id="datatbl">
                     <thead>
@@ -25,8 +24,9 @@
                             <td>{{$coach->last_name}}</td>
                             <td>@faNum($coach->debtAmount(),true) تومان</td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-success">
-                                    پرداخت
+                                <a href="{{route('admin.financial.coach_pay_form',$coach)}}"
+                                   class="btn btn-sm btn-success">
+                                    مدیریت
                                 </a>
                             </td>
                         </tr>
