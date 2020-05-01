@@ -96,6 +96,7 @@ class PartTimeBookingsController extends BaseController {
 		if ( request()->has( 'chargeDebtor' ) ) {
 			Debtor::create( [
 				'part_time_booking_id' => $partTimeBooking->id,
+				'coach_id'             => $partTimeBooking->coach_id,
 				'name'                 => $partTimeBooking->renter_name,
 				'amount'               => $this->calculateAmountByDurationTime( $partTimeBooking ),
 			] );
@@ -104,6 +105,7 @@ class PartTimeBookingsController extends BaseController {
 		if ( request()->has( 'chargeCreditor' ) ) {
 			Creditor::create( [
 				'booking_id' => $partTimeBooking->id,
+				'coach_id'   => $partTimeBooking->coach_id,
 				'name'       => $partTimeBooking->renter_name,
 				'amount'     => $this->calculateAmountByDurationTime( $partTimeBooking ),
 			] );

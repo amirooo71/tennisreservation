@@ -29,14 +29,24 @@ class Coach extends Model {
 	}
 
 	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function debt() {
+		return $this->hasMany( Debtor::class );
+	}
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function credit() {
+		return $this->hasMany( Creditor::class );
+	}
+
+
+	/**
 	 * @return mixed
 	 */
-	public function debtAmount() {
-
-		if ( $this->balance ) {
-			return $this->balance->balance;
-		}
-
+	public function calculateCoachDebt() {
 
 		$bookings = $this->bookings()->where( 'is_canceled', '=', false )->where( 'is_paid', '=', false );
 
@@ -44,8 +54,11 @@ class Coach extends Model {
 			return $carry + ( $item->partTime ? $item->partTime->amount : 0 );
 		} );
 
+		$debt = $this->debt->where( 'is_paid', '=', false )->sum( 'amount' );
 
-		return $bookings->sum( 'amount' ) + $partTimeAmount;
+		$credit = $this->credit->where( 'is_refunded', '=', false )->sum( 'amount' );
+
+		return ( $bookings->sum( 'amount' ) + $partTimeAmount + $debt ) - $credit;
 	}
 
 }

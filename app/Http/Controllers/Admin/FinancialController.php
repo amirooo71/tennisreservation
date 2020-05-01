@@ -17,7 +17,7 @@ class FinancialController extends BaseController {
 	 */
 	public function coachesDebtList() {
 
-		$coaches = Coach::paginate(30);
+		$coaches = Coach::paginate( 30 );
 
 		return view( 'admin.financial.coaches_debt_list', compact( 'coaches' ) );
 	}
@@ -27,7 +27,7 @@ class FinancialController extends BaseController {
 	 */
 	public function creditors() {
 
-		$creditors = Creditor::where( [ 'is_refunded' => false ] )->paginate( 30 );
+		$creditors = Creditor::where( [ 'is_refunded' => false ] )->whereDoesntHave( 'coach' )->paginate( 30 );
 
 		return view( 'admin.financial.creditors', compact( 'creditors' ) );
 	}
@@ -37,7 +37,7 @@ class FinancialController extends BaseController {
 	 */
 	public function debtors() {
 
-		$debtors = Debtor::where( [ 'is_paid' => false ] )->paginate( 30 );
+		$debtors = Debtor::where( [ 'is_paid' => false ] )->whereDoesntHave( 'coach' )->paginate( 30 );
 
 		return view( 'admin.financial.debtors', compact( 'debtors' ) );
 	}
@@ -97,13 +97,13 @@ class FinancialController extends BaseController {
 
 		if ( $coach->balance ) {
 
-			$coach->balance->update( [ 'balance' => $coach->debtAmount() ] );
+			$coach->balance->update( [ 'balance' => $coach->calculateCoachDebt() ] );
 
 		} else {
 
 			CoachBalance::create( [
 				'coach_id' => $coach->id,
-				'balance'  => $coach->debtAmount(),
+				'balance'  => $coach->calculateCoachDebt(),
 			] );
 
 		}

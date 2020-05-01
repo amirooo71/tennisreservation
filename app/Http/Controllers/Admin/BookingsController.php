@@ -102,6 +102,7 @@ class BookingsController extends BaseController {
 		if ( request()->has( 'chargeDebtor' ) ) {
 			Debtor::create( [
 				'booking_id' => $booking->id,
+				'coach_id'   => $booking->coach_id,
 				'name'       => $booking->renter_name,
 				'amount'     => $this->calculateAmountByDurationTime( $booking ),
 			] );
@@ -110,6 +111,7 @@ class BookingsController extends BaseController {
 		if ( request()->has( 'chargeCreditor' ) ) {
 			Creditor::create( [
 				'booking_id' => $booking->id,
+				'coach_id'   => $booking->coach_id,
 				'name'       => $booking->renter_name,
 				'amount'     => $this->calculateAmountByDurationTime( $booking ),
 			] );

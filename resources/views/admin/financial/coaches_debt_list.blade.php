@@ -13,8 +13,7 @@
                     <tr>
                         <th scope="col">نام</th>
                         <th scope="col">نام خانوادگی</th>
-                        <th scope="col">بدهکاری</th>
-                        <th scope="col">عملیات</th>
+                        <th scope="col">بدهی</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -22,11 +21,10 @@
                         <tr>
                             <td>{{$coach->first_name}}</td>
                             <td>{{$coach->last_name}}</td>
-                            <td>@faNum($coach->debtAmount(),true) تومان</td>
                             <td>
                                 <a href="{{route('admin.financial.coach_pay_form',$coach)}}"
                                    class="btn btn-sm btn-success">
-                                    مدیریت
+                                    مشاهده
                                 </a>
                             </td>
                         </tr>
