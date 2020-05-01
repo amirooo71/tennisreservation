@@ -37,7 +37,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($club->courts as $court)
+            @foreach($courts as $court)
                 <tr>
                     <th scope="row">{{$court->id}}</th>
                     <td>{{$court->name}}</td>
@@ -77,7 +77,7 @@
             @endforeach
             </tbody>
         </table>
-
+        <div class="mt-3">{{$courts->links()}}</div>
     @endcomponent
 
 @endsection

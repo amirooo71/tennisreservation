@@ -14,7 +14,9 @@ class CourtsController extends BaseController {
 	 */
 	public function index( Club $club ) {
 
-		return view( 'admin.courts.index', compact( 'club' ) );
+		$courts = Court::paginate(30);
+
+		return view( 'admin.courts.index', compact( 'club','courts' ) );
 	}
 
 

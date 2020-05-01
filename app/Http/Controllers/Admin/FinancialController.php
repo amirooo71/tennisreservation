@@ -17,7 +17,7 @@ class FinancialController extends BaseController {
 	 */
 	public function coachesDebtList() {
 
-		$coaches = Coach::all();
+		$coaches = Coach::paginate(30);
 
 		return view( 'admin.financial.coaches_debt_list', compact( 'coaches' ) );
 	}

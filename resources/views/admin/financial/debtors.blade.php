@@ -56,6 +56,7 @@
                     @endforeach
                     </tbody>
                 </table>
+                <div class="mt-3">{{$debtors->links()}}</div>
             @endcomponent
         </div>
     </div>

@@ -26,6 +26,7 @@
                     @endforeach
                     </tbody>
                 </table>
+                <div class="mt-3">{{$canceled->links()}}</div>
             @endcomponent
         </div>
     </div>

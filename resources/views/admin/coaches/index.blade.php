@@ -35,6 +35,7 @@
                         </tr>
                     @endforeach
                     </tbody>
+                    <div class="mt-3">{{$coaches->links()}}</div>
                 </table>
             @endcomponent
         </div>
