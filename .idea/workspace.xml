@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b01c91de-d725-464d-91da-470dc09fd2f6" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/CoachBalance.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/database/migrations/2020_05_01_215243_create_coach_balances_table.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/resources/views/admin/financial/_coach_increase_debt_form.blade.php" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/Coach.php" afterPath="$PROJECT_DIR$/app/Coach.php" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_15_231802_create_payments_table.php" afterPath="$PROJECT_DIR$/database/migrations/2020_04_15_231802_create_payments_table.php" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/financial/coach_pay_form.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/financial/coach_pay_form.blade.php" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/financial/coaches_debt.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/financial/coaches_debt_list.blade.php" />
-      <change beforePath="$PROJECT_DIR$/resources/views/partials/aside/_menu.blade.php" afterPath="$PROJECT_DIR$/resources/views/partials/aside/_menu.blade.php" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,41 +19,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CoachBalance.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/CoachBalance.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Coach.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Coach.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="36" column="43" lean-forward="false" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/web.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="82" column="111" lean-forward="false" selection-start-line="82" selection-start-column="111" selection-end-line="82" selection-end-column="111" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FinancialController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FinancialController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="491">
-              <caret line="139" column="26" lean-forward="true" selection-start-line="139" selection-start-column="26" selection-end-line="139" selection-end-column="26" />
+            <state relative-caret-position="365">
+              <caret line="132" column="47" lean-forward="false" selection-start-line="132" selection-start-column="47" selection-end-line="132" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppServiceProvider.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+              <folding>
+                <element signature="e#33#46#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Payment.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Payment.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -70,80 +55,17 @@
         <entry file="file://$PROJECT_DIR$/database/migrations/2020_04_15_231802_create_payments_table.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
-              <caret line="19" column="67" lean-forward="false" selection-start-line="19" selection-start-column="67" selection-end-line="19" selection-end-column="67" />
+              <caret line="19" column="62" lean-forward="false" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CourtsController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/CourtsController.php">
+      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="29" column="143" lean-forward="false" selection-start-line="29" selection-start-column="139" selection-end-line="29" selection-end-column="143" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="coach_pay_form.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/financial/coach_pay_form.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="12" column="31" lean-forward="false" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
-              <folding>
-                <marker date="1588355187663" expanded="true" signature="9:28" ph="..." />
-                <marker date="1588355187663" expanded="true" signature="41:50" ph="..." />
-                <marker date="1588355187663" expanded="true" signature="207:271" ph="..." />
-                <marker date="1588355187663" expanded="true" signature="313:354" ph="..." />
-                <marker date="1588355187663" expanded="true" signature="443:450" ph="..." />
-                <marker date="1588355187663" expanded="true" signature="698:743" ph="..." />
-                <marker date="1588355187663" expanded="true" signature="1132:1175" ph="..." />
-                <marker date="1588355187663" expanded="true" signature="1288:1321" ph="..." />
-                <marker date="1588355187663" expanded="true" signature="1288:1390" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_coach_increase_debt_form.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/financial/_coach_increase_debt_form.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="22" lean-forward="false" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-              <folding>
-                <marker date="1588355484376" expanded="true" signature="11:80" ph="..." />
-                <marker date="1588355484376" expanded="true" signature="103:151" ph="..." />
-                <marker date="1588355484376" expanded="true" signature="200:207" ph="..." />
-                <marker date="1588355484376" expanded="true" signature="376:421" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="coaches_debt_list.blade.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/financial/coaches_debt_list.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="28" lean-forward="true" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
-              <folding>
-                <marker date="1588355655300" expanded="true" signature="9:28" ph="..." />
-                <marker date="1588355655300" expanded="true" signature="43:52" ph="..." />
-                <marker date="1588355655300" expanded="true" signature="126:186" ph="..." />
-                <marker date="1588355655300" expanded="true" signature="643:661" ph="..." />
-                <marker date="1588355655300" expanded="true" signature="726:744" ph="..." />
-                <marker date="1588355655300" expanded="true" signature="786:803" ph="..." />
-                <marker date="1588355655300" expanded="true" signature="964:1010" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BookingsController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="283" column="17" lean-forward="false" selection-start-line="283" selection-start-column="17" selection-end-line="283" selection-end-column="17" />
+            <state relative-caret-position="383">
+              <caret line="80" column="88" lean-forward="false" selection-start-line="80" selection-start-column="88" selection-end-line="80" selection-end-column="88" />
               <folding />
             </state>
           </provider>
@@ -228,7 +150,6 @@
         <option value="$PROJECT_DIR$/app/BladeHelper.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Booking.php" />
-        <option value="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" />
         <option value="$PROJECT_DIR$/app/Court.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/DashboardController.php" />
         <option value="$PROJECT_DIR$/resources/js/mixins/helper.js" />
@@ -249,13 +170,14 @@
         <option value="$PROJECT_DIR$/app/CoachBalance.php" />
         <option value="$PROJECT_DIR$/app/Coach.php" />
         <option value="$PROJECT_DIR$/resources/views/partials/aside/_menu.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_04_15_231802_create_payments_table.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/financial/coach_increase_debt_form.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/financial/coach_pay_form.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/financial/_coach_increase_debt_form.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/financial/coaches_debt_list.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_04_15_231802_create_payments_table.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php" />
       </list>
     </option>
   </component>
@@ -572,12 +494,12 @@
       <workItem from="1588195906114" duration="601000" />
       <workItem from="1588247836487" duration="18324000" />
       <workItem from="1588284627001" duration="9969000" />
-      <workItem from="1588352088635" duration="3652000" />
+      <workItem from="1588352088635" duration="4183000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="655533000" />
+    <option name="totallyTimeSpent" value="656064000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-72" y="0" width="1920" height="1080" extended-state="6" />
@@ -638,13 +560,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/clubs/_form.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="30" column="29" lean-forward="true" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/clubs/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -724,13 +639,6 @@
         <state relative-caret-position="108">
           <caret line="7" column="48" lean-forward="true" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="48" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="13" lean-forward="true" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -992,14 +900,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_04_15_231802_create_payments_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="19" column="67" lean-forward="false" selection-start-line="19" selection-start-column="67" selection-end-line="19" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Coach.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="648">
@@ -1021,40 +921,6 @@
         <state relative-caret-position="324">
           <caret line="29" column="143" lean-forward="false" selection-start-line="29" selection-start-column="139" selection-end-line="29" selection-end-column="143" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="139" column="26" lean-forward="true" selection-start-line="139" selection-start-column="26" selection-end-line="139" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="82" column="111" lean-forward="false" selection-start-line="82" selection-start-column="111" selection-end-line="82" selection-end-column="111" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/financial/coach_pay_form.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="31" lean-forward="false" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
-          <folding>
-            <marker date="1588355187663" expanded="true" signature="9:28" ph="..." />
-            <marker date="1588355187663" expanded="true" signature="41:50" ph="..." />
-            <marker date="1588355187663" expanded="true" signature="207:271" ph="..." />
-            <marker date="1588355187663" expanded="true" signature="313:354" ph="..." />
-            <marker date="1588355187663" expanded="true" signature="443:450" ph="..." />
-            <marker date="1588355187663" expanded="true" signature="698:743" ph="..." />
-            <marker date="1588355187663" expanded="true" signature="1132:1175" ph="..." />
-            <marker date="1588355187663" expanded="true" signature="1288:1321" ph="..." />
-            <marker date="1588355187663" expanded="true" signature="1288:1390" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1084,6 +950,66 @@
             <marker date="1588355655300" expanded="true" signature="786:803" ph="..." />
             <marker date="1588355655300" expanded="true" signature="964:1010" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/financial/coach_pay_form.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="31" lean-forward="false" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+          <folding>
+            <marker date="1588355187663" expanded="true" signature="9:28" ph="..." />
+            <marker date="1588355187663" expanded="true" signature="41:50" ph="..." />
+            <marker date="1588355187663" expanded="true" signature="207:271" ph="..." />
+            <marker date="1588355187663" expanded="true" signature="313:354" ph="..." />
+            <marker date="1588355187663" expanded="true" signature="443:450" ph="..." />
+            <marker date="1588355187663" expanded="true" signature="698:743" ph="..." />
+            <marker date="1588355187663" expanded="true" signature="1132:1175" ph="..." />
+            <marker date="1588355187663" expanded="true" signature="1288:1321" ph="..." />
+            <marker date="1588355187663" expanded="true" signature="1288:1390" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="80" column="88" lean-forward="false" selection-start-line="80" selection-start-column="88" selection-end-line="80" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+          <folding>
+            <element signature="e#33#46#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Payment.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_04_15_231802_create_payments_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="19" column="62" lean-forward="false" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="132" column="47" lean-forward="false" selection-start-line="132" selection-start-column="47" selection-end-line="132" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>

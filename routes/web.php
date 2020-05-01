@@ -78,7 +78,7 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 
 	Route::get( 'financial/creditors', 'Admin\FinancialController@creditors' )->name( 'admin.creditors.index' );
 	Route::get( 'financial/coaches/debt', 'Admin\FinancialController@coachesDebtList' )->name( 'admin.financial.coaches_debt_list' );
-	Route::get( 'financial/coaches/{coach}/pay', 'Admin\FinancialController@coachPay' )->name( 'admin.financial.coach_pay_form' );
+	Route::get( 'financial/coaches/{coach}/pay', 'Admin\FinancialController@coachPayForm' )->name( 'admin.financial.coach_pay_form' );
 	Route::patch( 'financial/coaches/{coach}/pay', 'Admin\FinancialController@storeCoachPay' )->name( 'admin.financial.coach_pay' );
 	Route::patch( 'financial/coaches/{coach}/increase-balance', 'Admin\FinancialController@increaseCoachBalance' )->name( 'admin.financial.increase_balance' );
 	Route::get( 'financial/debtors', 'Admin\FinancialController@debtors' )->name( 'admin.debtors.index' );

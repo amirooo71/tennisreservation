@@ -93,7 +93,7 @@ class FinancialController extends BaseController {
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function coachPay( Coach $coach ) {
+	public function coachPayForm( Coach $coach ) {
 
 		if ( $coach->balance ) {
 
@@ -127,6 +127,11 @@ class FinancialController extends BaseController {
 
 			return redirect()->back();
 		}
+
+		Payment::create( [
+			'coach_id' => $coach->id,
+			'amount'   => \request( 'amount' ),
+		] );
 
 		$coach->balance->update( [ 'balance' => $coach->balance->balance - \request( 'amount' ) ] );
 

@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot() {
 
-		View::share( 'club', Club::first() );
+//		View::share( 'club', Club::first() );
 
 		Blade::directive( 'faNum', function ( $arguments ) {
 
