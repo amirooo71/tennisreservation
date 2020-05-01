@@ -87,4 +87,18 @@ class FinancialController extends BaseController {
 		return redirect()->route( 'admin.creditors.index' );
 
 	}
+
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function coachPayForm() {
+
+		return view( 'admin.financial.coach_pay_form' );
+
+	}
+
+	public function storeCoachPay() {
+
+	}
+
 }

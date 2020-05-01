@@ -23,15 +23,10 @@
                         <tr>
                             <td>{{$coach->first_name}}</td>
                             <td>{{$coach->last_name}}</td>
-                            <td>{{$coach->gender === 'male' ? 'آقا' : 'خانم'}}</td>
+                            <td>@faNum($coach->debtAmount(),true) تومان</td>
                             <td>
-                                <a href="{{route('admin.coaches.edit',$coach)}}"
-                                   class="btn btn-sm btn-clean btn-icon btn-icon-md" title="ویرایش">
-                                    <i class="la la-edit text-success"></i>
-                                </a>
-                                <a href="{{route('admin.coaches.delete',$coach)}}"
-                                   class="btn btn-sm btn-clean btn-icon btn-icon-md" title="حذف">
-                                    <i class="la la-trash text-danger"></i>
+                                <a href="#" class="btn btn-sm btn-success">
+                                    پرداخت
                                 </a>
                             </td>
                         </tr>
