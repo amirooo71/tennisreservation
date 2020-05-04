@@ -14,7 +14,7 @@ class CreateCoachBalancesTable extends Migration {
 		Schema::create( 'coach_balances', function ( Blueprint $table ) {
 			$table->bigIncrements( 'id' );
 			$table->unsignedBigInteger( 'coach_id' );
-			$table->double( 'balance' );
+			$table->double( 'amount' )->default(0);
 			$table->timestamps();
 		} );
 	}

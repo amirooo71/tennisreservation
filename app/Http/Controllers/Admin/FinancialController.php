@@ -95,16 +95,9 @@ class FinancialController extends BaseController {
 	 */
 	public function coachPayForm( Coach $coach ) {
 
-		if ( $coach->balance ) {
+		if ( ! $coach->balance ) {
 
-			$coach->balance->update( [ 'balance' => $coach->calculateCoachDebt() ] );
-
-		} else {
-
-			CoachBalance::create( [
-				'coach_id' => $coach->id,
-				'balance'  => $coach->calculateCoachDebt(),
-			] );
+			$coach->balance()->create();
 
 		}
 
@@ -121,7 +114,7 @@ class FinancialController extends BaseController {
 
 		\request()->validate( [ 'amount' => 'required|numeric|min:1' ] );
 
-		if ( \request( 'amount' ) > $coach->balance->balance ) {
+		if ( \request( 'amount' ) > $coach->calculateCoachDebt() ) {
 
 			flash( 'مبلغ از میزان کل بدهکاری بیشتر است!', 'danger' );
 
@@ -133,7 +126,9 @@ class FinancialController extends BaseController {
 			'amount'   => \request( 'amount' ),
 		] );
 
-		$coach->balance->update( [ 'balance' => $coach->balance->balance - \request( 'amount' ) ] );
+
+		$coach->balance->update( [ 'amount' => $coach->balance->amount + \request( 'amount' ) ] );
+
 
 		flash( 'پرداخت با موفقیت انجام شد.', 'success' );
 
@@ -150,7 +145,7 @@ class FinancialController extends BaseController {
 
 		\request()->validate( [ 'amount' => 'required|numeric|min:1' ] );
 
-		$coach->balance->update( [ 'balance' => $coach->balance->balance + \request( 'amount' ) ] );
+		$coach->balance->update( [ 'amount' => $coach->balance->amount - \request( 'amount' ) ] );
 
 		flash( 'افزایش حساب با موفقیت انجام شد.', 'success' );
 

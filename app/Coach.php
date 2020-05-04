@@ -42,6 +42,13 @@ class Coach extends Model {
 		return $this->hasMany( Creditor::class );
 	}
 
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function payments() {
+
+		return $this->hasMany( Payment::class );
+	}
 
 	/**
 	 * @return mixed
@@ -58,7 +65,7 @@ class Coach extends Model {
 
 		$credit = $this->credit->where( 'is_refunded', '=', false )->sum( 'amount' );
 
-		return ( $bookings->sum( 'amount' ) + $partTimeAmount + $debt ) - $credit;
+		return ( $bookings->sum( 'amount' ) + $partTimeAmount + $debt ) - ( $credit + optional($this->balance)->amount );
 	}
 
 }

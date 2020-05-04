@@ -30,7 +30,7 @@
         </div>
         <div class="col-md-6">
             @component('components.portletWithoutFooter',['title' => "مبلغ بدهکاری {$coach->first_name} {$coach->last_name}"])
-                <h2 class="text-danger">@faNum($coach->balance ? $coach->balance->balance : $coach->calculateCoachDebt(),true) تومان</h2>
+                <h2 class="text-danger">@faNum($coach->calculateCoachDebt(),true) تومان</h2>
             @endcomponent
         </div>
     </div>
