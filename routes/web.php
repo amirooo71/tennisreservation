@@ -56,8 +56,15 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::delete( 'bookings/{partTimeBooking}/part-time/delete', 'Admin\PartTimeBookingsController@delete' )->name( 'admin.bookings.part_time.delete' );
 
 
-	Route::get( 'group/bookings', 'Admin\GroupBookingsController@index' )->name( 'admin.group_bookings.index' );
-	Route::post( 'group/bookings', 'Admin\GroupBookingsController@store' )->name( 'admin.group_bookings.store' );
+	Route::get( 'week/bookings', 'Admin\WeekBookingsController@index' )->name( 'admin.week_bookings.index' );
+	Route::post( 'week/bookings', 'Admin\WeekBookingsController@store' )->name( 'admin.week_bookings.store' );
+
+	Route::get( 'fix/bookings', 'Admin\FixBookingsController@index' )->name( 'admin.fix_bookings.index' );
+	Route::get( 'fix/bookings/create', 'Admin\FixBookingsController@create' )->name( 'admin.fix_bookings.create' );
+	Route::get( 'fix/bookings/{fixBooking}/edit', 'Admin\FixBookingsController@edit' )->name( 'admin.fix_bookings.edit' );
+	Route::get( 'fix/bookings/{fixBooking}/delete', 'Admin\FixBookingsController@delete' )->name( 'admin.fix_bookings.delete' );
+	Route::post( 'fix/bookings', 'Admin\FixBookingsController@store' )->name( 'admin.fix_bookings.store' );
+	Route::patch( 'fix/bookings/{fixBooking}', 'Admin\FixBookingsController@update' )->name( 'admin.fix_bookings.update' );
 
 
 	Route::get( 'ajax/activity/date-time/dates', 'Admin\ActivityDateAndTimeController@dates' );

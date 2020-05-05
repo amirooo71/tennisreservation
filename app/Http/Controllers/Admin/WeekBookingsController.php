@@ -7,7 +7,7 @@ use App\Court;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Verta;
 
-class GroupBookingsController extends BaseController {
+class WeekBookingsController extends BaseController {
 
 	private $pastHours = 0;
 
@@ -15,9 +15,12 @@ class GroupBookingsController extends BaseController {
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
 	public function index() {
-		return view( 'admin.group_bookings.index' );
+		return view( 'admin.week_bookings.index' );
 	}
 
+	/**
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function store() {
 
 		$this->validateData();
@@ -56,6 +59,12 @@ class GroupBookingsController extends BaseController {
 
 	}
 
+	/**
+	 * @param $from
+	 * @param $to
+	 *
+	 * @return array
+	 */
 	private function getBookingHours( $from, $to ) {
 
 		$diffHours = Carbon::parse( $from )->diffInHours( $to );

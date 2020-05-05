@@ -83,7 +83,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['admin.bookings.index','admin.group_bookings.index','admin.bookings.canceled']) ? 'kt-menu__item--open' : ''}}"
+                <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['admin.bookings.index','admin.week_bookings.index','admin.bookings.canceled','admin.fix_bookings.index']) ? 'kt-menu__item--open' : ''}}"
                     aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                     <span class="kt-menu__link-icon">
@@ -105,14 +105,24 @@
                                     <span class="kt-menu__link-text">لیست</span>
                                 </a>
                             </li>
-                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.group_bookings.index' ? 'kt-menu__item--active' : ''}}"
+                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.week_bookings.index' ? 'kt-menu__item--active' : ''}}"
                                 aria-haspopup="true">
-                                <a href="{{route('admin.group_bookings.index')}}"
+                                <a href="{{route('admin.week_bookings.index')}}"
                                    class="kt-menu__link ">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                         <span></span>
                                     </i>
-                                    <span class="kt-menu__link-text">رزرو گروهی</span>
+                                    <span class="kt-menu__link-text">رزرو هفته</span>
+                                </a>
+                            </li>
+                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.fix_bookings.index' ? 'kt-menu__item--active' : ''}}"
+                                aria-haspopup="true">
+                                <a href="{{route('admin.fix_bookings.index')}}"
+                                   class="kt-menu__link ">
+                                    <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="kt-menu__link-text">رزرو فیکسی</span>
                                 </a>
                             </li>
                             <li class="kt-menu__item {{Route::currentRouteName() === 'admin.bookings.canceled' ? 'kt-menu__item--active' : ''}}"

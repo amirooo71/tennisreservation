@@ -191,7 +191,7 @@
 
             onClick() {
                 this.loading = true;
-                axios.post('/admin/group/bookings', {
+                axios.post('/admin/week/bookings', {
                     court_id: this.courtId,
                     renter_name: this.renterName,
                     date: this.formatDate(this.activeDate),

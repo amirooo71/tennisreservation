@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <group-bookings></group-bookings>
+            <week-bookings></week-bookings>
         </div>
     </div>
 

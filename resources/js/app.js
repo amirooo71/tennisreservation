@@ -25,7 +25,7 @@ Vue.component('bookings', require('./components/booking/Bookings.vue').default);
 Vue.component('bookingModal', require('./components/booking/BookingModal').default);
 Vue.component('bookingManageModal', require('./components/booking/BookingManageModal').default);
 Vue.component('bookingFloatButtons', require('./components/booking/BookingFloatButtons').default);
-Vue.component('groupBookings', require('./components/group_booking/Bookings').default);
+Vue.component('weekBookings', require('./components/week_booking/Bookings').default);
 Vue.component('revenue-chart', require('./components/statistic/Revenue').default);
 Vue.component('bookings-chart', require('./components/statistic/Bookings').default);
 Vue.component('canceled-chart', require('./components/statistic/Canceled').default);
