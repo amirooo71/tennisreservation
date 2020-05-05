@@ -49,6 +49,12 @@ class FixBookingsController extends Controller {
 
 		$data = $this->getValidateDate();
 
+		if ( $this->isBooked() ) {
+			flash( 'در این روز و ساعت رزرو فیکسی دیگری است.', 'danger' );
+
+			return back();
+		}
+
 		FixBooking::create( $data );
 
 		flash( 'رزرو با موفقیت ثبت شد', 'success' );
@@ -65,7 +71,23 @@ class FixBookingsController extends Controller {
 
 		$data = $this->getValidateDate();
 
-		$fixBooking->update( $data );
+		if ( $fixBooking->day === $this->isBooked()->day && $fixBooking->time === $this->isBooked()->time ) {
+
+			$fixBooking->update( $data );
+
+		} else {
+
+			if ( $this->isBooked() ) {
+				flash( 'در این روز و ساعت رزرو فیکسی دیگری است.', 'danger' );
+
+				return back();
+			}
+
+
+			$fixBooking->update( $data );
+
+		}
+
 
 		flash( 'رزرو با موفقیت ویرایش شد', 'success' );
 
@@ -101,5 +123,12 @@ class FixBookingsController extends Controller {
 		] );
 
 		return $data;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	private function isBooked() {
+		return FixBooking::where( 'day', \request()->input( 'day' ) )->where( 'time', \request()->input( 'time' ) )->first();
 	}
 }
