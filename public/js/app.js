@@ -2413,6 +2413,13 @@ __webpack_require__.r(__webpack_exports__);
       notePanel: ''
     };
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    Events.$on('close-booking-note-panel', function () {
+      _this.notePanel.hide();
+    });
+  },
   methods: {
     onHome: function onHome() {
       window.location.href = "/admin/dashboard";
@@ -3188,8 +3195,78 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "note"
+  name: "note",
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {
+    console.log('open');
+  },
+  methods: {
+    onClosePanel: function onClosePanel() {
+      Events.$emit('close-booking-note-panel');
+    }
+  }
 });
 
 /***/ }),
@@ -86338,9 +86415,157 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h2", [_vm._v("\n    Hello world\n")])
+  return _c("div", { staticClass: "kt-portlet" }, [
+    _c("div", { staticClass: "kt-portlet__head" }, [
+      _c("div", { staticClass: "kt-portlet__head" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "kt-portlet__head-toolbar" }, [
+          _c("div", { staticClass: "kt-portlet__head-actions" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-sm btn-icon btn-clean btn-icon-md",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.onClosePanel($event)
+                  }
+                }
+              },
+              [_c("i", { staticClass: "la la-close" })]
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(1)
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "kt-portlet__head-label" }, [
+      _c("h3", { staticClass: "kt-portlet__head-title" }, [
+        _vm._v("\n                    یادداشت ها\n                ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "kt-portlet__body" }, [
+      _c("div", { staticClass: "kt-list-timeline" }, [
+        _c("div", { staticClass: "kt-list-timeline__items" }, [
+          _c("div", { staticClass: "kt-list-timeline__item" }, [
+            _c("span", { staticClass: "kt-list-timeline__badge" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "kt-list-timeline__text" }, [
+              _vm._v("12 new users registered and pending for activation")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "kt-list-timeline__time" }, [
+              _vm._v("Just now")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "kt-list-timeline__item" }, [
+            _c("span", { staticClass: "kt-list-timeline__badge" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "kt-list-timeline__text" }, [
+              _vm._v("Scheduled system reboot completed "),
+              _c(
+                "span",
+                { staticClass: "kt-badge kt-badge--brand kt-badge--inline" },
+                [_vm._v("completed")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "kt-list-timeline__time" }, [
+              _vm._v("14 mins")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "kt-list-timeline__item" }, [
+            _c("span", { staticClass: "kt-list-timeline__badge" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "kt-list-timeline__text" }, [
+              _vm._v("New order has been planced and pending for processing")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "kt-list-timeline__time" }, [
+              _vm._v("20 mins")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "kt-list-timeline__item" }, [
+            _c("span", { staticClass: "kt-list-timeline__badge" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "kt-list-timeline__text" }, [
+              _vm._v(
+                "Database server overloaded 80% and requires quick reboot "
+              ),
+              _c(
+                "span",
+                { staticClass: "kt-badge kt-badge--danger kt-badge--inline" },
+                [_vm._v("settled")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "kt-list-timeline__time" }, [
+              _vm._v("1 hr")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "kt-list-timeline__item" }, [
+            _c("span", { staticClass: "kt-list-timeline__badge" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "kt-list-timeline__text" }, [
+              _vm._v(
+                "System error occured and hard drive has been shutdown - "
+              ),
+              _c("a", { staticClass: "kt-link", attrs: { href: "#" } }, [
+                _vm._v("Check")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "kt-list-timeline__time" }, [
+              _vm._v("2 hrs")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "kt-list-timeline__item" }, [
+            _c("span", { staticClass: "kt-list-timeline__badge" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "kt-list-timeline__text" }, [
+              _vm._v("Production server is rebooting...")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "kt-list-timeline__time" }, [
+              _vm._v("3 hrs")
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group mt-3" }, [
+        _c("textarea", {
+          staticClass: "form-control",
+          attrs: { name: "", id: "", cols: "30", rows: "10" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("button", { staticClass: "btn btn-success" }, [_vm._v("ذخیره")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

@@ -67,6 +67,12 @@
             }
         },
 
+        mounted() {
+            Events.$on('close-booking-note-panel', () => {
+                this.notePanel.hide();
+            });
+        },
+
         methods: {
 
             onHome() {
