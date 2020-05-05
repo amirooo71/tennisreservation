@@ -7,6 +7,7 @@ use App\Club;
 use App\Court;
 use App\Creditor;
 use App\Debtor;
+use App\FixBooking;
 use App\Payment;
 use Hekmatinasser\Verta\Verta;
 
@@ -24,6 +25,8 @@ class BookingsController extends BaseController {
 		}
 
 		$club = Club::first();
+
+		$this->checkTodayFixBookings( $date );
 
 		$courts = $this->getAllCourtBookingsByDate( $date );
 
@@ -314,6 +317,40 @@ class BookingsController extends BaseController {
 		       Verta::parse( request( 'date' ) . ' ' . request( 'time' ) )->lt( Verta::now()->subMinutes( date( 'i' ) )->subSeconds( date( 's' ) ) );
 
 
+	}
+
+	/**
+	 * @param $date
+	 */
+	private function checkTodayFixBookings( $date ): void {
+
+		$day = Verta::parse( $date )->formatWord( 'l' );
+
+		$fixBookings = FixBooking::where( 'day', $day )->get();
+
+		if ( $fixBookings->count() ) {
+
+			$fixBookings->each( function ( $booking ) {
+
+				$isBooked = Booking::where( 'date', Verta::now()->format( 'Y-n-j' ) )->where( 'time', $booking->time )->where( 'court_id', $booking->court_id )->first();
+
+				if ( ! $isBooked ) {
+
+					Booking::create( [
+						'court_id'     => $booking->court_id,
+						'renter_name'  => $booking->renter_name,
+						'date'         => Verta::now()->format( 'Y-n-j' ),
+						'time'         => $booking->time,
+						'partner_name' => $booking->partner_name,
+						'duration'     => 60,
+						'amount'       => $booking->court->price,
+					] );
+
+				}
+
+			} );
+
+		}
 	}
 
 

@@ -25,9 +25,13 @@ class FixBookingsController extends Controller {
 	 */
 	public function create() {
 
-		$openingHours = Club::first()->openingHours();
+		$club = Club::first();
 
-		return view( 'admin.fix_bookings.create', compact( 'openingHours' ) );
+		$courts = $club->courts;
+
+		$openingHours = $club->openingHours();
+
+		return view( 'admin.fix_bookings.create', compact( 'openingHours', 'courts' ) );
 	}
 
 	/**
@@ -37,15 +41,22 @@ class FixBookingsController extends Controller {
 	 */
 	public function edit( FixBooking $fixBooking ) {
 
-		$openingHours = Club::first()->openingHours();
 
-		return view( 'admin.fix_bookings.edit', compact( 'fixBooking', 'openingHours' ) );
+		$club = Club::first();
+
+		$courts = $club->courts;
+
+		$openingHours = $club->openingHours();
+
+		return view( 'admin.fix_bookings.edit', compact( 'fixBooking', 'openingHours', 'courts' ) );
 	}
 
 	/**
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function store() {
+
+//		dd(\request()->all());
 
 		$data = $this->getValidateDate();
 
@@ -71,7 +82,7 @@ class FixBookingsController extends Controller {
 
 		$data = $this->getValidateDate();
 
-		if ( $fixBooking->day === $this->isBooked()->day && $fixBooking->time === $this->isBooked()->time ) {
+		if ( $this->isCurrentFixBooked( $fixBooking ) ) {
 
 			$fixBooking->update( $data );
 
@@ -116,6 +127,7 @@ class FixBookingsController extends Controller {
 	 */
 	private function getValidateDate(): array {
 		$data = \request()->validate( [
+			'court_id'     => 'required',
 			'renter_name'  => 'required',
 			'day'          => 'required',
 			'time'         => 'required',
@@ -129,6 +141,18 @@ class FixBookingsController extends Controller {
 	 * @return mixed
 	 */
 	private function isBooked() {
-		return FixBooking::where( 'day', \request()->input( 'day' ) )->where( 'time', \request()->input( 'time' ) )->first();
+		return FixBooking::where( 'day', \request()->input( 'day' ) )
+		                 ->where( 'time', \request()->input( 'time' ) )
+		                 ->where( 'court_id', \request()->input( 'court_id' ) )
+		                 ->first();
+	}
+
+	/**
+	 * @param FixBooking $fixBooking
+	 *
+	 * @return bool
+	 */
+	private function isCurrentFixBooked( FixBooking $fixBooking ): bool {
+		return $fixBooking->day === \request()->input( 'day' ) && $fixBooking->time === \request()->input( 'time' ) && $fixBooking->court_id === \request()->input( 'court_id' );
 	}
 }

@@ -13,11 +13,12 @@ class CreateFixBookingsTable extends Migration {
 	public function up() {
 		Schema::create( 'fix_bookings', function ( Blueprint $table ) {
 			$table->bigIncrements( 'id' );
+			$table->unsignedBigInteger( 'court_id' );
 			$table->string( 'renter_name' );
 			$table->string( 'day' );
 			$table->string( 'time' );
 			$table->string( 'partner_name' )->nullable();
-			$table->unique( [ 'day', 'time' ] );
+			$table->unique( [ 'day', 'time','court_id' ] );
 			$table->timestamps();
 		} );
 	}

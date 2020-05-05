@@ -1,4 +1,14 @@
 <div class="form-group">
+    <label>کورت</label>
+    <select name="court_id" class="form-control">
+        @foreach($courts as $court)
+            <option value="{{$court->id}}"
+                    {{$court->id === $fixBooking->court_id ? 'selected' : ''}}>{{$court->name}}</option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
     <label>نام رزرو کننده</label>
     <input name="renter_name"
            type="text"
@@ -12,7 +22,7 @@
     <label>روز هفته</label>
     <select name="day" id="day" class="form-control">
         <option value="شنبه" {{$fixBooking->day === 'شنبه' ? 'selected' : ''}}>شنبه</option>
-        <option value="یکشنبه" {{$fixBooking->day === 'یکشنبه' ? 'selected' : ''}}`>یکشنبه</option>
+        <option value="یکشنبه" {{$fixBooking->day === 'یکشنبه' ? 'selected' : ''}}>یکشنبه</option>
         <option value="دوشنبه" {{$fixBooking->day === 'دوشنبه' ? 'selected' : ''}}>دوشنبه</option>
         <option value="سه شنبه" {{$fixBooking->day === 'سه شنبه' ? 'selected' : ''}}>سه شنبه</option>
         <option value="چهارشنبه" {{$fixBooking->day === 'چهارشنبه' ? 'selected' : ''}}>چهارشنبه</option>
@@ -27,7 +37,7 @@
     <label>ساعت</label>
     <select name="time" id="time" class="form-control">
         @foreach($openingHours as $hour)
-            <option value="{{$hour}}" {{$fixBooking->time === $hour ? 'selected' : ''}}>{{$hour}}</option>
+            <option value="{{$hour}}" {{$fixBooking->time === $hour ? 'selected' : ''}}>@faNum($hour,false)</option>
         @endforeach
     </select>
     @component('components.validation',['field' => 'time'])

@@ -40,6 +40,7 @@
             </tbody>
         </table>
 
+        <div class="mt-3">{{$fixBookings->links()}}</div>
 
     @endcomponent
 

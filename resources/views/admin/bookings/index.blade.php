@@ -31,6 +31,9 @@
 
 <div id="app" style="overflow: hidden;">
 
+    <span class="btn btn-bold btn-sm btn-font-sm  btn-label-danger"
+          style="position: absolute;">{{\Hekmatinasser\Verta\Verta::now()->formatWord('l')}}</span>
+
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__body vh-100 tns-bg-darker-white">
             <table class="table table-bordered table-hover tns-bg-white booking-tbl" id="bookings-data-tbl">
