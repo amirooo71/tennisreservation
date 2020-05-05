@@ -10,6 +10,7 @@
              @prevDay="onPrevDay"
              @currentDay="onCurrentDay"
              @sync="onSync"
+             @note="onNote"
         ></fab>
     </div>
 </template>
@@ -42,21 +43,27 @@
                         tooltip: `تاریخ: ${moment(this.date, 'jYYYY-jM-jD').format('YYYY/M/D')}`
                     },
                     {
+                        name: 'note',
+                        icon: 'note',
+                        tooltip: 'یادداشت'
+                    },
+                    {
                         name: 'nextDay',
                         icon: 'navigate_next',
-                        tooltip: `روز بعد`
+                        tooltip: 'روز بعد'
                     },
                     {
                         name: 'prevDay',
                         icon: 'navigate_before',
-                        tooltip: `روز قبل`
+                        tooltip: 'روز قبل'
                     },
                     {
                         name: 'sync',
                         icon: 'refresh',
-                        tooltip: `همگام سازی`
+                        tooltip: 'همگام سازی'
                     }
-                ]
+                ],
+                notePanel: '',
             }
         },
 
@@ -115,6 +122,16 @@
             onSync() {
                 location.reload();
             },
+
+            onNote() {
+                this.notePanel = this.$showPanel({
+                    component: 'booking-note',
+                    openOn: 'right',
+                    props: {
+                        //any data you want passed to your component
+                    }
+                })
+            }
 
         },
 

@@ -29,6 +29,8 @@ Vue.component('weekBookings', require('./components/week_booking/Bookings').defa
 Vue.component('revenue-chart', require('./components/statistic/Revenue').default);
 Vue.component('bookings-chart', require('./components/statistic/Bookings').default);
 Vue.component('canceled-chart', require('./components/statistic/Canceled').default);
+Vue.component('booking-note', require('./components/booking/Note').default);
+Vue.component('slide-panel', require('./components/SlidePanel').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -59,7 +59,7 @@
     <booking-float-buttons :date="{{json_encode($date)}}"></booking-float-buttons>
     <booking-modal></booking-modal>
     <booking-manage-modal></booking-manage-modal>
-
+    <slide-panel></slide-panel>
 </div>
 
 <script>
