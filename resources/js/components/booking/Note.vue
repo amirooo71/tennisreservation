@@ -19,46 +19,18 @@
         <div class="kt-portlet__body">
             <div class="kt-list-timeline">
                 <div class="kt-list-timeline__items">
-                    <div class="kt-list-timeline__item">
+                    <div class="kt-list-timeline__item" v-for="note in notes">
                         <span class="kt-list-timeline__badge"></span>
-                        <span class="kt-list-timeline__text">12 new users registered and pending for activation</span>
-                        <span class="kt-list-timeline__time">Just now</span>
-                    </div>
-                    <div class="kt-list-timeline__item">
-                        <span class="kt-list-timeline__badge"></span>
-                        <span class="kt-list-timeline__text">Scheduled system reboot completed <span
-                                class="kt-badge kt-badge--brand kt-badge--inline">completed</span></span>
-                        <span class="kt-list-timeline__time">14 mins</span>
-                    </div>
-                    <div class="kt-list-timeline__item">
-                        <span class="kt-list-timeline__badge"></span>
-                        <span class="kt-list-timeline__text">New order has been planced and pending for processing</span>
-                        <span class="kt-list-timeline__time">20 mins</span>
-                    </div>
-                    <div class="kt-list-timeline__item">
-                        <span class="kt-list-timeline__badge"></span>
-                        <span class="kt-list-timeline__text">Database server overloaded 80% and requires quick reboot <span
-                                class="kt-badge kt-badge--danger kt-badge--inline">settled</span></span>
-                        <span class="kt-list-timeline__time">1 hr</span>
-                    </div>
-                    <div class="kt-list-timeline__item">
-                        <span class="kt-list-timeline__badge"></span>
-                        <span class="kt-list-timeline__text">System error occured and hard drive has been shutdown - <a
-                                href="#" class="kt-link">Check</a></span>
-                        <span class="kt-list-timeline__time">2 hrs</span>
-                    </div>
-                    <div class="kt-list-timeline__item">
-                        <span class="kt-list-timeline__badge"></span>
-                        <span class="kt-list-timeline__text">Production server is rebooting...</span>
-                        <span class="kt-list-timeline__time">3 hrs</span>
+                        <span class="kt-list-timeline__text">{{note.description}}</span>
+                        <span class="kt-list-timeline__time">{{formatTime(note.time)}}</span>
                     </div>
                 </div>
             </div>
             <div class="form-group mt-3">
-                <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
+                <textarea v-model="description" cols="30" rows="5" class="form-control"></textarea>
             </div>
             <div class="form-group">
-                <button class="btn btn-success">ذخیره</button>
+                <button class="btn btn-success" @click="onSubmit">ذخیره</button>
             </div>
         </div>
     </div>
@@ -66,20 +38,52 @@
 </template>
 
 <script>
+
+    import helper from './../../mixins/helper';
+
     export default {
         name: "note",
 
+        props: ['date'],
+
+        mixins: [helper],
+
         data() {
-            return {}
+            return {
+                description: '',
+                notes: [],
+            }
         },
 
-        mounted(){
-            console.log('open');
+
+        created() {
+            this.getNotes();
         },
 
         methods: {
             onClosePanel() {
                 Events.$emit('close-booking-note-panel');
+            },
+
+            getNotes() {
+
+                axios.get('/admin/ajax/booking/note', {params: {date: this.date}}).then(res => {
+                    this.notes = res.data;
+                });
+
+            },
+
+            onSubmit() {
+                axios.post('/admin/ajax/booking/note', {description: this.description, date: this.date})
+                    .then(res => {
+                        console.log(res.data.note);
+                        this.notes.push(res.data.note);
+                        this.description = '';
+                        toastr.success(res.data.msg);
+                    })
+                    .catch(err => {
+                        toastError();
+                    });
             }
         }
     }

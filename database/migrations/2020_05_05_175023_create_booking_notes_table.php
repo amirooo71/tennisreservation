@@ -14,6 +14,7 @@ class CreateBookingNotesTable extends Migration {
 		Schema::create( 'booking_notes', function ( Blueprint $table ) {
 			$table->bigIncrements( 'id' );
 			$table->unsignedBigInteger( 'user_id' );
+			$table->string( 'date' );
 			$table->string( 'time' );
 			$table->text( 'description' );
 			$table->timestamps();

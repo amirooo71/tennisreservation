@@ -70,6 +70,10 @@ Route::middleware( [ 'auth' ] )->prefix( 'admin' )->group( function () {
 	Route::get( 'ajax/activity/date-time/dates', 'Admin\ActivityDateAndTimeController@dates' );
 	Route::get( 'ajax/activity/date-time/hours', 'Admin\ActivityDateAndTimeController@hours' );
 
+
+	Route::get( 'ajax/booking/note', 'Admin\BookingNoteController@index' );
+	Route::post( 'ajax/booking/note', 'Admin\BookingNoteController@store' );
+
 	Route::get( 'ajax/courts', 'Admin\CourtsController@courts' );
 
 

@@ -2466,7 +2466,8 @@ __webpack_require__.r(__webpack_exports__);
       this.notePanel = this.$showPanel({
         component: 'booking-note',
         openOn: 'right',
-        props: {//any data you want passed to your component
+        props: {
+          date: this.date
         }
       });
     }
@@ -3187,6 +3188,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../mixins/helper */ "./resources/js/mixins/helper.js");
 //
 //
 //
@@ -3226,45 +3228,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "note",
+  props: ['date'],
+  mixins: [_mixins_helper__WEBPACK_IMPORTED_MODULE_0__["default"]],
   data: function data() {
-    return {};
+    return {
+      description: '',
+      notes: []
+    };
   },
-  mounted: function mounted() {
-    console.log('open');
+  created: function created() {
+    this.getNotes();
   },
   methods: {
     onClosePanel: function onClosePanel() {
       Events.$emit('close-booking-note-panel');
+    },
+    getNotes: function getNotes() {
+      var _this = this;
+
+      axios.get('/admin/ajax/booking/note', {
+        params: {
+          date: this.date
+        }
+      }).then(function (res) {
+        _this.notes = res.data;
+      });
+    },
+    onSubmit: function onSubmit() {
+      var _this2 = this;
+
+      axios.post('/admin/ajax/booking/note', {
+        description: this.description,
+        date: this.date
+      }).then(function (res) {
+        console.log(res.data.note);
+
+        _this2.notes.push(res.data.note);
+
+        _this2.description = '';
+        toastr.success(res.data.msg);
+      })["catch"](function (err) {
+        toastError();
+      });
     }
   }
 });
@@ -86441,7 +86449,60 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(1)
+    _c("div", { staticClass: "kt-portlet__body" }, [
+      _c("div", { staticClass: "kt-list-timeline" }, [
+        _c(
+          "div",
+          { staticClass: "kt-list-timeline__items" },
+          _vm._l(_vm.notes, function(note) {
+            return _c("div", { staticClass: "kt-list-timeline__item" }, [
+              _c("span", { staticClass: "kt-list-timeline__badge" }),
+              _vm._v(" "),
+              _c("span", { staticClass: "kt-list-timeline__text" }, [
+                _vm._v(_vm._s(note.description))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "kt-list-timeline__time" }, [
+                _vm._v(_vm._s(_vm.formatTime(note.time)))
+              ])
+            ])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group mt-3" }, [
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.description,
+              expression: "description"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { cols: "30", rows: "5" },
+          domProps: { value: _vm.description },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.description = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-success", on: { click: _vm.onSubmit } },
+          [_vm._v("ذخیره")]
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -86452,116 +86513,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "kt-portlet__head-label" }, [
       _c("h3", { staticClass: "kt-portlet__head-title" }, [
         _vm._v("\n                    یادداشت ها\n                ")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "kt-portlet__body" }, [
-      _c("div", { staticClass: "kt-list-timeline" }, [
-        _c("div", { staticClass: "kt-list-timeline__items" }, [
-          _c("div", { staticClass: "kt-list-timeline__item" }, [
-            _c("span", { staticClass: "kt-list-timeline__badge" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "kt-list-timeline__text" }, [
-              _vm._v("12 new users registered and pending for activation")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "kt-list-timeline__time" }, [
-              _vm._v("Just now")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "kt-list-timeline__item" }, [
-            _c("span", { staticClass: "kt-list-timeline__badge" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "kt-list-timeline__text" }, [
-              _vm._v("Scheduled system reboot completed "),
-              _c(
-                "span",
-                { staticClass: "kt-badge kt-badge--brand kt-badge--inline" },
-                [_vm._v("completed")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "kt-list-timeline__time" }, [
-              _vm._v("14 mins")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "kt-list-timeline__item" }, [
-            _c("span", { staticClass: "kt-list-timeline__badge" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "kt-list-timeline__text" }, [
-              _vm._v("New order has been planced and pending for processing")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "kt-list-timeline__time" }, [
-              _vm._v("20 mins")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "kt-list-timeline__item" }, [
-            _c("span", { staticClass: "kt-list-timeline__badge" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "kt-list-timeline__text" }, [
-              _vm._v(
-                "Database server overloaded 80% and requires quick reboot "
-              ),
-              _c(
-                "span",
-                { staticClass: "kt-badge kt-badge--danger kt-badge--inline" },
-                [_vm._v("settled")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "kt-list-timeline__time" }, [
-              _vm._v("1 hr")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "kt-list-timeline__item" }, [
-            _c("span", { staticClass: "kt-list-timeline__badge" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "kt-list-timeline__text" }, [
-              _vm._v(
-                "System error occured and hard drive has been shutdown - "
-              ),
-              _c("a", { staticClass: "kt-link", attrs: { href: "#" } }, [
-                _vm._v("Check")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "kt-list-timeline__time" }, [
-              _vm._v("2 hrs")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "kt-list-timeline__item" }, [
-            _c("span", { staticClass: "kt-list-timeline__badge" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "kt-list-timeline__text" }, [
-              _vm._v("Production server is rebooting...")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "kt-list-timeline__time" }, [
-              _vm._v("3 hrs")
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group mt-3" }, [
-        _c("textarea", {
-          staticClass: "form-control",
-          attrs: { name: "", id: "", cols: "30", rows: "10" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("button", { staticClass: "btn btn-success" }, [_vm._v("ذخیره")])
       ])
     ])
   }

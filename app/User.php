@@ -52,4 +52,11 @@ class User extends Authenticatable {
 	public function club() {
 		return $this->clubs()->first();
 	}
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function notes() {
+		return $this->hasMany( BookingNote::class );
+	}
 }

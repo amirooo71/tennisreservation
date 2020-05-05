@@ -134,7 +134,7 @@
                     component: 'booking-note',
                     openOn: 'right',
                     props: {
-                        //any data you want passed to your component
+                        date: this.date,
                     }
                 })
             }
