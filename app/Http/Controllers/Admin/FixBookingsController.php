@@ -56,7 +56,7 @@ class FixBookingsController extends Controller {
 	 */
 	public function store() {
 
-//		dd(\request()->all());
+	    dd(\request()->all());
 
 		$data = $this->getValidateDate();
 

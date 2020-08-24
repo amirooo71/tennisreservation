@@ -3,7 +3,7 @@
     <select name="court_id" class="form-control">
         @foreach($courts as $court)
             <option value="{{$court->id}}"
-                    {{$court->id === $fixBooking->court_id ? 'selected' : ''}}>{{$court->name}}</option>
+                {{$court->id === $fixBooking->court_id ? 'selected' : ''}}>{{$court->name}}</option>
         @endforeach
     </select>
 </div>
@@ -16,6 +16,15 @@
            value="{{old('renter_name') ?? $fixBooking->renter_name}}">
     @component('components.validation',['field' => 'renter_name'])
     @endcomponent
+</div>
+
+<div class="form-group">
+    <lavel>نام مربی</lavel>
+    <select name="coach_id" id="" class="form-control">
+        @foreach(\App\Coach::all() as $coach)
+            <option value="{{$coach->id}}">{{$coach->first_name}} {{$coach->last_name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <div class="form-group">
@@ -45,7 +54,7 @@
 </div>
 
 <div class="form-group">
-    <label>نام پارتنر</label>
+    <label>نام شاگرد</label>
     <input name="partner_name"
            type="text"
            class="form-control"
