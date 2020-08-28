@@ -68,4 +68,9 @@ class Coach extends Model {
 		return ( $bookings->sum( 'amount' ) + $partTimeAmount + $debt ) - ( $credit + optional($this->balance)->amount );
 	}
 
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
 }

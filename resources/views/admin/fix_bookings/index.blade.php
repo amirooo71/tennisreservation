@@ -21,7 +21,7 @@
             <tbody>
             @foreach($fixBookings as $fix)
                 <tr>
-                    <td>{{$fix->renter_name}}</td>
+                    <td>{{$fix->coach_id ? $fix->coach->full_name : $fix->renter_name}}</td>
                     <td>{{$fix->day}}</td>
                     <td>@faNum($fix->time,false)</td>
                     <td>{{$fix->partner_name ?? '-'}}</td>

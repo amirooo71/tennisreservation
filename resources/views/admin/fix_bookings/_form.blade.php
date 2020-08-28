@@ -22,9 +22,22 @@
     <lavel>نام مربی</lavel>
     <select name="coach_id" id="" class="form-control">
         @foreach(\App\Coach::all() as $coach)
+            <option value="" disabled selected>مربی مورد نظر را اتنخاب کنید</option>
             <option value="{{$coach->id}}">{{$coach->first_name}} {{$coach->last_name}}</option>
         @endforeach
     </select>
+    @component('components.validation',['field' => 'coach_id'])
+    @endcomponent
+</div>
+
+<div class="form-group">
+    <label>نام شاگرد</label>
+    <input name="partner_name"
+           type="text"
+           class="form-control"
+           value="{{old('partner_name') ?? $fixBooking->partner_name}}">
+    @component('components.validation',['field' => 'partner_name'])
+    @endcomponent
 </div>
 
 <div class="form-group">
@@ -53,15 +66,6 @@
     @endcomponent
 </div>
 
-<div class="form-group">
-    <label>نام شاگرد</label>
-    <input name="partner_name"
-           type="text"
-           class="form-control"
-           value="{{old('partner_name') ?? $fixBooking->partner_name}}">
-    @component('components.validation',['field' => 'partner_name'])
-    @endcomponent
-</div>
 
 <div class="form-group">
     <button class="btn btn-success">ذخیره</button>

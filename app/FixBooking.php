@@ -13,4 +13,11 @@ class FixBooking extends Model {
 	public function court() {
 		return $this->belongsTo( Court::class );
 	}
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+	public function coach(){
+	    return $this->belongsTo(Coach::class);
+    }
 }

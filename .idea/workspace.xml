@@ -20,18 +20,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b01c91de-d725-464d-91da-470dc09fd2f6" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Laravel_8_23_20__3_42_AM.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_08_24_104031_add_coach_to_fix_bookings.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/tennis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tennis.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Coach.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Coach.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/FixBooking.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/FixBooking.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/FixBookingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/FixBookingsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/0.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/0.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/1.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/3.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/4.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/fix_bookings/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/fix_bookings/_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/fix_bookings/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/fix_bookings/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/fix_bookings/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/fix_bookings/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,46 +52,6 @@
         <option value="Vue Single File Component" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>Reset</find>
-      <find>Task Rep</find>
-      <find>placeholder</find>
-      <find>dele</find>
-      <find>left</find>
-      <find>pulse-ring</find>
-      <find>opening_hours</find>
-      <find>owne</find>
-      <find>owner_id</find>
-      <find>coachId</find>
-      <find>coachName</find>
-      <find>with</find>
-      <find>round</find>
-      <find>bookings</find>
-      <find>date</find>
-      <find>getCourtBookings</find>
-      <find>ownerId</find>
-      <find>ownerI</find>
-      <find>owner</find>
-      <find>GroupBookingsController</find>
-      <find>getBookings</find>
-      <find>coachPay</find>
-      <find>flash</find>
-      <find>canceled</find>
-      <find>charg</find>
-      <find>charge</find>
-      <find>debtAmoutn</find>
-      <find>first_name</find>
-      <find>balance</find>
-      <find>group</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>hasClub</replace>
-      <replace>disabled</replace>
-      <replace>start_time</replace>
-      <replace>partTimeStartAt</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -288,7 +251,9 @@
       <workItem from="1588593788990" duration="6498000" />
       <workItem from="1588673464820" duration="12602000" />
       <workItem from="1598168466968" duration="3314000" />
-      <workItem from="1598248476447" duration="2634000" />
+      <workItem from="1598248476447" duration="16448000" />
+      <workItem from="1598270441600" duration="7613000" />
+      <workItem from="1598618925123" duration="3883000" />
     </task>
     <servers />
   </component>
@@ -315,10 +280,15 @@
       <screen x="0" y="27" width="3286" height="1053" />
     </state>
     <state x="449" y="175" width="1022" height="737" key="SettingsEditor/0.27.3286.1053@0.27.3286.1053" timestamp="1598248457147" />
-    <state x="364" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1598250499610">
+    <state x="651" y="148" width="618" height="783" key="find.popup" timestamp="1598621878307">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="651" y="148" width="618" height="783" key="find.popup/1920.0.1366.768/0.27.1920.1053@0.27.1920.1053" timestamp="1598621878307" />
+    <state x="364" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1598622726082">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.27.3286.1053@0.27.3286.1053" timestamp="1598248347975" />
-    <state x="364" y="239" width="672" height="678" key="search.everywhere.popup/1920.0.1366.768/0.27.1920.1053@0.27.1920.1053" timestamp="1598250499610" />
+    <state x="364" y="239" width="672" height="678" key="search.everywhere.popup/1920.0.1366.768/0.27.1920.1053@0.27.1920.1053" timestamp="1598622726082" />
+    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/72.27.1294.741@72.27.1294.741" timestamp="1598343147777" />
   </component>
 </project>
