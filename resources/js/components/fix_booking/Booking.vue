@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="form-group">
-                    <ValidationProvider name="Renter-name" rules="required_without" v-slot="{ errors }">
+                    <ValidationProvider name="Renter-name" rules="" v-slot="{ errors }">
                         <label>نام رزرو کننده</label>
                         <input type="text" class="form-control" v-model="renter_name">
                         <span class="form-text text-danger" v-if="errors[0]">
@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="form-group">
-                    <ValidationProvider name="Coach-id" rules="required_without" v-slot="{ errors }">
+                    <ValidationProvider name="Coach-id" rules="" v-slot="{ errors }">
                         <lavel>نام مربی</lavel>
                         <select class="form-control" v-model="coach_id">
                             <option v-for="coach in coaches" :value="coach.id">
@@ -143,17 +143,13 @@ export default {
                     this.court_id = this.renter_name = this.coach_id = this.partner_name = this.day = this.time = '';
                     this.loading = false;
                     toastr.success(res.data.msg);
+                    Events.$emit('success-fix-booked', {booked: res.data.booked});
                 })
                 .catch(err => {
                     this.loading = false;
                     toastError(err.response.data.msg);
                 });
         },
-
-        onCoachChange(e) {
-            console.log(e.target.value);
-            this.coach_id = e.target.value;
-        }
 
     },
 }

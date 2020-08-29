@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Club;
+use App\Coach;
 use App\FixBooking;
 use App\Http\Controllers\Controller;
 use Hekmatinasser\Verta\Verta;
