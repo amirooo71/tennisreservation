@@ -22,7 +22,7 @@
                     <td>{{$player->first_name}}</td>
                     <td>{{$player->last_name}}</td>
                     <td>{{$player->age}}</td>
-                    <td>{{$player->gender}}</td>
+                    <td>{{$player->gender === 'male' ? 'پسر' : 'دختر'}}</td>
                     <td>
                         <a href="{{route('admin.players.edit',$player)}}"
                            class="btn btn-sm btn-clean btn-icon btn-icon-md" title="ویرایش">

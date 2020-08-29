@@ -2882,10 +2882,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "booking-modal",
+  props: ['players'],
   mixins: [_mixins_helper__WEBPACK_IMPORTED_MODULE_1__["default"]],
   components: {
     SweetModal: sweet_modal_vue__WEBPACK_IMPORTED_MODULE_0__["SweetModal"],
@@ -2923,7 +2928,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       hasPartnerName: false,
       url: '/admin/bookings',
       duration: '',
-      showPay: false
+      showPay: false,
+      player_id: ''
     };
   },
   created: function created() {
@@ -3009,7 +3015,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         end_time: this.endTime,
         is_part_time: this.isPartTimeBook(),
         start_at: this.partTimeStartAt,
-        duration: this.duration ? this.duration : 60
+        duration: this.duration ? this.duration : 60,
+        player_id: this.player_id
       };
     },
     reset: function reset() {
@@ -3031,6 +3038,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.url = '/admin/bookings';
       this.duration = '';
       this.showPay = false;
+      this.player_id = '';
       Events.$emit('reset-part-time-hours');
     },
     isPartTimeBook: function isPartTimeBook() {
@@ -3092,6 +3100,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["catch"](function (err) {
         return toastError();
       });
+    },
+    onPlayerChange: function onPlayerChange(e) {
+      console.log(this.player_id);
+      var player = this.players.find(function (player) {
+        return player.id == e.target.value;
+      });
+      this.partnerName = player.first_name + ' ' + player.last_name;
     }
   },
   watch: {
@@ -3402,13 +3417,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
 Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('required', vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_1__["required"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "booking",
-  props: ['courts', 'hours', 'coaches'],
+  props: ['courts', 'hours', 'coaches', 'players'],
   components: {
     ValidationProvider: vee_validate__WEBPACK_IMPORTED_MODULE_0__["ValidationProvider"],
     ValidationObserver: vee_validate__WEBPACK_IMPORTED_MODULE_0__["ValidationObserver"],
@@ -3422,6 +3441,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('required', vee_vali
       partner_name: '',
       day: '',
       time: '',
+      player_id: '',
       loading: false
     };
   },
@@ -3434,7 +3454,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('required', vee_vali
 
       this.loading = true;
       axios.post('/admin/fix/bookings', this.$data).then(function (res) {
-        _this.court_id = _this.renter_name = _this.coach_id = _this.partner_name = _this.day = _this.time = '';
+        _this.court_id = _this.renter_name = _this.coach_id = _this.player_name = _this.partner_name = _this.day = _this.time = '';
         _this.loading = false;
         toastr.success(res.data.msg);
         Events.$emit('success-fix-booked', {
@@ -3444,6 +3464,13 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('required', vee_vali
         _this.loading = false;
         toastError(err.response.data.msg);
       });
+    },
+    onPlayerChange: function onPlayerChange(e) {
+      var player = this.players.find(function (player) {
+        return player.id == e.target.value;
+      });
+      this.partner_name = player.first_name + ' ' + player.last_name;
+      console.log(this.partner_name);
     }
   }
 });
@@ -89058,27 +89085,56 @@ var render = function() {
                     ? _c("div", { staticClass: "form-group text-left" }, [
                         _c("label", [_vm._v("نام شاگرد را وارد کنید")]),
                         _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.partnerName,
-                              expression: "partnerName"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.partnerName },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.player_id,
+                                expression: "player_id"
                               }
-                              _vm.partnerName = $event.target.value
+                            ],
+                            staticClass: "form-control",
+                            attrs: { name: "player_id" },
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.player_id = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                },
+                                _vm.onPlayerChange
+                              ]
                             }
-                          }
-                        }),
+                          },
+                          _vm._l(_vm.players, function(player) {
+                            return _c(
+                              "option",
+                              { domProps: { value: player.id } },
+                              [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(
+                                      player.first_name + " " + player.last_name
+                                    ) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        ),
                         _vm._v(" "),
                         _c("span", { staticClass: "form-text text-muted" }, [
                           _vm._v(
@@ -89706,7 +89762,7 @@ var render = function() {
                       { staticClass: "form-group" },
                       [
                         _c("ValidationProvider", {
-                          attrs: { name: "Partner-name", rules: "" },
+                          attrs: { name: "Player-name", rules: "required" },
                           scopedSlots: _vm._u(
                             [
                               {
@@ -89716,27 +89772,64 @@ var render = function() {
                                   return [
                                     _c("label", [_vm._v("نام شاگرد")]),
                                     _vm._v(" "),
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.partner_name,
-                                          expression: "partner_name"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: { type: "text" },
-                                      domProps: { value: _vm.partner_name },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
+                                    _c(
+                                      "select",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.player_id,
+                                            expression: "player_id"
                                           }
-                                          _vm.partner_name = $event.target.value
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: { name: "player_id" },
+                                        on: {
+                                          change: [
+                                            function($event) {
+                                              var $$selectedVal = Array.prototype.filter
+                                                .call(
+                                                  $event.target.options,
+                                                  function(o) {
+                                                    return o.selected
+                                                  }
+                                                )
+                                                .map(function(o) {
+                                                  var val =
+                                                    "_value" in o
+                                                      ? o._value
+                                                      : o.value
+                                                  return val
+                                                })
+                                              _vm.player_id = $event.target
+                                                .multiple
+                                                ? $$selectedVal
+                                                : $$selectedVal[0]
+                                            },
+                                            _vm.onPlayerChange
+                                          ]
                                         }
-                                      }
-                                    }),
+                                      },
+                                      _vm._l(_vm.players, function(player) {
+                                        return _c(
+                                          "option",
+                                          { domProps: { value: player.id } },
+                                          [
+                                            _vm._v(
+                                              "\n                            " +
+                                                _vm._s(
+                                                  player.first_name +
+                                                    " " +
+                                                    player.last_name
+                                                ) +
+                                                "\n                        "
+                                            )
+                                          ]
+                                        )
+                                      }),
+                                      0
+                                    ),
                                     _vm._v(" "),
                                     errors[0]
                                       ? _c(

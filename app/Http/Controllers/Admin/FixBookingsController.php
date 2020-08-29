@@ -148,6 +148,7 @@ class FixBookingsController extends Controller
             'day' => 'required',
             'time' => 'required',
             'partner_name' => 'nullable',
+            'player_id' => 'nullable',
         ]);
 
         return $data;

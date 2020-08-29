@@ -233,6 +233,7 @@ class BookingsController extends BaseController
             'start_time' => 'nullable',
             'end_time' => 'nullable',
             'partner_name' => 'nullable',
+            'player_id' => 'nullable'
         ]);
 
         $data['amount'] = (request('duration') / 60) * Court::find(request('court_id'))->price;
@@ -361,6 +362,7 @@ class BookingsController extends BaseController
                         'partner_name' => $booking->partner_name,
                         'duration' => 60,
                         'amount' => $booking->court->price,
+                        'player_id' => $booking->player_id ? $booking->player_id : null,
                     ]);
 
                 }

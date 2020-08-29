@@ -3,6 +3,8 @@
 
 @section('content')
 
+    <a href="{{route('admin.players.index')}}" class="btn btn-light btn-elevate mb-3">بازگشت</a>
+
     <div class="row">
 
         <div class="col-md-6">

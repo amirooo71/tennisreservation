@@ -47,9 +47,13 @@
                 </div>
 
                 <div class="form-group">
-                    <ValidationProvider name="Partner-name" rules="" v-slot="{ errors }">
+                    <ValidationProvider name="Player-name" rules="required" v-slot="{ errors }">
                         <label>نام شاگرد</label>
-                        <input type="text" class="form-control" v-model="partner_name">
+                        <select @change="onPlayerChange" name="player_id" v-model="player_id" class="form-control">
+                            <option v-for="player in players" :value="player.id">
+                                {{ player.first_name + ' ' + player.last_name }}
+                            </option>
+                        </select>
                         <span class="form-text text-danger" v-if="errors[0]">
                       <i class="fas fa-exclamation-circle"></i>
                          {{ errors[0] }}
@@ -110,7 +114,7 @@ export default {
 
     name: "booking",
 
-    props: ['courts', 'hours', 'coaches'],
+    props: ['courts', 'hours', 'coaches', 'players'],
 
     components: {
         ValidationProvider,
@@ -126,6 +130,7 @@ export default {
             partner_name: '',
             day: '',
             time: '',
+            player_id: '',
             loading: false,
         }
     },
@@ -140,7 +145,7 @@ export default {
             this.loading = true;
             axios.post('/admin/fix/bookings', this.$data)
                 .then(res => {
-                    this.court_id = this.renter_name = this.coach_id = this.partner_name = this.day = this.time = '';
+                    this.court_id = this.renter_name = this.coach_id = this.player_name = this.partner_name = this.day = this.time = '';
                     this.loading = false;
                     toastr.success(res.data.msg);
                     Events.$emit('success-fix-booked', {booked: res.data.booked});
@@ -150,6 +155,12 @@ export default {
                     toastError(err.response.data.msg);
                 });
         },
+
+        onPlayerChange(e) {
+            let player = this.players.find(player => player.id == e.target.value);
+            this.partner_name = player.first_name + ' ' + player.last_name;
+            console.log(this.partner_name);
+        }
 
     },
 }
