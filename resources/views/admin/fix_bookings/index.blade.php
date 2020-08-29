@@ -3,7 +3,6 @@
 
 @section('content')
 
-
     <a href="{{route('admin.fix_bookings.create')}}" class="btn btn-light btn-elevate mb-3">اضافه کردن</a>
 
     @component('components.portletWithoutFooter',['title' => 'لیست فیکسی'])

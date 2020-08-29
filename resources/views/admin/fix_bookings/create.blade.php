@@ -8,10 +8,7 @@
     <div class="row">
         <div class="col-md-6">
             @component('components.portletWithoutFooter',['title' => 'رزرو فیکسی'])
-                <form class="kt-form" action="{{route('admin.fix_bookings.store')}}" method="POST">
-                    @csrf
-                    @include('admin.fix_bookings._form',['fixBooking' => new \App\FixBooking])
-                </form>
+                <fix-booking :courts="{{json_encode($courts)}}" :hours="{{json_encode($openingHours)}}" :coaches="{{json_encode(\App\Coach::all())}}"></fix-booking>
             @endcomponent
         </div>
         <div class="col-md-6">

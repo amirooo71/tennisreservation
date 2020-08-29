@@ -56,19 +56,28 @@ class FixBookingsController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store()
     {
         $data = $this->getValidateDate();
 
         if ($this->isBooked()) {
+
+            if (\request()->wantsJson()) {
+                return response()->json(['msg' => 'در این روز و ساعت رزرو فیکسی دیگری است.'], 422);
+            }
+
             flash('در این روز و ساعت رزرو فیکسی دیگری است.', 'danger');
 
             return back();
         }
 
-        FixBooking::create($data);
+        $booked = FixBooking::create($data);
+
+        if (\request()->wantsJson()) {
+            return response()->json(['msg' => 'رزرو فیکسی با موفقیت ذخیره شد', 'booked' => $booked]);
+        }
 
         flash('رزرو با موفقیت ثبت شد', 'success');
 

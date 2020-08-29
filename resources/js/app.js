@@ -30,6 +30,7 @@ Vue.component('revenue-chart', require('./components/statistic/Revenue').default
 Vue.component('bookings-chart', require('./components/statistic/Bookings').default);
 Vue.component('canceled-chart', require('./components/statistic/Canceled').default);
 Vue.component('booking-note', require('./components/booking/Note').default);
+Vue.component('fix-booking', require('./components/fix_booking/booking').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
