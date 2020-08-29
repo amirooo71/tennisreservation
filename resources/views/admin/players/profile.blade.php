@@ -8,10 +8,13 @@
                 <a class="nav-link active" data-toggle="tab" href="#kt_tabs_1_1" role="tab">مشخصات</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#" role="tab">کلاس ها</a>
+                <a class="nav-link" data-toggle="tab" href="#kt_tabs_1_2" role="tab">فیکسی ها</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#kt_tabs_1_3" role="tab">پرداختی ها</a>
+                <a class="nav-link" data-toggle="tab" href="#kt_tabs_1_3" role="tab">کلاس ها</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#kt_tabs_1_4" role="tab">مالی</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -20,7 +23,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>نام و نام خانوادگی</label>
-                            <input readonly class="form-control" type="text" value="{{$player->first_name . ' ' . $player->last_name}}">
+                            <input readonly class="form-control" type="text"
+                                   value="{{$player->first_name . ' ' . $player->last_name}}">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -40,7 +44,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>هزینه کلاس</label>
-                            <input readonly class="form-control" type="text" value="{{$player->learning_price . ' تومان'}}">
+                            <input readonly class="form-control" type="text"
+                                   value="{{$player->learning_price . ' تومان'}}">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -60,7 +65,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>جنسیت</label>
-                            <input readonly class="form-control" type="text" value="{{$player->gender === 'male' ? 'پسر' : 'دختر'}}">
+                            <input readonly class="form-control" type="text"
+                                   value="{{$player->gender === 'male' ? 'پسر' : 'دختر'}}">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -72,12 +78,74 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <a href="{{route('admin.players.edit',$player)}}" class="btn btn-primary">ویرایش اطلاعات</a>
+                </div>
+
             </div>
+
             <div class="tab-pane" id="kt_tabs_1_2" role="tabpanel">
-                It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                <div class="kt-widget1">
+                    @foreach($player->fixes as $fix)
+                        <div class="kt-widget1__item">
+                            <div class="kt-widget1__info">
+                                <h3 class="kt-widget1__title">
+                                    <strong>مربی:</strong> {{$fix->coach->first_name . ' ' . $fix->coach->last_name}}
+                                </h3>
+                                <span class="kt-widget1__desc"><strong>ساعت:</strong> @faNum($fix->time,false)</span>
+                            </div>
+                            <span class="kt-widget1__number kt-font-brand">{{$fix->day}}</span>
+                        </div>
+                    @endforeach
+                    <div class="form-group">
+                        <a href="{{route('admin.fix_bookings.index')}}" class="btn btn-primary">نمایش فیکسی ها</a>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane" id="kt_tabs_1_3" role="tabpanel">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged
+                <div class="kt-widget1">
+                    @foreach($player->lessons as $lesson)
+                        <div class="kt-widget1__item">
+                            <div class="kt-widget1__info">
+                                <h3 class="kt-widget1__title"><strong>تاریخ:</strong>
+                                    @faNum(\Hekmatinasser\Verta\Verta::parse($lesson->date)->format('j-n-Y'),false)</h3>
+                                <span class="kt-widget1__desc"><strong>ساعت:</strong> @faNum($lesson->time,false)</span>
+                            </div>
+                            @if($lesson->is_paid)
+                                <span class="kt-widget1__number kt-font-success">پرداخت شده</span>
+                            @else
+                                <span class="kt-widget1__number kt-font-danger">پرداخت نشده</span>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="tab-pane" id="kt_tabs_1_4" role="tabpanel">
+                <div class="alert alert-success" role="alert">
+                    <div class="alert-text">
+                        {{$player->first_name . ' ' . $player->last_name}} تاکنون هزینه
+                        @faNum($player->lessons->where('is_paid',true)->count(),false) جلسه را پرداخت کرده است.
+                    </div>
+                </div>
+                <div class="alert alert-warning" role="alert">
+                    <div class="alert-text">
+                        {{$player->first_name . ' ' . $player->last_name}} تاکنون هزینه ی
+                        @faNum($player->lessons->where('is_paid',true)->count(),false) جلسه آموزشی را پرداخت نکرده است.
+                    </div>
+                </div>
+
+                <div class="alert alert-secondary" role="alert">
+                    <div class="alert-text">
+                        <div class="row d-flex justify-content-between">
+                            <h4>پرداختی ها: </h4> <span class="kt-badge kt-badge--info">@faNum($player->lessons->where('is_paid',true)->count(),false)</span>
+                        </div>
+                        <div class="row d-flex justify-content-between">
+                            <h4>بدهکاری ها: </h4> <span class="kt-badge kt-badge--info">@faNum($player->lessons->where('is_paid',false)->count(),false)</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     @endcomponent
