@@ -90,7 +90,11 @@ class PlayersController extends Controller
         $data = \request()->validate([
             'first_name' => 'required',
             'last_name' => 'required',
+            'contact_number_one' => 'required',
+            'learning_price' => 'required',
             'gender' => 'required',
+            'contact_number_two' => 'nullable',
+            'email' => 'nullable',
             'age' => 'nullable',
             'bio' => 'nullable'
         ]);

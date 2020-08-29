@@ -18,6 +18,10 @@ class CreatePlayersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('gender');
+            $table->string('contact_number_one');
+            $table->double('learning_price');
+            $table->string('contact_number_two')->nullable();
+            $table->string('email')->nullable();
             $table->integer('age')->nullable();
             $table->text('bio')->nullable();
             $table->timestamps();

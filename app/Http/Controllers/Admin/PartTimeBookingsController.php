@@ -33,7 +33,7 @@ class PartTimeBookingsController extends BaseController {
 
 		$book = PartTimeBooking::where( [ 'id' => $freshBook->id ] )->first();
 
-		return response()->json( [ 'msg' => 'part time was added', 'book' => $book ] );
+		return response()->json( [ 'msg' => 'رزرو با موفقیت انجام شد', 'book' => $book ] );
 
 	}
 

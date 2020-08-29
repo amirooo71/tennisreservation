@@ -89049,7 +89049,9 @@ var render = function() {
                       },
                       _vm._l(_vm.coaches, function(coach) {
                         return _c("option", { domProps: { value: coach.id } }, [
-                          _vm._v(_vm._s(coach.first_name))
+                          _vm._v(
+                            _vm._s(coach.first_name + " " + coach.last_name)
+                          )
                         ])
                       }),
                       0

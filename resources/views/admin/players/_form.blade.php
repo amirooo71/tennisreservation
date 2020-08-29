@@ -30,6 +30,38 @@
 </div>
 
 <div class="form-group">
+    <label>شماره تماس یک</label>
+    <input type="text" name="contact_number_one" class="form-control"
+           value="{{old('contact_number_one') ?? $player->contact_number_one}}">
+    @component('components.validation',['field' => 'contact_number_one'])
+    @endcomponent
+</div>
+
+<div class="form-group">
+    <label>شماره تماس دو</label>
+    <input type="text" name="contact_number_two" class="form-control"
+           value="{{old('contact_number_two') ?? $player->contact_number_two}}">
+    @component('components.validation',['field' => 'contact_number_two'])
+    @endcomponent
+</div>
+
+<div class="form-group">
+    <label>ایمیل</label>
+    <input type="text" name="email" class="form-control"
+           value="{{old('email') ?? $player->email}}">
+    @component('components.validation',['field' => 'email'])
+    @endcomponent
+</div>
+
+<div class="form-group">
+    <label>هزینه کلاس</label>
+    <input type="text" name="learning_price" class="form-control"
+           value="{{old('learning_price') ?? $player->learning_price}}">
+    @component('components.validation',['field' => 'learning_price'])
+    @endcomponent
+</div>
+
+<div class="form-group">
     <label>بیوگرافی</label>
     <textarea name="bio" class="form-control">{{old('bio') ?? $player->bio}}</textarea>
     @component('components.validation',['field' => 'bio'])

@@ -20,19 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b01c91de-d725-464d-91da-470dc09fd2f6" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_08_29_163231_add_player_id_to_bookings.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_08_29_171619_add_player_id_to_fix_bookings.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/FixBookingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/FixBookingsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PartTimeBookingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PartTimeBookingsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PlayersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PlayersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_08_29_144457_create_players_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_08_29_144457_create_players_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/booking/BookingModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/booking/BookingModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/fix_booking/Booking.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/fix_booking/Booking.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/bookings/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/bookings/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/fix_bookings/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/fix_bookings/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/players/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/players/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/players/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/players/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/players/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/players/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/players/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/players/_form.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,7 +245,7 @@
       <workItem from="1598168466968" duration="3314000" />
       <workItem from="1598248476447" duration="16448000" />
       <workItem from="1598270441600" duration="7613000" />
-      <workItem from="1598618925123" duration="23989000" />
+      <workItem from="1598618925123" duration="26231000" />
     </task>
     <servers />
   </component>
@@ -286,21 +280,36 @@
       <screen x="0" y="27" width="3286" height="1053" />
     </state>
     <state x="449" y="175" width="1022" height="737" key="SettingsEditor/0.27.3286.1053@0.27.3286.1053" timestamp="1598248457147" />
-    <state x="511" y="112" width="588" height="551" key="find.popup" timestamp="1598689771997">
+    <state x="72" y="27" width="1248" height="697" key="dock-window-1" timestamp="1598709827076">
+      <screen x="72" y="27" width="1294" height="741" />
+    </state>
+    <state x="72" y="27" width="1248" height="697" key="dock-window-1/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598709827076" />
+    <state x="511" y="112" width="588" height="551" key="find.popup" timestamp="1598707477366">
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="651" y="148" width="618" height="783" key="find.popup/1920.0.1366.768/0.27.1920.1053@0.27.1920.1053" timestamp="1598621878307" />
-    <state x="511" y="112" width="588" height="551" key="find.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598689771997" />
+    <state x="511" y="112" width="588" height="551" key="find.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598707477366" />
     <state x="383" y="174" key="run.anything.popup" timestamp="1598687002782">
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="383" y="174" key="run.anything.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598687002782" />
-    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup" timestamp="1598707279401">
+    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup" timestamp="1598710386408">
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.27.3286.1053@0.27.3286.1053" timestamp="1598248347975" />
     <state x="364" y="239" width="672" height="678" key="search.everywhere.popup/1920.0.1366.768/0.27.1920.1053@0.27.1920.1053" timestamp="1598622726082" />
-    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598707279401" />
+    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598710386408" />
     <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/72.27.1294.741@72.27.1294.741" timestamp="1598343147777" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/admin/players/_form.blade.php</url>
+          <line>44</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
