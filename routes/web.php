@@ -114,6 +114,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('ajax/statistic/canceled/annually', 'Admin\StatisticsController@canceledAnnually');
 
     Route::get('players', 'Admin\PlayersController@index')->name('admin.players.index');
+    Route::get('players/{player}/profile', 'Admin\PlayersController@profile')->name('admin.players.profile');
     Route::get('players/create', 'Admin\PlayersController@create')->name('admin.players.create');
     Route::get('players/{player}/edit', 'Admin\PlayersController@edit')->name('admin.players.edit');
     Route::get('players/{player}/delete', 'Admin\PlayersController@delete')->name('admin.players.delete');

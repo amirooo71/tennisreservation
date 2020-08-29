@@ -11,8 +11,9 @@
             <tr>
                 <th scope="col">نام</th>
                 <th scope="col">نام خانوادگی</th>
-                <th scope="col">سن</th>
+                <th scope="col">شماره تماس</th>
                 <th scope="col">جنسیت</th>
+                <th scope="col">مالی</th>
                 <th scope="col">عملیات</th>
             </tr>
             </thead>
@@ -21,8 +22,14 @@
                 <tr>
                     <td>{{$player->first_name}}</td>
                     <td>{{$player->last_name}}</td>
-                    <td>{{$player->age}}</td>
+                    <td>{{$player->contact_number_one}}</td>
                     <td>{{$player->gender === 'male' ? 'پسر' : 'دختر'}}</td>
+                    <td>
+                        <a href="{{route('admin.players.profile',$player)}}">
+                            <i class="fas fa-eye"></i>
+                            مشاهده
+                        </a>
+                    </td>
                     <td>
                         <a href="{{route('admin.players.edit',$player)}}"
                            class="btn btn-sm btn-clean btn-icon btn-icon-md" title="ویرایش">

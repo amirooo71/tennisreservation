@@ -21,6 +21,15 @@ class PlayersController extends Controller
     }
 
     /**
+     * @param Player $player
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function profile(Player $player)
+    {
+        return view('admin.players.profile',compact('player'));
+    }
+
+    /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
