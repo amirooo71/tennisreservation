@@ -7,7 +7,7 @@ use App\Court;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Verta;
 
-class WeekBookingsController extends BaseController {
+class HoursBookingsController extends BaseController {
 
 	private $pastHours = 0;
 
@@ -15,7 +15,7 @@ class WeekBookingsController extends BaseController {
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
 	public function index() {
-		return view( 'admin.week_bookings.index' );
+		return view( 'admin.hours_bookings.index' );
 	}
 
 	/**
@@ -26,7 +26,7 @@ class WeekBookingsController extends BaseController {
 		$this->validateData();
 
 		if ( $this->getBookingsCourt() ) {
-			return response()->json( [ 'msg' => 'Has booking' ], 422 );
+			return response()->json( [ 'msg' => 'رزرو شده است' ], 422 );
 		}
 
 		$from = \request( 'from' );
@@ -54,7 +54,7 @@ class WeekBookingsController extends BaseController {
 
 		}
 
-		return response()->json( [ 'msg' => 'was added successfully' . ' Past ' . $this->pastHours ] );
+		return response()->json( [ 'msg' => 'رزرو با موفقیت انجام شد.' . ' Past ' . $this->pastHours ] );
 
 
 	}

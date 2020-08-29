@@ -105,14 +105,14 @@
                                     <span class="kt-menu__link-text">لیست</span>
                                 </a>
                             </li>
-                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.week_bookings.index' ? 'kt-menu__item--active' : ''}}"
+                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.hours_bookings.index' ? 'kt-menu__item--active' : ''}}"
                                 aria-haspopup="true">
-                                <a href="{{route('admin.week_bookings.index')}}"
+                                <a href="{{route('admin.hours_bookings.index')}}"
                                    class="kt-menu__link ">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                         <span></span>
                                     </i>
-                                    <span class="kt-menu__link-text">رزرو هفته</span>
+                                    <span class="kt-menu__link-text">رزرو ساعتی</span>
                                 </a>
                             </li>
                             <li class="kt-menu__item {{Route::currentRouteName() === 'admin.fix_bookings.index' ? 'kt-menu__item--active' : ''}}"
@@ -145,7 +145,7 @@
                     <span class="kt-menu__link-icon">
                         <i class="fas fa-running"></i>
                     </span>
-                        <span class="kt-menu__link-text">مربی</span>
+                        <span class="kt-menu__link-text">مربیان</span>
                         <i class="kt-menu__ver-arrow la la-angle-right"></i>
                     </a>
                     <div class="kt-menu__submenu ">
@@ -164,6 +164,42 @@
                             <li class="kt-menu__item {{Route::currentRouteName() === 'admin.coaches.create' ? 'kt-menu__item--active' : ''}}"
                                 aria-haspopup="true">
                                 <a href="{{route('admin.coaches.create')}}"
+                                   class="kt-menu__link ">
+                                    <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="kt-menu__link-text">اضافه کردن</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['admin.players.index','admin.players.create','admin.players.edit']) ? 'kt-menu__item--open' : ''}}"
+                    aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                    <span class="kt-menu__link-icon">
+                        <i class="fas fa-table-tennis"></i>
+                    </span>
+                        <span class="kt-menu__link-text">بازیکنان</span>
+                        <i class="kt-menu__ver-arrow la la-angle-right"></i>
+                    </a>
+                    <div class="kt-menu__submenu ">
+                        <span class="kt-menu__arrow"></span>
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.players.index' ? 'kt-menu__item--active' : ''}}"
+                                aria-haspopup="true">
+                                <a href="{{route('admin.players.index')}}"
+                                   class="kt-menu__link ">
+                                    <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="kt-menu__link-text">لیست</span>
+                                </a>
+                            </li>
+                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.players.create' ? 'kt-menu__item--active' : ''}}"
+                                aria-haspopup="true">
+                                <a href="{{route('admin.players.create')}}"
                                    class="kt-menu__link ">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                         <span></span>
