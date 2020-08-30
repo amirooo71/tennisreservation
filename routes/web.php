@@ -4,12 +4,12 @@
 Route::get('/playground', function () {
 
 
-   $user = \App\User::first();
+    $user = \App\User::first();
 
-   $user->update([
-       'email' => 'zoodcourt99@gmail.com',
-       'password' => \Illuminate\Support\Facades\Hash::make('zc99@webmaster')
-   ]);
+    $user->update([
+        'email' => 'zoodcourt99@gmail.com',
+        'password' => \Illuminate\Support\Facades\Hash::make('zc99@webmaster')
+    ]);
 
 
 });
@@ -95,6 +95,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('financial/debtors', 'Admin\FinancialController@debtors')->name('admin.debtors.index');
     Route::patch('financial/creditors/{creditor}/refund', 'Admin\FinancialController@refundCreditorMoney')->name('admin.refund_creditors.index');
     Route::patch('financial/debtors/{debtor}/pay', 'Admin\FinancialController@debtorPaid')->name('admin.debtor_pay.index');
+
+    Route::get('financial/players/debt', 'Admin\FinancialController@playersDebtList')->name('admin.financial.players_debt_list');
+    Route::get('financial/players/{player}/pay', 'Admin\FinancialController@playerPayForm')->name('admin.financial.player_pay_form');
+    Route::patch('financial/players/{player}/pay', 'Admin\FinancialController@storePlayerPay')->name('admin.financial.player_pay');
 
     Route::get('statistic/bookings', 'Admin\StatisticsController@bookings')->name('admin.statistics.bookings');
     Route::get('statistic/canceled', 'Admin\StatisticsController@canceled')->name('admin.statistics.canceled');

@@ -6,6 +6,7 @@ use App\Coach;
 use App\Creditor;
 use App\Debtor;
 use App\Http\Controllers\Controller;
+use App\Player;
 use Illuminate\Http\Request;
 
 class FinancialController extends BaseController
@@ -20,6 +21,16 @@ class FinancialController extends BaseController
         $coaches = Coach::paginate(30);
 
         return view('admin.financial.coaches_debt_list', compact('coaches'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function playersDebtList()
+    {
+        $players = Player::paginate(30);
+
+        return view('admin.financial.players_debt_list', compact('players'));
     }
 
     /**
@@ -88,13 +99,32 @@ class FinancialController extends BaseController
 
         if (!$coach->deptLessonCount()) {
 
-            flash('مربی مورد هزینه تمام جلسات را پرداخت کرده است.', 'info');
+            flash('مربی مورد نظر هزینه تمام جلسات را پرداخت کرده است.', 'info');
 
             return back();
 
         }
 
         return view('admin.financial.coach_pay_form', compact('coach'));
+
+    }
+
+    /**
+     * @param Player $player
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function playerPayForm(Player $player)
+    {
+
+        if (!$player->deptLessonsCount()) {
+
+            flash('شاگرد مورد نظر هزینه تمام جلسات را پرداخت کرده است.', 'info');
+
+            return back();
+
+        }
+
+        return view('admin.financial.player_pay_form', compact('player'));
 
     }
 
@@ -130,5 +160,30 @@ class FinancialController extends BaseController
 
         return redirect()->route('admin.financial.coaches_debt_list');
 
+    }
+
+
+    public function storePlayerPay(Player $player)
+    {
+        $data = \request()->validate(['amount' => 'required|numeric|min:1']);
+
+
+        if ((integer)$data['amount'] > $player->deptLessonsCount()) {
+
+            flash('تعداد جلسات وارد شده بیشتر از تعداد جلسات  بدهی بازیکن است.', 'warning');
+
+            return back();
+
+        }
+
+        $bookings = $player->lessons()->where('is_canceled', false)->where('is_paid', false)->take($data['amount'])->get();
+
+        $bookings->each(function ($booking) {
+            $booking->update(['is_paid' => true]);
+        });
+
+        flash('تعداد جلسات پرداختی با موفقیت از حساب شاگرد کاسته شد.', 'success');
+
+        return redirect()->route('admin.financial.players_debt_list');
     }
 }

@@ -20,13 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b01c91de-d725-464d-91da-470dc09fd2f6" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/financial/player_pay_form.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/financial/players_debt_list.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/StatisticsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/StatisticsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/statistic/Revenue.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/statistics/revenue.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Player.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Player.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/partials/aside/_menu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/aside/_menu.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
@@ -168,21 +166,21 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/financial" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/components/booking" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/admin/financial" />
       <recent name="$PROJECT_DIR$/public/images" />
       <recent name="$PROJECT_DIR$/resources" />
       <recent name="$PROJECT_DIR$/resources/views/partials" />
       <recent name="$PROJECT_DIR$/resources/views/partials/topbar" />
-      <recent name="$PROJECT_DIR$/resources/views/partials/aside" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/js/components/booking" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -248,7 +246,7 @@
       <workItem from="1598248476447" duration="16448000" />
       <workItem from="1598270441600" duration="7613000" />
       <workItem from="1598618925123" duration="33231000" />
-      <workItem from="1598766370164" duration="12183000" />
+      <workItem from="1598766370164" duration="14137000" />
     </task>
     <servers />
   </component>
@@ -297,13 +295,13 @@
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="383" y="174" key="run.anything.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598687002782" />
-    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup" timestamp="1598778726787">
+    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup" timestamp="1598780260907">
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.27.3286.1053@0.27.3286.1053" timestamp="1598248347975" />
     <state x="364" y="239" width="672" height="678" key="search.everywhere.popup/1920.0.1366.768/0.27.1920.1053@0.27.1920.1053" timestamp="1598622726082" />
     <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598715565869" />
-    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/72.27.1294.741@72.27.1294.741" timestamp="1598778726787" />
+    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/72.27.1294.741@72.27.1294.741" timestamp="1598780260907" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

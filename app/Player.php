@@ -23,4 +23,25 @@ class Player extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+    /**
+     * @return int
+     */
+    public function deptLessonsCount()
+    {
+        return $this->lessons()->where('is_paid', false)->where('is_canceled', false)->count();
+    }
+
+    /**
+     * @return int|mixed
+     */
+    public function deptLessonMinutes()
+    {
+        return $this->lessons()->where('is_paid', false)->where('is_canceled', false)->sum('duration');
+    }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 }
