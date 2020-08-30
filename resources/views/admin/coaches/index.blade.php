@@ -13,6 +13,7 @@
                         <th scope="col">نام</th>
                         <th scope="col">نام خانوادگی</th>
                         <th scope="col">جنیست</th>
+                        <th scope="col">مربی باشگاه</th>
                         <th scope="col">عملیات</th>
                     </tr>
                     </thead>
@@ -22,6 +23,7 @@
                             <td>{{$coach->first_name}}</td>
                             <td>{{$coach->last_name}}</td>
                             <td>{{$coach->gender === 'male' ? 'آقا' : 'خانم'}}</td>
+                            <td>{{$coach->is_club_coach ? 'بله' : 'خیر'}}</td>
                             <td>
                                 <a href="{{route('admin.coaches.edit',$coach)}}"
                                    class="btn btn-sm btn-clean btn-icon btn-icon-md" title="ویرایش">

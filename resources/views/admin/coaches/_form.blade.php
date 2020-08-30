@@ -25,5 +25,13 @@
 </div>
 
 <div class="form-group">
+    <label class="checkbox">
+        <input type="checkbox" name="is_club_coach" {{$coach->is_club_coach ? 'checked' : ''}}>
+        <span></span>
+        مربی باشگاه
+    </label>
+</div>
+
+<div class="form-group">
     <button class="btn btn-success">ذخیره</button>
 </div>
