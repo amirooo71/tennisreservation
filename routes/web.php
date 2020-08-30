@@ -124,4 +124,14 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::patch('players/{player}/update', 'Admin\PlayersController@update')->name('admin.players.update');
 
 
+    Route::get('got-to-date', function () {
+        $d = request('d');
+        $n = request('n');
+        $y = request('y');
+
+        $date = "{$y}-${n}-${d}";
+
+        return redirect('/admin/bookings/?date=' . $date);
+    })->name('go.to.date');
+
 });

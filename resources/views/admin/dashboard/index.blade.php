@@ -2,6 +2,22 @@
 
 @section('content')
 
+    <form action="{{route('go.to.date')}}" method="GET" class="row mb-3">
+        @csrf
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="d" value="{{\Hekmatinasser\Verta\Verta::now()->format('j')}}">
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="n" value="{{\Hekmatinasser\Verta\Verta::now()->format('n')}}">
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="y" value="{{\Hekmatinasser\Verta\Verta::now()->format('Y')}}">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-light" type="submit">برو به تاریخ</button>
+        </div>
+    </form>
+
     <div class="row">
         <div class="col">
             <div class="kt-portlet">
