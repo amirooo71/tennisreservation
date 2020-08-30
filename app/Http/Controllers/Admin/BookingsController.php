@@ -363,6 +363,7 @@ class BookingsController extends BaseController
                         'duration' => 60,
                         'amount' => $booking->court->price,
                         'player_id' => $booking->player_id ? $booking->player_id : null,
+                        'coach_id' => $booking->coach_id ? $booking->coach_id : null,
                     ]);
 
                 }
