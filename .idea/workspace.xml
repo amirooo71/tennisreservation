@@ -21,7 +21,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b01c91de-d725-464d-91da-470dc09fd2f6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/partials/aside/_menu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/aside/_menu.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Booking.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Booking.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Coach.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Coach.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PartTimeBookingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PartTimeBookingsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +246,7 @@
       <workItem from="1598248476447" duration="16448000" />
       <workItem from="1598270441600" duration="7613000" />
       <workItem from="1598618925123" duration="33231000" />
-      <workItem from="1598766370164" duration="10941000" />
+      <workItem from="1598766370164" duration="12001000" />
     </task>
     <servers />
   </component>
@@ -280,12 +285,12 @@
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="72" y="27" width="1248" height="697" key="dock-window-1/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598709827076" />
-    <state x="511" y="112" width="588" height="551" key="find.popup" timestamp="1598777357938">
+    <state x="511" y="112" width="588" height="551" key="find.popup" timestamp="1598778559603">
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="651" y="148" width="618" height="783" key="find.popup/1920.0.1366.768/0.27.1920.1053@0.27.1920.1053" timestamp="1598621878307" />
     <state x="511" y="112" width="588" height="551" key="find.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598711502785" />
-    <state x="511" y="112" width="588" height="551" key="find.popup/72.27.1294.741@72.27.1294.741" timestamp="1598777357938" />
+    <state x="511" y="112" width="588" height="551" key="find.popup/72.27.1294.741@72.27.1294.741" timestamp="1598778559603" />
     <state x="383" y="174" key="run.anything.popup" timestamp="1598687002782">
       <screen x="72" y="27" width="1294" height="741" />
     </state>

@@ -41,15 +41,6 @@ class Coach extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function payments()
-    {
-
-        return $this->hasMany(Payment::class);
-    }
-
-    /**
      * @return int|mixed
      */
     public function deptLessonMinutes()

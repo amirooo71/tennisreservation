@@ -7,7 +7,6 @@ use App\Club;
 use App\Creditor;
 use App\Debtor;
 use App\PartTimeBooking;
-use App\Payment;
 use Hekmatinasser\Verta\Verta;
 
 class PartTimeBookingsController extends BaseController {
@@ -67,11 +66,6 @@ class PartTimeBookingsController extends BaseController {
 		if ( $partTimeBooking->is_paid ) {
 			return response()->json( [ 'msg' => 'پرداخت شده است' ], 422 );
 		}
-
-		Payment::create( [
-			'part_time_booking_id' => $partTimeBooking->id,
-			'amount'               => request( 'price' )
-		] );
 
 		$partTimeBooking->update( [ 'is_paid' => true ] );
 

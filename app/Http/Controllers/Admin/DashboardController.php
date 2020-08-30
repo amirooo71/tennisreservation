@@ -6,7 +6,6 @@ use App\Booking;
 use App\Club;
 use App\Court;
 use App\Http\Controllers\Controller;
-use App\Payment;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Builder;
@@ -32,7 +31,6 @@ class DashboardController extends BaseController {
 
 		$canceledMinutes = $canceled->sum( 'duration' ) + $canceled->partTimeBookedMinutes();
 
-		$paids = Payment::where( 'created_at', '>=', Carbon::today() )->sum( 'amount' );
 
 		if ( $courts->count() ) {
 
@@ -40,11 +38,9 @@ class DashboardController extends BaseController {
 
 			$canceledPercent = $this->calculatePercentage( $canceled, $courts );
 
-			$paidPercent = $this->calculatePaidPercentage( $paids, $courts );
-
 		}
 
-		return view( 'admin.dashboard.index', compact( 'courts','paids', 'bookingPercent', 'canceledPercent', 'paidPercent', 'bookingMinutes', 'canceledMinutes' ) );
+		return view( 'admin.dashboard.index', compact( 'courts', 'bookingPercent', 'canceledPercent', 'bookingMinutes', 'canceledMinutes' ) );
 
 	}
 
@@ -58,13 +54,4 @@ class DashboardController extends BaseController {
 		return round( $query->count() * 100 / ( Club::first()->opening_hours * $courts->count() ) );
 	}
 
-	/**
-	 * @param $paids
-	 * @param $courts
-	 *
-	 * @return float|int
-	 */
-	private function calculatePaidPercentage( $paids, $courts ) {
-		return round( $paids * 100 / ( $courts->sum( 'price' ) * $courts->count() ) );
-	}
 }

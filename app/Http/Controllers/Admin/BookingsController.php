@@ -8,7 +8,6 @@ use App\Court;
 use App\Creditor;
 use App\Debtor;
 use App\FixBooking;
-use App\Payment;
 use Hekmatinasser\Verta\Verta;
 
 class BookingsController extends BaseController
@@ -158,11 +157,6 @@ class BookingsController extends BaseController
             return response()->json(['msg' => 'پرداخت شده است'], 422);
         }
 
-        Payment::create([
-            'booking_id' => $booking->id,
-            'amount' => request('price'),
-        ]);
-
         $booking->update(['is_paid' => true]);
 
         return response()->json(['msg' => 'هزینه با موفقیت دریافت شد', 'booked' => $booking]);
@@ -293,31 +287,6 @@ class BookingsController extends BaseController
         ])->get();
 
         return $courts;
-    }
-
-
-    /**
-     * @param Booking $booking
-     *
-     * @return float|int
-     */
-    private function calculateAmountByDurationTime(Booking $booking)
-    {
-
-        if ($booking->is_paid) {
-            return $booking->payment->amount;
-        }
-
-        $multipy = [
-            15 => 1,
-            30 => 2,
-            45 => 3,
-            60 => 4,
-        ];
-
-        $price = ($booking->court->price * $multipy[$booking->duration]) / 4;
-
-        return $price;
     }
 
     /**
