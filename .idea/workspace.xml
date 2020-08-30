@@ -21,18 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b01c91de-d725-464d-91da-470dc09fd2f6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PaymentsController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Payment.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_15_231802_create_payments_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_20_215123_create_debtors_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_20_215123_create_debtors_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_20_215149_create_creditors_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_20_215149_create_creditors_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/financial/_coach_increase_debt_form.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/financial/debtors.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/financial/debtors.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/financial/payments.blade.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/partials/aside/_menu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/aside/_menu.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +241,7 @@
       <workItem from="1598248476447" duration="16448000" />
       <workItem from="1598270441600" duration="7613000" />
       <workItem from="1598618925123" duration="33231000" />
-      <workItem from="1598766370164" duration="10881000" />
+      <workItem from="1598766370164" duration="10941000" />
     </task>
     <servers />
   </component>

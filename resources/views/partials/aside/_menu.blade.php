@@ -302,7 +302,6 @@
                         </ul>
                     </div>
                 </li>
-
             @endif
         </ul>
     </div>
