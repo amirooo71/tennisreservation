@@ -111,6 +111,9 @@
                                 <h3 class="kt-widget1__title"><strong>تاریخ:</strong>
                                     @faNum(\Hekmatinasser\Verta\Verta::parse($lesson->date)->format('j-n-Y'),false)</h3>
                                 <span class="kt-widget1__desc"><strong>ساعت:</strong> @faNum($lesson->time,false)</span>
+                                @if($lesson->must_pay && $lesson->is_canceled)
+                                    <span class="badge badge-danger">کنسلی خورده است</span>
+                                @endif
                             </div>
                             @if($lesson->is_paid)
                                 <span class="kt-widget1__number kt-font-success">پرداخت شده</span>
@@ -144,7 +147,8 @@
                             <h4>بدهکاری ها: </h4> <span class="kt-badge kt-badge--info">@faNum($player->deptLessonsCount(),false)</span>
                         </div>
                         <div class="row d-flex justify-content-between">
-                            <h4>مجموع بدهکاری: </h4> <h3>@faNum($player->learning_price * $player->deptLessonsCount(),true) تومان</h3>
+                            <h4>مجموع بدهکاری: </h4>
+                            <h3>@faNum($player->learning_price * $player->deptLessonsCount(),true) تومان</h3>
                         </div>
                     </div>
                 </div>

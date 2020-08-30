@@ -38,8 +38,6 @@ class FinancialController extends BaseController
      */
     public function creditors()
     {
-
-//        $creditors = Creditor::where(['is_refunded' => false])->whereDoesntHave('coach')->paginate(30);
         $creditors = Creditor::where(['is_refunded' => false])->paginate(30);
 
         return view('admin.financial.creditors', compact('creditors'));
@@ -50,8 +48,6 @@ class FinancialController extends BaseController
      */
     public function debtors()
     {
-
-//        $debtors = Debtor::where(['is_paid' => false])->whereDoesntHave('coach')->paginate(30);
         $debtors = Debtor::where(['is_paid' => false])->paginate(30);
 
         return view('admin.financial.debtors', compact('debtors'));

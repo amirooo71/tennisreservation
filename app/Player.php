@@ -27,9 +27,29 @@ class Player extends Model
     /**
      * @return int
      */
+    public function mustPayForCanceledCount()
+    {
+        return $this->lessons()
+            ->where('must_pay', true)->count();
+    }
+
+    /**
+     * @return int|mixed
+     */
+    public function mustPayForCanceledMinutes()
+    {
+        return $this->lessons()
+            ->where('must_pay', true)->sum('duration');
+    }
+
+    /**
+     * @return int
+     */
     public function deptLessonsCount()
     {
-        return $this->lessons()->where('is_paid', false)->where('is_canceled', false)->count();
+        return $this->lessons()
+                ->where('is_paid', false)
+                ->where('is_canceled', false)->count() + $this->mustPayForCanceledCount();
     }
 
     /**
@@ -37,7 +57,7 @@ class Player extends Model
      */
     public function paidLessonsCount()
     {
-        return $this->lessons()->where('is_paid', true)->where('is_canceled', false)->count();
+        return $this->lessons()->where('is_paid', true)->where('is_canceled', false)->count() + $this->mustPayForCanceledCount();
     }
 
     /**
@@ -45,7 +65,9 @@ class Player extends Model
      */
     public function deptLessonMinutes()
     {
-        return $this->lessons()->where('is_paid', false)->where('is_canceled', false)->sum('duration');
+        return $this->lessons()
+                ->where('is_paid', false)
+                ->where('is_canceled', false)->sum('duration') + $this->mustPayForCanceledMinutes();
     }
 
     public function getFullNameAttribute()

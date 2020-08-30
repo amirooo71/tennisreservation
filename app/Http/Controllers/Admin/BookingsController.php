@@ -108,11 +108,16 @@ class BookingsController extends BaseController
         }
 
         if (request()->has('chargeDebtor')) {
-            Debtor::create([
-                'booking_id' => $booking->id,
-                'coach_id' => $booking->coach_id,
-                'name' => $booking->renter_name,
-            ]);
+            if (!$booking->coach->is_club_coach) {
+                Debtor::create([
+                    'booking_id' => $booking->id,
+                    'coach_id' => $booking->coach_id,
+                    'name' => $booking->renter_name,
+                ]);
+            } else {
+                $booking->update(['must_pay' => true]);
+            }
+
         }
 
         if (request()->has('chargeCreditor')) {
