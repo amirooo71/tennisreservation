@@ -3453,7 +3453,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('required', vee_vali
 
       this.loading = true;
       axios.post('/admin/fix/bookings', this.$data).then(function (res) {
-        _this.court_id = _this.renter_name = _this.coach_id = _this.player_name = _this.partner_name = _this.day = _this.time = '';
+        _this.court_id = _this.renter_name = _this.coach_id = _this.player_id = _this.partner_name = _this.day = _this.time = '';
         _this.loading = false;
         toastr.success(res.data.msg);
         Events.$emit('success-fix-booked', {

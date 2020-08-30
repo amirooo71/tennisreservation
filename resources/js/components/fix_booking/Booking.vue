@@ -145,7 +145,7 @@ export default {
             this.loading = true;
             axios.post('/admin/fix/bookings', this.$data)
                 .then(res => {
-                    this.court_id = this.renter_name = this.coach_id = this.player_name = this.partner_name = this.day = this.time = '';
+                    this.court_id = this.renter_name = this.coach_id = this.player_id = this.partner_name = this.day = this.time = '';
                     this.loading = false;
                     toastr.success(res.data.msg);
                     Events.$emit('success-fix-booked', {booked: res.data.booked});

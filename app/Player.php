@@ -33,6 +33,14 @@ class Player extends Model
     }
 
     /**
+     * @return int
+     */
+    public function paidLessonsCount()
+    {
+        return $this->lessons()->where('is_paid', true)->where('is_canceled', false)->count();
+    }
+
+    /**
      * @return int|mixed
      */
     public function deptLessonMinutes()

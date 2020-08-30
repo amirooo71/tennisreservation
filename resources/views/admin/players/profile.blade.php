@@ -125,26 +125,26 @@
                 <div class="alert alert-success" role="alert">
                     <div class="alert-text">
                         {{$player->first_name . ' ' . $player->last_name}} تاکنون هزینه
-                        @faNum($player->lessons->where('is_paid',true)->count(),false) جلسه را پرداخت کرده است.
+                        @faNum($player->paidLessonsCount(),false) جلسه را پرداخت کرده است.
                     </div>
                 </div>
                 <div class="alert alert-warning" role="alert">
                     <div class="alert-text">
-                        {{$player->first_name . ' ' . $player->last_name}} تاکنون هزینه ی
-                        @faNum($player->lessons->where('is_paid',true)->count(),false) جلسه آموزشی را پرداخت نکرده است.
+                        {{$player->first_name . ' ' . $player->last_name}} هزینه ی
+                        @faNum($player->deptLessonsCount(),false) جلسه آموزشی را باید پرداخت کند.
                     </div>
                 </div>
 
                 <div class="alert alert-secondary" role="alert">
                     <div class="alert-text">
                         <div class="row d-flex justify-content-between">
-                            <h4>پرداختی ها: </h4> <span class="kt-badge kt-badge--info">@faNum($player->lessons->where('is_paid',true)->count(),false)</span>
+                            <h4>پرداختی ها: </h4> <span class="kt-badge kt-badge--info">@faNum($player->paidLessonsCount(),false)</span>
                         </div>
                         <div class="row d-flex justify-content-between">
-                            <h4>بدهکاری ها: </h4> <span class="kt-badge kt-badge--info">@faNum($player->lessons->where('is_paid',false)->count(),false)</span>
+                            <h4>بدهکاری ها: </h4> <span class="kt-badge kt-badge--info">@faNum($player->deptLessonsCount(),false)</span>
                         </div>
                         <div class="row d-flex justify-content-between">
-                            <h4>مجموع بدهکاری: </h4> <h3>@faNum($player->learning_price * $player->lessons->where('is_paid',false)->count(),true) تومان</h3>
+                            <h4>مجموع بدهکاری: </h4> <h3>@faNum($player->learning_price * $player->deptLessonsCount(),true) تومان</h3>
                         </div>
                     </div>
                 </div>
