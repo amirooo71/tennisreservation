@@ -20,7 +20,7 @@ Route::get('/', function () {
     return redirect()->route('admin.dashboard.index');
 });
 
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
 
 
     Route::get('dashboard', 'Admin\DashboardController@index')->name('admin.dashboard.index');
