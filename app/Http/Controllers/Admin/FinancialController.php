@@ -112,17 +112,7 @@ class FinancialController extends BaseController
      */
     public function playerPayForm(Player $player)
     {
-
-        if (!$player->deptLessonsCount()) {
-
-            flash('شاگرد مورد نظر هزینه تمام جلسات را پرداخت کرده است.', 'info');
-
-            return back();
-
-        }
-
         return view('admin.financial.player_pay_form', compact('player'));
-
     }
 
     /**
@@ -133,7 +123,6 @@ class FinancialController extends BaseController
     {
 
         $data = \request()->validate(['amount' => 'required|numeric|min:1']);
-
 
         if ((integer)$data['amount'] !== $coach->deptLessonCount()) {
 
@@ -169,9 +158,9 @@ class FinancialController extends BaseController
 
         if ((integer)$data['amount'] > $player->deptLessonsCount()) {
 
-            flash('تعداد جلسات وارد شده بیشتر از تعداد جلسات  بدهی بازیکن است.', 'warning');
-
-            return back();
+            if (!$player->balance) {
+                $player->balance()->create(['amount' => (int)$data['amount'] - $player->deptLessonsCount()]);
+            }
 
         }
 
@@ -181,8 +170,11 @@ class FinancialController extends BaseController
             ->take($data['amount'])
             ->get();
 
-        $bookings->each(function ($booking) {
+        $bookings->each(function ($booking) use ($player) {
             $booking->update(['is_paid' => true]);
+            if ($player->balance && $player->fresh()->balance->amount > 0) {
+                $player->fresh()->balance()->decrement('amount');
+            }
         });
 
         if ($bookings->count() !== $data['amount']) {
@@ -192,8 +184,11 @@ class FinancialController extends BaseController
                 ->where('must_pay', true)
                 ->take($data['amount'] - $bookings->count())->get();
 
-            $mustPayBookings->each(function ($booking) {
+            $mustPayBookings->each(function ($booking) use ($player) {
                 $booking->update(['is_paid' => true]);
+                if ($player->balance && $player->fresh()->balance->amount > 0) {
+                    $player->fresh()->balance()->decrement('amount');
+                }
             });
 
         }

@@ -35,9 +35,18 @@
             </div>
         </div>
         <div class="col-md-6">
-            @component('components.portletWithoutFooter',['title' => "تعداد جلسات پرداخت نشده {$player->first_name} {$player->last_name}"])
+            @component('components.portletWithoutFooter',['title' => 'تعداد جلسات پرداخت شده'])
+                @if($player->balance)
+                    <h2 class="text-success">@faNum($player->balance->amount,false) جلسه</h2>
+                @else
+                    <h2 class="text-success">۰ جلسه</h2>
+                @endif
+            @endcomponent
+            @component('components.portletWithoutFooter',['title' => "تعداد جلسات پرداخت نشده"])
                 <h2 class="text-danger">@faNum($player->deptLessonsCount(),false) جلسه</h2>
-                <h2 class="text-danger">@toHours($player->deptLessonMinutes()) دقیقه</h2>
+                @if($player->deptLessonMinutes())
+                    <h2 class="text-danger">@toHours($player->deptLessonMinutes()) دقیقه</h2>
+                @endif
             @endcomponent
         </div>
     </div>

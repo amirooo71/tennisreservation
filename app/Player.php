@@ -25,13 +25,21 @@ class Player extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function balance()
+    {
+        return $this->hasOne(PlayerBalance::class);
+    }
+
+    /**
      * @return int
      */
     public function mustPayForCanceledCount()
     {
         return $this->lessons()
             ->where('must_pay', true)
-            ->where('is_paid',false)
+            ->where('is_paid', false)
             ->where('is_canceled', true)->count();
     }
 
@@ -42,7 +50,7 @@ class Player extends Model
     {
         return $this->lessons()
             ->where('must_pay', true)
-            ->where('is_paid',false)
+            ->where('is_paid', false)
             ->where('is_canceled', true)
             ->sum('duration');
     }
