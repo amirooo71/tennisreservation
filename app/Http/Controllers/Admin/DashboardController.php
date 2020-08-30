@@ -6,52 +6,70 @@ use App\Booking;
 use App\Club;
 use App\Court;
 use App\Http\Controllers\Controller;
+use App\Player;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class DashboardController extends BaseController {
+class DashboardController extends BaseController
+{
 
-	public function index() {
+    private $debtPlayers = [];
 
-		if ( ! Club::first() ) {
+    public function index()
+    {
 
-			return redirect()->route( 'admin.clubs.index' );
+        if (!Club::first()) {
 
-		}
+            return redirect()->route('admin.clubs.index');
 
-		$courts = Court::all();
+        }
 
-		$bookings = Booking::today();
+        $courts = Court::all();
 
-		$canceled = Booking::today( true );
+        $bookings = Booking::today();
 
-		$bookingMinutes = $bookings->sum( 'duration' ) + $bookings->partTimeBookedMinutes();
+        $canceled = Booking::today(true);
 
-		$canceledMinutes = $canceled->sum( 'duration' ) + $canceled->partTimeBookedMinutes();
+        $bookingMinutes = $bookings->sum('duration') + $bookings->partTimeBookedMinutes();
 
+        $canceledMinutes = $canceled->sum('duration') + $canceled->partTimeBookedMinutes();
 
-		if ( $courts->count() ) {
+        $this->getDebtPlayers();
 
-			$bookingPercent = $this->calculatePercentage( $bookings, $courts );
+        $debtPlayers = $this->debtPlayers;
 
-			$canceledPercent = $this->calculatePercentage( $canceled, $courts );
+        if ($courts->count()) {
 
-		}
+            $bookingPercent = $this->calculatePercentage($bookings, $courts);
 
-		return view( 'admin.dashboard.index', compact( 'courts', 'bookingPercent', 'canceledPercent', 'bookingMinutes', 'canceledMinutes' ) );
+            $canceledPercent = $this->calculatePercentage($canceled, $courts);
 
-	}
+        }
 
-	/**
-	 * @param $query
-	 * @param $courts
-	 *
-	 * @return float|int
-	 */
-	private function calculatePercentage( $query, $courts ) {
-		return round( $query->count() * 100 / ( Club::first()->opening_hours * $courts->count() ) );
-	}
+        return view('admin.dashboard.index', compact('courts', 'bookingPercent', 'canceledPercent', 'bookingMinutes', 'canceledMinutes','debtPlayers'));
+
+    }
+
+    /**
+     * @param $query
+     * @param $courts
+     *
+     * @return float|int
+     */
+    private function calculatePercentage($query, $courts)
+    {
+        return round($query->count() * 100 / (Club::first()->opening_hours * $courts->count()));
+    }
+
+    public function getDebtPlayers(): void
+    {
+        Player::all()->each(function ($player) {
+            if ($player->deptLessonsCount() >= 10) {
+                $this->debtPlayers[] = $player;
+            }
+        });
+    }
 
 }

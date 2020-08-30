@@ -63,7 +63,7 @@ class FinancialController extends BaseController
     public function debtorPaid(Debtor $debtor)
     {
 
-        $data = \request()->validate(['paid' => 'required']);
+        \request()->validate(['paid' => 'required']);
 
         $debtor->update(['is_paid' => true]);
 

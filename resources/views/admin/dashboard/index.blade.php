@@ -91,6 +91,154 @@
 
     <div class="row">
         <div class="col-md-6">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                            <span class="kt-portlet__head-icon">
+                                <i class="flaticon-cancel"></i>
+                            </span>
+                        <h3 class="kt-portlet__head-title">
+                            کنسلی ها
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="kt-scroll ps ps--active-y" data-scroll="true" data-height="200"
+                         data-scrollbar-shown="true" style="height: 200px; overflow: hidden;">
+
+                        @foreach(\App\Debtor::where('is_paid',false)->get() as $debtor)
+                            <div class="kt-widget1">
+                                <div class="kt-widget1__item">
+                                    <div class="kt-widget1__info">
+                                        <h3 class="kt-widget1__title">{{$debtor->booked->renter_name}}</h3>
+                                        <span class="kt-widget1__desc">@faNum($debtor->booked->date,false) @faNum($debtor->booked->time,false)</span>
+                                    </div>
+                                    @if($debtor->is_paid)
+                                        <span class="kt-widget1__number kt-font-success">پرداخت شده</span>
+                                    @else
+                                        <span class="kt-widget1__number kt-font-danger">پرداخت نشده</span>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <div class="ps__rail-x" style="left: 0px; bottom: -52px;">
+                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                        </div>
+                        <div class="ps__rail-y" style="top: 52px; height: 200px; right: 0px;">
+                            <div class="ps__thumb-y" tabindex="0" style="top: 26px; height: 100px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__foot">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <a href="{{route('admin.debtors.index')}}" class="btn btn-secondary btn-sm">مشاهده
+                                بدهکاران</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                            <span class="kt-portlet__head-icon">
+                                <i class="flaticon-cancel"></i>
+                            </span>
+                        <h3 class="kt-portlet__head-title">
+                            صورت حساب شاگردان
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="kt-scroll ps ps--active-y" data-scroll="true" data-height="200"
+                         data-scrollbar-shown="true" style="height: 200px; overflow: hidden;">
+
+                        @foreach($debtPlayers as $debtor)
+                            <div class="kt-widget1">
+                                <div class="kt-widget1__item">
+                                    <div class="kt-widget1__info">
+                                        <h3 class="kt-widget1__title">{{$debtor->fullname}}</h3>
+                                        <span class="kt-widget1__desc">بابت ۱۰ جلسه آموزش</span>
+                                    </div>
+                                        <a href="{{route('admin.financial.player_pay',$debtor)}}" class="btn btn-secondary btn-sm">مدیریت حساب</a>
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <div class="ps__rail-x" style="left: 0px; bottom: -52px;">
+                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                        </div>
+                        <div class="ps__rail-y" style="top: 52px; height: 200px; right: 0px;">
+                            <div class="ps__thumb-y" tabindex="0" style="top: 26px; height: 100px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__foot">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <a href="{{route('admin.financial.players_debt_list')}}" class="btn btn-secondary btn-sm">مشاهده
+                                وضعیت مالی شاگردان</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                            <span class="kt-portlet__head-icon">
+                                <i class="flaticon-cancel"></i>
+                            </span>
+                        <h3 class="kt-portlet__head-title">
+                            صورت حساب مربیان
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="kt-scroll ps ps--active-y" data-scroll="true" data-height="200"
+                         data-scrollbar-shown="true" style="height: 200px; overflow: hidden;">
+
+                        @foreach(\App\Coach::all() as $coach)
+                            <div class="kt-widget1">
+                                <div class="kt-widget1__item">
+                                    <div class="kt-widget1__info">
+                                        <h3 class="kt-widget1__title">{{$coach->fullname}}</h3>
+                                        <span class="kt-widget1__desc">
+                                            <span class="text-muted">تعداد جلسات پرداخت نشده: @faNum($coach->deptLessonCount(),false)</span>
+                                        </span>
+                                    </div>
+                                    <a href="{{route('admin.financial.coach_pay',$coach)}}" class="btn btn-secondary btn-sm">مدیریت حساب</a>
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <div class="ps__rail-x" style="left: 0px; bottom: -52px;">
+                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                        </div>
+                        <div class="ps__rail-y" style="top: 52px; height: 200px; right: 0px;">
+                            <div class="ps__thumb-y" tabindex="0" style="top: 26px; height: 100px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__foot">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <a href="{{route('admin.financial.coaches_debt_list')}}" class="btn btn-secondary btn-sm">مشاهده
+                                وضعیت مالی مربیان</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
             <div class="kt-portlet kt-callout">
                 <div class="kt-portlet__body">
                     <div class="kt-callout__body">
@@ -122,7 +270,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="row">
         @foreach($courts as $c)
