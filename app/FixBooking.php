@@ -28,6 +28,13 @@ class FixBooking extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function player(){
+        return $this->belongsTo(Player::class);
+    }
+
+    /**
      * @return string
      */
     public function getCoachNameAttribute()
