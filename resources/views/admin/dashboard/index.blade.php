@@ -177,19 +177,21 @@
                     <div class="kt-scroll ps ps--active-y" data-scroll="true" data-height="200"
                          data-scrollbar-shown="true" style="height: 200px; overflow: hidden;">
 
-                        @foreach(\App\Player::all() as $player)
-                            <div class="kt-widget1">
-                                <div class="kt-widget1__item">
-                                    <div class="kt-widget1__info">
-                                        <h3 class="kt-widget1__title">{{$player->fullname}}</h3>
-                                        <span class="kt-widget1__desc">
-                                            <span class="text-muted">جلسات پرداخت نشده: @faNum($player->deptLessonsCount(),false)</span>
+                        @foreach(\App\Player::whereHas('balance')->get() as $player)
+                            @if($player->balance->amount === 1)
+                                <div class="kt-widget1">
+                                    <div class="kt-widget1__item">
+                                        <div class="kt-widget1__info">
+                                            <h3 class="kt-widget1__title">{{$player->fullname}}</h3>
+                                            <span class="kt-widget1__desc">
+                                            <span class="text-muted">تعداد جلسات باقی مانده: @faNum($player->balance->amount,false)</span>
                                         </span>
+                                        </div>
+                                        <a href="{{route('admin.financial.player_pay',$player)}}"
+                                           class="btn btn-secondary btn-sm">مدیریت حساب</a>
                                     </div>
-                                    <a href="{{route('admin.financial.player_pay',$player)}}"
-                                       class="btn btn-secondary btn-sm">مدیریت حساب</a>
                                 </div>
-                            </div>
+                            @endif
                         @endforeach
 
                         <div class="ps__rail-x" style="left: 0px; bottom: -52px;">

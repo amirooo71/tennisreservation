@@ -15,8 +15,6 @@ use Illuminate\Http\Request;
 class DashboardController extends BaseController
 {
 
-    private $debtPlayers = [];
-
     public function index()
     {
 
