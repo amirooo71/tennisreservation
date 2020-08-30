@@ -257,7 +257,7 @@
                     </div>
                 </li>
 
-                <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['admin.creditors.index','admin.debtors.index','admin.payments.index','admin.financial.coaches_debt_list','admin.financial.coach_pay_form']) ? 'kt-menu__item--open' : ''}}"
+                <li class="kt-menu__item  kt-menu__item--submenu {{in_array(Route::currentRouteName(),['admin.creditors.index','admin.debtors.index','admin.financial.coaches_debt_list','admin.financial.coach_pay_form']) ? 'kt-menu__item--open' : ''}}"
                     aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                     <span class="kt-menu__link-icon">
@@ -297,17 +297,6 @@
                                         <span></span>
                                     </i>
                                     <span class="kt-menu__link-text">بدهکاران</span>
-                                </a>
-                            </li>
-                            </li>
-                            <li class="kt-menu__item {{Route::currentRouteName() === 'admin.payments.index' ? 'kt-menu__item--active' : ''}}"
-                                aria-haspopup="true">
-                                <a href="{{route('admin.payments.index')}}"
-                                   class="kt-menu__link ">
-                                    <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                        <span></span>
-                                    </i>
-                                    <span class="kt-menu__link-text">پرداختی ها</span>
                                 </a>
                             </li>
                         </ul>

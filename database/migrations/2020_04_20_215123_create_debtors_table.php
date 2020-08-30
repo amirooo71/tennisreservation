@@ -17,7 +17,6 @@ class CreateDebtorsTable extends Migration {
 			$table->unsignedBigInteger( 'booking_id' )->nullable();
 			$table->unsignedBigInteger( 'part_time_booking_id' )->nullable();
 			$table->string( 'name' );
-			$table->double( 'amount' );
 			$table->boolean( 'is_paid' )->default( false );
 			$table->timestamps();
 		} );

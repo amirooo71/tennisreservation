@@ -12,8 +12,8 @@
                         <th scope="col">تاریخ رزرو</th>
                         <th scope="col">ساعت رزرو</th>
                         <th scope="col">زمین</th>
-                        <th scope="col">مبلغ</th>
-                        <th scope="col">عملیات</th>
+                        <th scope="col">مدت زمان بدهی</th>
+                        <th scope="col">مدیریت</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -22,26 +22,21 @@
                         <tr>
                             <td>{{$d->name}}</td>
                             @if($d->booked)
-                                <td>{{$d->booked->date}}</td>
-                                <td>{{$d->booked->time}}</td>
+                                <td>@faNum($d->booked->date,false)</td>
+                                <td>@faNum($d->booked->time,false)</td>
                                 <td>{{$d->booked->court->name}}</td>
                             @else
-                                <td>{{$d->partTimeBooked->booking->date}}</td>
-                                <td>{{$d->partTimeBooked->booking->time}}</td>
+                                <td>@faNum($d->partTimeBooked->booking->date,false)</td>
+                                <td>@faNum($d->partTimeBooked->booking->time,false)</td>
                                 <td>{{$d->partTimeBooked->booking->court->name}}</td>
                             @endif
-                            <td>{{$d->amount}} تومان</td>
+                            <td>@toHours($d->booked->duration)</td>
                             <td>
                                 <form action="{{route('admin.debtor_pay.index',$d)}}" method="POST">
                                     @csrf
                                     @method('PATCH')
                                     <div class="row">
-                                        <div class="col">
-                                            <input type="number" class="form-control form-control-sm" name="amount"
-                                                   value="{{$d->amount}}">
-                                            @component('components.validation',['field' => 'amount'])
-                                            @endcomponent
-                                        </div>
+                                        <input type="hidden" name="paid" value="paid">
                                         <div class="col">
                                             <button class="btn btn-success btn-sm">
                                                 <i class="far fa-credit-card"></i>

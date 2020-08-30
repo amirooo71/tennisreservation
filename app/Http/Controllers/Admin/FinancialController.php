@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Coach;
-use App\CoachBalance;
 use App\Creditor;
 use App\Debtor;
 use App\Http\Controllers\Controller;
-use App\Payment;
 use Illuminate\Http\Request;
 
 class FinancialController extends BaseController
@@ -46,15 +44,6 @@ class FinancialController extends BaseController
         return view('admin.financial.debtors', compact('debtors'));
     }
 
-    public function payments()
-    {
-
-        $payments = Payment::paginate(30);
-
-        return view('admin.financial.payments', compact('payments'));
-
-    }
-
     /**
      * @param Debtor $debtor
      *
@@ -63,15 +52,9 @@ class FinancialController extends BaseController
     public function debtorPaid(Debtor $debtor)
     {
 
-        $data = \request()->validate(['amount' => 'required|numeric']);
+        $data = \request()->validate(['paid' => 'required']);
 
-        $debtor->update(['is_paid' => true, 'amount' => $data['amount']]);
-
-        Payment::create([
-            'booking_id' => optional($debtor->booked)->id,
-            'part_time_booking_id' => optional($debtor->partTimeBooked)->id,
-            'amount' => $data['amount']
-        ]);
+        $debtor->update(['is_paid' => true]);
 
         flash('عملیات با موفقیت انجام شد', 'success');
 
@@ -148,23 +131,4 @@ class FinancialController extends BaseController
         return redirect()->route('admin.financial.coaches_debt_list');
 
     }
-
-    /**
-     * @param Coach $coach
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function increaseCoachBalance(Coach $coach)
-    {
-
-        \request()->validate(['amount' => 'required|numeric|min:1']);
-
-        $coach->balance->update(['amount' => $coach->balance->amount - \request('amount')]);
-
-        flash('افزایش حساب با موفقیت انجام شد.', 'success');
-
-        return redirect()->back();
-
-    }
-
 }

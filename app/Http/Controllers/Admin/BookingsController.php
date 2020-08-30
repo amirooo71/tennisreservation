@@ -113,7 +113,6 @@ class BookingsController extends BaseController
                 'booking_id' => $booking->id,
                 'coach_id' => $booking->coach_id,
                 'name' => $booking->renter_name,
-                'amount' => $this->calculateAmountByDurationTime($booking),
             ]);
         }
 
@@ -122,7 +121,6 @@ class BookingsController extends BaseController
                 'booking_id' => $booking->id,
                 'coach_id' => $booking->coach_id,
                 'name' => $booking->renter_name,
-                'amount' => $this->calculateAmountByDurationTime($booking),
             ]);
         }
 
@@ -134,13 +132,13 @@ class BookingsController extends BaseController
 
             $booking->partTime->delete();
 
-            return response()->json(['msg' => 'رزرو با موفقیت کنسل شد', 'booked' => $booked]);
+            return response()->json(['msg' => 'کنسل با موفقیت کنسل شد', 'booked' => $booked]);
 
         }
 
         $booking->update(['is_canceled' => true]);
 
-        return response()->json(['msg' => 'رزرو با موفقیت کنسل شد', 'booked' => null]);
+        return response()->json(['msg' => 'کنسل با موفقیت کنسل شد', 'booked' => null]);
 
     }
 

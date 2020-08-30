@@ -21,13 +21,18 @@
   <component name="ChangeListManager">
     <list default="true" id="b01c91de-d725-464d-91da-470dc09fd2f6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Coach.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Coach.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoachBalance.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_01_215243_create_coach_balances_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/financial/coach_pay_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/financial/coach_pay_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/financial/coaches_debt_list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/financial/coaches_debt_list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PaymentsController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Payment.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_15_231802_create_payments_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_20_215123_create_debtors_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_20_215123_create_debtors_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_20_215149_create_creditors_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_20_215149_create_creditors_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/financial/_coach_increase_debt_form.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/financial/debtors.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/financial/debtors.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/financial/payments.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/aside/_menu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/aside/_menu.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,7 +252,7 @@
       <workItem from="1598248476447" duration="16448000" />
       <workItem from="1598270441600" duration="7613000" />
       <workItem from="1598618925123" duration="33231000" />
-      <workItem from="1598766370164" duration="8729000" />
+      <workItem from="1598766370164" duration="10881000" />
     </task>
     <servers />
   </component>
@@ -286,23 +291,23 @@
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="72" y="27" width="1248" height="697" key="dock-window-1/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598709827076" />
-    <state x="511" y="112" width="588" height="551" key="find.popup" timestamp="1598766654778">
+    <state x="511" y="112" width="588" height="551" key="find.popup" timestamp="1598777357938">
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="651" y="148" width="618" height="783" key="find.popup/1920.0.1366.768/0.27.1920.1053@0.27.1920.1053" timestamp="1598621878307" />
     <state x="511" y="112" width="588" height="551" key="find.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598711502785" />
-    <state x="511" y="112" width="588" height="551" key="find.popup/72.27.1294.741@72.27.1294.741" timestamp="1598766654778" />
+    <state x="511" y="112" width="588" height="551" key="find.popup/72.27.1294.741@72.27.1294.741" timestamp="1598777357938" />
     <state x="383" y="174" key="run.anything.popup" timestamp="1598687002782">
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="383" y="174" key="run.anything.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598687002782" />
-    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup" timestamp="1598772515333">
+    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup" timestamp="1598777360743">
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.27.3286.1053@0.27.3286.1053" timestamp="1598248347975" />
     <state x="364" y="239" width="672" height="678" key="search.everywhere.popup/1920.0.1366.768/0.27.1920.1053@0.27.1920.1053" timestamp="1598622726082" />
     <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598715565869" />
-    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/72.27.1294.741@72.27.1294.741" timestamp="1598772515333" />
+    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/72.27.1294.741@72.27.1294.741" timestamp="1598777360743" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
