@@ -30,7 +30,9 @@ class Player extends Model
     public function mustPayForCanceledCount()
     {
         return $this->lessons()
-            ->where('must_pay', true)->count();
+            ->where('must_pay', true)
+            ->where('is_paid',false)
+            ->where('is_canceled', true)->count();
     }
 
     /**
@@ -39,7 +41,10 @@ class Player extends Model
     public function mustPayForCanceledMinutes()
     {
         return $this->lessons()
-            ->where('must_pay', true)->sum('duration');
+            ->where('must_pay', true)
+            ->where('is_paid',false)
+            ->where('is_canceled', true)
+            ->sum('duration');
     }
 
     /**

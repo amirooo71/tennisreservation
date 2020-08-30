@@ -94,7 +94,6 @@ class FinancialController extends BaseController
     public function coachPayForm(Coach $coach)
     {
 
-
         if (!$coach->deptLessonCount()) {
 
             flash('مربی مورد نظر هزینه تمام جلسات را پرداخت کرده است.', 'info');
@@ -179,6 +178,19 @@ class FinancialController extends BaseController
         $bookings->each(function ($booking) {
             $booking->update(['is_paid' => true]);
         });
+
+        if (!$bookings->count()) {
+            $mustPayBookings = $player->lessons()
+                ->where('is_canceled', true)
+                ->where('is_paid', false)
+                ->where('must_pay', true)
+                ->take($data['amount'])->get();
+
+            $mustPayBookings->each(function ($booking) {
+                $booking->update(['is_paid' => true]);
+            });
+
+        }
 
         flash('تعداد جلسات پرداختی با موفقیت از حساب شاگرد کاسته شد.', 'success');
 

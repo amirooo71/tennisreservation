@@ -36,10 +36,6 @@ class DashboardController extends BaseController
 
         $canceledMinutes = $canceled->sum('duration') + $canceled->partTimeBookedMinutes();
 
-        $this->getDebtPlayers();
-
-        $debtPlayers = $this->debtPlayers;
-
         if ($courts->count()) {
 
             $bookingPercent = $this->calculatePercentage($bookings, $courts);
@@ -48,7 +44,7 @@ class DashboardController extends BaseController
 
         }
 
-        return view('admin.dashboard.index', compact('courts', 'bookingPercent', 'canceledPercent', 'bookingMinutes', 'canceledMinutes','debtPlayers'));
+        return view('admin.dashboard.index', compact('courts', 'bookingPercent', 'canceledPercent', 'bookingMinutes', 'canceledMinutes'));
 
     }
 
@@ -61,15 +57,6 @@ class DashboardController extends BaseController
     private function calculatePercentage($query, $courts)
     {
         return round($query->count() * 100 / (Club::first()->opening_hours * $courts->count()));
-    }
-
-    public function getDebtPlayers(): void
-    {
-        Player::all()->each(function ($player) {
-            if ($player->deptLessonsCount() >= 10) {
-                $this->debtPlayers[] = $player;
-            }
-        });
     }
 
 }
