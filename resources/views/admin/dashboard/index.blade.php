@@ -1,7 +1,7 @@
 @extends('layouts.app_admin')
 
 @section('content')
-    
+
     <div class="row">
         <div class="col">
             <div class="kt-portlet">

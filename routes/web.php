@@ -96,7 +96,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::patch('financial/creditors/{creditor}/refund', 'Admin\FinancialController@refundCreditorMoney')->name('admin.refund_creditors.index');
     Route::patch('financial/debtors/{debtor}/pay', 'Admin\FinancialController@debtorPaid')->name('admin.debtor_pay.index');
 
-    Route::get('statistic/revenue', 'Admin\StatisticsController@revenue')->name('admin.statistics.revenue');
     Route::get('statistic/bookings', 'Admin\StatisticsController@bookings')->name('admin.statistics.bookings');
     Route::get('statistic/canceled', 'Admin\StatisticsController@canceled')->name('admin.statistics.canceled');
 
