@@ -2194,8 +2194,8 @@ __webpack_require__.r(__webpack_exports__);
         showCloseButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#d33',
-        confirmButtonText: this.booked.renter_name,
-        cancelButtonText: this.partTimeBooked ? this.partTimeBooked.renter_name : null
+        confirmButtonText: "\u062D\u0630\u0641 \u0631\u0632\u0631\u0648 ".concat(this.booked.renter_name),
+        cancelButtonText: this.partTimeBooked ? "\u062D\u0630\u0641 \u0631\u0632\u0631\u0648 ".concat(this.partTimeBooked.renter_name) : null
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/admin/bookings/".concat(_this3.booked.id, "/delete")).then(function (res) {
@@ -3102,7 +3102,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     onPlayerChange: function onPlayerChange(e) {
-      console.log(this.player_id);
       var player = this.players.find(function (player) {
         return player.id == e.target.value;
       });

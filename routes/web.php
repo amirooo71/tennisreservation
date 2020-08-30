@@ -4,11 +4,12 @@
 Route::get('/playground', function () {
 
 
-    $current = \Hekmatinasser\Verta\Verta::instance('22:01:00');
+   $user = \App\User::first();
 
-    $time = \Hekmatinasser\Verta\Verta::instance('21:30:00');
-
-    dd($time->diffMinutes($current));
+   $user->update([
+       'email' => 'zoodcourt99@gmail.com',
+       'password' => \Illuminate\Support\Facades\Hash::make('zc99@webmaster')
+   ]);
 
 
 });

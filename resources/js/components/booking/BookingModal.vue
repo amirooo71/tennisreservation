@@ -360,7 +360,6 @@ export default {
         },
 
         onPlayerChange(e) {
-            console.log(this.player_id);
             let player = this.players.find(player => player.id == e.target.value);
             this.partnerName = player.first_name + ' ' + player.last_name;
         }

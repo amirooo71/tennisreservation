@@ -143,9 +143,11 @@
                         <div class="row d-flex justify-content-between">
                             <h4>بدهکاری ها: </h4> <span class="kt-badge kt-badge--info">@faNum($player->lessons->where('is_paid',false)->count(),false)</span>
                         </div>
+                        <div class="row d-flex justify-content-between">
+                            <h4>مجموع بدهکاری: </h4> <h3>@faNum($player->learning_price * $player->lessons->where('is_paid',false)->count(),true) تومان</h3>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     @endcomponent

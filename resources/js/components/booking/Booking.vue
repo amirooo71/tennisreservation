@@ -208,8 +208,8 @@
                     showCloseButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: this.booked.renter_name,
-                    cancelButtonText: this.partTimeBooked ? this.partTimeBooked.renter_name : null,
+                    confirmButtonText: `حذف رزرو ${this.booked.renter_name}`,
+                    cancelButtonText: this.partTimeBooked ? `حذف رزرو ${this.partTimeBooked.renter_name}` : null,
                 }).then((result) => {
                     if (result.value) {
                         axios.delete(`/admin/bookings/${this.booked.id}/delete`).then(res => {
