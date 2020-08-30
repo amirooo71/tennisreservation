@@ -179,12 +179,12 @@ class FinancialController extends BaseController
             $booking->update(['is_paid' => true]);
         });
 
-        if (!$bookings->count()) {
+        if ($bookings->count() !== $data['amount']) {
             $mustPayBookings = $player->lessons()
                 ->where('is_canceled', true)
                 ->where('is_paid', false)
                 ->where('must_pay', true)
-                ->take($data['amount'])->get();
+                ->take($data['amount'] - $bookings->count())->get();
 
             $mustPayBookings->each(function ($booking) {
                 $booking->update(['is_paid' => true]);
