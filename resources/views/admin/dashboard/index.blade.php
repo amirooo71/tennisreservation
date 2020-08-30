@@ -2,21 +2,26 @@
 
 @section('content')
 
-    <form action="{{route('go.to.date')}}" method="GET" class="row mb-3">
-        @csrf
-        <div class="col-md-3">
-            <input type="text" class="form-control" name="d" value="{{\Hekmatinasser\Verta\Verta::now()->format('j')}}">
-        </div>
-        <div class="col-md-3">
-            <input type="text" class="form-control" name="n" value="{{\Hekmatinasser\Verta\Verta::now()->format('n')}}">
-        </div>
-        <div class="col-md-3">
-            <input type="text" class="form-control" name="y" value="{{\Hekmatinasser\Verta\Verta::now()->format('Y')}}">
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-light" type="submit">برو به تاریخ</button>
-        </div>
-    </form>
+    @component('components.portletWithoutFooter',['title' => 'جست و جو رزوری'])
+        <form action="{{route('go.to.date')}}" method="GET" class="row">
+            @csrf
+            <div class="col-3 form-group">
+                <input type="text" class="form-control" name="d"
+                       value="{{\Hekmatinasser\Verta\Verta::now()->format('j')}}">
+            </div>
+            <div class="col-3 form-group">
+                <input type="text" class="form-control" name="n"
+                       value="{{\Hekmatinasser\Verta\Verta::now()->format('n')}}">
+            </div>
+            <div class="col-3 form-group">
+                <input type="text" class="form-control" name="y"
+                       value="{{\Hekmatinasser\Verta\Verta::now()->format('Y')}}">
+            </div>
+            <div class="col-3 form-group">
+                <button class="btn btn-block btn-secondary" type="submit">برو به تاریخ</button>
+            </div>
+        </form>
+    @endcomponent
 
     <div class="row">
         <div class="col">
@@ -181,7 +186,8 @@
                                             <span class="text-muted">جلسات پرداخت نشده: @faNum($player->deptLessonsCount(),false)</span>
                                         </span>
                                     </div>
-                                        <a href="{{route('admin.financial.player_pay',$player)}}" class="btn btn-secondary btn-sm">مدیریت حساب</a>
+                                    <a href="{{route('admin.financial.player_pay',$player)}}"
+                                       class="btn btn-secondary btn-sm">مدیریت حساب</a>
                                 </div>
                             </div>
                         @endforeach
@@ -233,7 +239,8 @@
                                             <span class="text-muted">تعداد جلسات پرداخت نشده: @faNum($coach->deptLessonCount(),false)</span>
                                         </span>
                                     </div>
-                                    <a href="{{route('admin.financial.coach_pay',$coach)}}" class="btn btn-secondary btn-sm">مدیریت حساب</a>
+                                    <a href="{{route('admin.financial.coach_pay',$coach)}}"
+                                       class="btn btn-secondary btn-sm">مدیریت حساب</a>
                                 </div>
                             </div>
                         @endforeach

@@ -159,11 +159,13 @@ class FinancialController extends BaseController
 
     }
 
-
+    /**
+     * @param Player $player
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function storePlayerPay(Player $player)
     {
         $data = \request()->validate(['amount' => 'required|numeric|min:1']);
-
 
         if ((integer)$data['amount'] > $player->deptLessonsCount()) {
 
@@ -173,7 +175,11 @@ class FinancialController extends BaseController
 
         }
 
-        $bookings = $player->lessons()->where('is_canceled', false)->where('is_paid', false)->take($data['amount'])->get();
+        $bookings = $player->lessons()
+            ->where('is_canceled', false)
+            ->where('is_paid', false)
+            ->take($data['amount'])
+            ->get();
 
         $bookings->each(function ($booking) {
             $booking->update(['is_paid' => true]);
