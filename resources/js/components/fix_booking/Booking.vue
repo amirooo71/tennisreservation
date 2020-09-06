@@ -47,18 +47,12 @@
                 </div>
 
                 <div class="form-group">
-                    <ValidationProvider name="Player-name" rules="required" v-slot="{ errors }">
-                        <label>نام شاگرد</label>
-                        <select @change="onPlayerChange" name="player_id" v-model="player_id" class="form-control">
-                            <option v-for="player in players" :value="player.id">
-                                {{ player.first_name + ' ' + player.last_name }}
-                            </option>
-                        </select>
-                        <span class="form-text text-danger" v-if="errors[0]">
-                      <i class="fas fa-exclamation-circle"></i>
-                         {{ errors[0] }}
-                  </span>
-                    </ValidationProvider>
+                    <label>نام شاگرد</label>
+                    <select @change="onPlayerChange" name="player_id" v-model="player_id" class="form-control">
+                        <option v-for="player in players" :value="player.id">
+                            {{ player.first_name + ' ' + player.last_name }}
+                        </option>
+                    </select>
                 </div>
 
                 <div class="form-group">

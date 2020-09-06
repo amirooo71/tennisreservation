@@ -3414,12 +3414,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -89698,110 +89692,59 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("ValidationProvider", {
-                          attrs: { name: "Player-name", rules: "required" },
-                          scopedSlots: _vm._u(
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("نام شاگرد")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.player_id,
+                              expression: "player_id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "player_id" },
+                          on: {
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.player_id = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              },
+                              _vm.onPlayerChange
+                            ]
+                          }
+                        },
+                        _vm._l(_vm.players, function(player) {
+                          return _c(
+                            "option",
+                            { domProps: { value: player.id } },
                             [
-                              {
-                                key: "default",
-                                fn: function(ref) {
-                                  var errors = ref.errors
-                                  return [
-                                    _c("label", [_vm._v("نام شاگرد")]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "select",
-                                      {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.player_id,
-                                            expression: "player_id"
-                                          }
-                                        ],
-                                        staticClass: "form-control",
-                                        attrs: { name: "player_id" },
-                                        on: {
-                                          change: [
-                                            function($event) {
-                                              var $$selectedVal = Array.prototype.filter
-                                                .call(
-                                                  $event.target.options,
-                                                  function(o) {
-                                                    return o.selected
-                                                  }
-                                                )
-                                                .map(function(o) {
-                                                  var val =
-                                                    "_value" in o
-                                                      ? o._value
-                                                      : o.value
-                                                  return val
-                                                })
-                                              _vm.player_id = $event.target
-                                                .multiple
-                                                ? $$selectedVal
-                                                : $$selectedVal[0]
-                                            },
-                                            _vm.onPlayerChange
-                                          ]
-                                        }
-                                      },
-                                      _vm._l(_vm.players, function(player) {
-                                        return _c(
-                                          "option",
-                                          { domProps: { value: player.id } },
-                                          [
-                                            _vm._v(
-                                              "\n                            " +
-                                                _vm._s(
-                                                  player.first_name +
-                                                    " " +
-                                                    player.last_name
-                                                ) +
-                                                "\n                        "
-                                            )
-                                          ]
-                                        )
-                                      }),
-                                      0
-                                    ),
-                                    _vm._v(" "),
-                                    errors[0]
-                                      ? _c(
-                                          "span",
-                                          {
-                                            staticClass: "form-text text-danger"
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass:
-                                                "fas fa-exclamation-circle"
-                                            }),
-                                            _vm._v(
-                                              "\n                     " +
-                                                _vm._s(errors[0]) +
-                                                "\n              "
-                                            )
-                                          ]
-                                        )
-                                      : _vm._e()
-                                  ]
-                                }
-                              }
-                            ],
-                            null,
-                            true
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(
+                                    player.first_name + " " + player.last_name
+                                  ) +
+                                  "\n                    "
+                              )
+                            ]
                           )
-                        })
-                      ],
-                      1
-                    ),
+                        }),
+                        0
+                      )
+                    ]),
                     _vm._v(" "),
                     _c(
                       "div",
