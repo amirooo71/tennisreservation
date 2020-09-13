@@ -1,16 +1,11 @@
 <?php
 
 
+use App\Booking;
+use App\FixBooking;
+use Hekmatinasser\Verta\Verta;
+
 Route::get('/playground', function () {
-
-
-    $user = \App\User::first();
-
-    $user->update([
-        'email' => 'zoodcourt99@gmail.com',
-        'password' => \Illuminate\Support\Facades\Hash::make('zc99@webmaster')
-    ]);
-
 
 });
 
@@ -20,7 +15,7 @@ Route::get('/', function () {
     return redirect()->route('admin.dashboard.index');
 });
 
-Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 
     Route::get('dashboard', 'Admin\DashboardController@index')->name('admin.dashboard.index');
@@ -40,6 +35,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
     Route::patch('clubs/{club}/courts/{court}', 'Admin\CourtsController@update')->name('admin.courts.update');
 
     Route::get('bookings', 'Admin\BookingsController@index')->name('admin.bookings.index');
+    Route::get('bookings/fixes', 'Admin\BookingsController@addFixBookings')->name('admin.bookings.add_fixes');
     Route::get('bookings/canceled', 'Admin\BookingsController@canceled')->name('admin.bookings.canceled');
     Route::get('bookings/{booking}/cancel/is-valid-time', 'Admin\BookingsController@isValidTimeForCanceling')->name('admin.bookings.isValidTimeForCanceling');
     Route::post('bookings', 'Admin\BookingsController@store')->name('admin.bookings.store');

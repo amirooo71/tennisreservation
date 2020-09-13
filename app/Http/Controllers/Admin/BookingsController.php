@@ -8,6 +8,7 @@ use App\Court;
 use App\Creditor;
 use App\Debtor;
 use App\FixBooking;
+use App\FixLog;
 use Hekmatinasser\Verta\Verta;
 
 class BookingsController extends BaseController
@@ -27,7 +28,7 @@ class BookingsController extends BaseController
 
         $club = Club::first();
 
-        $this->checkTodayFixBookings($date);
+//        $this->checkTodayFixBookings($date);
 
         $courts = $this->getAllCourtBookingsByDate($date);
 
@@ -308,41 +309,65 @@ class BookingsController extends BaseController
 
     }
 
-    /**
-     * @param $date
-     */
-    private function checkTodayFixBookings($date): void
+    public function addFixBookings()
     {
 
-        $day = Verta::parse($date)->formatWord('l');
+        $areFixesAdded = FixLog::where('date', Verta::today()->endWeek()->formatDate())->first();
 
-        $fixBookings = FixBooking::where('day', $day)->get();
+        if (!$areFixesAdded) {
 
-        if ($fixBookings->count()) {
+            for ($i = 1; $i <= 7; $i++) {
 
-            $fixBookings->each(function ($booking) {
+                $now = \Hekmatinasser\Verta\Verta::now();
 
-                $isBooked = Booking::where('date', Verta::now()->format('Y-n-j'))->where('time', $booking->time)->where('court_id', $booking->court_id)->first();
+                $day = $now->addDays($i);
 
-                if (!$isBooked) {
+                $dayName = $day->format('l');
 
-                    Booking::create([
-                        'court_id' => $booking->court_id,
-                        'renter_name' => $booking->coach_id ? $booking->coach->full_name : $booking->renter_name,
-                        'date' => Verta::now()->format('Y-n-j'),
-                        'time' => $booking->time,
-                        'partner_name' => $booking->partner_name,
-                        'duration' => 60,
-                        'amount' => $booking->court->price,
-                        'player_id' => $booking->player_id ? $booking->player_id : null,
-                        'coach_id' => $booking->coach_id ? $booking->coach_id : null,
-                    ]);
+                $fixBookings = FixBooking::where('day', $dayName)->get();
+
+                if ($fixBookings->count()) {
+
+                    $fixBookings->each(function ($booking) use ($day) {
+
+                        $isBooked = Booking::where('date', $day->format('Y-n-j'))->where('time', $booking->time)->where('court_id', $booking->court_id)->first();
+
+                        if (!$isBooked) {
+
+                            Booking::create([
+                                'court_id' => $booking->court_id,
+                                'renter_name' => $booking->coach_id ? $booking->coach->full_name : $booking->renter_name,
+                                'date' => $day->format('Y-n-j'),
+                                'time' => $booking->time,
+                                'partner_name' => $booking->partner_name,
+                                'duration' => 60,
+                                'amount' => $booking->court->price,
+                                'player_id' => $booking->player_id ? $booking->player_id : null,
+                                'coach_id' => $booking->coach_id ? $booking->coach_id : null,
+                            ]);
+
+                        }
+
+                    });
 
                 }
 
-            });
+                if ($day->format('l') === 'جمعه') {
 
+                    FixLog::create([
+                        'date' => $day->formatDate()
+                    ]);
+
+                    break;
+                }
+
+                flash('فیکسی ها با موفقیت ذخیره شد.', 'success');
+
+                return back();
+
+            }
         }
+
     }
 
 
