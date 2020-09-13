@@ -4,7 +4,7 @@
 
     <div class="row mb-3">
         <div class="col">
-            <a href="#" class="btn btn-block btn-primary">
+            <a href="{{route('admin.bookings.add_fixes')}}" class="btn btn-block btn-primary">
                 اضافه کردن فیکسی ها
             </a>
         </div>
