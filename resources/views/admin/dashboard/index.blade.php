@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="row mb-3">
+    <div class="row mb-4">
         <div class="col">
             <a href="{{route('admin.bookings.add_fixes')}}" class="btn btn-block btn-primary">
                 اضافه کردن فیکسی ها
