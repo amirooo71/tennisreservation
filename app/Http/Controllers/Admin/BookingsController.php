@@ -217,15 +217,15 @@ class BookingsController extends BaseController
     public function addFixBookings()
     {
 
-        $areFixesAdded = FixLog::where('date', Verta::today()->endWeek()->formatDate())->first();
-
-        if ($areFixesAdded) {
-
-            flash('رزرو فیکسی برای این هفته ذخیره شده است', 'warning');
-
-            return back();
-
-        }
+//        $areFixesAdded = FixLog::where('date', Verta::today()->endWeek()->formatDate())->first();
+//
+//        if ($areFixesAdded) {
+//
+//            flash('رزرو فیکسی برای این هفته ذخیره شده است', 'warning');
+//
+//            return back();
+//
+//        }
 
         for ($i = 1; $i <= 7; $i++) {
 
