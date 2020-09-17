@@ -18,7 +18,13 @@ class FixBookingsController extends Controller
     public function index()
     {
 
-        $fixBookings = FixBooking::paginate(30);
+        $day = \request('day');
+
+        if ($day) {
+            $fixBookings = FixBooking::where('day', $day)->paginate(50);
+        }else{
+            $fixBookings = FixBooking::paginate(50);
+        }
 
         return view('admin.fix_bookings.index', compact('fixBookings'));
     }

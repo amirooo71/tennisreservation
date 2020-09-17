@@ -5,6 +5,25 @@
 
     <a href="{{route('admin.fix_bookings.create')}}" class="btn btn-light btn-elevate mb-3">اضافه کردن</a>
 
+    @component('components.portletWithoutFooter',['title' => 'نمایش با روز هفته'])
+        <form action="{{route('admin.fix_bookings.index')}}">
+            <div class="form-group">
+            <select name="day" id="day" class="form-control">
+                <option value="شنبه">شنبه</option>
+                <option value="یکشنبه">یکشنبه</option>
+                <option value="دوشنبه">دوشنبه</option>
+                <option value="سه شنبه">سه شنبه</option>
+                <option value="چهارشنبه">چهارشنبه</option>
+                <option value="پنج شنبه">پنج شنبه</option>
+                <option value="جمعه">جمعه</option>
+            </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn-sm btn btn-success">نمایش</button>
+            </div>
+        </form>
+    @endcomponent
+
     @component('components.portletWithoutFooter',['title' => 'لیست فیکسی'])
 
         <table class="table table-bordered table-hover" id="datatbl">
