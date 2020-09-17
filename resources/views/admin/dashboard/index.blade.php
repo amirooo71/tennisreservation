@@ -2,15 +2,6 @@
 
 @section('content')
 
-    <div class="row mb-4">
-        <div class="col">
-            <a href="{{route('admin.bookings.add_fixes')}}" class="btn btn-block btn-primary">
-                اضافه کردن فیکسی ها
-            </a>
-        </div>
-    </div>
-
-
     @component('components.portletWithoutFooter',['title' => 'جست و جو رزوری'])
         <form action="{{route('go.to.date')}}" method="GET" class="row">
             @csrf

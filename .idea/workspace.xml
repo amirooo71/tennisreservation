@@ -21,7 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b01c91de-d725-464d-91da-470dc09fd2f6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookingsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/_toolbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/_toolbar.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -245,7 +246,7 @@
       <workItem from="1598818726754" duration="5479000" />
       <workItem from="1599392100584" duration="1263000" />
       <workItem from="1599988465019" duration="7574000" />
-      <workItem from="1600349433750" duration="251000" />
+      <workItem from="1600349433750" duration="788000" />
     </task>
     <servers />
   </component>
@@ -286,25 +287,25 @@
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="72" y="27" width="1248" height="697" key="dock-window-1/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598709827076" />
-    <state x="511" y="112" width="588" height="551" key="find.popup" timestamp="1598778559603">
+    <state x="511" y="112" width="588" height="551" key="find.popup" timestamp="1600349865481">
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="651" y="148" width="618" height="783" key="find.popup/1920.0.1366.768/0.27.1920.1053@0.27.1920.1053" timestamp="1598621878307" />
     <state x="511" y="112" width="588" height="551" key="find.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598711502785" />
-    <state x="511" y="112" width="588" height="551" key="find.popup/72.27.1294.741@72.27.1294.741" timestamp="1598778559603" />
-    <state x="383" y="174" key="run.anything.popup" timestamp="1599990935952">
+    <state x="511" y="112" width="588" height="551" key="find.popup/72.27.1294.741@72.27.1294.741" timestamp="1600349865481" />
+    <state x="383" y="174" key="run.anything.popup" timestamp="1600350089354">
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="383" y="174" key="run.anything.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598687002782" />
-    <state x="383" y="174" key="run.anything.popup/72.27.1294.741@72.27.1294.741" timestamp="1599990935952" />
-    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup" timestamp="1599994410692">
+    <state x="383" y="174" key="run.anything.popup/72.27.1294.741@72.27.1294.741" timestamp="1600350089354" />
+    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup" timestamp="1600349833920">
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.27.3286.1053@0.27.3286.1053" timestamp="1598248347975" />
     <state x="364" y="239" width="672" height="678" key="search.everywhere.popup/1920.0.1366.768/0.27.1920.1053@0.27.1920.1053" timestamp="1598622726082" />
     <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598715565869" />
     <state x="301" y="166" width="672" height="448" key="search.everywhere.popup/72.27.1208.693@72.27.1208.693" timestamp="1598795199216" />
-    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/72.27.1294.741@72.27.1294.741" timestamp="1599994410692" />
+    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/72.27.1294.741@72.27.1294.741" timestamp="1600349833920" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
