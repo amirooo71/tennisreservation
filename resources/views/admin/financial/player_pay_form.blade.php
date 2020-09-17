@@ -31,6 +31,21 @@
                             </div>
                         </form>
                     @endcomponent
+                    @component('components.portletWithoutFooter',['title' => 'فرم ویرایش جلسات'])
+                        <form action="{{route('admin.financial.edit_lessons_pay',$player)}}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <div class="form-group">
+                                <label>تعداد جلسات را وارد کنید</label>
+                                <input type="number" class="form-control" name="amount">
+                                @component('components.validation',['field' => 'amount'])
+                                @endcomponent
+                            </div>
+                            <div>
+                                <button class="btn btn-danger">اعمال</button>
+                            </div>
+                        </form>
+                    @endcomponent
                 </div>
             </div>
         </div>

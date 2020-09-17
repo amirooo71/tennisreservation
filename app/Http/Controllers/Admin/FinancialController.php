@@ -160,6 +160,8 @@ class FinancialController extends BaseController
 
             if (!$player->balance) {
                 $player->balance()->create(['amount' => (int)$data['amount'] - $player->deptLessonsCount()]);
+            } else {
+                $player->balance()->update(['amount' => $player->balance->amount + (int)$data['amount']]);
             }
 
         }
@@ -196,5 +198,22 @@ class FinancialController extends BaseController
         flash('تعداد جلسات پرداختی با موفقیت از حساب شاگرد کاسته شد.', 'success');
 
         return redirect()->route('admin.financial.players_debt_list');
+    }
+
+    /**
+     * @param Player $player
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function reducePlayerBalance(Player $player)
+    {
+        $data = \request()->validate(['amount' => 'required|numeric|min:1']);
+
+        if ($player->balance && $player->balance->amount >= (int)$data['amount']) {
+            $player->balance()->update(['amount' => $player->balance->amount - (int)$data['amount']]);
+        }
+
+        flash('تعداد جلسات با موفقیت ویرایش شد', 'success');
+
+        return back();
     }
 }

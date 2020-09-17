@@ -18,7 +18,9 @@
                        value="{{\Hekmatinasser\Verta\Verta::now()->format('Y')}}">
             </div>
             <div class="col-3 form-group">
-                <button class="btn btn-block btn-secondary" type="submit">برو به تاریخ</button>
+                <button class="btn btn-block btn-secondary" type="submit">
+                    <span class="fas fa-search"></span>
+                </button>
             </div>
         </form>
     @endcomponent

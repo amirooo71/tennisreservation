@@ -27,8 +27,6 @@ class PlayersController extends Controller
     public function profile(Player $player)
     {
 
-//        dd($player->lessons[0]->coach);
-
         return view('admin.players.profile',compact('player'));
     }
 

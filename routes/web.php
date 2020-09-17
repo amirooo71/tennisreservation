@@ -95,6 +95,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('financial/players/debt', 'Admin\FinancialController@playersDebtList')->name('admin.financial.players_debt_list');
     Route::get('financial/players/{player}/pay', 'Admin\FinancialController@playerPayForm')->name('admin.financial.player_pay_form');
     Route::patch('financial/players/{player}/pay', 'Admin\FinancialController@storePlayerPay')->name('admin.financial.player_pay');
+    Route::patch('financial/players/{player}/edit-lessons-pay', 'Admin\FinancialController@reducePlayerBalance')->name('admin.financial.edit_lessons_pay');
 
     Route::get('statistic/bookings', 'Admin\StatisticsController@bookings')->name('admin.statistics.bookings');
     Route::get('statistic/canceled', 'Admin\StatisticsController@canceled')->name('admin.statistics.canceled');

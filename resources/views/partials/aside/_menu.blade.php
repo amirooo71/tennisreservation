@@ -266,7 +266,7 @@
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                         <span></span>
                                     </i>
-                                    <span class="kt-menu__link-text">بدهی مربیان</span>
+                                    <span class="kt-menu__link-text">صورت حساب مربیان</span>
                                 </a>
                             </li>
                             <li class="kt-menu__item {{Route::currentRouteName() === 'admin.financial.players_debt_list' ? 'kt-menu__item--active' : ''}}"
@@ -276,7 +276,7 @@
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                         <span></span>
                                     </i>
-                                    <span class="kt-menu__link-text">بدهی شاگردان</span>
+                                    <span class="kt-menu__link-text">صورت حساب شاگردان</span>
                                 </a>
                             </li>
                             <li class="kt-menu__item {{Route::currentRouteName() === 'admin.creditors.index' ? 'kt-menu__item--active' : ''}}"
