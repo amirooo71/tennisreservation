@@ -269,12 +269,11 @@ class BookingsController extends BaseController
                     'date' => $day->formatDate()
                 ]);
 
-                break;
+                flash('فیکسی ها با موفقیت ذخیره شد.', 'success');
+
+                return back();
+
             }
-
-            flash('فیکسی ها با موفقیت ذخیره شد.', 'success');
-
-            return back();
 
         }
 
