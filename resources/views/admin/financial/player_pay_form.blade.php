@@ -15,7 +15,7 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
-                    @component('components.portletWithoutFooter',['title' => 'تعداد جلسات بستانکار'])
+                    @component('components.portletWithoutFooter',['title' => 'تعداد جلسات دریافتی'])
                         <form action="{{route('admin.financial.player_pay',$player)}}" method="POST">
                             @csrf
                             @method('PATCH')
@@ -31,7 +31,7 @@
                             </div>
                         </form>
                     @endcomponent
-                    @component('components.portletWithoutFooter',['title' => 'تعداد جلسات بدهکار'])
+                    @component('components.portletWithoutFooter',['title' => 'تعداد جلسات بدهکاری'])
                         <form action="{{route('admin.financial.edit_lessons_pay',$player)}}" method="POST">
                             @csrf
                             @method('PATCH')
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            @component('components.portletWithoutFooter',['title' => 'صورت حساب جلسات'])
+            @component('components.portletWithoutFooter',['title' => 'تعداد جلسات باقی مانده'])
                 @if($player->balance)
                     <h2 class="text-success">@faNum($player->balance->amount,false) جلسه</h2>
                 @else
