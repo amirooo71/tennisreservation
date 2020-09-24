@@ -23,6 +23,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/FinancialController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/financial/player_pay_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/financial/player_pay_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +251,8 @@
       <workItem from="1600956812612" duration="1740000" />
       <workItem from="1600958576051" duration="1792000" />
       <workItem from="1600960414850" duration="1789000" />
-      <workItem from="1600962222174" duration="714000" />
+      <workItem from="1600962222174" duration="1790000" />
+      <workItem from="1600964033945" duration="349000" />
     </task>
     <servers />
   </component>
@@ -306,14 +308,14 @@
     </state>
     <state x="383" y="174" key="run.anything.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598687002782" />
     <state x="383" y="174" key="run.anything.popup/72.27.1294.741@72.27.1294.741" timestamp="1600350089354" />
-    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup" timestamp="1600960490433">
+    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup" timestamp="1600964105009">
       <screen x="72" y="27" width="1294" height="741" />
     </state>
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.27.3286.1053@0.27.3286.1053" timestamp="1598248347975" />
     <state x="364" y="239" width="672" height="678" key="search.everywhere.popup/1920.0.1366.768/0.27.1920.1053@0.27.1920.1053" timestamp="1598622726082" />
     <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/1920.0.1366.768/72.27.1294.741@72.27.1294.741" timestamp="1598715565869" />
     <state x="301" y="166" width="672" height="448" key="search.everywhere.popup/72.27.1208.693@72.27.1208.693" timestamp="1598795199216" />
-    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/72.27.1294.741@72.27.1294.741" timestamp="1600960490433" />
+    <state x="317" y="176" width="672" height="478" key="search.everywhere.popup/72.27.1294.741@72.27.1294.741" timestamp="1600964105009" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

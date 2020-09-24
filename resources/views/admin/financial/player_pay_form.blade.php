@@ -50,9 +50,17 @@
             </div>
         </div>
         <div class="col-md-6">
-            @component('components.portletWithoutFooter',['title' => 'تعداد جلسات باقی مانده'])
+            <a href="{{route('admin.financial.sync_player_balance',$player)}}" class="btn btn-block btn-success mb-3">
+                <i class="fas fa-sync"></i>
+                بروزرسانی
+            </a>
+            @component('components.portletWithoutFooter',['title' => 'صورت حساب جلسات'])
                 @if($player->balance)
-                    <h2 class="text-success">@faNum($player->balance->amount,false) جلسه</h2>
+                    @if($player->balance->amount >= 0)
+                        <h2 class="text-success">@faNum($player->balance->amount,false) جلسه طلبکار</h2>
+                    @else
+                        <h2 class="text-danger">@faNum($player->balance->amount,false) جلسه بدهکار</h2>
+                    @endif
                 @else
                     <h2 class="text-success">۰ جلسه</h2>
                 @endif

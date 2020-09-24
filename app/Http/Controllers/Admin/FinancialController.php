@@ -152,6 +152,47 @@ class FinancialController extends BaseController
      * @param Player $player
      * @return \Illuminate\Http\RedirectResponse
      */
+    public function syncPlayerBalance(Player $player)
+    {
+        if ($player->balance) {
+
+            $bookings = $player->lessons()
+                ->where('is_canceled', false)
+                ->where('is_paid', false)
+                ->take($player->balance->amount)
+                ->get();
+
+            $bookings->each(function ($booking) use ($player) {
+                $booking->update(['is_paid' => true]);
+                $player->balance()->decrement('amount');
+            });
+
+            if ($bookings->count() !== $player->balance->amount) {
+                $mustPayBookings = $player->lessons()
+                    ->where('is_canceled', true)
+                    ->where('is_paid', false)
+                    ->where('must_pay', true)
+                    ->take($player->balance->amount - $bookings->count())->get();
+
+                $mustPayBookings->each(function ($booking) use ($player) {
+                    $booking->update(['is_paid' => true]);
+                    $player->balance()->amount()->decerement();
+                    $player->balance()->decrement('amount');
+                });
+            }
+
+        } else {
+
+        }
+
+        flash('success', 'بروزرسانی با موفقیت انجام شد');
+        return back();
+    }
+
+    /**
+     * @param Player $player
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function storePlayerPay(Player $player)
     {
         $data = \request()->validate(['amount' => 'required|numeric|min:1']);
@@ -185,12 +226,11 @@ class FinancialController extends BaseController
                 $player->balance()->amount()->decerement();
                 $player->balance()->decrement('amount');
             });
-
         }
 
         flash('تعداد جلسات پرداختی با موفقیت از حساب شاگرد کاسته شد.', 'success');
 
-        return redirect()->route('admin.financial.players_debt_list');
+        return back();
     }
 
     /**
@@ -205,7 +245,7 @@ class FinancialController extends BaseController
         if ($player->balance) {
             $player->balance()->update(['amount' => $player->balance->amount - (int)$data['amount']]);
         } else {
-            $player->balance()->create(['amount' => (int)$data['amount']]);
+            $player->balance()->create(['amount' => 0 - (int)$data['amount']]);
         }
 
         flash('تعداد جلسات با موفقیت ویرایش شد', 'success');
