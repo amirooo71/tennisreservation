@@ -33,7 +33,10 @@
                         <label>مدت زمان کنسلی</label>
                         <input type="text" value="{{$club->cancellation_time}}" class="form-control" disabled>
                     </div>
-
+                    <div class="form-group">
+                        <label>تعداد روزهای مورد نیاز برای رزرو فیکسی</label>
+                        <input type="text" value="{{$club->fix_amount}}" class="form-control" disabled>
+                    </div>
                     <div class="form-group">
                         <label>توضیحات تکمیلی کلاب</label>
                         <textarea class="form-control" cols="30" rows="5" disabled>{{$club->description}}</textarea>

@@ -59,9 +59,9 @@ class BookingsController extends BaseController
             return response()->json(['msg' => 'این زمین رزرو شده است'], 422);
         }
 
-        if ($this->isDatePast()) {
-            return response()->json(['msg' => 'تاریخ رزرو گذشته است'], 422);
-        }
+//        if ($this->isDatePast()) {
+//            return response()->json(['msg' => 'تاریخ رزرو گذشته است'], 422);
+//        }
 
         $book = Booking::create($data);
 
@@ -227,7 +227,7 @@ class BookingsController extends BaseController
 //
 //        }
 
-        for ($i = 1; $i <= 7; $i++) {
+        for ($i = 0; $i <= Club::first()->fix_amount; $i++) {
 
             $now = \Hekmatinasser\Verta\Verta::now();
 
@@ -263,19 +263,11 @@ class BookingsController extends BaseController
 
             }
 
-            if ($day->format('l') === 'جمعه') {
-
-                FixLog::create([
-                    'date' => $day->formatDate()
-                ]);
-
-                flash('فیکسی ها با موفقیت ذخیره شد.', 'success');
-
-                return back();
-
-            }
-
         }
+
+        flash('فیکسی ها با موفقیت ذخیره شد.', 'success');
+
+        return back();
 
     }
 

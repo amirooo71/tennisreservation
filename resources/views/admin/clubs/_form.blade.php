@@ -44,6 +44,14 @@
     @endcomponent
 </div>
 
+<div class="form-group required">
+    <label class="control-label">تعداد روزهای مورد نیاز برای رزرو فیکسی</label>
+    <input name="fix_amount" type="number" class="form-control" placeholder="پیش فرض ۷"
+           value="{{old('fix_amount') ?? $club->fix_amount}}">
+    @component('components.validation',['field' => 'fix_amount'])
+    @endcomponent
+</div>
+
 <div class="form-group">
     <label>توضیحات تکمیلی کلاب</label>
     <textarea class="form-control" name="description" rows="5"

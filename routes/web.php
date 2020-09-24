@@ -7,6 +7,9 @@ use Hekmatinasser\Verta\Verta;
 
 Route::get('/playground', function () {
 
+
+
+
 });
 
 Auth::routes();
