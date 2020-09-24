@@ -15,23 +15,23 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
-                    @component('components.portletWithoutFooter',['title' => 'فرم پرداخت جلسات'])
+                    @component('components.portletWithoutFooter',['title' => 'تعداد جلسات بستانکار'])
                         <form action="{{route('admin.financial.player_pay',$player)}}" method="POST">
                             @csrf
                             @method('PATCH')
                             <div class="form-group">
-                                <label>تعداد جلسات قابل پرداخت</label>
+                                <label>تعداد جلسات را وارد کنید</label>
                                 <input type="number" class="form-control" name="amount"
                                        value="{{$player->deptLessonsCount()}}">
                                 @component('components.validation',['field' => 'amount'])
                                 @endcomponent
                             </div>
                             <div>
-                                <button class="btn btn-success">پرداخت</button>
+                                <button class="btn btn-success">اعمال</button>
                             </div>
                         </form>
                     @endcomponent
-                    @component('components.portletWithoutFooter',['title' => 'فرم ویرایش جلسات'])
+                    @component('components.portletWithoutFooter',['title' => 'تعداد جلسات بدهکار'])
                         <form action="{{route('admin.financial.edit_lessons_pay',$player)}}" method="POST">
                             @csrf
                             @method('PATCH')
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            @component('components.portletWithoutFooter',['title' => 'تعداد جلسات پرداخت شده'])
+            @component('components.portletWithoutFooter',['title' => 'صورت حساب جلسات'])
                 @if($player->balance)
                     <h2 class="text-success">@faNum($player->balance->amount,false) جلسه</h2>
                 @else

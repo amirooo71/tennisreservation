@@ -174,9 +174,6 @@ class FinancialController extends BaseController
 
         $bookings->each(function ($booking) use ($player) {
             $booking->update(['is_paid' => true]);
-            if ($player->balance && $player->fresh()->balance->amount > 0) {
-                $player->fresh()->balance()->decrement('amount');
-            }
         });
 
         if ($bookings->count() !== $data['amount']) {
@@ -188,9 +185,6 @@ class FinancialController extends BaseController
 
             $mustPayBookings->each(function ($booking) use ($player) {
                 $booking->update(['is_paid' => true]);
-                if ($player->balance && $player->fresh()->balance->amount > 0) {
-                    $player->fresh()->balance()->decrement('amount');
-                }
             });
 
         }
@@ -208,8 +202,10 @@ class FinancialController extends BaseController
     {
         $data = \request()->validate(['amount' => 'required|numeric|min:1']);
 
-        if ($player->balance && $player->balance->amount >= (int)$data['amount']) {
+        if ($player->balance) {
             $player->balance()->update(['amount' => $player->balance->amount - (int)$data['amount']]);
+        } else {
+            $player->balance()->create(['amount' => $player->balance->amount - (int)$data['amount']]);
         }
 
         flash('تعداد جلسات با موفقیت ویرایش شد', 'success');
