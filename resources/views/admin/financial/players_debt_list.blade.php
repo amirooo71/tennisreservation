@@ -15,7 +15,7 @@
                         <th scope="col">نام خانوادگی</th>
                         <th scope="col">تعداد جلسات پرداخت شده</th>
                         <th scope="col">تعداد جلسات استفاده شده</th>
-                        <th scope="col">تعداد دقایق استفاده شده</th>
+                        <th scope="col">تعداد ساعات استفاده شده</th>
                         <th scope="col">عملیات</th>
                     </tr>
                     </thead>

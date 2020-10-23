@@ -98,29 +98,35 @@
                             <span class="kt-widget1__number kt-font-brand">{{$fix->day}}</span>
                         </div>
                     @endforeach
-                    <div class="form-group">
+                </div>
+                <div class="row">
+                    <div class="col">
                         <a href="{{route('admin.fix_bookings.index')}}" class="btn btn-primary">نمایش فیکسی ها</a>
-                    </div>
+                    </div>s
                 </div>
             </div>
             <div class="tab-pane" id="kt_tabs_1_3" role="tabpanel">
                 <div class="kt-widget1">
-                    @foreach($player->lessons as $lesson)
-                        <div class="kt-widget1__item">
-                            <div class="kt-widget1__info">
-                                <h3 class="kt-widget1__title"><strong>تاریخ:</strong>
-                                    @faNum(\Hekmatinasser\Verta\Verta::parse($lesson->date)->format('j-n-Y'),false)</h3>
-                                <span class="kt-widget1__desc"><strong>ساعت:</strong> @faNum($lesson->time,false)</span>
-                                @if($lesson->must_pay && $lesson->is_canceled)
-                                    <span class="badge badge-danger">کنسلی خورده است</span>
+                    @foreach($player->lessons->sortBy('date') as $lesson)
+                        @if(!$lesson->is_canceled && $lesson->must_pay !== false)
+                            <div class="kt-widget1__item">
+                                <div class="kt-widget1__info">
+                                    <h3 class="kt-widget1__title"><strong>تاریخ:</strong>
+                                        @faNum(\Hekmatinasser\Verta\Verta::parse($lesson->date)->format('j-n-Y'),false)
+                                    </h3>
+                                    <span
+                                        class="kt-widget1__desc"><strong>ساعت:</strong> @faNum($lesson->time,false)</span>
+                                    @if($lesson->must_pay && $lesson->is_canceled)
+                                        <span class="badge badge-danger">کنسلی همراه با هزینه</span>
+                                    @endif
+                                </div>
+                                @if($lesson->is_paid)
+                                    <span class="kt-widget1__number kt-font-success">پرداخت شده</span>
+                                @else
+                                    <span class="kt-widget1__number kt-font-danger">پرداخت نشده</span>
                                 @endif
                             </div>
-                            @if($lesson->is_paid)
-                                <span class="kt-widget1__number kt-font-success">پرداخت شده</span>
-                            @else
-                                <span class="kt-widget1__number kt-font-danger">پرداخت نشده</span>
-                            @endif
-                        </div>
+                        @endif
                     @endforeach
                 </div>
             </div>
