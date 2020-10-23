@@ -8,6 +8,8 @@ class Player extends Model
 {
     protected $guarded = [];
 
+    protected $appends = ['fullName'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

@@ -89033,7 +89033,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("v-select", {
                             attrs: {
-                              label: "last_name",
+                              label: "fullName",
                               reduce: function(player) {
                                 return player.id
                               },

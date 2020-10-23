@@ -71,7 +71,7 @@
 
                     <div class="form-group text-left" v-if="hasPartnerName">
                         <label>نام شاگرد را وارد کنید</label>
-                        <v-select label="last_name" v-model="player_id" :reduce="player => player.id" :options="players"></v-select>
+                        <v-select label="fullName" v-model="player_id" :reduce="player => player.id" :options="players"></v-select>
 <!--                        <select name="player_id" v-model="player_id" class="form-control" @change="onPlayerChange">-->
 <!--                            <option v-for="player in players" :value="player.id">-->
 <!--                                {{ player.first_name + ' ' + player.last_name }}-->
@@ -196,7 +196,7 @@
         },
 
         mounted() {
-
+            
             Events.$on('open-booking-modal', (data) => {
 
                 this.court = data.court;
