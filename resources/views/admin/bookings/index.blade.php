@@ -32,7 +32,7 @@
 <div id="app" style="overflow: hidden;">
 
     <span class="btn btn-bold btn-sm btn-font-sm  btn-label-danger"
-          style="position: absolute;">{{\Hekmatinasser\Verta\Verta::parse($date)->formatWord('l')}} {{\Hekmatinasser\Verta\Verta::parse($date)->format('j    -n-Y')}}</span>
+          style="position: absolute;">{{\Hekmatinasser\Verta\Verta::parse($date)->formatWord('l')}} {{\Hekmatinasser\Verta\Verta::parse($date)->format('j-n-Y')}}</span>
 
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__body vh-100 tns-bg-darker-white">
