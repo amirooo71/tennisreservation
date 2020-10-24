@@ -86,7 +86,7 @@ class Coach extends Model
      */
     public function todayLessonHours()
     {
-        return $this->bookings()->where('date', Verta::now()->format('Y-n-j'))->count();
+        return $this->bookings()->where('date', Verta::now()->format('Y-n-j'))->where('is_canceled',false)->count();
     }
 
     public function totalLearningCount(){
