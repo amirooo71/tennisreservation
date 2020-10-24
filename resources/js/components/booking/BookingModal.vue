@@ -196,7 +196,7 @@
         },
 
         mounted() {
-            
+
             Events.$on('open-booking-modal', (data) => {
 
                 this.court = data.court;

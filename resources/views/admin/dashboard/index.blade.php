@@ -121,7 +121,7 @@
                                 <i class="flaticon-cancel"></i>
                             </span>
                         <h3 class="kt-portlet__head-title">
-                            کنسلی ها
+                            تعداد ساعات آموزشی امروز مربیان
                         </h3>
                     </div>
                 </div>
@@ -129,18 +129,13 @@
                     <div class="kt-scroll ps ps--active-y" data-scroll="true" data-height="200"
                          data-scrollbar-shown="true" style="height: 200px; overflow: hidden;">
 
-                        @foreach(\App\Debtor::where('is_paid',false)->get() as $debtor)
+                        @foreach(\App\Coach::all() as $coach)
                             <div class="kt-widget1">
                                 <div class="kt-widget1__item">
                                     <div class="kt-widget1__info">
-                                        <h3 class="kt-widget1__title">{{$debtor->booked->renter_name}}</h3>
-                                        <span class="kt-widget1__desc">@faNum($debtor->booked->date,false) @faNum($debtor->booked->time,false)</span>
+                                        <h3 class="kt-widget1__title">{{$coach->first_name . ' ' . $coach->last_name}}</h3>
+                                        <span class="kt-widget1__desc">@faNum($coach->todayLessonHours(),false) ساعت آموزش</span>
                                     </div>
-                                    @if($debtor->is_paid)
-                                        <span class="kt-widget1__number kt-font-success">پرداخت شده</span>
-                                    @else
-                                        <span class="kt-widget1__number kt-font-danger">پرداخت نشده</span>
-                                    @endif
                                 </div>
                             </div>
                         @endforeach
@@ -171,7 +166,7 @@
                                 <i class="flaticon-cancel"></i>
                             </span>
                         <h3 class="kt-portlet__head-title">
-                            صورت حساب شاگردان
+                            تعداد جلسات باقی مانده شاگردان
                         </h3>
                     </div>
                 </div>
@@ -180,7 +175,7 @@
                          data-scrollbar-shown="true" style="height: 200px; overflow: hidden;">
 
                         @foreach(\App\Player::whereHas('balance')->get() as $player)
-                            @if($player->balance->amount === 1)
+                            @if($player->balance->amount <= 3)
                                 <div class="kt-widget1">
                                     <div class="kt-widget1__item">
                                         <div class="kt-widget1__info">
@@ -240,7 +235,7 @@
                                     <div class="kt-widget1__info">
                                         <h3 class="kt-widget1__title">{{$coach->fullname}}</h3>
                                         <span class="kt-widget1__desc">
-                                            <span class="text-muted">تعداد جلسات پرداخت نشده: @faNum($coach->deptLessonCount(),false)</span>
+                                            <span class="text-muted">تعداد جلسات آموزشی: @faNum($coach->totalLearningCount(),false)</span>
                                         </span>
                                     </div>
                                     <a href="{{route('admin.financial.coach_pay',$coach)}}"

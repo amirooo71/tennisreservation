@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Model;
 
 class Coach extends Model
@@ -80,6 +81,27 @@ class Coach extends Model
 
     }
 
+    /**
+     * @return int|mixed
+     */
+    public function todayLessonHours()
+    {
+        return $this->bookings()->where('date', Verta::now()->format('Y-n-j'))->count();
+    }
+
+    public function totalLearningCount(){
+
+        $bookingMinutes = $this->bookings()
+            ->where('is_canceled', '=', false)
+            ->count();
+
+        $partTimeBookingMinutes = $this->partTimeBookings()
+            ->where('is_canceled', '=', false)
+            ->count();
+
+        return $partTimeBookingMinutes + $bookingMinutes;
+
+    }
 
     public function getFullNameAttribute()
     {
