@@ -175,7 +175,7 @@
                          data-scrollbar-shown="true" style="height: 200px; overflow: hidden;">
 
                         @foreach(\App\Player::whereHas('balance')->get() as $player)
-                            @if(($player->balance->amount - $player->deptLessonsCount()) <= 3)
+                            @if(($player->balance->amount - $player->deptLessonsCount()) <= 1)
                                 <div class="kt-widget1">
                                     <div class="kt-widget1__item">
                                         <div class="kt-widget1__info">
