@@ -175,13 +175,13 @@
                          data-scrollbar-shown="true" style="height: 200px; overflow: hidden;">
 
                         @foreach(\App\Player::whereHas('balance')->get() as $player)
-                            @if($player->balance->amount <= 3)
+                            @if(($player->balance->amount - $player->deptLessonsCount()) <= 3)
                                 <div class="kt-widget1">
                                     <div class="kt-widget1__item">
                                         <div class="kt-widget1__info">
                                             <h3 class="kt-widget1__title">{{$player->fullname}}</h3>
                                             <span class="kt-widget1__desc">
-                                            <span class="text-muted">تعداد جلسات باقی مانده: @faNum($player->balance->amount,false)</span>
+                                            <span class="text-muted">تعداد جلسات باقی مانده: @faNum($player->balance->amount - $player->deptLessonsCount(),false)</span>
                                         </span>
                                         </div>
                                         <a href="{{route('admin.financial.player_pay',$player)}}"
