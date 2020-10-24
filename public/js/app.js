@@ -2891,6 +2891,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2989,6 +2990,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.book(this.renterName);
     },
     onCoachBookSubmit: function onCoachBookSubmit() {
+      console.log(this.player_id);
       this.book(this.coachName);
     },
     getCoaches: function getCoaches() {
@@ -3108,9 +3110,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return toastError();
       });
     },
-    onPlayerChange: function onPlayerChange(e) {
+    onPlayerChange: function onPlayerChange(playerId) {
       var player = this.players.find(function (player) {
-        return player.id == e.target.value;
+        return player.id == playerId;
       });
       this.partnerName = player.first_name + ' ' + player.last_name;
     }
@@ -88991,7 +88993,7 @@ var render = function() {
                         return _c("option", { domProps: { value: coach.id } }, [
                           _vm._v(
                             _vm._s(coach.first_name + " " + coach.last_name) +
-                              "\n                            "
+                              "\n                        "
                           )
                         ])
                       }),
@@ -89018,7 +89020,7 @@ var render = function() {
                         }
                       }),
                       _vm._v(
-                        "\n                            نام\n                            شاگرد\n                            "
+                        "\n                        نام\n                        شاگرد\n                        "
                       ),
                       _c("span")
                     ])
@@ -89039,6 +89041,7 @@ var render = function() {
                               },
                               options: _vm.players
                             },
+                            on: { input: _vm.onPlayerChange },
                             model: {
                               value: _vm.player_id,
                               callback: function($$v) {
@@ -89110,9 +89113,9 @@ var render = function() {
                       [
                         _c("div", [
                           _vm._v(
-                            "\n                            " +
+                            "\n                        " +
                               _vm._s(_vm.showBookedCancelLabel) +
-                              "\n                        "
+                              "\n                    "
                           )
                         ]),
                         _vm._v(" "),
@@ -89124,7 +89127,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                            کنسل\n                            کن\n                        "
+                              "\n                        کنسل\n                        کن\n                    "
                             )
                           ]
                         )

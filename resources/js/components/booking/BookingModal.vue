@@ -71,12 +71,13 @@
 
                     <div class="form-group text-left" v-if="hasPartnerName">
                         <label>نام شاگرد را وارد کنید</label>
-                        <v-select label="fullName" v-model="player_id" :reduce="player => player.id" :options="players"></v-select>
-<!--                        <select name="player_id" v-model="player_id" class="form-control" @change="onPlayerChange">-->
-<!--                            <option v-for="player in players" :value="player.id">-->
-<!--                                {{ player.first_name + ' ' + player.last_name }}-->
-<!--                            </option>-->
-<!--                        </select>-->
+                        <v-select label="fullName" v-model="player_id" :reduce="player => player.id" :options="players"
+                                  @input="onPlayerChange"></v-select>
+                        <!--                        <select name="player_id" v-model="player_id" class="form-control" @change="onPlayerChange">-->
+                        <!--                            <option v-for="player in players" :value="player.id">-->
+                        <!--                                {{ player.first_name + ' ' + player.last_name }}-->
+                        <!--                            </option>-->
+                        <!--                        </select>-->
                         <span class="form-text text-muted">در صورت تمایل می توانید نام شاگرد را وارد کنید</span>
                     </div>
 
@@ -246,6 +247,7 @@
             },
 
             onCoachBookSubmit() {
+                console.log(this.player_id);
                 this.book(this.coachName);
             },
 
@@ -364,8 +366,8 @@
 
             },
 
-            onPlayerChange(e) {
-                let player = this.players.find(player => player.id == e.target.value);
+            onPlayerChange(playerId) {
+                let player = this.players.find(player => player.id == playerId);
                 this.partnerName = player.first_name + ' ' + player.last_name;
             },
 
